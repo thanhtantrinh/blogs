@@ -1,0 +1,33 @@
+﻿@using Model.ViewModel
+@{
+    ViewBag.Title = "Tự sự, tự giới thiệu, bla bla ....";
+    Breadcrumb breadcrumb = new Breadcrumb();
+    //breadcrumb.Url = Url.Action("Index", "Home");
+    //breadcrumb.LinkText = "Home";
+}
+@Html.Partial("_Breadcrumb", breadcrumb)
+<div class="container-fluid">
+    <div class="animated fadeIn">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-block">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h3 class="card-title clearfix mb-0">Tự sự, tự giới thiệu, bla bla ....</h3>
+                            </div>                      
+                        </div>
+                        <!--/.row-->
+                        <br>
+                        <p>
+                            Chào các bác, lần đầu tiên xin chúc sức khỏe và lời chào trân trọng của em. <br />
+                            Em viết phần này chủ kếy là lưu lại nhưng phần mình làm
+                        
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

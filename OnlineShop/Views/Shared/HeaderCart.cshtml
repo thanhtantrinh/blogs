@@ -1,0 +1,49 @@
+﻿@model List<OnlineShop.Models.CartItem>
+
+<div id="header_right">
+    <div class="blockcart_top clearfix inner pull-right">
+        <div id="cart" class="shopping_cart">
+            <div class="media heading">
+                <div class="title-cart pull-right btn btn-outline">
+                    <span class="fa fa-shopping-cart "></span>
+                </div><div class="cart-inner media-body">
+                    <h4>My Cart</h4>
+                    <a href="http://www.demo4leotheme.com/prestashop/leo_milk_store/en/order" title="View my shopping cart" rel="nofollow">
+                        <span class="ajax_cart_total">$20.50</span>
+                        <span class="cartline">-</span>
+                        <span class="ajax_cart_quantity">@Model.Count</span>
+                        <span class="ajax_cart_product_txt">item</span>
+                        <span class="ajax_cart_product_txt_s unvisible" style="display: none;">item(s)</span>
+                        <span class="ajax_cart_no_product unvisible" style="display: none;">(empty)</span>
+                    </a>
+                </div>
+            </div><div class="cart_block block exclusive" style="display: none;">
+                <div class="block_content">
+                    <div class="cart_block_list">
+                        <dl class="products">
+                            <dt data-id="cart_block_product_18_106_0" class="first_item last_item">
+                                <a class="cart-images" href="http://www.demo4leotheme.com/prestashop/leo_milk_store/en/18-printed-chiffon-dress.html" title="Donec magna diam"><img src="http://www.demo4leotheme.com/prestashop/leo_milk_store/124-cart_default/printed-chiffon-dress.jpg" alt="Donec magna diam"></a><div class="cart-info"><div class="product-name"> <a class="cart_block_product_name" href="http://www.demo4leotheme.com/prestashop/leo_milk_store/en/18-printed-chiffon-dress.html#/-/-" title="Donec magna diam">Donec magna diam</a> <span class="quantity-formated">&nbsp;x&nbsp;<span class="quantity">1</span></span></div><div class="product-price"> <span class="price"> $20.50 </span></div><div class="product-atributes"> <a href="http://www.demo4leotheme.com/prestashop/leo_milk_store/en/18-printed-chiffon-dress.html#/-/-" title="Product detail">Yellow, S</a></div></div> <span class="remove_link"> <a class="ajax_cart_block_remove_link" href="http://www.demo4leotheme.com/prestashop/leo_milk_store/en/cart?delete%3D1%26id_product%3D%7B%24product_id_product%7D%26ipa%3D%7B%24product_id_product_attribute%7D%26id_address_delivery%3D%7B%24product_id_address_delivery%7D%26token%3D%7B%24static_token%7D=" rel="nofollow" title="remove this product from my cart"><i class="fa fa-trash-o"></i></a> </span>
+                            </dt>
+                            <dd data-id="cart_block_combination_of_18_106_0" class="first_item"></dd>
+                        </dl>
+                        <p class="cart_block_no_products unvisible"> No products</p>
+                        <div class="cart-prices">
+                            <div class="cart-prices-line first-line">
+                                <span class="price cart_block_shipping_cost ajax_cart_shipping_cost">$2.00</span>
+                                <span> Shipping </span>
+                            </div>
+                            <div class="cart-prices-line last-line">
+                                <span class="price cart_block_total ajax_block_cart_total">$22.50</span> <span>Total</span>
+                            </div>
+                        </div>
+                        <p class="cart-buttons clearfix">
+                            <a id="button_order_cart" class="btn btn-outline-inverse button-medium button button-small pull-right" href="http://www.demo4leotheme.com/prestashop/leo_milk_store/en/order" title="Check out" rel="nofollow">
+                                <span> Check out </span>
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

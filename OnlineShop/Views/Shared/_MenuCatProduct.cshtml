@@ -1,0 +1,13 @@
+﻿@model List<Model.ViewModel.MenuView>
+
+<div class="panel panel-primary">
+    <div class="panel-heading">DANH MỤC SẢN PHẨM</div>
+    @*<div class="panel-body">
+        </div>*@
+    <div class="list-group">
+        @foreach (var item in Model)
+        {
+            <a href="@Url.Action("Category","Product", new { metatitle = item.Alias, cateId=item.ID })" class="list-group-item">@item.Title</a>
+        }
+    </div>
+</div>

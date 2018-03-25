@@ -1,0 +1,33 @@
+.buttons{
+  @include clearfix();
+  padding: 20px 0; 
+  .left{
+       float:left;
+  }
+  .right{
+      float:right;
+  }
+
+}
+
+input[type="file"] {
+  line-height: 20px;
+}
+.form-horizontal .control-label {
+  @include rtl-padding-right(20px);
+}
+.radio input[type="radio"], 
+.radio-inline input[type="radio"], 
+.checkbox input[type="checkbox"], 
+.checkbox-inline input[type="checkbox"] {
+  @include rtl-float-left();
+}
+
+.btn-outline-inverse{
+  @include border-radius(2px);
+  @include button-variant-outline($btn-default-color, $btn-warning-bg, $btn-warning-bg, $white, $theme-color-secondary , $theme-color-secondary );
+} 
+.btn-outline{
+  @include border-radius(2px);
+  @include button-variant-outline(  $white, $theme-color-secondary , $theme-color-secondary , $btn-default-color, $theme-color-primary, $theme-color-primary );
+} 

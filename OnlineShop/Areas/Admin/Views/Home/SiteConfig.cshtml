@@ -1,0 +1,192 @@
+﻿@using OnlineShop.Helpers
+@model Model.ViewModel.CatalogueView
+@{
+    ViewBag.Title = "Cấu hình website";
+    Layout = "~/Areas/Admin/Views/Shared/_Layouts.cshtml";
+    var actionStaus = (ActionResultHelper)Session["ACTION_STATUS"];
+}
+@using (Html.BeginForm("SiteConfig", "Home", FormMethod.Post, new { @class = "myclass", }))
+{
+    @Html.AntiForgeryToken()
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Thông tin chính
+                </div>
+                <div class="panel-body">
+                    <div class="form-horizontal">
+
+                        @if (actionStaus != null && !String.IsNullOrWhiteSpace(actionStaus.ErrorReason))
+                        {
+                            if (actionStaus.ActionStatus == ResultSubmit.failed)
+                            {
+                                @Html.Raw(actionStaus.ErrorReason);
+                            }
+                            else
+                            {
+                                @Html.Raw(actionStaus.ErrorReason);
+                            }
+                            Session["ACTION_STATUS"] = null;
+                        }
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.Id)
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#tabcommon" aria-controls="tabcommon" role="tab" data-toggle="tab">Thông tin chung</a></li>
+                            <li role="presentation"><a href="#tabseo" aria-controls="tabseo" role="tab" data-toggle="tab">Thông tin SEO</a></li>                            
+                        </ul>
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <br />
+                            <div role="tabpanel" class="tab-pane active" id="tabcommon">
+                                
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.SiteName, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.TextBoxFor(model => model.SiteName,new { @class = "form-control"  })
+                                        @Html.ValidationMessageFor(model => model.SiteName, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.SiteUrl, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.TextBoxFor(model => model.SiteUrl, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.SiteUrl, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.EmailSite, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.TextBoxFor(model => model.EmailSite, new { @class = "form-control"  })
+                                        @Html.ValidationMessageFor(model => model.EmailSite, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.EmailAdmin, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.TextBoxFor(model => model.EmailAdmin, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.EmailAdmin, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.TextBoxFor(model => model.Address, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Phones, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.TextBoxFor(model => model.Phones, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Phones, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Facebook, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.TextBoxFor(model => model.Facebook, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Facebook, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Twitter, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.TextBoxFor(model => model.Twitter, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Twitter, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Youtube, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.TextBoxFor(model => model.Youtube, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Youtube, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.GooglePlus, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.TextBoxFor(model => model.GooglePlus, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.GooglePlus, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="tabseo">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.MetaKeywords, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.TextBoxFor(model => model.MetaKeywords, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.MetaKeywords, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.MetaDescriptions, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.TextBoxFor(model => model.MetaDescriptions, new { @class = "form-control"  })
+                                        @Html.ValidationMessageFor(model => model.MetaDescriptions, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>     
+
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <button type="submit" class="btn btn-default">Cập nhật</button>
+                                <a class="btn btn-warning" onclick="window.location.reload();" >Reset</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Meta
+                </div>
+                <div class="panel-body">
+                    <div class="form-horizontal">                        
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.CreatedBy, new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @*@Html.Raw(Model.CreatedBy)*@
+                                @Html.TextBoxFor(model => model.CreatedBy, new { @class = "form-control", @disabled = "true" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.CreatedDate, new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @*@Html.Raw(Model.CreatedDate)*@
+                                @Html.TextBoxFor(model => model.CreatedDate, new { @class = "form-control", @disabled = "true" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ModifiedBy, new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">                                
+                                @Html.TextBoxFor(model => model.ModifiedBy, new { @class = "form-control", @disabled = "true" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ModifiedDate, new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @*@Html.Raw(Model.ModifiedDate)*@
+                                @Html.TextBoxFor(model => model.ModifiedDate, new { @class = "form-control", @disabled = "true" })
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

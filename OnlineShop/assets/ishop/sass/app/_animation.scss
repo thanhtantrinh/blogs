@@ -1,0 +1,97 @@
+.product_list {
+    .product-block {
+        .quick-view-wrapper-mobile {
+            @include opacity(0);
+            .quick-view-mobile {
+                display: none;
+            }
+        }
+        .product-additional {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            @include opacity(0);
+        }
+        &:hover{
+            @media (min-width: 1200px) {
+                .product-additional {
+                    @include opacity(1);
+                    visibility: visible;
+                }
+            }
+        }
+    }
+    &.grid {
+        .product-block {
+            @media (min-width: 1200px) {
+                .functional-buttons{
+                    width: 35px;
+                    top: 0;
+                    @include rtl-left(-35px);
+                    position: absolute;
+                    @include opacity(0);
+                    @include transition(all 0.3s ease);
+                    a {
+                        margin: 0 0 5px;
+                    }
+                }
+                &:hover{
+                    .functional-buttons {
+                        @include rtl-left(10px);
+                        visibility: visible;
+                        @include opacity(1);
+                    }
+                }
+            }
+            @media (max-width: 1199px) {
+                .functional-buttons {
+                    @include rtl-left(10px);
+                    @include opacity(1);
+                    width: 35px;
+                    top: 0;
+                    position: absolute;
+                    a {
+                        margin: 0 0 5px;
+                    }
+                }
+            }
+            .ajax_add_to_cart_button {
+                margin-top: 10px;
+            }
+            .name {
+                height: 19px;
+                overflow: hidden;
+            }
+        }
+    }
+    &.list {
+        .product-block {
+            .content_price {
+                margin-bottom: 15px;
+            }
+            .functional-buttons{
+                margin-top: 15px;
+                a {
+                    @include rtl-margin(0, 5px, 0, 0);
+                }
+            }
+            &:hover{
+                @media (min-width: 1200px) {
+                    .quick-view{
+                        top: 35%;
+                        @include transition (all 0.4s ease 0s);
+                        span {
+                            visibility: visible;
+                            @include opacity(1);
+                        }
+                    }
+                    .functional-buttons{
+                        @include transition(all ease 0.5s);
+                        @include rtl-left(0);
+                    }
+                }
+            }
+        }
+    }
+}

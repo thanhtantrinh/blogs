@@ -1,0 +1,42 @@
+﻿/***********************************************************************/
+// some basic colors
+
+$sky:                  			    #7bbd42 !default;  // Skin sky
+$blue:                              #6087D2 !default;  // Skin blue
+$yellow:                  			#ffb921 !default;  // Skin yellow
+$coral:								#EE6C92 !default;  // Slin Coral
+$rico:								#51BAA9 !default;  // Skin Rico
+$green:                 			#59bd56 !default;  // Skin Green
+$red:                   			#e27f7a !default;  // Skin Red
+$cyan:								#5d9cec !default;  // Skin Cyan
+$salmon:							#f0486b !default;  // Skin Salmon
+$pink:                  			#c3325f !default;
+$white:			 				    #FFFFFF !default;
+$black:							    #000000 !default;
+$cyandark:   						#4e4d49 !default;
+$orange:                			#df995e !default;
+$aqua: 								#75aab8 !default;
+$turquoise:                         #4ACFD4 !default; // label new
+$nav-border-color-hover:            #e2e2e2 !default;
+$golden-poppy:                      #F2BE01 !default;
+$valencia:      					#D44A4A !default;
+$tundora:                           #8c8c8c !default;  // Topbar + Vertical Menu Content
+$wild-sand:                         #ffffff !default;  // Background Body - default
+$silver:                            #f5f5f5 !default;  
+//------- Themes colors
+$red-light:            				#ff9999!default;
+$yellow-light:           			#ffdc73!default;
+$nocolor:							transparent!default;
+
+
+$theme-color-secondary:red;
+$theme-bg-secondary:#eee;
+
+
+$product-image-border:		white !default;
+$product-bg-image-color:    $white!default;
+$product-bg-reduced:        $red-light!default;
+$product-bg-old-price:      $gray!default;
+$product-text-price:        $black!default;
+$product-bg-price-red-color:    $theme-color-secondary!default;
+$product-bg-price-yellow-color: $theme-bg-secondary!default;

@@ -1,0 +1,23 @@
+﻿<section id="header-main">
+    
+        <div class="row">
+            <div id="logosite" class="col-md-9">
+                <a href="@Request.Url.GetLeftPart(UriPartial.Authority)">
+                    <img alt="bptchemicals.com" src="~/assets/ishop/images/logo.png" />
+                </a>
+            </div>
+            <div class="col-md-3">
+                @{ Html.RenderAction("ViewCart", "Cart");}
+            </div>
+        </div>
+
+        <div id="blockNav" class="row">
+            <div class="col-md-12 headerMenu">
+                @*@{Html.RenderAction("_MenuTop", "Home"); }*@
+                @*@{ Html.RenderAction("TopMenu", "Home");}*@
+                <div class="main-menu">
+                    @{Html.RenderAction("MainMenu", "Home"); }
+                </div>
+            </div>
+        </div>    
+</section>

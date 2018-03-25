@@ -1,0 +1,160 @@
+﻿@model OnlineShop.Models.PaymentViewModel
+@{
+    ViewBag.Title = "Thanh toán";
+    Layout = "~/Views/Shared/_LayoutBptchemicals.cshtml";
+    decimal subtotal = 0;
+    if (Model.cartItems!=null && Model.cartItems.Count()>0)
+    {
+        subtotal = Model.cartItems.Sum(s => s.Product.Price.Value * s.Quantity);
+    }
+}
+<div id="cart_items" class="content">
+    <div class="review-payment">
+        <h2>Thông tin giỏ hàng</h2>
+    </div>
+    <div class="table-responsive cart_info">
+        @if (Model.cartItems != null)
+        {
+            <table class="table table-condensed">
+                <thead>
+                    <tr class="cart_menu">
+                        <td class="image">Sản phẩm</td>
+                        <td class="description"></td>
+                        <td class="price">Giá</td>
+                        <td class="quantity">Số lượng</td>
+                        <td class="total" colspan="2">Tổng</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.cartItems)
+                    {
+                        string link = Url.Action("Detail", "Product", new { id = item.Product.ID });
+                        <tr>
+                            <td class="cart_product">
+                                <a href="@link" title="@item.Product.Name"><img src="@Url.Content("~/Images/Products/min/" + item.Product.Image)" alt="@item.Product.Name"></a>
+                            </td>
+
+                            <td class="cart_description" width="250">
+                                <a href="@link" title="@item.Product.Name">@item.Product.Name</a>                            
+                            </td>
+
+                            <td class="cart_price">
+                                @item.Product.Price.GetValueOrDefault(0).ToString("N0") VNĐ
+                            </td>
+
+                            <td class="cart_quantity">
+                                <div class="cart_quantity_button">
+                                    <a class="cart_quantity_up" href=""> + </a>
+                                    <input class="cart_quantity_input" type="text" data-id="@item.Product.ID" name="quantity" value="@item.Quantity" autocomplete="off" size="2">
+                                    <a class="cart_quantity_down" href=""> - </a>
+                                </div>
+                            </td>
+
+                            <td class="cart_total" width="150" align="right">
+                                <p class="cart_total_price">@((item.Product.Price.GetValueOrDefault(0) * item.Quantity).ToString("N0")) VNĐ</p>
+                            </td>
+
+                            <td class="cart_delete" width="50" align="center">
+                                <a data-id="@item.Product.ID" class="btn-primary cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
+                            </td>
+
+                        </tr>
+                    }
+                    <tr>
+                        <td colspan="4">&nbsp;</td>
+                        <td colspan="2">
+                            <table class="table table-condensed total-result">
+                                <tr>
+                                    <td>Tiền hàng</td>
+                                    <td align="right">@subtotal.ToString("N0") VNĐ</td>
+                                </tr>
+                                <tr class="shipping-cost">
+                                    <td>Tiền vận chuyển</td>
+                                    <td align="right">0 VNĐ</td>
+                                </tr>
+                                <tr>
+                                    <td>Tổng</td>
+                                    <td align="right"><span>@subtotal.ToString("N0") VNĐ</span></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>Bạn cần thêm sản phẩm vào giỏ hàng.</p>
+        }
+    </div>
+    @if (Model.cartItems != null)
+    {
+    <div class="section group">
+        @using (Html.BeginForm("Payment", "Cart", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <div class="shopper-informations">
+                <div class="row">
+         
+                    <div class="col-sm-7 clearfix">
+                        <div class="bill-to">
+                            <p>Giao hàng đến</p>
+                            <div class="form-one">
+                                <input type="text" placeholder="Họ và tên *">
+                                <input type="text" placeholder="Điện thoại *">
+                                <input type="tel" placeholder="Di động">
+                                <input type="text" placeholder="Tên công ty">
+                                <input name="email" type="text" placeholder="Email*">
+                            </div>
+                            <div class="form-two">
+                                @Html.DropDownListFor(model => model.shippingdetail.ProvinceId, Model.provinces, "-- Tỉnh thành --", new { @class = "form-control ", id = "provinces", onchange = "buildDistricts();" })
+                                
+                                <select class="form-control" id="ddlDistricts">
+                                    <option>-- Quận / Huyện  --</option>                                    
+                                </select>
+                                <input name="address" type="text" placeholder="Địa chỉ 1 *">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="order-message">
+                            <p>Yêu cầu khác</p>
+                            <textarea name="message" placeholder="Những yêu cầu khác nếu có ..." rows="16"></textarea>
+                            <div class="shopper-info">                                
+                                <div class="payment-options">
+                                    <button class="btn btn-primary" type="submit">Thanh toán</button>
+                                    <a class="btn btn-primary" href="@Url.Action("Index", "Home")">Tiếp tục mua hàng</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    @section scriptsFooter{
+        <script>
+        function buildDistricts()
+        {
+            var url = '@Url.Action("ListDistricts")';
+            var PDD= $("#ddlDistricts");
+            var idProvince= $("#provinces").val();
+            $.getJSON(url, { id: idProvince}, function (response) {
+
+                PDD.empty();
+                $.each(response.result, function (index, item) {
+                    //debugger;
+                    var p = new Option(item.Text, item.Value);
+                    PDD.append(p);
+                });
+
+            });
+
+        }
+        </script>
+    }
+}
+</div>
+

@@ -1,0 +1,19 @@
+﻿@using Model.ViewModel
+@model Breadcrumb
+
+<ol class="breadcrumb mb-0">
+    @*<li class="breadcrumb-item">Trang chủ</li>*@
+
+    <li class="breadcrumb-item">
+        <a href="@Url.Action("Index","Home")">Trang chủ</a>
+    </li>
+
+    @if (Model != null && !String.IsNullOrWhiteSpace(Model.LinkText))
+    {
+        <li class="breadcrumb-item">
+            <a href="@Model.Url">@Model.LinkText</a>
+        </li>
+    }
+
+    <li class="breadcrumb-item active">@ViewBag.Title</li>
+</ol>

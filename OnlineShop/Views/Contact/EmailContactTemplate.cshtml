@@ -1,0 +1,206 @@
+﻿@using Model.ViewModel
+@using OnlineShop.Helpers
+@model ContactModel
+@{    
+    Layout = null;
+    var urlHelper = new UrlHelper(Html.ViewContext.RequestContext);
+    var baseurl = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority);
+    var mailto = "mailto:" + SiteConfiguration.EmailSite + "?subject=" + SiteConfiguration.SiteName + " hỗ trợ";
+}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <title>@SiteConfiguration.SiteName</title>
+    <link href="~/Images/favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon" />
+    <style type="text/css">
+        a:hover {
+            text-decoration: none !important;
+        }
+    </style>
+</head>
+<body marginheight="0" topmargin="0" marginwidth="0" style="margin: 0px; background-color: #FFFFFF;" bgcolor="#FFFFFF" leftmargin="0">
+    <table cellspacing="0" border="0" cellpadding="0" width="100%" bgcolor="#FFFFFF">
+        <tr>
+            <td height="20"></td>
+        </tr>
+        <tr>
+            <td align="center">
+                <table cellspacing="0" border="0" cellpadding="0" width="600" bgcolor="#FFFFFF">
+                    <tr>
+                        <td>
+                            <!--header-->
+                            <table bgcolor="#ffffff" style="background-color: #8ed8f8; margin:0 auto" width="600" border="0" align="center" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td>
+                                        <table width="600" border="0" cellspacing="0" cellpadding="0" style="background-color: #fefefe">
+                                            <tr>
+                                                <td align="center" valign="top" width="220">
+                                                    <a href="@baseurl" title="@SiteConfiguration.SiteName" target="_blank">
+                                                        <img src="@(baseurl + Url.Image("logo.png", true))" alt="image dsc" style="display:block; border:0" width="220" />
+                                                    </a>
+                                                </td>
+                                                <td align="center" valign="middle" width="380" style="font-size: 18px; font-weight: bold; color: #009443; font-family: Arial, Helvetica, sans-serif; ">
+                                                    THÔNG TIN HỖ TRỢ
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                            <!--/header-->
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <!--email container-->
+                            <table bgcolor="#ffffff" cellspacing="0" border="0" align="center" cellpadding="0" width="600">
+                                @*<tr>
+                                    <td height="30"></td>
+                                </tr>*@
+                                <tr>
+                                    <td align="center">
+                                        <!--section 1-->
+                                        <table cellspacing="0" border="0" cellpadding="0" width="560" bgcolor="#ffffff">
+                                            <tr>
+                                                <td valign="top" align="left">
+                                                    <h1 style="font-size: 18px; font-weight: bold; color: #232323; font-family: Arial, Helvetica, sans-serif; margin:0; padding:0;">
+                                                        Chào Admin,
+                                                    </h1>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td height="15"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-size: 13px; font-family: Arial, Helvetica, sans-serif; color: #333333;">                                                    
+                                                    
+                                                    Một khách hàng vừa gửi nội dung yêu cầu hỗ trợ như sau:
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td height="18"></td>
+                                            </tr>
+                                            <tr>
+                                                <td valign="top" align="left">
+                                                    <table width="560" cellpadding="10" style="border-collapse: collapse; font-family: arial; font-size: 12px; border:1px solid #ebebeb; line-height:normal;">
+                                                        <tr>
+                                                            <td align="center" valign="top">
+                                                                <table width="100%" border="0" cellspacing="0" cellpadding="3" style="background-color: #fefefe">
+                                                                    <tr>
+                                                                        <td colspan="2" style="text-align:left;font-size: 13px; font-family: Arial, Helvetica, sans-serif; color: #333333; font-weight:bold;">
+                                                                            Thông tin khách hàng
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td align="center" valign="top" width="160" style="text-align:left;font-size: 13px; font-family: Arial, Helvetica, sans-serif; color: #333333; font-weight:bold;">
+                                                                            Họ và Tên Khách hàng:
+                                                                        </td>
+                                                                        <td align="center" valign="middle" style="text-align:left;font-size: 13px; font-family: Arial, Helvetica, sans-serif; color: #333333;">
+                                                                            @Model.Name
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td align="center" valign="top" style="text-align:left;font-size: 13px; font-family: Arial, Helvetica, sans-serif; color: #333333; font-weight:bold;">
+                                                                            Số điện thoại:
+                                                                        </td>
+                                                                        <td align="center" valign="middle" style="text-align:left;font-size: 13px; font-family: Arial, Helvetica, sans-serif; color: #333333; font-weight:bold;">
+                                                                            @Model.Phone
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td align="center" valign="top" style="text-align:left;font-size: 13px; font-family: Arial, Helvetica, sans-serif; color: #333333; font-weight:bold;">
+                                                                            <strong>Địa chỉ:</strong>
+                                                                        </td>
+                                                                        <td align="center" valign="middle" style="text-align:left;font-size: 13px; font-family: Arial, Helvetica, sans-serif; color: #333333;">
+                                                                            @Model.Address
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td align="center" valign="top" style="text-align:left;font-size: 13px; font-family: Arial, Helvetica, sans-serif; color: #333333; font-weight:bold;">
+                                                                            <strong>Email:</strong>
+                                                                        </td>
+                                                                        <td align="center" valign="middle" style="text-align:left;font-size: 13px; font-family: Arial, Helvetica, sans-serif; color: #333333;"> <a href="mailto:@Model.Email?subject=@SiteConfiguration.SiteName" target="_blank"  style="font-size: 13px; font-family: Arial, Helvetica, sans-serif; color: #333333; text-decoration:none; font-weight:bold;">@Model.Email</a>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td colspan="2" style="text-align:left;font-size: 13px; font-family: Arial, Helvetica, sans-serif; color: #333333;">
+                                                                            <strong>Nội dung cần hỗ trợ:</strong> <br />
+                                                                            @Html.Raw(Model.Content)
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>                                               
+                                                            </td>
+                                                        </tr>                                          
+                                                    
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            @*<tr>
+                                                <td height="18"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align:left;font-size: 13px; font-family: Arial, Helvetica, sans-serif; color: #333333;">
+
+                                                </td>
+                                            </tr>*@
+                                            <tr>
+                                                <td height="15"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <p style="text-align:left;font-size: 13px; font-family: Arial, Helvetica, sans-serif; color: #333333;">
+                                                        @SiteConfiguration.SiteName chân thành cám ơn!
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td height="20"></td>
+                                            </tr>
+                                        </table>
+                                        <!--/section 1-->
+                                    </td>
+                                </tr>
+                            </table>
+                            <!--/email container-->
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <!--footer-->
+                            <table width="100%" style="border-collapse: collapse; background-color: #121212;">
+                                <tr>
+                                    <td align="center">
+                                        <table width="560" style="border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
+                                            <tr>
+                                                <td height="20"></td>
+                                            </tr>
+                                            <tr>
+                                                <td align="center" valign="top"  style="font-size: 12px; font-family: Arial, Helvetica, sans-serif; color: #ffffff; text-decoration: none;" >
+                                                    <a style="font-size: 12px; font-weight: bold; font-family: arial; color: #ffffff; text-decoration: none; display: block;" href="@mailto">
+                                                        @SiteConfiguration.EmailSite
+                                                    </a>
+                                                    <br />
+                                                    &copy; @DateTime.Now.Year <a href="@SiteConfiguration.SiteUrl" target="_blank" style="font-size: 12px; font-weight: bold; font-family: Arial, Helvetica, sans-serif; color: #ffffff; text-decoration: none">@SiteConfiguration.SiteName.ToUpper()</a>. All rights reserved.
+                                               
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td height="20"></td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                            <!--/footer-->
+                        </td>
+                    </tr>
+
+                </table>
+            </td>
+        </tr>
+    </table>
+
+</body>
+</html>

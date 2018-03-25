@@ -1,0 +1,57 @@
+﻿@model List<Model.ViewModel.CategoryBlogViewModel>
+@{
+    ViewBag.Title = "Products & Services";
+    Layout = "~/Views/Shared/_SubPage.cshtml";
+}
+
+
+@section slide{
+    <section id="slider" class="box-slideshow">
+        <div class="container">
+            <div class="col-md-12">
+                <p class="text-center">
+                    <img class="img-responsive" src="~/Data/images/slide-intro/products-service.jpg" />
+                </p>
+            </div>
+        </div>
+    </section>
+}
+
+<div id="allproduct" class="blog-content products">
+    <div class="row">
+        <div class="col-xs-12 col-md-12">
+            <h1>@ViewBag.Title</h1>
+        </div>
+        <div class="clear"></div>
+    </div>
+    
+        @foreach (var item in Model)
+        {
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+                    <div class="catogory">
+                        <h2>@item.Name</h2>                        
+                            <div class="row">
+                               
+                                    @foreach (var product in item.Products)
+                                    { <div class="col-md-3">
+                                    <div class="thumbnail">
+                                        <img src="@product.Image" alt="...">
+                                        <div class="caption">
+                                            <h2><a href="~/product/@product.MetaTitle-@product.ID">@product.Name</a></h2>                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                    }
+                                
+                            </div>                                                   
+                    </div>
+                </div>
+            </div>
+        }
+          
+
+</div>
+
+
+

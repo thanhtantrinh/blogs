@@ -1,0 +1,27 @@
+@import 'compass';
+@import "theme_variables";
+
+@font-face {
+    font-family: 'Museo100';
+    src: url('#{$theme-font-path}museo100-regular.eot');
+    src: url('#{$theme-font-path}museo100-regular.eot') format('embedded-opentype'),
+         url('#{$theme-font-path}museo100-regular.woff') format('woff'),
+         url('#{$theme-font-path}museo100-regular.ttf') format('truetype'),
+         url('#{$theme-font-path}museo100-regular.svg#Museo100') format('svg');
+}
+@font-face {
+    font-family: 'Museo300';
+    src: url('#{$theme-font-path}museo300-regular.eot');
+    src: url('#{$theme-font-path}museo300-regular.eot') format('embedded-opentype'),
+         url('#{$theme-font-path}museo300-regular.woff') format('woff'),
+         url('#{$theme-font-path}museo300-regular.ttf') format('truetype'),
+         url('#{$theme-font-path}museo300-regular.svg#Museo300') format('svg');
+}
+@font-face {
+    font-family: 'Museo500';
+    src: url('#{$theme-font-path}museo-500.eot');
+    src: url('#{$theme-font-path}museo-500.eot') format('embedded-opentype'),
+         url('#{$theme-font-path}museo-500.woff') format('woff'),
+         url('#{$theme-font-path}museo-500.ttf') format('truetype'),
+         url('#{$theme-font-path}museo-500.svg#Museo500') format('svg');
+}

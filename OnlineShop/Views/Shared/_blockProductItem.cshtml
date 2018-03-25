@@ -1,0 +1,58 @@
+﻿@using Model.ViewModel
+@using System.Globalization;
+@model ProductsView
+@{
+    int width_block = 150;
+    int height_block = 150;
+    string link = Url.Action(Model.MetaTitle + "-" + Model.ID, Model.CatMetaTitle + "-" + Model.CategoryID);
+    NumberFormatInfo vnd = new CultureInfo("vi-VN", false).NumberFormat;
+}
+<div class="ajax_block_product product_block col-lg-2 col-md-2 col-sm-6 col-xs-6 col-sp-12 ">
+    <div class="product-container clearfix" itemscope itemtype="http://schema.org/Product">
+        <div class="image ">
+            <a class="product_img_link" href="@link" title="@Html.Raw(Model.Name)" itemprop="url">
+                <img class="replace-2x img-responsive" src="@Url.Content("~/Images/Products/medium/"+Model.MoreImages) " alt="@Html.Raw(Model.Name)" width="@width_block.ToString()" height="@height_block.ToString()" itemprop="image" />
+            </a>
+            <span class="new-box">
+                <span class="new-label product-label"></span>
+            </span>
+        </div>
+        <div class="product-meta">
+            <h5 itemprop="name" class="name">
+                <a class="product-name" href="@link" title="@Model.Name.ToString()" itemprop="url">
+                    @Model.Name.Substring(0, Math.Min(Model.Name.Length, 45))
+                </a>
+            </h5>
+            <div itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="content_price">
+
+                @if (!Model.IsDiscount)
+            {
+                    <span itemprop="price" class="price product-price">
+                        @*@Model.Price.Value.ToString("C0", vnd);*@
+                        @Model.Price.Value.ToString("N0") VND
+                    </span>
+                }
+
+
+                @if (Model.IsDiscount)
+            {
+                    <span class="price product-price">
+                        @Model.PromotionPrice.Value.ToString("N0") VND
+                    </span>
+                    <br />
+                    <s class="old-price product-price text-">
+                        @*@Model.Price.Value.ToString("C0", vnd);*@
+                        @{
+                            var saveoff = Model.Price.Value - Model.PromotionPrice.Value;
+                        }
+                        @saveoff.ToString("N0") VND
+                    </s>
+                    @*<span class="price-percent-reduction">-{$product.specific_prices.reduction * 100}%</span>*@
+                            }
+            </div>
+            <div class="buynow text-center">
+                <a class="btn btn-primary" href="@link">Đặt hàng</a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,399 @@
+/******************************************************
+ * $package Leo Theme Framework for Leo THeme 1.6.x
+ * $version 1.1
+ * $author http://www.leotheme.com
+ * $copyright   Copyright (C) Augus 2013 PavoThemes.com <$emai:leotheme$gmail.com>.All rights reserved.
+ * $license     GNU General Public License version 2
+ *******************************************************/
+body{
+    &.layout-boxed-md{
+        /* background: url("#{$image-theme-path}pattern/pattern19.png"); */
+        #page{  
+            max-width: $container-desktop + 20px; 
+            @include box-shadow(0 0 5px lighten($gray, 50%));
+            margin: 0 auto;    
+            background: $white;
+            .container {
+                max-width: $container-desktop;
+            }
+        }  
+        
+    }
+    &.layout-boxed-lg{
+        /* background: url("#{$image-theme-path}pattern/pattern18.png"); */
+        #page{  
+            max-width: $container-lg + 20px; 
+            @include box-shadow(0 0 5px lighten($gray, 50%));
+            margin: 0 auto;    
+            background: $white;
+            .container {
+                max-width: $container-lg;
+            }
+        }
+    }
+} 
+
+.container{
+    background: $body-bg;
+    position: relative;
+}
+
+/*
+* HEADER 
+*/
+
+#topbar  {
+    min-height: $topbar-height; 
+    font-weight: $topbar-font-weight; 
+    border-bottom: $topbar-border;
+    font-size: $topbar-font-size;
+    background: $topbar-outside-bg;
+    .container > .inner{
+            @include container-layout-variant($topbar-color, $topbar-bg, $topbar-link-color, $topbar-link-hover-color );
+            nav {
+                @include rtl-float-left();
+                width: 100%;
+                padding: $topbar-padding;
+            }
+    }
+    a{
+        font-size: $topbar-font-size;
+    }
+    .links{ 
+        @include rtl-float-left();   
+        margin: 6px 0;      
+    } 
+    .links-outline{
+        a{ color: $topbar-link-hover-color; }
+    }    
+    .btn-group{
+    	position: relative;
+    	/* background: #f3f3f3;
+    	border: 1px solid #cdcdcd; */
+    	@include rtl-margin-left(7px);
+        &:hover{
+            cursor: pointer; 
+        }
+    	.dropdown-toggle{
+    		@include rtl-padding(5px,20px,5px,5px);
+	    	&:before{
+				content: "\f0d7";
+				position: absolute;
+				top: 6px;
+				@include rtl-right(6px);
+				font-family: $font-icon;
+	    	}
+    		span{
+				@include rtl-padding-left(5px);
+    		}
+            .fa-cog {
+               @include rtl-margin-right(5px); 
+            }
+    	}
+    	.quick-setting{
+    		padding: 10px;
+    		border: none;
+            color: $base-text-color;
+            a{
+                color: $base-text-color;
+                &:hover{
+                    color: $link-hover-color;
+                }
+            }
+    	}
+    }    
+}
+
+ 
+#header-main{
+   min-height: 60px;
+   background: $headermain-outside-bg;
+   .container > .inner{
+        @include container-layout-variant($headermain-color, $headermain-bg, $headermain-color, $headermain-color-hover );   
+   }
+    .header-wrap{
+        min-height: 94px;
+        margin: 0;
+    }
+    .inner { 
+        background: $headermain-bg; 
+        @include rtl-text-align-left();
+        & > *{
+            vertical-align: middle;
+        }
+    }
+    &.mini-navbar {
+    	box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    }   
+}
+
+#logo-theme{           
+    display: block;
+    background: $theme-color-default;
+}
+#header_logo {
+    position: relative;
+    z-index: 1;
+}
+
+#header_right {
+    margin-top: 38px;
+    position: absolute;
+    width: 100%;
+    .header_user_info {
+        padding: 10px 0;
+    }
+    .btn-group{
+        position: relative;
+        @include rtl-margin-left(10px);
+        &:hover{
+            cursor: pointer; 
+        }
+        .dropdown-toggle{
+            box-shadow: none;
+            @include rtl-padding(10px,20px,10px,0);
+            .fa-cog {
+               @include rtl-margin-right(5px); 
+            }
+            &:before{
+                content: "\f0d7";
+                position: absolute;
+                top: 14px;
+                font-size: $font-size-base - 3px;
+                @include rtl-right(10px);
+                font-family: $font-icon;
+            }
+            &:hover {
+                color: $topbar-link-hover-color;
+                span {
+                    color: $topbar-link-hover-color;
+                }
+            }
+        }
+        .quick-setting{
+            padding: 10px;
+            border: none;
+            box-shadow: none;
+            color: $base-text-color;
+            @include box-shadow(0 1px 2px rgba(0, 0, 0, 0.176));
+            a{
+                color: $base-text-color;
+                &:hover{
+                    color: $link-hover-color;
+                }
+            }
+            .selected {
+                span, a {
+                    color: $topbar-link-hover-color;
+                }
+            }
+        }
+    }
+}
+
+#header{        
+    .show-mobile{ 
+        @include clearfix();     
+        text-align: right;       
+        > div{
+            margin: 0;
+            padding: 0;
+            position: relative;
+            float: none !important;
+            display: inline-block;
+            &:hover{
+                .inner-toggle{
+                    display: block;
+                }
+            }
+        }
+        .quickaccess-toggle{
+            @include size(30px, 30px);
+            line-height: $line-height-computed + 7;
+            text-align: center;            
+            cursor: pointer;  
+            border: 1px solid #dcdcdc;    
+            .fa{                
+                margin: 0;
+                font-size: $respon-topbar-icon-font-size;
+            }
+            &:hover, &:focus, &:active {
+                background-color: $white;
+            }                 
+        }
+        .inner-toggle{
+            color: #8c8c8c;
+            display: none;
+            position: absolute;            
+            right: 0;
+            left: auto;
+            min-width: 160px;
+            display: none;
+            z-index: 99999;
+            border: 1px solid #dcdcdc;
+            background: $white;
+            padding: 15px;
+            @include rtl-text-align-left();                        
+        }  
+    }
+ 
+}
+
+##{$app-brand-prefix}-masshead {
+   .container > .inner{
+        @include container-layout-variant($masshead-color, $masshead-bg, $masshead-color, $masshead-color-hover );   
+        padding: $masshead-content-padding;    
+   }
+}
+
+/*
+* NAVIGATION
+*/
+##{$app-brand-prefix}-mainnav {
+    margin-bottom: $mainnav-content-margin;
+    background: $mainnav-outside-bg;
+    position: relative;
+    z-index: 10;
+    border-top: $mainnav-outside-border;
+    border-bottom: $mainnav-outside-border;
+    > .container {
+        /*@include container-layout-variant($mainnav-color, $mainnav-bg, $mainnav-color, $mainnav-color-hover);*/
+        background: $mainnav-bg;   
+        padding: $mainnav-content-padding;   
+   }
+}
+/*
+* SLIDESHOW 
+*/
+##{$app-brand-prefix}-slideshow {
+    
+}
+/*
+* SHOWCASE 
+*/
+##{$app-brand-prefix}-showcase {
+
+}
+/*
+* PROMOTION TOP 
+*/
+##{$app-brand-prefix}-promotion {    
+    
+}
+
+/*
+* MAIN CONTENT
+*/ 
+
+#content {
+    min-height: 400px;
+    margin-bottom: 25px;
+}
+
+.wrapper-danger{
+
+}
+.wrap-outline{
+
+}
+
+/*end*/
+#bottom{
+    margin-top: $grid-gutter-width;
+}
+/* FOOTER */
+#footer{
+    @include clearfix();
+    background: $footer-outside-bg;    
+    min-height: $line-height-computed * 5;
+    color: $footer-color;
+    font-size: $footer-font-size;
+    position:relative;
+    > .container {
+        background: $footer-bg;
+    }
+    ul, ol {
+        list-style: none;
+        li{
+            padding: 0;
+        }
+    }
+    .#{$block-heading-selector},
+    .#{$block-content-selector}{
+        background: none;
+    }
+    .#{$block-heading-selector}{
+        padding: $footer-heading-padding;
+        color: $footer-center-headding-color;
+        a {
+            color: $footer-center-headding-color !important;
+        }
+    }
+}
+
+.footer-top{
+    position:relative;
+    background: $footer-top-outside-bg;
+    border-bottom: $footer-top-outside-border;
+    padding: $footer-top-content-padding;
+    .container > .inner{
+        @include container-layout-variant($footer-top-color, $footer-top-bg, $footer-top-color, $footer-top-color-hover ); 
+        padding: $footer-top-content-padding; 
+    }
+    .#{$block-selector} {
+        margin-bottom: $block-module-margin-bottom;
+    }
+}
+.footer-center{
+    position: relative;
+    background: $footer-center-outside-bg;
+    border-bottom: $footer-center-outside-border;
+    > .inner {
+        @include container-layout-variant($footer-center-color, $footer-center-bg, $footer-center-color, $footer-center-color-hover );  
+        overflow: hidden;
+        padding: $footer-center-content-padding;
+    }
+}   
+.footer-bottom{
+    position:relative;
+    background: $footer-bottom-outside-bg;
+    > .inner{
+        @include container-layout-variant($footer-bottom-color, $footer-bottom-bg, $footer-bottom-color, $footer-bottom-color-hover );   
+        padding: $footer-bottom-content-padding;    
+    }
+}
+
+.footer-nav{ // copyright
+    text-align: center;
+    position: relative;
+    background: $footer-nav-outside-bg;
+    padding: $footer-nav-content-padding;
+    #powered {
+        span {
+            color: $footer-nav-color;
+        }
+    }
+   .container > .inner {
+        @include container-layout-variant($footer-nav-color, $footer-nav-bg, $footer-nav-color, $footer-nav-color-hover );     
+   }
+}
+
+#backtop{
+    cursor: pointer;
+    z-index: 6;
+    position: fixed;
+    bottom: 15px;
+    margin: auto;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    line-height: 35px;
+    font-size: 20px;
+    color: $white;
+    background: $theme-color-default;
+    border: $main_border;
+    @include border-radius(50px);
+    @include rtl-right(15px);
+}

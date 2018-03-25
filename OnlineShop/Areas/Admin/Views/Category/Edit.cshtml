@@ -1,0 +1,174 @@
+﻿@using OnlineShop.Helpers
+@using Model.ViewModel
+
+@model CategoryView
+@{    
+    Layout = "~/Areas/Admin/Views/Shared/_Layouts.cshtml";
+    var actionStaus = (ActionResultHelper)Session["ACTION_STATUS"];
+}
+
+@section header{
+    Sửa nhóm tin tức
+}
+@section jsFooter{
+    <script>
+        $('#btnSelectImage').on('click', function (e) {
+            e.preventDefault();
+            var finder = new CKFinder();
+            finder.selectActionFunction = function (url) {
+                $('#txtImage').val(url);
+            };
+            finder.popup();
+        })
+
+    </script>
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong>@ViewBag.Title</strong> 
+                </div>
+                <div class="panel-body">
+                    <div class="form-horizontal">
+
+                        @if (actionStaus != null && !String.IsNullOrWhiteSpace(actionStaus.ErrorReason))
+                        {
+                            if (actionStaus.ActionStatus == ResultSubmit.failed)
+                            {
+                                @Html.Raw(actionStaus.ErrorReason);
+                            }
+                            else
+                            {
+                                @Html.Raw(actionStaus.ErrorReason);
+                            }
+                            Session["ACTION_STATUS"] = null;
+                        }
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.ID)
+
+                        <div class="form-horizontal">                            
+                            
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(model => model.Name, new { @class = "form-control" } )
+                                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.MetaTitle, new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(model => model.MetaTitle, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.MetaTitle, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Image, new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(model => model.Image, new { @class = "form-control", @id = "txtImage" })                                    
+                                    @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ParentID, new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">                                    
+                                    @Html.DropDownListFor(model => model.ParentID, ListExtensions.CategoryList, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.ParentID, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.MetaKeywords, new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(model => model.MetaKeywords, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.MetaKeywords, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.MetaDescriptions, new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(model => model.MetaDescriptions, new { @class = "form-control" } )
+                                    @Html.ValidationMessageFor(model => model.MetaDescriptions, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Status, new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    <div class="checkbox">
+                                        @Html.EditorFor(model => model.Status)
+                                        @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <button type="submit" class="btn btn-default">Cập nhật</button>
+                                    <a class="btn btn-warning" onclick="window.location.reload();">Reset</a>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Thông tin thêm
+                </div>
+                <div class="panel-body">
+                    <div class="form-horizontal">
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.CreatedByName, new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">                                
+                                @Html.TextBoxFor(model => model.CreatedByName, new { @class = "form-control", @disabled = "true" })
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.CreatedDate, new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(model => model.CreatedDate, new { @class = "form-control", @disabled = "true" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ModifiedByName, new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(model => model.ModifiedByName, new { @class = "form-control", @disabled = "true" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ModifiedDate, new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(model => model.ModifiedDate, new { @class = "form-control", @disabled = "true" })
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    
+}
+
+

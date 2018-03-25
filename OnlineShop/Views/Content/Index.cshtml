@@ -1,0 +1,43 @@
+﻿@using Model.ViewModel
+@using Model.EF
+@using PagedList;
+@using PagedList.Mvc; 
+
+@model PagedList.IPagedList<v_Content>
+@{
+    ViewBag.Title = "";
+    Layout = "~/Views/Shared/_SubPage.cshtml";
+    
+}
+@section slide{
+    <section id="slider" class="slider box-slideshow">
+        <div class="container">
+            <div class="col-md-12">
+                <img class="img-responsive" src="~/Data/images/slide-intro/news_events.jpg" />
+            </div>
+        </div>
+    </section>
+}
+<div class="blog-content">
+    <div class="content_top">
+        <div class="heading">
+            <h2>@ViewBag.Title</h2>
+        </div>
+        <div class="clear"></div>
+    </div>
+    @foreach (var item in Model)
+    {        
+        <div class="media">
+            <h3><a href="/news-events/@item.MetaTitle-@item.ID">@item.Name </a></h3>
+            <div class="media-left media-middle">
+                <a href="/news-events/@item.MetaTitle-@item.ID">                    
+                    <img class="media-object" src="@item.Image" alt="@item.Name" />
+                </a>
+            </div>
+            <div class="media-body">                
+                @item.Description
+            </div>
+        </div>
+    }        
+</div>
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, @searchString = @ViewBag.SearchString }))

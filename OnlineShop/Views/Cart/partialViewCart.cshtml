@@ -1,0 +1,12 @@
+﻿@model List<OnlineShop.Models.CartItem>
+@{
+    var totalPrice = Model.Sum(x => x.Product.Price * x.Quantity);
+}
+<div class="cart-inner media-body">
+    <a href="@Url.Action("Index","Cart")" title="Xem giỏ hàng" rel="nofollow">
+        <ul class="list-inline">
+            <li>Giỏ hàng: @Model.Count Sản phẩm</li>
+            <li>@totalPrice.GetValueOrDefault(0).ToString("N0") VNĐ</li>
+        </ul>
+    </a>
+</div>

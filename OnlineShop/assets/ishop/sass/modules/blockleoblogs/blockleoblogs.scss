@@ -1,0 +1,33 @@
+@import "compass";
+@import "theme_variables";
+
+/*******************************************************************/
+.blog_container {
+	margin-bottom: 20px;
+	.blog-image {
+		@include rtl-float-left();
+		@include rtl-margin-right(8px);
+	}
+	h5 {
+		margin: 0;
+		height: 35px;
+		overflow: hidden;
+		margin-bottom: 6px;
+		a {
+		    text-transform: uppercase;
+		    color: $blog-hedding-color;
+		    line-height: $line-height-base;
+		    font-weight: $blog-font-weight;
+		    font-family: $blog-hedding-font-family;
+		    font-size: $blog-hedding-font-size;
+		    &:hover {
+		    	text-decoration: underline;
+		    }
+		}
+	}
+	.blog-shortinfo {
+		height: 36px;
+	    line-height: 18px;
+	    overflow: hidden;
+	}
+}

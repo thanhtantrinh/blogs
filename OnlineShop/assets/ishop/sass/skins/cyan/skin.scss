@@ -1,0 +1,120 @@
+@import "compass";
+@import "theme_variables";
+
+
+$link-hover-color: 			#5d9cec;
+$theme-color-secondary: 	#5d9cec;
+
+$topbar-outside-bg: 		#656d78;
+$topbar-bg: 				$topbar-outside-bg;
+$topbar-color: 				#fff;
+$topbar-color-hover: 		$link-hover-color;
+$topbar-link-color: 		#fff;
+$topbar-link-hover-color: 	$link-hover-color;
+$topbar-border:             1px solid #79818d;
+
+$headermain-outside-bg: 	#fff;
+$headermain-bg: 			$headermain-outside-bg;
+$headermain-color-hover: 		$link-hover-color;
+$headermain-link-hover-color: 	$link-hover-color;
+
+$mainnav-outside-border:	1px solid #79818d;
+$mainnav-outside-bg: 		#5d9cec;
+$mainnav-bg: 				$mainnav-outside-bg;
+$mainnav-color: 			#9c9c9c;
+$mainnav-color-hover: 		$link-hover-color;
+$mainnav-link-color: 		#9c9c9c;
+$mainnav-link-hover-color: 	$theme-color-secondary;
+
+$footer-top-color-hover: 		$theme-color-secondary;
+
+$footer-center-color-hover:		$theme-color-secondary;
+
+$footer-bottom-color-hover:		$theme-color-secondary;
+
+$footer-nav-color-hover: 		$theme-color-secondary;
+$footer-nav-color:				$theme-color-secondary;
+
+$cart-heading-color : 			$theme-color-secondary;
+
+$vertical-menu-link-hover:    	$theme-color-secondary;
+
+$vertical-sub-menu-link-hover-color: $theme-color-secondary;  
+
+$block-module-heading-bg:				$theme-color-secondary;
+$block-module-border-color: 			$border-color;
+$block-module-content-bg:				$white;
+
+$block-module-highlighted-bg			: $theme-color-secondary;
+
+$button-addtocart-bg-hover:         $theme-color-secondary;
+$button-addtocart-color:            $white;
+$button-addtocart-border-2:         $theme-color-secondary;
+$button-addtocart-hover-color:      $white;
+
+$product-name-color: 				#434a54;
+$product-name-hover-color: 			$link-hover-color;
+$product-price-color: 				#e9573f;
+
+$price-color:						$theme-color-secondary;
+$product-price-color:				$price-color;
+
+$product-icon-bg-hover:             $theme-color-secondary;
+
+$product-sale-box-bg:               $theme-color-secondary;
+
+$scroll-button-hover-color:			$theme-color-secondary;
+
+$product-filter-color:              $theme-color-secondary;
+
+$pagination-hover-bg: 				$theme-color-secondary;
+$pagination-active-bg:				$theme-color-secondary;
+$pagination-active-border:			$theme-color-secondary;
+
+// border
+$main_boder_hover:                  1px solid $theme-color-secondary;
+$base-hover-border-color:		    $theme-color-secondary;
+$base-hover-border-color:		    $theme-color-secondary;
+
+// search
+$search-bg-color:                   rgba(255, 255, 255, 0.2);
+$search-icon-hover-color:           $theme-color-secondary;
+
+$breadcrumb-active-color: 			$link-hover-color;
+
+$nav-pills-active-link-hover-bg: 	$theme-color-secondary;
+
+// Mega Menu Module
+$megamenu-link-bg-hover-color:      #3f8ef2;
+$megamenu-link-hover-color:         $white;
+
+$megamenu-arrow-bg:                 $megamenu-link-bg-hover-color;
+
+// Promotions
+$topcolumn-bg:                 $theme-color-secondary;
+
+// sidebar
+$block-module-sidebar-heading-bg:       $theme-color-secondary;
+$block-module-sidebar-content-bg:       $theme-color-secondary;
+
+// block-blue-light
+$block-blue-light-headding-color:   #db4453;
+$block-blue-light-content-bg:       #e95160;
+$block-blue-light-border-color:     #f45d6c;
+
+//---------- ICON
+$base-icon-hover-color:             $theme-color-secondary;
+
+/** CHECKOUT BY STEP */
+$checkout-step-button-active-bg: $theme-color-secondary; 
+
+// path
+$image-theme-base-path: "img/";
+
+@import "../_skin";
+
+.box-services { 
+  h4{
+    color: #ccd1d9;
+  }
+}

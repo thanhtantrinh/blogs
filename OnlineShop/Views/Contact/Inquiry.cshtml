@@ -1,0 +1,102 @@
+﻿@using OnlineShop.Helpers
+@using Model.ViewModel
+@model ContactModel
+@{
+    ViewBag.Title = "Yêu cầu hỗ trợ";
+    Layout = "~/Views/Shared/_LayoutBptchemicals.cshtml";
+    var actionStaus = (ActionResultHelper)Session["ACTION_STATUS"];
+}
+@section slide{
+    <section id="slider" class="slider box-slideshow">
+        <div class="container">
+            <div class="col-md-12">
+                <img class="img-responsive" src="@Url.Content("~/Images/header-img-contact.jpg")" />
+            </div>
+        </div>
+    </section>
+}
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-6">
+                <h2>@SiteConfiguration.SiteName</h2>
+                <p>@SiteConfiguration.SiteName là cửa hàng chuyên kinh doanh thực phẩm chay và đồ chay với 2 tiêu chí: SẠCH và THUẦN CHAY. Chúng tôi xuất phát từ một cửa hàng đã kinh doanh thực phẩm chay sĩ từ hơn 20 năm nay, khẳng định uy tín bằng chất lượng và tâm huyết của mình trong mỗi sản phẩm trao cho khách hàng.</p>
+                <p>
+                    Tất cả các mặt hàng @SiteConfiguration.SiteName bán đều là những sản phẩm chất lượng, an toàn và có nguồn gốc xuất xứ rõ ràng. @SiteConfiguration.SiteName hiểu rằng chất lượng và tốt cho sức khỏe là yếu tố hàng đầu khi khách hàng lựa chọn thực phẩm chay
+                </p>
+
+                <h2>Liên hệ cùng chúng tôi</h2>
+                <p>
+                    <strong>Địa chỉ: </strong>@SiteConfiguration.Address<br>
+                    <strong>Điện thoại: </strong>@SiteConfiguration.Phones <br>                    
+                    <strong>Email: </strong>
+                        <em>
+                            <span style="text-decoration: underline;">
+                                <a href="mailto:@SiteConfiguration.EmailSite?subject=@SiteConfiguration.SiteName Yêu cầu hỗ trợ" target="_blank">@SiteConfiguration.EmailSite</a>
+                            </span>
+                        </em>
+                    
+                    <br>
+                    <strong>Website:</strong>
+                    <em> <span style="text-decoration: underline;"><a href="@SiteConfiguration.SiteUrl" target="_blank">@SiteConfiguration.SiteUrl</a></span></em>
+                </p>
+            </div>
+            <div class="col-md-6">
+                <h2>Thông tin yêu cầu</h2>
+                @using (Html.BeginForm("Inquiry", "Contact", FormMethod.Post, new { @class = "contact-box", role = "form" }))
+                {
+                    if (actionStaus != null && !String.IsNullOrWhiteSpace(actionStaus.ErrorReason))
+                    {
+                        if (actionStaus.ActionStatus == ResultSubmit.failed)
+                        {
+                            @Html.Raw(actionStaus.ErrorReason);
+                        }
+                        else
+                        {
+                            @Html.Raw(actionStaus.ErrorReason);
+                        }
+                        Session["ACTION_STATUS"] = null;
+                    }
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Name)
+                        @Html.TextBoxFor(m => m.Name, new { @id = "txtPerson", @class = "form-control", placeholder = "Nhập họ và tên" })
+                        @Html.ValidationMessageFor(m => m.Name)
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Phone)                        
+                        @Html.TextBoxFor(m => m.Phone, new { @id = "txtMobile", @class = "form-control", placeholder = "Nhập số điện thoại" })
+                        @Html.ValidationMessageFor(m => m.Phone)
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Address)
+                        @Html.TextBoxFor(m => m.Address, new { @id = "txtAddress", @class = "form-control", placeholder = "Nhập địa chỉ" })
+                        @Html.ValidationMessageFor(m => m.Address)
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Email)
+                        @Html.TextBoxFor(m => m.Email, new { @id = "txtEmail", @class = "form-control", placeholder = "Nhập Email" })
+                        @Html.ValidationMessageFor(m => m.Email)
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Content)
+                        @Html.TextAreaFor(m => m.Content, new { @id = "txtContent", @class = "form-control", placeholder = "Nhập nội dung cần hỗ trợ", rows="5" })
+                        @Html.ValidationMessageFor(m => m.Content)
+                    </div>
+
+                    <button type="submit" id="btnSend" class="btn btn-success">Nhận thông tin</button>
+                    <button type="reset" class="btn btn-warning">Nhận lại</button>
+                    <br />
+                    <br />
+                    <br />                    
+                }
+            </div>
+        </div>
+    </div>
+</div>

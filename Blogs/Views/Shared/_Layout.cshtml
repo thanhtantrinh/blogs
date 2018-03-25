@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewBag.Title </title>
+    @Styles.Render("~/Content/css")
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+</head>
+
+<body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
+    <header class="app-header navbar">
+        <button class="navbar-toggler mobile-sidebar-toggler hidden-lg-up" type="button">☰</button>
+        <a class="navbar-brand" href="#"></a>
+        <ul class="nav navbar-nav hidden-md-down b-r-1">
+            <li class="nav-item">
+                <a class="nav-link navbar-toggler sidebar-toggler" href="#">☰</a>
+            </li>
+        </ul>
+
+        @Html.Partial("_Search")
+
+        @*@Html.Partial("_Choselanguage")*@
+
+    </header>
+
+    <div class="app-body">
+        @Html.Partial("_SidebarNav")
+        <!-- Main content -->
+        <main class="main">
+            <!-- Breadcrumb -->
+            
+
+
+            @RenderBody()
+
+            <!-- /.conainer-fluid -->
+        </main>
+        @*@Html.Partial("_AsideMenu")*@
+    </div>
+
+    @Scripts.Render("~/bundles/cpaneladmin/scripts")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

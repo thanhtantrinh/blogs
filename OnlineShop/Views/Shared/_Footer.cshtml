@@ -1,0 +1,36 @@
+﻿@using OnlineShop.Helpers
+
+<section id="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h2>@SiteConfiguration.SiteName </h2>
+                <i class="fa fa-envelope"></i> <a href="mailto:@SiteConfiguration.EmailSite" target="_blank" class="mailto">@SiteConfiguration.EmailSite</a> <br />
+                <i class="fa fa-map-marker"></i> @SiteConfiguration.Address <br />
+                <i class="fa fa-phone"></i> @SiteConfiguration.Phones
+            </div>
+            <div class="col-md-6 text-right">
+                <ul id="social" class="list-inline">
+                    <li>
+                        <a title="Twitter" target="_blank" href="@SiteConfiguration.Twitter">
+                            <img width="32" height="32" border="0" alt="Follow BP on Twitter" src="@Url.Content("~/images/icon_twitter.gif")">
+                        </a>
+                    </li>
+                    <li>
+                        <a title="Facebook" target="_blank" href="@SiteConfiguration.Facebook">
+                            <img width="32" height="32" border="0" alt="" src="@Url.Content("~/images/icon_facebook.gif")">
+                        </a>
+                    </li>
+                    <li class="last">
+                        <a title="Linked" target="_blank" href="http://www.linkedin.com/profile/view?id=217667980">
+                            <img width="32" height="32" border="0" alt="Youtube" src="@Url.Content("~/images/icon-linked.png")">
+                        </a>
+                    </li>
+                </ul>
+                <p>Copyright © @DateTime.Now.Year @SiteConfiguration.SiteName . All rights reserved</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+

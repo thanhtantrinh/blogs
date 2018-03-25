@@ -1,0 +1,193 @@
+﻿@using OnlineShop.Helpers
+@model Model.ViewModel.ProductsView
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layouts.cshtml";
+    var actionStaus = (ActionResultHelper)Session["ACTION_STATUS"];
+}
+@section jsFooter{
+    <script>
+        var editor = CKEDITOR.replace('txtContent', {
+            customConfig: '/assets/admin/js/plugins/ckeditor/config.js',
+        });
+    </script> 
+}
+@using (Html.BeginForm("Edit", "Products", FormMethod.Post, new { @class = "myclass", role = "form", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Thông tin chính
+                </div>
+                <div class="panel-body">
+                    <div class="form-horizontal">
+                        
+                            @if (actionStaus != null && !String.IsNullOrWhiteSpace(actionStaus.ErrorReason))
+                            {                                
+                                if (actionStaus.ActionStatus == ResultSubmit.failed)
+                                {
+                                    @Html.Raw(actionStaus.ErrorReason);
+                                }
+                                else
+                                {
+                                    @Html.Raw(actionStaus.ErrorReason);
+                                }                                
+                                Session["ACTION_STATUS"] = null;
+                            }
+
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.HiddenFor(model => model.ID)
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#tabproduct" aria-controls="tabproduct" role="tab" data-toggle="tab">Sản phẩm</a></li>
+                                <li role="presentation"><a href="#tabimages" aria-controls="tabimages" role="tab" data-toggle="tab">Hình ảnh</a></li>
+                                <li role="presentation"><a href="#tabdetail" aria-controls="tabdetail" role="tab" data-toggle="tab">Mô tả</a></li>
+                            </ul>
+                            <!-- Tab panes -->
+                        <br />
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane active" id="tabproduct">
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.MetaTitle, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.MetaTitle, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.MetaTitle, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.PromotionPrice, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.PromotionPrice, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.PromotionPrice, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.CategoryID, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.DropDownListFor(model => model.CategoryID, ListExtensions.CategoryList, new { @class = "form-control " })
+                                            @Html.ValidationMessageFor(model => model.CategoryID, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.TextAreaFor(model => model.Description, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="tabimages">
+
+
+                                    
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Images, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @*@Html.EditorFor(model => model.Images, new { htmlAttributes = new { @class = "form-control" }, id = "txtImage" })*@                                          
+
+                                            <div class="input-group">
+                                                <div class="input-group-btn group">
+                                                    <a class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title=""><i class="fa fa-eye"></i></a>
+                                                </div>
+                                                @Html.TextBoxFor(model => model.Images, new { @class = "form-control", @id = "txtImage", type = "file" })                                             
+
+                                            </div>
+                                            @Html.ValidationMessageFor(model => model.Images, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div role="tabpanel" class="tab-pane" id="tabdetail">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Detail, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.TextAreaFor(model => model.Detail, new { htmlAttributes = new { @class = "form-control" }, id = "txtContent" })
+                                            @Html.ValidationMessageFor(model => model.Detail, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <button type="submit" class="btn btn-default">Cập nhật</button>
+                                    <a class="btn btn-warning" onclick="window.location.reload();">Reset</a>
+                                </div>
+                            </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Meta
+                </div>
+                <div class="panel-body">
+                    <div class="form-horizontal">
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ShowHome, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.ShowHome, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.CreatedBy, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.Raw(Model.CreatedBy)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.CreatedDate, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.Raw(Model.CreatedDate)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.TopHot, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.Raw(Model.TopHot)
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

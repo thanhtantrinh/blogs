@@ -1,0 +1,6 @@
+﻿@using Model.ViewModel;
+@model  IEnumerable<ProductCategoryView>
+@foreach (var item in Model)
+{
+    Html.RenderAction("_blockProducts", new { catId = item.ID});
+}

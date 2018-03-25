@@ -1,0 +1,39 @@
+﻿<div class="sidebar">
+    <nav class="sidebar-nav">
+        <ul class="nav">
+            <li class="nav-title text-center">
+                <span>Dashboard</span>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("Index", "Home")"><i class="icon-speedometer"></i> Dashboard <span class="badge badge-info">NEW</span></a>
+            </li>     
+  
+            <li class="nav-item nav-dropdown">
+                <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-puzzle"></i> SQL Server</a>
+                <ul class="nav-dropdown-items">
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index", "Category")"><i class="icon-puzzle"></i> Stored Procedure</a>
+                    </li> 
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index", "Category")"><i class="icon-puzzle"></i> SQL Query</a>
+                    </li>                             
+                </ul>
+            </li>
+
+            <li class="nav-item nav-dropdown">
+                <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-note"></i> ASP.NET MVC</a>
+                <ul class="nav-dropdown-items">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="icon-note"></i> Cơ bản</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="3"><i class="icon-note"></i> Nâng cao</a>
+                    </li>   
+                </ul>
+            </li>    
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("About", "Home")"><i class="fa fa-users"></i> Tự sự</a>
+            </li>  
+        </ul>
+    </nav>
+</div>

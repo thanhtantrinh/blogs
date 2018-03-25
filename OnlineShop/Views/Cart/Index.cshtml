@@ -1,0 +1,16 @@
+﻿@model List<OnlineShop.Models.CartItem>
+@{
+    ViewBag.Title = "Xem đơn hàng";
+    Layout = "~/Views/Shared/_Layout2Col.cshtml";
+}
+@section jsFooter{
+    <script src="/assets/client/js/controller/cartController.js"></script>
+}
+<div id="PageViewCart" class="CartDetail">
+    <div class="section group">
+        <h2 class="page-subheading text-danger">Xem đơn hàng</h2>
+        <div id="cartList">
+            @Html.Partial("partialCart", Model)
+        </div>
+    </div>
+</div>

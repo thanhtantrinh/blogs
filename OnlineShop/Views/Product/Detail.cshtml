@@ -1,0 +1,61 @@
+﻿@model Model.EF.Product
+@{
+    ViewBag.Title = Model.Name;
+    Layout = "~/Views/Shared/_Layout2Col.cshtml";
+    var category = (Model.EF.ProductCategory)ViewBag.Category;
+    var relatedProducts = (List<Model.EF.Product>)ViewBag.RelatedProducts;
+}
+
+<div id="product-detail" class="product-details">
+
+    <ol class="breadcrumb">
+        <li><a href="@Url.Action("Index","Home")">Trang chủ</a></li>
+        <li><a href="@Url.Action("Category", "Product", new {cateId= category.ID})">@category.Name</a></li>
+        <li class="active">@Model.Name</li>
+    </ol>
+
+@using (Html.BeginForm("AddItem", "Cart", FormMethod.Post, new { @class = "ProductDetail", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(x => x.ID)
+
+    <div id="detail">
+
+        <div id="detail-left" class="col-xs-12 col-md-5 col-lg-5 col-sm-5">
+            <img id="ViewImg" class="img-responsive" src="@Url.Content("~/Images/Products/large/" + Model.Image)" alt="">
+        </div>
+
+        <div id="detail-right" class="col-xs-12 col-md-7 col-lg-7 col-sm-7">
+            <h2 class="product-name">@Model.Name</h2>
+            <div class="product-price">
+                Giá: 
+                <span class="price"> @(Model.Price.HasValue ? Model.Price.Value.ToString("N0") + " VNĐ" : "Liên hệ") </span>
+            </div>
+            <div class="product-shortdesc">
+                @Html.Raw(Model.Description)
+            </div>
+            <div id="detail-options">                
+                <div class="box-addtobag">
+                    <div id="product-qty">
+                        Số lượng: <input id="quantity" name="quantity" value="1" class="input-mc" type="number" maxlength="2">
+                    </div>
+                    <div id="detail-add">
+                        <button type="submit" class="btn btn-mc btn-mc-active btn-primary">Thêm vào giỏ</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="detail-description" class="col-xs-12 col-md-12 col-lg-12 col-sm-12">
+            <label class="title-description">Mô tả: </label>
+            <div class="content-description">
+                @Html.Raw(Model.Detail)
+            </div>
+        </div>
+
+
+    </div>
+
+}
+
+</div>

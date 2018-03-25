@@ -1,0 +1,141 @@
+﻿@using OnlineShop.Helpers
+@using Model.ViewModel
+@using Model.EF
+@using PagedList.Mvc
+@model PagedList.IPagedList<v_Category>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layouts.cshtml";
+    ActionResultHelper actionStaus = (ActionResultHelper)Session["ACTION_STATUS"];
+    CategoryFilter filter = (CategoryFilter)Session["CategoryFilter"];
+}
+
+@section header{
+    Danh sách Nhóm tin
+}
+
+@section jsFooter{
+
+}
+
+<div class="row">
+
+    <div class="col-lg-12">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Nhóm tin tức
+            </div>
+
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+
+                <div class="dataTable_wrapper">
+
+                    @{Html.RenderPartial("_CategoryFilter", filter);}
+
+                    @if (actionStaus != null && !String.IsNullOrWhiteSpace(actionStaus.ErrorReason))
+                    {
+                        if (actionStaus.ActionStatus == ResultSubmit.failed)
+                        {
+                            @Html.Raw(actionStaus.ErrorReason);
+                        }
+                        else
+                        {
+                            @Html.Raw(actionStaus.ErrorReason);
+                        }
+                        Session["ACTION_STATUS"] = null;
+                    }
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-striped table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Trạng thái</th>
+                                        <th>Tiêu đề</th>
+                                        <th>Nhóm Cha</th>
+                                        <th>Ngôn ngữ</th>
+                                        <th>Người tạo</th>
+                                        <th>Ngày Tạo</th>
+                                        <th>Người sửa</th>
+                                        <th>Ngày sửa</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.Count() > 0)
+                                    {
+                                        foreach (var item in Model)
+                                        {
+                                            <tr id="row_@item.ID">
+                                                <td align="center" width="5%" style="min-width:95px">
+                                                    <div class="btn-group btn-group-xs" role="group" aria-label="...">
+                                                        <button type="button" class="btn btn-default">
+                                                            <i class="fa fa-check-circle @(item.Status? "text-primary" : "text-muted" )"></i>
+                                                        </button>
+                                                        &nbsp;
+                                                        <a class="btn btn-default" href="@Url.Action("Edit",new { id=item.ID })"><i class="fa fa-pencil fa-fw"></i></a>
+                                                        @Ajax.ActionLink("  ", "Delete", new { @id = item.ID },
+                                                           new AjaxOptions
+                                                           {
+                                                               Confirm = "Bạn có muốn xoá bản ghi này?",
+                                                               OnComplete = "$('#row_" + @item.ID + "').remove()",
+                                                               HttpMethod = "Delete"
+                                                           },
+                                                           new { Class = "btn btn-default fa fa-trash" }
+                                                        )
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <a class="text-link" href="@Url.Action("Edit",new { id=item.ID })">
+                                                        @item.Name<br />
+                                                        <small>(@item.MetaTitle)</small>
+                                                    </a>
+                                                </td>
+                                                <td>@item.ParentCategoryName</td>
+                                                <td>@item.Language</td>
+                                                <td>@item.CreatedByName</td>
+                                                <td>@item.CreatedDate.ToShortDateString()</td>
+                                                <td>@item.ModifiedByName</td>
+                                                <td>@item.ModifiedDate.ToShortDateString()</td>
+                                            </tr>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td colspan="8">
+                                                Dữ liệu không tìm thấy
+                                            </td>
+                                        </tr>
+                                    }
+
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">
+                                @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+                <!-- /.table-responsive -->
+
+
+            </div>
+            <!-- /.panel-body -->
+        </div>
+    </div>
+
+</div>

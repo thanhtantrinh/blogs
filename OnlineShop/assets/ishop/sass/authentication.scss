@@ -1,0 +1,50 @@
+@import "compass";
+@import "theme_variables";
+/**********************************************************
+				Authentication Styles
+**********************************************************/
+#account-creation_form .id_state,
+#account-creation_form .dni,
+#account-creation_form .postcode {
+	display: none;
+}
+
+#create-account_form {
+	min-height: 297px;
+	@include rtl-padding-right(18px);
+	p {
+		margin-bottom: 8px;
+	} 
+}
+
+#login_form {
+	min-height: 297px;
+	.form-group { 
+		&.lost_password {
+			margin: 14px 0 15px 0;
+			a {
+				text-decoration: underline;
+				&:hover {
+					text-decoration: none;
+				}	
+			}
+		}
+	}
+}
+
+#login_form, #create-account_form {
+	.form-control {
+		max-width: 271px;	
+	}
+}
+.authentication {
+	form {
+		&.box {
+			.checkbox {
+				input[type="checkbox"] {
+					@include rtl-margin(4px, 4px, 0, 0);
+				}
+			}
+		}
+	}
+}

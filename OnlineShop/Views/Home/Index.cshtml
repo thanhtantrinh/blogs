@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "Trang chủ";
+    Layout = "~/Views/Shared/_LayoutBptchemicals.cshtml";
+    var slides = (List<Model.EF.Slide>)ViewBag.Slides;
+    var listNewProducts = (List<Model.EF.Product>)ViewBag.NewProducts;
+    var listFeatureProducts = (List<Model.EF.Product>)ViewBag.ListFeatureProducts;
+    var ListNewsEvent = (List<Model.EF.Content>)ViewBag.ListNewsEvent;
+}
+
+
+<div class="panel">
+    @*@{ Html.RenderAction("_blockProductHome", "Home");}*@
+
+    @{ Html.RenderAction("_blockProductFeatures", "Home");}
+
+    @{ Html.RenderAction("_blockProductNew", "Home");}
+
+</div>

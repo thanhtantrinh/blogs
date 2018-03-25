@@ -1,0 +1,18 @@
+﻿#viewcart {
+    margin-top: 50px;
+
+    .cart-inner {
+        vertical-align: middle;
+
+        ul.list-inline {
+            li {
+                color: #555;
+            }
+        }
+        a{
+            &:hover{
+                text-decoration:none;
+            }
+        }
+    }
+}

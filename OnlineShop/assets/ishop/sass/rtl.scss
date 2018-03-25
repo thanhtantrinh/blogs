@@ -1,0 +1,81 @@
+@import "compass";
+@import "theme_variables";
+// Core variables and mixins
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+
+@import "bootstrap/rtl/grid";
+// Utility classes
+@import "bootstrap/rtl/utilities";
+@import "bootstrap/rtl/responsive-utilities";
+
+/********************************************************
+			Right to Left Styles
+********************************************************/
+
+* {
+	direction: rtl !important;
+}
+#page {
+	text-align: right !important;
+}
+
+// paneltool
+
+.panelbutton {
+    -webkit-box-shadow: -3px 1px 2px #888888;
+    box-shadow: -3px 1px 2px #888888;
+ }
+.fancybox-margin {margin-right: 0px!important;}
+
+.editortool .label-customize {
+    background-image: url('#{$image-theme-base-path}label_customize-1.png');
+}
+.editortool .label-customize:hover {
+    background-position: 0 -111px;
+}
+.bullet {
+	li {
+		a {
+			&:before {
+				content: "\f104";
+				font-size: $font-size-base - 6px;
+			}
+		}
+	}
+}
+.accessories-block ul li{float: right !important;}
+
+.radio input[type="radio"], 
+.radio-inline input[type="radio"], 
+.checkbox input[type="checkbox"], 
+.checkbox-inline input[type="checkbox"] {
+  margin: 4px 0 0 4px !important;
+}
+
+// mainmenu
+.leo-megamenu .navbar-nav > li > a .menu-icon span {
+	float: left;
+}
+
+// product-list
+.product_list .product-block .quick-view-wrapper-mobile .quick-view-mobile {
+	top: 130px !important;
+	right: 195px !important;
+}
+.product_list .product-block .quick-view-wrapper-mobile .quick-view-mobile i {
+	right: 13px !important;
+	top: -1px !important;
+}
+
+// product
+#view_scroll_left {
+	&:before{
+		content: "\f054";
+	}
+}
+#view_scroll_right {
+	&:before{
+		content: "\f053";
+	}
+}

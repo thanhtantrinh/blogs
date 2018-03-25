@@ -1,0 +1,19 @@
+﻿@model List<Model.EF.Menu>
+@{
+    int count = 0;
+    var baseurl = Request.Url.GetLeftPart(UriPartial.Authority) + Url.Content("~");
+
+}
+
+@*<div class="top-menu pull-right">
+    <ul id="menu-topbar" class="list-inline">
+        @foreach (var item in Model)
+        {
+            <li class="item-@item.ID @(count==0?"first":"") @(Model.Count()==(count+1)?"last":"")">
+                <a href="@baseurl@item.Link" target="@item.Target">@item.Text</a>
+            </li>
+            count++;
+        }
+    </ul>
+</div>*@
+

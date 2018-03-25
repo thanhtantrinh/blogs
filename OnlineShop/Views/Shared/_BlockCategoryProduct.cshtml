@@ -1,0 +1,18 @@
+﻿@model Model.ViewModel.CategoryBlogViewModel
+<div class="m-title">
+    <h3>@Model.Name</h3>
+    <div class="modulcontent">
+        <ul class="menu dotx">
+            <li class="item-597 first">
+                <a href="#">
+                    <img class="img-responsive" alt="" src="@Model.Image">                        
+                </a>
+            </li>
+            @foreach (var item in Model.Products)
+            {
+                <li class="item-574 last"><a href="/product/@item.MetaTitle-@item.ID">@item.Name</a></li>
+            }
+                
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,54 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - SỮA TƯƠI, MỸ PHẪM, HÀNG XÁCH TAY</title>
+    <link href="~/Images/favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,400i,700" rel="stylesheet">
+    @Styles.Render("~/assets/ishop/css/Styles.css")
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <meta name="description" content="The description of my page" />
+</head>
+<body>
+    @*@{ Html.RenderAction("_Sliders", "Home");}*@
+    <div id="wrapper-page" class="container">
+        @{ Html.RenderAction("_Header", "Home");}
+        
+        <div id="box-content" class="row">
+            <div id="box-left" class="col-md-3">
+                @{ Html.RenderAction("_MenuLeft", "Home");}
+            </div>
+            <div id="box-right" class="col-md-9">
+                @RenderBody()
+            </div>
+        </div>
+
+    </div>
+    @{ Html.RenderAction("_Footer", "Home");}
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/smartmenus")
+    @RenderSection("scripts", required: false)
+    @RenderSection("jsFooter", required: false)
+
+    
+    <!-- SmartMenus jQuery init -->
+    <script type="text/javascript">
+        $(function () {
+            $('#main-menu').smartmenus({
+                subMenusSubOffsetX: 1,
+                subMenusSubOffsetY: -8
+            });
+        });
+    </script>
+
+</body>
+</html>

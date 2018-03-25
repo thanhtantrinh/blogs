@@ -1,0 +1,32 @@
+﻿@using Model.ViewModel;
+@model IEnumerable<ProductsView>
+
+@if (Model.Count() > 0)
+{
+
+    var ItemFirst = Model.FirstOrDefault();
+    var catName = ItemFirst.CatName;
+    var catID = ItemFirst.CategoryID;
+
+    <div class="row block products_block exclusive leomanagerwidgets">
+        <h3 class="page-subheading text-danger">
+            Sản phẩm nổi bật
+        </h3>        
+        <div class="block_content">
+            <div class="slide" id="productcarouse_@catID">
+                <div class="product-block product_list grid">
+                    <div class="carousel-inner">
+                        @{                                                      
+                            foreach (var item in Model)
+                            {
+                                @Html.Partial("_blockProductItem", item);
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+}

@@ -1,0 +1,79 @@
+﻿@using Model.ViewModel
+@{
+    ViewBag.Title = "Dashboard";
+    Breadcrumb breadcrumb = new Breadcrumb();
+    //breadcrumb.Url = Url.Action("Index", "Home");
+    //breadcrumb.LinkText = "Home";
+}
+
+@Html.Partial("_Breadcrumb", breadcrumb)
+
+<div class="container-fluid">
+    <div class="animated fadeIn">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-block">
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <h3 class="card-title clearfix mb-0">Dashboard</h3>
+                            </div>
+                            <div class="col-sm-7">
+                                @*<button type="button" class="btn btn-outline-primary float-right ml-1"><i class="icon-cloud-download"></i> &nbsp; Download</button>*@
+
+                                <fieldset class="form-group float-right">
+                                    <div class="input-group float-right" style="width:240px;">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </span>
+                                        <input name="daterange" class="form-control date-picker" type="text">
+
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+
+                        <hr class="m-0">
+
+                        <!--/.row-->
+                        <br>
+                        Coming Soon
+
+                        <pre>
+                            <code class="sql">           
+                            SELECT TOP 1000 [ID]
+                                  ,[Name]
+                                  ,[MetaTitle]
+                                  ,[CategoryID]
+                                  ,[CategoryName]
+                                  ,[CategoryAlias]
+                                  ,[CategoryStatus]
+                                  ,[Description]
+                                  ,[Image]
+                                  ,[Detail]
+                                  ,[Warranty]
+                                  ,[CreatedDate]
+                                  ,[CreatedBy]
+                                  ,[CreatedByName]
+                                  ,[ModifiedDate]
+                                  ,[ModifiedBy]
+                                  ,[ModifiedByName]
+                                  ,[MetaKeywords]
+                                  ,[MetaDescriptions]
+                                  ,[Status]
+                                  ,[ViewCount]
+                                  ,[Tags]
+                                  ,[Language]
+                              FROM [tant4482_db].[dbo].[v_Content]
+                       </code>
+                        </pre>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>hljs.initHighlightingOnLoad();</script>
+
