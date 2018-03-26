@@ -23,6 +23,10 @@ namespace OnlineShop.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult Login()
         {
+            if (CurrentUser != null && CurrentUser.IsAuthenticated)
+            {
+                return RedirectToAction("Index");
+            }
             return View();
         }
 
@@ -33,7 +37,7 @@ namespace OnlineShop.Areas.Admin.Controllers
         {
             var actionStatus = new ActionResultHelper();
             actionStatus.ActionStatus = ResultSubmit.failed;
-            string errorString = "";            
+            string errorString = "";
             bool IsValid = true;
 
             if (ModelState.IsValid)
@@ -57,8 +61,6 @@ namespace OnlineShop.Areas.Admin.Controllers
                                                         //if (!Request.IsLocal)
                             authCookie.Secure = false;//FormsAuthentication.RequireSSL;                    
                             FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(authCookie.Value);
-
-                            
 
                             FormsAuthenticationTicket newTicket = new FormsAuthenticationTicket(ticket.Version, ticket.Name, ticket.IssueDate, ticket.Expiration, model.RememberMe, userAccount.UserDataString);
 
@@ -104,7 +106,7 @@ namespace OnlineShop.Areas.Admin.Controllers
                 goto actionError;
             }
 
-            actionError:
+        actionError:
             if (!IsValid)
             {
                 actionStatus.ErrorReason = String.Format(SiteResource.HTML_ALERT_ERROR, SiteResource.MSG_ERROR_ENTER_DATA_FOR_FORM + errorString);
@@ -119,7 +121,7 @@ namespace OnlineShop.Areas.Admin.Controllers
             Session.Clear();
             return RedirectToAction("Login", "Account");
         }
-                        
+
         // GET: Admin/Home
         public ActionResult Index()
         {
@@ -152,14 +154,14 @@ namespace OnlineShop.Areas.Admin.Controllers
             {
                 model.ModifiedById = 2;
                 model.Id = SiteConfiguration.CatalogueId;
-                
+
                 remodel = _catalogueRepo.UpdateCatalogue(model, out message);
                 //return RedirectToAction("SiteConfig");
                 if (String.IsNullOrWhiteSpace(message))
                 {
                     actionStatus.ErrorReason = String.Format(SiteResource.HTML_ALERT_SUCCESS, SiteResource.MSG_THE_SITE_CONFIGUARATION_HAS_BEEN_UPDATED_SUCCESSFULLY);
                     actionStatus.ActionStatus = ResultSubmit.success;
-                    Session["ACTION_STATUS"] = actionStatus; 
+                    Session["ACTION_STATUS"] = actionStatus;
                     return View(remodel);
                 }
                 else
@@ -167,7 +169,7 @@ namespace OnlineShop.Areas.Admin.Controllers
                     IsValid = false;
                     errorString = message;
                     goto actionError;
-                }                
+                }
             }
             else
             {
@@ -186,13 +188,13 @@ namespace OnlineShop.Areas.Admin.Controllers
                 goto actionError;
             }
 
-            actionError:
+        actionError:
             if (!IsValid)
             {
                 actionStatus.ErrorReason = String.Format(SiteResource.HTML_ALERT_ERROR, SiteResource.MSG_ERROR_ENTER_DATA_FOR_FORM + errorString);
                 Session["ACTION_STATUS"] = actionStatus;
-            }            
-            return RedirectToAction("SiteConfig");            
+            }
+            return RedirectToAction("SiteConfig");
         }
 
         [AllowAnonymous]

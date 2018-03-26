@@ -70,7 +70,6 @@ namespace OnlineShop
             namespaces: new[] { "OnlineShop.Controllers" }
             );
 
-
         }
     }
 }
