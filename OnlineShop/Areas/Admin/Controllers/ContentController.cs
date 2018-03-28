@@ -47,24 +47,74 @@ namespace OnlineShop.Areas.Admin.Controllers
 
         [HttpGet]
         public ActionResult Create()
-        {           
-            
-            return View();
+        {
+            ContentViewModel model = new ContentViewModel();
+
+            model.CreatedByName = CurrentUser.Name;
+            model.CreatedDate = DateTime.Now;
+            model.ModifiedByName = CurrentUser.Name;
+            model.ModifiedDate = DateTime.Now;
+            ViewBag.Title = Resources.LABEL_CREATE_NEW_CONTENT;
+            ViewBag.Action = "Create";
+            return View("Edit", model);
         }
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult Create(Content model)
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(ContentViewModel model, string saveclose)
         {
+            ContentViewModel remodel = new ContentViewModel();
+            var actionStatus = new ActionResultHelper();
+            actionStatus.ActionStatus = ResultSubmit.failed;
+            string errorString = "";
+            string message = "";
+            bool IsValid = true;
+
             if (ModelState.IsValid)
-            {
-                var session = (UserLogin)Session[Common.CommonConstants.USER_SESSION];
+            {                
                 model.CreatedBy = CurrentUser.UserID;
+                model.ModifiedBy = CurrentUser.UserID;
+
                 var culture = Session[Common.CommonConstants.CurrentCulture];
                 model.Language = culture.ToString();
-                new ContentDao().Create(model);
-                return RedirectToAction("Index");
-            }            
-            return View();
+
+                remodel = dao.Create(model, out message);
+
+                if (remodel != null && String.IsNullOrEmpty(message))
+                {
+                    actionStatus.ActionStatus = ResultSubmit.success;
+                    actionStatus.ErrorReason = String.Format(SiteResource.HTML_ALERT_SUCCESS, Resources.MSG_THE_CONTENT_HAS_CREATED_SUCCESSFULLY);
+                    Session["ACTION_STATUS"] = actionStatus;
+
+                    if (!String.IsNullOrEmpty(saveclose))
+                    {
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        return RedirectToAction("Edit", new { id = remodel.ID });
+                    }
+                }
+                else
+                {                    
+                    errorString = Resources.MSG_THE_CONTENT_HAS_CREATED_UNSUCCESSFULLY;
+                    goto actionError;
+                }
+
+            }
+            else
+            {
+                IsValid = false;
+                goto actionError;
+            }
+            actionError:
+            if (!IsValid)
+            {
+                actionStatus.ErrorReason = String.Format(SiteResource.HTML_ALERT_ERROR, Resources.MSG_ERROR_ENTER_DATA_FOR_FORM + errorString);
+                Session["ACTION_STATUS"] = actionStatus;
+            }
+            ViewBag.Title = Resources.LABEL_CREATE_NEW_CONTENT;
+            return View("Edit", model);
         }
         [HttpGet]
         

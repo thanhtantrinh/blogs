@@ -42,8 +42,8 @@ namespace OnlineShop.Areas.Admin.Controllers
         {
             var actionStatus = new ActionResultHelper();
             actionStatus.ActionStatus = ResultSubmit.failed;
-            string errorString = "";
-            bool IsValid = true;
+            //string errorString = "";
+            //bool IsValid = true;
 
             return RedirectToAction("Index");
         }

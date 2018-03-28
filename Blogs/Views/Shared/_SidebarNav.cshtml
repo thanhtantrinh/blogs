@@ -9,30 +9,37 @@
             </li>     
   
             <li class="nav-item nav-dropdown">
-                <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-puzzle"></i> SQL Server</a>
+                <a class="nav-link nav-dropdown-toggle" href="@Url.Action("Detail", "Category", new{Id=13, alias= "sql-server" })"><i class="icon-puzzle"></i> SQL Server</a>
                 <ul class="nav-dropdown-items">
                     <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("Index", "Category")"><i class="icon-puzzle"></i> Stored Procedure</a>
+                        <a class="nav-link" href="@Url.Action("Detail", "Category", new{Id=14, alias= "stored-procedure" })"><i class="icon-puzzle"></i> Stored Procedure</a>
                     </li> 
                     <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("Index", "Category")"><i class="icon-puzzle"></i> SQL Query</a>
+                        <a class="nav-link" href="@Url.Action("Detail", "Category" , new{Id=20, alias="sql-server"})"><i class="icon-puzzle"></i> SQL Query</a>
                     </li>                             
                 </ul>
             </li>
 
-            <li class="nav-item nav-dropdown">
-                <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-note"></i> ASP.NET MVC</a>
+            @*<li class="nav-item nav-dropdown">
+                <a class="nav-link" href="#"><i class="icon-note"></i> ASP.NET MVC</a>
                 <ul class="nav-dropdown-items">
+                    
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="icon-note"></i> Cơ bản</a>
+                        <a class="nav-link" href="#"><i class="icon-note"></i> View</a>
                     </li>
+
                     <li class="nav-item">
-                        <a class="nav-link" href="3"><i class="icon-note"></i> Nâng cao</a>
+                        <a class="nav-link" href="3"><i class="icon-note"></i> Partial View</a>
                     </li>   
                 </ul>
-            </li>    
+            </li>*@    
+
             <li class="nav-item">
-                <a class="nav-link" href="@Url.Action("About", "Home")"><i class="fa fa-users"></i> Tự sự</a>
+                <a class="nav-link" href="@Url.Action("Detail", "Category", new{Id=15, alias="aspnet-mvc"})"><i class="icon-note"></i> ASP.NET MVC</a>
+            </li> 
+
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("About", "Home")"><i class="fa fa-users"></i> Giới thiệu</a>
             </li>  
         </ul>
     </nav>

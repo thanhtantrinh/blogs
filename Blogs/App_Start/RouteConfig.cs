@@ -20,8 +20,20 @@ namespace Blogs
 
             routes.MapRoute(
                 name: "Category",
-                url: "{metatitle}-{Id}",
-                defaults: new { controller = "Category", action = "Index", id = UrlParameter.Optional }                
+                url: "danh-muc",
+                defaults: new { controller = "Category", action = "Index" }
+            );
+
+            routes.MapRoute(
+                name: "CategoryDetail",
+                url: "danh-muc/{alias}-{Id}",
+                defaults: new { controller = "Category", action = "Detail", Id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "ContentDetail",
+                url: "{CategoryAlias}/{alias}-{Id}",
+                defaults: new { controller = "Category", action = "ContentDetail", Id = UrlParameter.Optional }
             );
 
             routes.MapRoute(

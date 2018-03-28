@@ -187,6 +187,15 @@ namespace StaticResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Thêm bài viết mới.
+        /// </summary>
+        public static string LABEL_CREATE_NEW_CONTENT {
+            get {
+                return ResourceManager.GetString("LABEL_CREATE_NEW_CONTENT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tên website.
         /// </summary>
         public static string LABEL_SITE_NAME {
@@ -255,6 +264,24 @@ namespace StaticResources {
         public static string MSG_THE_CATEGORY_HAS_UPDATED_UNSUCCESSFULLY {
             get {
                 return ResourceManager.GetString("MSG_THE_CATEGORY_HAS_UPDATED_UNSUCCESSFULLY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bài viết được tạo thành công.
+        /// </summary>
+        public static string MSG_THE_CONTENT_HAS_CREATED_SUCCESSFULLY {
+            get {
+                return ResourceManager.GetString("MSG_THE_CONTENT_HAS_CREATED_SUCCESSFULLY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bài viết tạo không thành công.
+        /// </summary>
+        public static string MSG_THE_CONTENT_HAS_CREATED_UNSUCCESSFULLY {
+            get {
+                return ResourceManager.GetString("MSG_THE_CONTENT_HAS_CREATED_UNSUCCESSFULLY", resourceCulture);
             }
         }
         

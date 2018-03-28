@@ -14,7 +14,7 @@ namespace Blogs.Controllers
         }
 
         [HttpGet]
-        [Route("About-Me")]
+        [Route("gioi-thieu")]
         public ActionResult About()
         {
             return View();

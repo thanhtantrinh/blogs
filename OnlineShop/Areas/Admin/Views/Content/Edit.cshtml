@@ -1,11 +1,10 @@
 ﻿@using OnlineShop.Helpers
 @using Model.ViewModel
 @model ContentViewModel
-
 @{
-    
     Layout = "~/Areas/Admin/Views/Shared/_Layouts.cshtml";
     var actionStaus = (ActionResultHelper)Session["ACTION_STATUS"];
+    string formAction = String.IsNullOrWhiteSpace(ViewBag.Action) ? "Edit" : ViewBag.Action.ToString();
 }
 
 @section header{
@@ -18,9 +17,9 @@
         });
     </script>
 }
-@using (Html.BeginForm("Edit", "Content", FormMethod.Post, new { @class = "myclass", role = "form" }))
-{   
-    
+@using (Html.BeginForm( formAction, "Content", FormMethod.Post, new { @class = "myclass", role = "form" }))
+{
+
     @Html.AntiForgeryToken()
     <div class="row">
         <div class="col-lg-8">

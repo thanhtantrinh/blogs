@@ -2061,7 +2061,6 @@
     <Content Include="Areas\Admin\Views\User\Edit.cshtml" />
     <Content Include="assets\admin\js\plugins\ckfinder\plugins\fileeditor\codemirror\LICENSE" />
     <Content Include="assets\admin\js\plugins\ckfinder\userfiles\.htaccess" />
-    <Content Include="Areas\Admin\Views\Content\Create.cshtml" />
     <Content Include="assets\admin\js\plugins\ckeditor\CHANGES.md" />
     <Content Include="assets\admin\js\plugins\ckeditor\LICENSE.md" />
     <Content Include="assets\admin\js\plugins\ckeditor\plugins\scayt\LICENSE.md" />

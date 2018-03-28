@@ -127,41 +127,69 @@ namespace Model.Dao
         {
             return db.Tags.Find(id);
         }
-        public long Create(Content content)
+        public ContentViewModel Create(ContentViewModel model, out string message)
         {
-            //Xử lý alias
-            if (string.IsNullOrEmpty(content.MetaTitle))
+            ContentViewModel result = new ContentViewModel();
+            message = null;
+            var config = new MapperConfiguration(cfg =>
             {
-                content.MetaTitle = StringHelper.ToUnsignString(content.Name);
+                cfg.CreateMap<v_Content, ContentViewModel>();
+            });
+            IMapper mapper = config.CreateMapper();
+
+            try
+            {
+                Content content = new Content();
+                //Xử lý alias
+
+                //
+                content.CategoryID = model.CategoryID;
+                content.Name = model.Name.Trim();
+                content.Description = Regex.Replace(model.Description.Trim(), @"<[^>]*>", String.Empty);
+                content.Detail = model.Detail;
+                content.Image = model.Image;
+
+                //for SEO
+                if (string.IsNullOrEmpty(model.MetaTitle))                
+                    content.MetaTitle = StringHelper.ToUnsignString(model.Name);
+                else
+                    content.MetaTitle = model.MetaTitle;
+
+                content.MetaDescriptions = model.MetaDescriptions;
+                content.MetaKeywords = model.MetaKeywords;
+
+
+                content.CreatedDate = DateTime.Now;
+                content.CreatedBy = model.CreatedBy;
+                content.ModifiedDate = DateTime.Now;
+                content.ModifiedBy = model.ModifiedBy;
+
+                content.Status = model.Status;
+                content.Language = model.Language;
+                
+                content.ViewCount = 0;
+
+
+                using (var entity = db)
+                {
+                    entity.Contents.Add(content);
+                    if (db.SaveChanges() > 0)
+                    {
+                        result = mapper.Map<ContentViewModel>(db.v_Content.FirstOrDefault(m => m.ID == content.ID));
+                    }
+                    else
+                    {
+                        message = StaticResources.Resources.MSG_THE_CONTENT_HAS_CREATED_UNSUCCESSFULLY;
+                    }
+                }
             }
-            content.CreatedDate = DateTime.Now;
-            content.ViewCount = 0;
-
-            db.Contents.Add(content);
-            db.SaveChanges();
-
-            //Xử lý tag
-            //if (!string.IsNullOrEmpty(content.Tags))
-            //{
-            //    string[] tags = content.Tags.Split(',');
-            //    foreach (var tag in tags)
-            //    {
-            //        var tagId = StringHelper.ToUnsignString(tag);
-            //        var existedTag = this.CheckTag(tagId);
-
-            //        //insert to to tag table
-            //        if (!existedTag)
-            //        {
-            //            this.InsertTag(tagId, tag);
-            //        }
-
-            //        //insert to content tag
-            //        this.InsertContentTag(content.ID, tagId);
-
-            //    }
-            //}
-
-            return content.ID;
+            catch (Exception ex)
+            {
+                string subject = "Error " + SiteSetting.SiteName + " at Create at ContentDao at Model.Dao. ";
+                message = StringHelper.Parameters2ErrorString(ex, model.ID);
+                MailHelper.SendMail(SiteSetting.EmailAdmin, subject, message);
+            }
+            return result;
         }
         public ContentViewModel Update(ContentViewModel model, out string message)
         {
