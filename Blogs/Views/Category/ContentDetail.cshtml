@@ -1,0 +1,67 @@
+﻿@using Model.EF
+@using Model.ViewModel
+@model ContentViewModel
+@{
+    Breadcrumb breadcrumb = new Breadcrumb();
+}
+
+@Html.Partial("_Breadcrumb", breadcrumb)
+<div class="container-fluid">
+    <div class="animated fadeIn">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+
+                    <div class="card-header hidden-print">
+                        
+                        <i class="fa fa-calendar fa-lg"></i>&nbsp;@Model.ModifiedDate.ToShortDateString()                        
+                        &nbsp;&nbsp;
+                        <i class="fa fa-user fa-lg"></i>&nbsp;@Model.ModifiedByName
+                        &nbsp;&nbsp;
+                        <i class="fa fa-user fa-eye"></i>&nbsp;@Model.ViewCount
+
+
+                        @*<span class="btn btn-sm active float-right hidden-print"><i class="fa fa-eye fa-lg"></i>&nbsp;@Model.ViewCount</span>*@
+                        <a href="#" class="btn btn-sm btn-info float-right" onclick="javascript:window.print();"><i class="fa fa-print"></i> Print</a>
+                        <a href="#" class="btn btn-sm btn-info float-right"><i class="fa fa-save"></i> Save</a>
+                        
+                    </div>
+
+                    <div class="card-block">
+                        <div class="row">
+
+                            <div class="col-sm-12">
+                                @*<div class="w-100 mb-1 hidden-print">
+                                    <div class="">                                        
+                                        <i class="fa fa-user fa-eye"></i>&nbsp;@Model.ViewCount
+                                        &nbsp;&nbsp;
+                                        <i class="fa fa-user fa-lg"></i>&nbsp;@Model.ModifiedByName
+                                        &nbsp;&nbsp;
+                                        <i class="fa fa-calendar fa-lg"></i>&nbsp;@Model.ModifiedDate.ToShortDateString()
+                                        
+                                    </div>
+                                </div>*@
+
+                                <h3 class="mt-1 mb-1">@ViewBag.Title</h3>
+
+                                @Html.Raw(Model.Detail)
+
+                                <div class="w-100 mt-1">
+                                    <i class="fa fa-tags fa-fw"></i>
+                                    <a href="#" class="badge badge-pill badge-default">Secondary</a>
+                                    <a href="#" class="badge badge-pill badge-default">Secondary</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+<script>hljs.initHighlightingOnLoad();</script>
+}
