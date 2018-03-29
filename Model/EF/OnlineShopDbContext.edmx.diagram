@@ -5,42 +5,42 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="0aa28b2655014d78a839d14c3f68c72b" Name="Diagram1" ZoomLevel="67">
-        <EntityTypeShape EntityType="OnlineShopDbContext.Catalogue" Width="1.5" PointX="5.75" PointY="5.75" />
+        <EntityTypeShape EntityType="OnlineShopDbContext.Catalogue" Width="1.5" PointX="0.75" PointY="6.75" />
+        <EntityTypeShape EntityType="OnlineShopDbContext.Category" Width="1.5" PointX="3" PointY="1" />
         <EntityTypeShape EntityType="OnlineShopDbContext.Contact" Width="1.5" PointX="2.75" PointY="6.75" />
-        <EntityTypeShape EntityType="OnlineShopDbContext.ContentTag" Width="1.5" PointX="9.75" PointY="0.75" />
-        <EntityTypeShape EntityType="OnlineShopDbContext.Country" Width="1.5" PointX="0.75" PointY="1" />
-        <EntityTypeShape EntityType="OnlineShopDbContext.Credential" Width="1.5" PointX="2.75" PointY="9.75" />
-        <EntityTypeShape EntityType="OnlineShopDbContext.District" Width="1.5" PointX="5.25" PointY="1.875" />
-        <EntityTypeShape EntityType="OnlineShopDbContext.Feedback" Width="1.5" PointX="9.75" PointY="3.75" />
-        <EntityTypeShape EntityType="OnlineShopDbContext.Language" Width="1.5" PointX="9.75" PointY="7.75" />
-        <EntityTypeShape EntityType="OnlineShopDbContext.Menu" Width="1.5" PointX="9.75" PointY="10.75" />
-        <EntityTypeShape EntityType="OnlineShopDbContext.MenuType" Width="1.5" PointX="11.75" PointY="0.75" />
-        <EntityTypeShape EntityType="OnlineShopDbContext.Order" Width="1.5" PointX="11.75" PointY="3.75" />
-        <EntityTypeShape EntityType="OnlineShopDbContext.Product" Width="1.5" PointX="4.75" PointY="11.75" />
-        <EntityTypeShape EntityType="OnlineShopDbContext.ProductCategory" Width="1.5" PointX="6.75" PointY="11.75" />
-        <EntityTypeShape EntityType="OnlineShopDbContext.Province" Width="1.5" PointX="3" PointY="1.75" />
-        <EntityTypeShape EntityType="OnlineShopDbContext.Role" Width="1.5" PointX="11.75" PointY="7.75" />
-        <EntityTypeShape EntityType="OnlineShopDbContext.Slide" Width="1.5" PointX="11.75" PointY="10.75" />
-        <EntityTypeShape EntityType="OnlineShopDbContext.Tag" Width="1.5" PointX="0.75" PointY="12.75" />
-        <EntityTypeShape EntityType="OnlineShopDbContext.UserGroup" Width="1.5" PointX="13.75" PointY="5.75" />
-        <EntityTypeShape EntityType="OnlineShopDbContext.Ward" Width="1.5" PointX="7.5" PointY="2" />
-        <EntityTypeShape EntityType="OnlineShopDbContext.About" Width="1.5" PointX="13.75" PointY="8.75" />
-        <EntityTypeShape EntityType="OnlineShopDbContext.OrderDetail" Width="1.5" PointX="13.75" PointY="13.75" />
-        <EntityTypeShape EntityType="OnlineShopDbContext.SystemConfig" Width="1.5" PointX="8.75" PointY="14.75" />
-        <EntityTypeShape EntityType="OnlineShopDbContext.v_CatalogueInfo" Width="1.5" PointX="10.75" PointY="14.75" />
-        <EntityTypeShape EntityType="OnlineShopDbContext.v_WebAccount" Width="1.5" PointX="15.75" PointY="0.75" />
+        <EntityTypeShape EntityType="OnlineShopDbContext.Content" Width="1.5" PointX="4.75" PointY="6.75" />
+        <EntityTypeShape EntityType="OnlineShopDbContext.ContentTag" Width="1.5" PointX="6.75" PointY="6.75" />
+        <EntityTypeShape EntityType="OnlineShopDbContext.Country" Width="1.5" PointX="5.75" PointY="1" />
+        <EntityTypeShape EntityType="OnlineShopDbContext.Credential" Width="1.5" PointX="8.75" PointY="6.75" />
+        <EntityTypeShape EntityType="OnlineShopDbContext.District" Width="1.5" PointX="10.25" PointY="1.875" />
+        <EntityTypeShape EntityType="OnlineShopDbContext.Feedback" Width="1.5" PointX="6.75" PointY="9.75" />
+        <EntityTypeShape EntityType="OnlineShopDbContext.Language" Width="1.5" PointX="8.75" PointY="9.75" />
+        <EntityTypeShape EntityType="OnlineShopDbContext.Menu" Width="1.5" PointX="10.75" PointY="5.75" />
+        <EntityTypeShape EntityType="OnlineShopDbContext.MenuType" Width="1.5" PointX="10.75" PointY="9.75" />
+        <EntityTypeShape EntityType="OnlineShopDbContext.Order" Width="1.5" PointX="0.75" PointY="12.75" />
+        <EntityTypeShape EntityType="OnlineShopDbContext.Product" Width="1.5" PointX="2.75" PointY="12.75" />
+        <EntityTypeShape EntityType="OnlineShopDbContext.ProductCategory" Width="1.5" PointX="12.75" PointY="5.75" />
+        <EntityTypeShape EntityType="OnlineShopDbContext.Province" Width="1.5" PointX="8" PointY="1.75" />
+        <EntityTypeShape EntityType="OnlineShopDbContext.Role" Width="1.5" PointX="8.75" PointY="12.75" />
+        <EntityTypeShape EntityType="OnlineShopDbContext.Slide" Width="1.5" PointX="12.75" PointY="10.75" />
+        <EntityTypeShape EntityType="OnlineShopDbContext.Tag" Width="1.5" PointX="4.75" PointY="13.75" />
+        <EntityTypeShape EntityType="OnlineShopDbContext.User" Width="1.5" PointX="0.75" PointY="1" />
+        <EntityTypeShape EntityType="OnlineShopDbContext.UserGroup" Width="1.5" PointX="14.75" PointY="0.75" />
+        <EntityTypeShape EntityType="OnlineShopDbContext.Ward" Width="1.5" PointX="12.5" PointY="2" />
+        <EntityTypeShape EntityType="OnlineShopDbContext.About" Width="1.5" PointX="14.75" PointY="3.75" />
+        <EntityTypeShape EntityType="OnlineShopDbContext.OrderDetail" Width="1.5" PointX="14.75" PointY="8.75" />
+        <EntityTypeShape EntityType="OnlineShopDbContext.SystemConfig" Width="1.5" PointX="10.75" PointY="14.75" />
+        <EntityTypeShape EntityType="OnlineShopDbContext.v_CatalogueInfo" Width="1.5" PointX="14.75" PointY="11.75" />
+        <EntityTypeShape EntityType="OnlineShopDbContext.v_Category" Width="1.5" PointX="6.75" PointY="15.75" />
+        <EntityTypeShape EntityType="OnlineShopDbContext.v_CategoryOfProduct" Width="1.5" PointX="16.75" PointY="0.75" />
+        <EntityTypeShape EntityType="OnlineShopDbContext.v_Content" Width="1.5" PointX="16.75" PointY="6.75" />
+        <EntityTypeShape EntityType="OnlineShopDbContext.v_WebAccount" Width="1.5" PointX="16.75" PointY="13.75" />
+        <AssociationConnector Association="OnlineShopDbContext.FK_Category_UserCreated" />
+        <AssociationConnector Association="OnlineShopDbContext.FK_Category_UserModified" />
         <AssociationConnector Association="OnlineShopDbContext.FK_Province_Country" />
         <AssociationConnector Association="OnlineShopDbContext.FK_District_Province" />
         <AssociationConnector Association="OnlineShopDbContext.FK_Ward_District" />
-        <EntityTypeShape EntityType="OnlineShopDbContext.v_CategoryOfProduct" Width="1.5" PointX="16.75" PointY="6.75" />
-        <EntityTypeShape EntityType="OnlineShopDbContext.v_Category" Width="1.5" PointX="0.75" PointY="15.75" />
-        <EntityTypeShape EntityType="OnlineShopDbContext.Category" Width="1.5" PointX="18.625" PointY="13" />
-        <EntityTypeShape EntityType="OnlineShopDbContext.User" Width="1.5" PointX="16.375" PointY="13" />
-        <AssociationConnector Association="OnlineShopDbContext.FK_Category_UserCreated" />
-        <AssociationConnector Association="OnlineShopDbContext.FK_Category_UserModified" />
-        <EntityTypeShape EntityType="OnlineShopDbContext.v_Content" Width="1.5" PointX="13.375" PointY="16.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="OnlineShopDbContext.Content" Width="1.5" PointX="7.375" PointY="17.75" />
-        </Diagram>
+      </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>
