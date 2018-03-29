@@ -20,6 +20,7 @@ namespace Model.EF
         public long CategoryID { get; set; }
         public string CategoryName { get; set; }
         public string CategoryAlias { get; set; }
+        public bool CategoryStatus { get; set; }
         public string Description { get; set; }
         public string Image { get; set; }
         public string Detail { get; set; }
