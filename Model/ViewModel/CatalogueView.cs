@@ -65,4 +65,16 @@ namespace Model.ViewModel
         [Display(Name = "Cập nhận lần cuối ")]
         public string ModifiedBy { get; set; }
     }
+
+    public class CatalogueFilter
+    {        
+        public string SearchString { get; set; }
+        public string Status { get; set; }
+
+        public CatalogueFilter()
+        {
+            SearchString = "";
+            Status = "";            
+        }
+    }
 }

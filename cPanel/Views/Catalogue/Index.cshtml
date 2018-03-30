@@ -1,0 +1,121 @@
+﻿@using Model.ViewModel
+@using Model.EF
+@using PagedList.Mvc
+@model PagedList.IPagedList<v_CatalogueInfo>
+@{
+
+    Breadcrumb breadcrumb = new Breadcrumb();
+    int pageno = (int)ViewBag.PageNumber;
+    int currentno = ((pageno - 1) * 20) + 1;
+}
+@Html.Partial("_Breadcrumb", breadcrumb)
+
+<div class="container-fluid">
+    <div class="animated fadeIn">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fa fa-align-justify"></i> Danh sách website
+
+                        <div class="card-actions">
+                            <a href="@Url.Action("Create")">
+                                @*<small class="text-muted">docs</small>*@
+                                <i class="fa fa-plus"></i>
+                            </a>
+                        </div>
+
+                    </div>
+                    <div class="card-block">
+
+                        <table class="table table-bordered table-striped table-condensed">
+                            <thead>
+                                <tr>
+                                    <th width="35">#</th>
+                                    <th width="120">Action</th>
+                                    <th>Tên Site</th>
+                                    <th>URL</th>
+                                    <th>Trạng thái</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null && Model.Count > 0)
+                                {
+                                    foreach (var item in Model)
+                                    {
+
+                                        <tr>
+                                            <td>@currentno</td>
+                                            <td>
+                                                <span class="btn-group">
+                                                    <button type="button" class="btn btn-secondary btn-sm">
+                                                        <span class="fa fa-check-circle"></span>
+                                                    </button>
+                                                    <a href="@Url.Action("Edit",new { id=item.Id})" class="btn btn-secondary btn-sm">
+                                                        <span class="fa fa-pencil"></span>
+                                                    </a>
+                                                    <button type="button" class="btn btn-secondary btn-sm">
+                                                        <span class="fa fa-trash-o"></span>
+                                                    </button>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <a href="@Url.Action("Edit",new { id=item.Id})">
+                                                    @item.CatalogueName
+                                                </a>
+                                            </td>
+                                            <td>@item.SiteUrl</td>
+                                            <td>
+                                                <span class="badge badge-success">@item.Status</span>
+                                            </td>
+                                        </tr>
+                                        currentno = currentno + 1;
+                                    }
+
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="4">
+                                            Không tìm thấy thông tin
+                                        </td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+
+                        @*<nav>
+                            <ul class="pagination">
+                                <li class="page-item">
+                                    <a class="page-link" href="#">Prev</a>
+                                </li>
+                                <li class="page-item active">
+                                    <a class="page-link" href="#">1</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">2</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">3</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">4</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">Next</a>
+                                </li>
+                            </ul>
+                        </nav>*@
+                        @if (Model != null && Model.Count > 0)
+                        {
+                            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+                        }
+
+                    </div>
+                </div>
+            </div>
+            <!--/.col-->
+        </div>
+    </div>
+</div>

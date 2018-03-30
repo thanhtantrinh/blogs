@@ -20,22 +20,18 @@ namespace cPanel.Controllers
         [HttpGet]
         public ActionResult Login()
         {
+            LoginModel model = new LoginModel();
             if (CurrentUser != null && CurrentUser.IsAuthenticated)
             {
                 return RedirectToAction("Index");
             }
-            return View();
+            return View(model);
         }
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
         [HttpPost]
         public ActionResult Login(LoginModel model)
         {
-            var actionStatus = new ActionResultHelper();
-            actionStatus.ActionStatus = ResultSubmit.failed;
-            string errorString = "";
-            bool IsValid = true;
-
             if (ModelState.IsValid)
             {
                 //var result = dao.Login(model.UserName, Encryptor.MD5Hash(model.Password),true);
@@ -65,45 +61,32 @@ namespace cPanel.Controllers
                         }
                         else
                         {
+                            
                             ModelState.AddModelError("", "Tài khoản đang bị khoá.");
                         }
 
                     }
                     else
                     {
-                        ModelState.AddModelError("", "Mật khẩu không đúng.");
+                                             
+                        ModelState.AddModelError("Password", "Mật khẩu không đúng.");
                     }
 
                 }
                 else
                 {
+                  
                     ModelState.AddModelError("", "Tài khoản không tồn tại.");
                 }
             }
-            else
-            {
-                IsValid = false;
-                foreach (var item in ModelState.Values)
-                {
-                    if (item.Errors.Count() > 0)
-                    {
-                        var errorItems = item.Errors.Where(f => !String.IsNullOrWhiteSpace(f.ErrorMessage)).ToList();
-                        foreach (var erroritem in errorItems)
-                        {
-                            errorString += "<br />" + erroritem.ErrorMessage;
-                        }
-                    }
-                }
-                goto actionError;
-            }
+            return View(model);
+        }
 
-            actionError:
-            if (!IsValid)
-            {
-                actionStatus.ErrorReason = String.Format(SiteResource.HTML_ALERT_ERROR, SiteResource.MSG_ERROR_ENTER_DATA_FOR_FORM + errorString);
-                Session["ACTION_STATUS"] = actionStatus;
-            }
-            return View("Index");
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            Session.Clear();
+            return RedirectToAction("Login");
         }
 
         public ActionResult Index()

@@ -44,6 +44,13 @@ namespace cPanel
             "~/Content/css/vs2015.css",
             "~/Content/css/style.css"
             ));
+
+            bundles.Add(new StyleBundle("~/Content/styles").Include(
+            "~/Content/css/font-awesome.css",
+            "~/Content/css/simple-line-icons.css",            
+            "~/Content/css/style.css"
+            ));
+
             BundleTable.EnableOptimizations = false;
         }
     }

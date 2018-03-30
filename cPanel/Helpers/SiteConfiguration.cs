@@ -22,10 +22,16 @@ namespace cPanel.Helpers
         public static string ManagerBy { get; set; }
         public static string Address { get; set; }
         public static string Phones { get; set; }
+        //social
         public static string Facebook { get; set; }
         public static string Youtube { get; set; }
         public static string Twitter { get; set; }
         public static string GooglePlus { get; set; }
+        //meta
+        public static string MetaKeyword { get; set; }
+        public static string MetaDescription { get; set; }
+        public static string Author { get; set; }
+
 
         public static string DbConnectionString { get; set; }
         public static SqlConnection DbConnection { get; set; }
@@ -48,6 +54,9 @@ namespace cPanel.Helpers
             Youtube = "";
             GooglePlus = "";
             CatalogueId = 0;
+            MetaKeyword = "";
+            MetaKeyword = "";
+            Author = "";
 
             string catalogueid = ConfigurationManager.AppSettings["catalogueid"] ?? "0"; // name database
             

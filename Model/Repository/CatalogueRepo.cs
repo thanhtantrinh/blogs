@@ -9,12 +9,13 @@ using Dapper;
 using Common;
 using Model.EF;
 using AutoMapper;
+using PagedList;
 
 namespace Model.Repository
 {
     public class CatalogueRepo: BaseRepository
     {
-        public CatalogueRepo() : base(conn)
+        public CatalogueRepo() : base()
         {
 
         }
@@ -105,6 +106,53 @@ namespace Model.Repository
             return result;
         }
 
+        public IEnumerable<v_CatalogueInfo> GetCataloguesPaging(CatalogueFilter filter, int pageNumber = 1, int pageSize = 20, string SortBy = "")
+        {
+            IQueryable<v_CatalogueInfo> model = entities.v_CatalogueInfo;            
+            try
+            {
+                if (!string.IsNullOrEmpty(filter.SearchString))
+                {
+                    string searchString = filter.SearchString.Trim();
+                    model = model.Where(x => x.CatalogueName.Contains(searchString));
+                }
 
+                if (!String.IsNullOrWhiteSpace(filter.Status))
+                {
+                    switch (filter.Status.Trim())
+                    {
+                        case nameof(StatusEntity.Active):
+                            model = model.Where(w => w.Status == nameof(StatusEntity.Active));
+                            break;
+                        case nameof(StatusEntity.Locked):
+                            model = model.Where(w => w.Status == nameof(StatusEntity.Locked));
+                            break;
+                        case nameof(StatusEntity.Deleted):
+                            model = model.Where(w => w.Status == nameof(StatusEntity.Deleted));
+                            break;
+                        default:
+                            model = model.Where(w => w.Status != nameof(StatusEntity.Deleted));
+                            break;
+                    }
+                }
+
+                if (!String.IsNullOrWhiteSpace(SortBy))
+                {
+                    model = model.OrderByDescending(x => x.CreatedDate);
+                }
+                else
+                {
+                    model = model.OrderByDescending(x => x.CreatedDate);
+                }
+            }
+            catch (Exception ex)
+            {
+                string subject = "Error " + SiteSetting.SiteName + " at GetCataloguesPaging at CatalogueRepo at Model.Repository";
+                string message = StringHelper.Parameters2ErrorString(ex, conn);
+                MailHelper.SendMail(SiteSetting.EmailAdmin, subject, message);
+            }
+
+            return model.ToPagedList(pageNumber, pageSize);
+        }
     }
 }

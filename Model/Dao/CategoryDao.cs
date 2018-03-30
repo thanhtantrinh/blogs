@@ -18,7 +18,6 @@ namespace Model.Dao
         public CategoryDao()
         {
             db = new OnlineShopEntities();
-
         }
 
         public CategoryView GetByID(long Id = 0)
