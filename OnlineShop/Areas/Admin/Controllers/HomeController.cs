@@ -9,7 +9,6 @@ using OnlineShop.Helpers;
 using OnlineShop.Resource;
 using OnlineShop.Models;
 using Model;
-using OnlineShop.Common;
 using System.Web.Security;
 using OnlineShop.Filters;
 using Common;

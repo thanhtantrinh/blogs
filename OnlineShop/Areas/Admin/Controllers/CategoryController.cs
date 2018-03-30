@@ -1,6 +1,5 @@
 ﻿using Model.Dao;
 using Model.EF;
-using OnlineShop.Common;
 using OnlineShop.Helpers;
 using System;
 using System.Collections.Generic;
@@ -68,7 +67,7 @@ namespace OnlineShop.Areas.Admin.Controllers
 
             if (ModelState.IsValid)
             {
-                var currentCulture = Session[Common.CommonConstants.CurrentCulture];
+                var currentCulture = Session[CommonConstants.CurrentCulture];
 
                 model.Language = currentCulture.ToString();
                 model.CreatedBy = CurrentUser.UserID;

@@ -44,7 +44,7 @@ namespace Blogs
             "~/Content/css/vs2015.css",
             "~/Content/css/style.css"
             ));
-
+            BundleTable.EnableOptimizations = false;
         }
     }
 }

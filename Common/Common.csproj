@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Encryptor.cs" />
     <Compile Include="StaticData\CommonConstants.cs" />
     <Compile Include="ImageHelper.cs" />
     <Compile Include="MailHelper.cs" />

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Common;
 using Model.Dao;
 using Model.EF;
 using Model.Repository;

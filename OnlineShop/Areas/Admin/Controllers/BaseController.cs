@@ -1,5 +1,4 @@
-﻿using OnlineShop.Common;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -11,6 +10,8 @@ using Model.EF;
 using Model.Repository;
 using OnlineShop.Helpers;
 using OnlineShop.Identity;
+using Common;
+using OnlineShop.Models;
 
 namespace OnlineShop.Areas.Admin.Controllers
 {

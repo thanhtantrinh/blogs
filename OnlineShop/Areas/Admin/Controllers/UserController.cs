@@ -5,8 +5,9 @@ using System.Web;
 using System.Web.Mvc;
 using Model.EF;
 using Model.Dao;
-using OnlineShop.Common;
 using PagedList;
+using Common;
+using OnlineShop.Filters;
 
 namespace OnlineShop.Areas.Admin.Controllers
 {
@@ -25,13 +26,13 @@ namespace OnlineShop.Areas.Admin.Controllers
             return View(model);
         }
         [HttpGet]
-        [HasCredential(RoleID = "ADD_USER")]
+        [AuthLog(Roles = UserRoles.Admin)]
         public ActionResult Create()
         {
             return View();
         }
 
-        [HasCredential(RoleID = "EDIT_USER")]
+        [AuthLog(Roles = UserRoles.Admin)]
         public ActionResult Edit(int id)
         {
             var user = new UserDao().ViewDetail(id);

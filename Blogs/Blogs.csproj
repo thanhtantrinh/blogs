@@ -164,12 +164,21 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\css\font-awesome.css" />
+    <Content Include="Content\css\font-awesome.min.css" />
+    <Content Include="Content\css\glyphicons-filetypes.css" />
+    <Content Include="Content\css\glyphicons-social.css" />
+    <Content Include="Content\css\glyphicons.css" />
+    <Content Include="Content\css\simple-line-icons.css" />
+    <Content Include="Content\css\style.css" />
+    <Content Include="Content\css\vs2015.css" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\fonts\glyphicons-filetypes-regular.svg" />
     <Content Include="Content\fonts\glyphicons-regular.svg" />
     <Content Include="Content\fonts\glyphicons-social-regular.svg" />
     <Content Include="Content\fonts\ionicons.svg" />
     <Content Include="Content\fonts\Simple-Line-Icons.svg" />
+    <Content Include="Content\images\coming-soon.png" />
     <Content Include="Content\images\slider.jpg" />
     <Content Include="Content\img\logo.png" />
     <Content Include="Content\PagedList.css" />
@@ -568,6 +577,8 @@
     <Content Include="Content\fonts\Simple-Line-Icons.ttf" />
     <Content Include="Content\fonts\Simple-Line-Icons.woff" />
     <Content Include="Content\fonts\Simple-Line-Icons.woff2" />
+    <None Include="Properties\PublishProfiles\blogs.tantrinh.vn - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.0.0-vsdoc.js" />
     <Content Include="Scripts\jquery-3.0.0.js" />
     <Content Include="Scripts\jquery-3.0.0.min.js" />
@@ -601,7 +612,6 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
@@ -629,7 +639,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\css\" />
     <Folder Include="Content\Sass\" />
     <Folder Include="Models\" />
     <Folder Include="Views\Categories\" />

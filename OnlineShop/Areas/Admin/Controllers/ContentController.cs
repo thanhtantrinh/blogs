@@ -2,7 +2,7 @@
 using Model.Dao;
 using Model.EF;
 using Model.ViewModel;
-using OnlineShop.Common;
+
 using OnlineShop.Filters;
 using OnlineShop.Helpers;
 using OnlineShop.Resource;
@@ -75,7 +75,7 @@ namespace OnlineShop.Areas.Admin.Controllers
                 model.CreatedBy = CurrentUser.UserID;
                 model.ModifiedBy = CurrentUser.UserID;
 
-                var culture = Session[Common.CommonConstants.CurrentCulture];
+                var culture = Session[CommonConstants.CurrentCulture];
                 model.Language = culture.ToString();
 
                 remodel = dao.Create(model, out message);

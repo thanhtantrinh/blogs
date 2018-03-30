@@ -1,5 +1,5 @@
 ﻿using Model.Dao;
-using OnlineShop.Common;
+
 using OnlineShop.Models;
 using System;
 using System.Collections.Generic;
@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
 using Model.ViewModel;
+using Common;
 
 namespace OnlineShop.Controllers
 {

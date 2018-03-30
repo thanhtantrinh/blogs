@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Common;
 using System.Web.Routing;
+using OnlineShop.Models;
 
 namespace OnlineShop
 {
@@ -13,7 +14,7 @@ namespace OnlineShop
         public string RoleID { set; get; }
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
-            var session = (UserLogin)HttpContext.Current.Session[Common.CommonConstants.USER_SESSION];
+            var session = (UserLogin)HttpContext.Current.Session[CommonConstants.USER_SESSION];
             if (session == null)
             {
                 return false;
@@ -39,7 +40,7 @@ namespace OnlineShop
         }
         private List<string> GetCredentialByLoggedInUser(string userName)
         {
-            var credentials = (List<string>)HttpContext.Current.Session[Common.CommonConstants.SESSION_CREDENTIALS];
+            var credentials = (List<string>)HttpContext.Current.Session[CommonConstants.SESSION_CREDENTIALS];
             return credentials;
         }
     }

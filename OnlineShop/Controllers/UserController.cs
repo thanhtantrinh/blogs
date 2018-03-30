@@ -1,9 +1,10 @@
 ﻿using BotDetect.Web.UI.Mvc;
+using Common;
 using Facebook;
 using Model.Dao;
 using Model.EF;
 using Model.ViewModel;
-using OnlineShop.Common;
+
 using OnlineShop.Models;
 using System;
 using System.Collections.Generic;
