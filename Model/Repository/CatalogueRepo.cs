@@ -13,7 +13,7 @@ using PagedList;
 
 namespace Model.Repository
 {
-    public class CatalogueRepo: BaseRepository
+    public class CatalogueRepo : BaseRepository
     {
         public CatalogueRepo() : base()
         {
@@ -43,7 +43,7 @@ namespace Model.Repository
                     else
                     {
                         message = String.Format(StaticResources.Resources.SYSTEM_ERROR_THE_PARAMETER_LARGE_ZERO, catalogueId);
-                    }                    
+                    }
                 }
             }
             catch (Exception ex)
@@ -58,7 +58,8 @@ namespace Model.Repository
         {
             CatalogueView result = new CatalogueView();
             message = null;
-            var config = new MapperConfiguration(cfg => {
+            var config = new MapperConfiguration(cfg =>
+            {
                 cfg.CreateMap<v_CatalogueInfo, CatalogueView>();
             });
             IMapper mapper = config.CreateMapper();
@@ -66,12 +67,12 @@ namespace Model.Repository
             {
                 using (var entities = new OnlineShopEntities())
                 {
-                    var catalogue = entities.Catalogues.SingleOrDefault(s=>s.Id==model.Id);
+                    var catalogue = entities.Catalogues.SingleOrDefault(s => s.Id == model.Id);
                     ///site info
                     catalogue.SiteName = model.SiteName;
                     catalogue.SiteUrl = model.SiteUrl;
                     ///email
-                    catalogue.EmailSite = model.EmailSite;                    
+                    catalogue.EmailSite = model.EmailSite;
                     catalogue.EmailAdmin = model.EmailAdmin;
                     ///address info
                     catalogue.Address = model.Address;
@@ -88,7 +89,7 @@ namespace Model.Repository
 
                     if (entities.SaveChanges() > 0)
                     {
-                        v_CatalogueInfo catalogueInfo = entities.v_CatalogueInfo.Where(w => w.Id == catalogue.Id).FirstOrDefault();                        
+                        v_CatalogueInfo catalogueInfo = entities.v_CatalogueInfo.Where(w => w.Id == catalogue.Id).FirstOrDefault();
                         result = mapper.Map<v_CatalogueInfo, CatalogueView>(catalogueInfo);
                     }
                     else
@@ -108,7 +109,7 @@ namespace Model.Repository
 
         public IEnumerable<v_CatalogueInfo> GetCataloguesPaging(CatalogueFilter filter, int pageNumber = 1, int pageSize = 20, string SortBy = "")
         {
-            IQueryable<v_CatalogueInfo> model = entities.v_CatalogueInfo;            
+            IQueryable<v_CatalogueInfo> model = entities.v_CatalogueInfo;
             try
             {
                 if (!string.IsNullOrEmpty(filter.SearchString))
@@ -153,6 +154,70 @@ namespace Model.Repository
             }
 
             return model.ToPagedList(pageNumber, pageSize);
+        }
+        /// <summary>
+        /// Tạo mới catalogue
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="message"></param>
+        /// <returns></returns>
+        public CatalogueView CreateCatalogue(CatalogueView model, out string message)
+        {
+            CatalogueView result = new CatalogueView();
+            message = null;
+            Catalogue catalogue = new Catalogue();
+            try
+            {
+                if (model != null)
+                {
+                    ///site info
+                    ///
+                    catalogue.SiteName = model.SiteName;
+                    catalogue.SiteUrl = model.SiteUrl;
+                    catalogue.Name = model.CatalogueName;
+                    ///email
+                    catalogue.EmailSite = model.EmailSite;
+                    catalogue.EmailAdmin = model.EmailAdmin;
+                    ///address info
+                    catalogue.Address = model.Address;
+                    catalogue.Phones = model.Phones;
+                    ///seo
+                    catalogue.MetaKeywords = model.MetaKeywords;
+                    catalogue.MetaDescriptions = model.MetaDescriptions;
+                    catalogue.Facebook = model.Facebook;
+                    catalogue.Twitter = model.Twitter;
+                    catalogue.Youtube = model.Youtube;
+                    //system
+                    catalogue.CreatedBy = model.CreatedById;
+                    catalogue.CreatedDate = DateTime.Now;
+                    catalogue.ModifiedDate = DateTime.Now;
+                    catalogue.ModifiedBy = model.ModifiedById;
+                    catalogue.Status = model.Status;
+
+                    catalogue = entities.Catalogues.Add(catalogue);
+                    if (entities.SaveChanges() > 0)
+                    {
+                        result = this.GetCatalogue(catalogue.Id, out message);
+                    }
+                    else
+                    {
+                        message = StaticResources.Resources.SYSTEM_ERROR_THE_UPDATING_WEBSITE_CONFI_HAS_BEEN_FINISHED;
+                    }
+                }
+                else
+                {
+                    message = StaticResources.Resources.MSG_THE_CATEGORY_HAS_CREATED_UNSUCCESSFULLY;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                string subject = "Error " + SiteSetting.SiteName + " at CreateCatalogue at CatalogueRepo at Model.Repository. ";
+                message += subject + StringHelper.Parameters2ErrorString(ex, model.Id);
+            }
+
+            return result;
+
         }
     }
 }

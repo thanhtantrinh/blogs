@@ -163,7 +163,7 @@
     <value>Tên website</value>
   </data>
   <data name="SYSTEM_ERROR_THE_UPDATING_WEBSITE_CONFI_HAS_BEEN_FINISHED" xml:space="preserve">
-    <value>Cập nhật thông tin cấu hình hệ thống không thành công.</value>
+    <value>Cập nhật dữ liệu vào database không thành công.</value>
     <comment>SYSTEM ERROR</comment>
   </data>
   <data name="SYSTEM_ERROR_ADDING_FEEDBACK_HAS_BEEN_FINISHED" xml:space="preserve">

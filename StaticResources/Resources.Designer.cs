@@ -349,7 +349,7 @@ namespace StaticResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cập nhật thông tin cấu hình hệ thống không thành công..
+        ///   Looks up a localized string similar to Cập nhật dữ liệu vào database không thành công..
         /// </summary>
         public static string SYSTEM_ERROR_THE_UPDATING_WEBSITE_CONFI_HAS_BEEN_FINISHED {
             get {

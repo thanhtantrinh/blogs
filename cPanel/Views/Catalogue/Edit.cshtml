@@ -1,7 +1,7 @@
 ﻿@using Common
 @using Model.ViewModel
 @model Model.ViewModel.CatalogueView
-@{    
+@{
     var actionStaus = (ActionResultHelper)Session["ACTION_STATUS"];
     string formAction = String.IsNullOrWhiteSpace(ViewBag.Action) ? "Edit" : ViewBag.Action.ToString();
     Breadcrumb breadcrumb = new Breadcrumb();
@@ -10,6 +10,8 @@
 
 @using (Html.BeginForm(formAction, "Catalogue", FormMethod.Post, new { @class = "myclass", }))
 {
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Id)
     <div class="container-fluid">
         <div class="animated fadeIn">
             <div class="row">
@@ -41,19 +43,19 @@
                                     Session["ACTION_STATUS"] = null;
                                 }
 
-                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                                @Html.HiddenFor(model => model.Id)
+
+
 
                                 <div class="col-lg-8">
 
                                     <div class="card">
 
-                                        <div class="card-header">                                            
+                                        <div class="card-header">
                                             Thông tin chung
                                         </div>
 
                                         <div class="card-block">
-
+                                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                             <div class="form-group row">
                                                 @Html.LabelFor(model => model.SiteName, new { @class = "form-control-label col-md-3" })
                                                 <div class="col-md-9">
@@ -149,6 +151,17 @@
                                             SEO
                                         </div>
                                         <div class="card-block">
+
+                                            <div class="form-group row">
+                                                @Html.LabelFor(model => model.Status, new { @class = "form-control-label col-md-4" })
+                                                <div class="col-md-8">
+
+                                                    @Html.TextBoxFor(model => model.MetaKeywords, new { @class = "form-control" })
+
+                                                    @Html.ValidationMessageFor(model => model.MetaKeywords, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
                                             <div class="form-group row">
                                                 @Html.LabelFor(model => model.MetaKeywords, new { @class = "form-control-label col-md-4" })
                                                 <div class="col-md-8">

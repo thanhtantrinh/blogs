@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using Model.ViewModel;
 using cPanel.Resource;
+using StaticResources;
 
 namespace cPanel.Controllers
 {
@@ -45,14 +46,46 @@ namespace cPanel.Controllers
             //load site configtion    
             var model = new CatalogueView();
             ViewBag.Title = "Tạo catalog mới";
+            ViewBag.Action = "Create";
             return View("Edit", model);            
         }
         [HttpPost]
-        public ActionResult Create(CatalogueView model)
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(CatalogueView model, string save="")
         {
+            var actionStatus = new ActionResultHelper();
+            actionStatus.ActionStatus = ResultSubmit.failed;
+            string message = "";
+            CatalogueView result = new CatalogueView();
+
+            if (ModelState.IsValid)
+            {
+                model.CreatedById = CurrentUser.UserID;
+                model.ModifiedById = CurrentUser.UserID;
+                result = _catalogueRepo.CreateCatalogue(model, out message);
+
+                if(result!=null && result.Id > 0)
+                {
+                    if (String.IsNullOrWhiteSpace(save))
+                    {
+                        return RedirectToAction("Edit", new { id = result.Id });
+                    }
+                    else
+                    {
+                        return RedirectToAction("Create");
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("", Resources.MSG_THE_CATEGORY_HAS_CREATED_UNSUCCESSFULLY);
+                }               
+
+            }
+
             //load site configtion    
             ViewBag.Title = "Tạo catalog mới";
-            return View(model);
+            ViewBag.Action = "Create";
+            return View("Edit", model);
         }
 
         [HttpGet]
