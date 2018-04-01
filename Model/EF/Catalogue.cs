@@ -33,5 +33,6 @@ namespace Model.EF
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public Nullable<long> ModifiedBy { get; set; }
         public string Status { get; set; }
+        public string GooglePlus { get; set; }
     }
 }

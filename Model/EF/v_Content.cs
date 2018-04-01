@@ -20,7 +20,7 @@ namespace Model.EF
         public long CategoryID { get; set; }
         public string CategoryName { get; set; }
         public string CategoryAlias { get; set; }
-        public bool CategoryStatus { get; set; }
+        public string CategoryStatus { get; set; }
         public string Description { get; set; }
         public string Image { get; set; }
         public string Detail { get; set; }
@@ -33,9 +33,10 @@ namespace Model.EF
         public string ModifiedByName { get; set; }
         public string MetaKeywords { get; set; }
         public string MetaDescriptions { get; set; }
-        public bool Status { get; set; }
+        public string Status { get; set; }
         public Nullable<int> ViewCount { get; set; }
         public string Tags { get; set; }
         public string Language { get; set; }
+        public int CatalogueId { get; set; }
     }
 }

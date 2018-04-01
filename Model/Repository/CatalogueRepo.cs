@@ -35,7 +35,7 @@ namespace Model.Repository
                 {
                     var parameters = new DynamicParameters();
                     string SqlQuery = "SELECT top 1 * FROM v_CatalogueInfo WHERE Id=@catalogueId";
-                    if (catalogueId > 0)
+                    if (catalogueId >= 0)
                     {
                         parameters.Add("@catalogueId", catalogueId);
                         result = db.Query<CatalogueView>(SqlQuery, parameters).FirstOrDefault();
@@ -53,7 +53,12 @@ namespace Model.Repository
             }
             return result;
         }
-
+        /// <summary>
+        /// Update Catalogue
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="message"></param>
+        /// <returns></returns>
         public CatalogueView UpdateCatalogue(CatalogueView model, out string message)
         {
             CatalogueView result = new CatalogueView();
@@ -91,7 +96,9 @@ namespace Model.Repository
                     catalogue.Facebook = model.Facebook;
                     catalogue.Twitter = model.Twitter;
                     catalogue.Youtube = model.Youtube;
+                    catalogue.GooglePlus = model.GooglePlus;
                     //system
+                    catalogue.Status = model.Status;
                     catalogue.ModifiedDate = DateTime.Now;
                     catalogue.ModifiedBy = model.ModifiedById;
 
@@ -164,7 +171,7 @@ namespace Model.Repository
             return model.ToPagedList(pageNumber, pageSize);
         }
         /// <summary>
-        /// Tạo mới catalogue
+        /// Create a new catalogue
         /// </summary>
         /// <param name="model"></param>
         /// <param name="message"></param>
@@ -195,6 +202,7 @@ namespace Model.Repository
                     catalogue.Facebook = model.Facebook;
                     catalogue.Twitter = model.Twitter;
                     catalogue.Youtube = model.Youtube;
+                    catalogue.GooglePlus = model.GooglePlus;
                     //system
                     catalogue.CreatedBy = model.CreatedById;
                     catalogue.CreatedDate = DateTime.Now;

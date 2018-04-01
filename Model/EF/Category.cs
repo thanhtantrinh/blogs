@@ -15,6 +15,7 @@ namespace Model.EF
     public partial class Category
     {
         public long ID { get; set; }
+        public int CatalogueId { get; set; }
         public string Name { get; set; }
         public string MetaTitle { get; set; }
         public long ParentID { get; set; }
@@ -27,7 +28,7 @@ namespace Model.EF
         public long ModifiedBy { get; set; }
         public string MetaKeywords { get; set; }
         public string MetaDescriptions { get; set; }
-        public bool Status { get; set; }
+        public string Status { get; set; }
         public bool ShowOnHome { get; set; }
         public string Language { get; set; }
     

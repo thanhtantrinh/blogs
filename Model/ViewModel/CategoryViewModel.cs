@@ -63,7 +63,7 @@ namespace Model.ViewModel
         [Display(Name = "Meta Descriptions")]
         public string MetaDescriptions { get; set; }
         [Display(Name = "Xuất bản")]
-        public bool Status { get; set; }
+        public string Status { get; set; }
         [Display(Name = "Ngôn ngữ")]
         public string Language { get; set; }
         [Display(Name = "Hiện thị trang chủ")]

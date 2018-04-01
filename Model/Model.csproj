@@ -77,9 +77,6 @@
     <Compile Include="Dao\ProductDao.cs" />
     <Compile Include="Dao\SlideDao.cs" />
     <Compile Include="Dao\UserDao.cs" />
-    <Compile Include="EF\About.cs">
-      <DependentUpon>OnlineShopDbContext.tt</DependentUpon>
-    </Compile>
     <Compile Include="EF\Catalogue.cs">
       <DependentUpon>OnlineShopDbContext.tt</DependentUpon>
     </Compile>
@@ -195,6 +192,7 @@
     <Compile Include="Repository\BaseRepository.cs" />
     <Compile Include="Repository\CatalogueRepo.cs" />
     <Compile Include="Repository\CategoryRepo.cs" />
+    <Compile Include="Repository\ContentRepo.cs" />
     <Compile Include="Repository\ProductRepo.cs" />
     <Compile Include="Service\CategoryService.cs" />
     <Compile Include="Service\UserService.cs" />

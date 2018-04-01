@@ -159,27 +159,21 @@
 
                                     <label class="radio-inline" for="inline-radio1">
                                         @*<input type="radio" id="inline-radio1" name="inline-radios" value="option1">One*@
-                                        @Html.RadioButtonFor(m => m.Status, nameof(StatusEntity.Active).ToLower(), new { @class = "radio-inline" })
+                                        @Html.RadioButtonFor(m => m.Status, nameof(StatusEntity.Active), new { @class = "radio-inline" })
                                         @nameof(StatusEntity.Active)
                                     </label>
                                     &nbsp;
                                     <label class="radio-inline" for="inline-radio2">
-                                        @Html.RadioButtonFor(m => m.Status, nameof(StatusEntity.Locked).ToLower(), new { @class = "radio-inline" })
+                                        @Html.RadioButtonFor(m => m.Status, nameof(StatusEntity.Locked), new { @class = "radio-inline" })
                                         @nameof(StatusEntity.Locked)
                                     </label>
                                     &nbsp;
                                     <label class="radio-inline" for="inline-radio3">
 
-                                        @Html.RadioButtonFor(m => m.Status, nameof(StatusEntity.Deleted).ToLower(), new { @class = "radio-inline" })
+                                        @Html.RadioButtonFor(m => m.Status, nameof(StatusEntity.Deleted), new { @class = "radio-inline" })
                                         @nameof(StatusEntity.Deleted)
                                     </label>
-
-
-
-
-
-                                    @*@Html.TextBoxFor(model => model.Status, new { @class = "form-control" })*@
-
+                                    
                                     @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
                                 </div>
                             </div>

@@ -313,6 +313,24 @@ namespace StaticResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Thông tin cấu hình website được cập nhật thành công.
+        /// </summary>
+        public static string MSG_THE_SITE_CONFIGUARATION_HAS_BEEN_UPDATED_SUCCESSFULLY {
+            get {
+                return ResourceManager.GetString("MSG_THE_SITE_CONFIGUARATION_HAS_BEEN_UPDATED_SUCCESSFULLY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thông tin cấu hình website được cập nhật không thành công.
+        /// </summary>
+        public static string MSG_THE_SITE_CONFIGUARATION_HAS_BEEN_UPDATED_UNSUCCESSFULLY {
+            get {
+                return ResourceManager.GetString("MSG_THE_SITE_CONFIGUARATION_HAS_BEEN_UPDATED_UNSUCCESSFULLY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Thêm thông tin hỗ trợ không thành công.
         /// </summary>
         public static string SYSTEM_ERROR_ADDING_FEEDBACK_HAS_BEEN_FINISHED {

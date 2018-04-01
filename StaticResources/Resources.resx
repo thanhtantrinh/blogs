@@ -231,4 +231,11 @@
   <data name="LABEL_CREATE_NEW_CONTENT" xml:space="preserve">
     <value>Thêm bài viết mới</value>
   </data>
+  <data name="MSG_THE_SITE_CONFIGUARATION_HAS_BEEN_UPDATED_SUCCESSFULLY" xml:space="preserve">
+    <value>Thông tin cấu hình website được cập nhật thành công</value>
+  </data>
+  <data name="MSG_THE_SITE_CONFIGUARATION_HAS_BEEN_UPDATED_UNSUCCESSFULLY" xml:space="preserve">
+    <value>Thông tin cấu hình website được cập nhật không thành công</value>
+    <comment>CATALOGUE MANAGER</comment>
+  </data>
 </root>

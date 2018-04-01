@@ -15,9 +15,10 @@ namespace Model.EF
     public partial class v_Category
     {
         public long ID { get; set; }
+        public int CatalogueId { get; set; }
         public string Name { get; set; }
         public string MetaTitle { get; set; }
-        public bool Status { get; set; }
+        public string Status { get; set; }
         public string Language { get; set; }
         public long ParentID { get; set; }
         public int DisplayOrder { get; set; }

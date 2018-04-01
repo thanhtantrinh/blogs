@@ -123,7 +123,9 @@ namespace Model.Dao
                         //category.Language = model.Language;
                         category.Image = model.Image;
                         category.ShowOnHome = model.ShowOnHome;
+
                         category.Status = model.Status;
+
                         if (string.IsNullOrEmpty(model.MetaTitle))
                         {
                             model.MetaTitle = StringHelper.ToUnsignString(model.Name);
@@ -191,9 +193,10 @@ namespace Model.Dao
             }
             return true;
         }
+
         public List<Category> ListAll()
         {
-            var model = db.Categories.Where(x => x.Status == true).ToList();
+            var model = db.Categories.Where(x => x.Status == nameof(StatusEntity.Active)).ToList();
             return model;
         }
 
@@ -214,10 +217,19 @@ namespace Model.Dao
 
             if (!String.IsNullOrWhiteSpace(filter.Status))
             {
-                if (filter.Status.Trim() == "0")
-                    model = model.Where(w => w.Status == false);
-                else
-                    model = model.Where(w => w.Status != false);
+                switch (filter.Status.Trim())
+                {
+                    case nameof(StatusEntity.Active):
+                        model = model.Where(w => w.Status == nameof(StatusEntity.Active));
+                        break;
+                    case nameof(StatusEntity.Locked):
+                        model = model.Where(w => w.Status == nameof(StatusEntity.Locked));
+                        break;
+                    case nameof(StatusEntity.Deleted):                    
+                    default:
+                        model = model.Where(w => w.Status != nameof(StatusEntity.Deleted));
+                        break;
+                }
             }
 
             return model.OrderByDescending(x => x.CreatedDate).ToPagedList(page, pageSize);

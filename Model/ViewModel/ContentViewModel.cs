@@ -48,7 +48,7 @@ namespace Model.ViewModel
         [Display(Name = "Meta Descriptions")]
         public string MetaDescriptions { get; set; }
         [Display(Name = "Xuất bản")]
-        public bool Status { get; set; }
+        public string Status { get; set; }
         [Display(Name = "Lược xem")]
         public int ViewCount { get; set; }
         [Display(Name = "Tags")]

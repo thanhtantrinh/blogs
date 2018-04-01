@@ -16,7 +16,7 @@ namespace cPanel.Controllers
     public class CatalogueController : BaseController
     {        
         [HttpGet]        
-        public ActionResult Index(int page = 1, int pageSize = 10)
+        public ActionResult Index(int page = 1, int pageSize = 20)
         {
             CatalogueFilter filter = (CatalogueFilter)Session["CatalogueFilter"];
             if (filter == null)
@@ -31,7 +31,6 @@ namespace cPanel.Controllers
             ViewBag.PageNumber = page;
             return View(model);
         }
-
         [HttpPost]
         public ActionResult Index(CatalogueFilter filter)
         {
@@ -67,6 +66,10 @@ namespace cPanel.Controllers
 
                 if(result!=null && result.Id > 0)
                 {
+                    actionStatus.ErrorReason = String.Format(SiteResource.HTML_ALERT_SUCCESS, Resources.MSG_THE_CATEGORY_HAS_CREATED_SUCCESSFULLY);
+                    actionStatus.ActionStatus = ResultSubmit.success;
+                    Session["ACTION_STATUS"] = actionStatus;
+
                     if (!String.IsNullOrWhiteSpace(saveclose))
                     {
                         return RedirectToAction("Index");
@@ -90,7 +93,6 @@ namespace cPanel.Controllers
             ViewBag.Action = "Create";
             return View("Edit", model);
         }
-
         [HttpGet]
         public ActionResult Edit(int Id=0)
         {
@@ -112,7 +114,6 @@ namespace cPanel.Controllers
             }
             return RedirectToAction("Index");
         }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(CatalogueView model, string saveclose, string savenew)
@@ -131,22 +132,22 @@ namespace cPanel.Controllers
                 remodel = _catalogueRepo.UpdateCatalogue(model, out message);              
                 if (remodel!=null && String.IsNullOrWhiteSpace(message))
                 {
-                    actionStatus.ErrorReason = String.Format(SiteResource.HTML_ALERT_SUCCESS, SiteResource.MSG_THE_SITE_CONFIGUARATION_HAS_BEEN_UPDATED_SUCCESSFULLY);
+                    actionStatus.ErrorReason = String.Format(SiteResource.HTML_ALERT_SUCCESS, Resources.MSG_THE_SITE_CONFIGUARATION_HAS_BEEN_UPDATED_SUCCESSFULLY);
                     actionStatus.ActionStatus = ResultSubmit.success;
                     Session["ACTION_STATUS"] = actionStatus;
-
                     if (!String.IsNullOrEmpty(saveclose))                    
                         return RedirectToAction("Index");                    
-                    else if(String.IsNullOrWhiteSpace(savenew))
+                    else if (!String.IsNullOrWhiteSpace(savenew))
+                    {
                         return RedirectToAction("Create");
+                    }                        
                     else                    
-                        return RedirectToAction("Edit", new { Id = remodel.Id });
-                                     
+                        return RedirectToAction("Edit", new { Id = remodel.Id });                                     
                 }
                 else
                 {
                     IsValid = false;
-                    errorString = message;
+                    errorString = Resources.MSG_THE_SITE_CONFIGUARATION_HAS_BEEN_UPDATED_UNSUCCESSFULLY;
                     goto actionError;
                 }
             }
@@ -159,6 +160,12 @@ namespace cPanel.Controllers
             }
 
             return View(model);
+        }
+
+        [HttpGet]
+        public ActionResult Delete()
+        {
+            return RedirectToAction("Index");
         }
     }
 }

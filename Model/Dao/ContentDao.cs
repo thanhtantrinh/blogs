@@ -38,10 +38,19 @@ namespace Model.Dao
 
             if (!String.IsNullOrWhiteSpace(filter.Status))
             {
-                if (filter.Status.Trim() == "0")
-                    model = model.Where(w => w.Status == false);
-                else
-                    model = model.Where(w => w.Status != false);
+                switch (filter.Status.Trim())
+                {
+                    case nameof(StatusEntity.Active):
+                        model = model.Where(w => w.Status == nameof(StatusEntity.Active));
+                        break;
+                    case nameof(StatusEntity.Locked):
+                        model = model.Where(w => w.Status == nameof(StatusEntity.Locked));
+                        break;
+                    case nameof(StatusEntity.Deleted):                        
+                    default:
+                        model = model.Where(w => w.Status != nameof(StatusEntity.Deleted));
+                        break;
+                }
             }
 
             return model.OrderByDescending(x => x.CreatedDate).ToPagedList(pageIndex, pageSize);

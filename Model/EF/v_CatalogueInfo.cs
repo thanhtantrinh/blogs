@@ -34,6 +34,7 @@ namespace Model.EF
         public string Facebook { get; set; }
         public string Youtube { get; set; }
         public string Twitter { get; set; }
+        public string GooglePlus { get; set; }
         public string Address { get; set; }
         public string Phones { get; set; }
     }

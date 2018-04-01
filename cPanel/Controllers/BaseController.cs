@@ -16,10 +16,12 @@ namespace cPanel.Controllers
 {
     public class BaseController : Controller
     {
-        protected OnlineShopEntities db = new OnlineShopEntities();        
+        //protected OnlineShopEntities db = new OnlineShopEntities();        
         protected BaseRepository _baseRepository = new BaseRepository(SiteConfiguration.DbConnectionString);
         protected CatalogueRepo _catalogueRepo = new CatalogueRepo();
         protected ProductRepo _proRepo = new ProductRepo();
+        protected ContentRepo _contentRepo = new ContentRepo();
+
         public CustomIdentity CurrentUser;
 
         //initilizing culture on controller initialization
