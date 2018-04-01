@@ -36,9 +36,9 @@
         <EntityTypeShape EntityType="OnlineShopDbContext.User" Width="1.5" PointX="17.75" PointY="1.125" />
         <EntityTypeShape EntityType="OnlineShopDbContext.v_Category" Width="1.5" PointX="2.75" PointY="0.75" />
         <EntityTypeShape EntityType="OnlineShopDbContext.v_CategoryOfProduct" Width="1.5" PointX="7.75" PointY="15.75" />
-        <EntityTypeShape EntityType="OnlineShopDbContext.v_Content" Width="1.5" PointX="17.75" PointY="6.75" />
         <AssociationConnector Association="OnlineShopDbContext.FK_Category_UserCreated" />
         <AssociationConnector Association="OnlineShopDbContext.FK_Category_UserModified" />
+        <EntityTypeShape EntityType="OnlineShopDbContext.v_Content" Width="1.5" PointX="17.375" PointY="6.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

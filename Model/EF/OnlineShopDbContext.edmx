@@ -851,7 +851,6 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
           <EntitySet Name="Users" EntityType="OnlineShopDbContext.User" />
           <EntitySet Name="v_Category" EntityType="OnlineShopDbContext.v_Category" />
           <EntitySet Name="v_CategoryOfProduct" EntityType="OnlineShopDbContext.v_CategoryOfProduct" />
-          <EntitySet Name="v_Content" EntityType="OnlineShopDbContext.v_Content" />
           <AssociationSet Name="FK_Category_UserCreated" Association="OnlineShopDbContext.FK_Category_UserCreated">
             <End Role="User" EntitySet="Users" />
             <End Role="Category" EntitySet="Categories" />
@@ -860,6 +859,7 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
             <End Role="User" EntitySet="Users" />
             <End Role="Category" EntitySet="Categories" />
           </AssociationSet>
+          <EntitySet Name="v_Content" EntityType="OnlineShopDbContext.v_Content" />
           </EntityContainer>
         <ComplexType Name="sp_Category_Search_Paging_Sorting_Result">
           <Property Type="Int64" Name="ID" Nullable="false" />
@@ -1426,6 +1426,30 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
           <Property Name="Status" Type="Boolean" />
           <Property Name="ShowOnHome" Type="Boolean" />
         </EntityType>
+        <Association Name="FK_Category_UserCreated">
+          <End Type="OnlineShopDbContext.User" Role="User" Multiplicity="1" />
+          <End Type="OnlineShopDbContext.Category" Role="Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Category">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Category_UserModified">
+          <End Type="OnlineShopDbContext.User" Role="User" Multiplicity="1" />
+          <End Type="OnlineShopDbContext.Category" Role="Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Category">
+              <PropertyRef Name="ModifiedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityType Name="v_Content">
           <Key>
             <PropertyRef Name="ID" />
@@ -1468,30 +1492,6 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
           <Property Name="Language" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CatalogueId" Type="Int32" Nullable="false" />
         </EntityType>
-        <Association Name="FK_Category_UserCreated">
-          <End Type="OnlineShopDbContext.User" Role="User" Multiplicity="1" />
-          <End Type="OnlineShopDbContext.Category" Role="Category" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Category">
-              <PropertyRef Name="CreatedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Category_UserModified">
-          <End Type="OnlineShopDbContext.User" Role="User" Multiplicity="1" />
-          <End Type="OnlineShopDbContext.Category" Role="Category" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Category">
-              <PropertyRef Name="ModifiedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
