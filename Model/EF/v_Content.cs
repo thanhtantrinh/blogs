@@ -17,6 +17,7 @@ namespace Model.EF
         public long ID { get; set; }
         public string Name { get; set; }
         public string MetaTitle { get; set; }
+        public int CatalogueId { get; set; }
         public long CategoryID { get; set; }
         public string CategoryName { get; set; }
         public string CategoryAlias { get; set; }
@@ -37,6 +38,5 @@ namespace Model.EF
         public Nullable<int> ViewCount { get; set; }
         public string Tags { get; set; }
         public string Language { get; set; }
-        public int CatalogueId { get; set; }
     }
 }

@@ -28,7 +28,9 @@ namespace Model.EF
         }
     
         public virtual DbSet<Catalogue> Catalogues { get; set; }
+        public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Contact> Contacts { get; set; }
+        public virtual DbSet<Content> Contents { get; set; }
         public virtual DbSet<ContentTag> ContentTags { get; set; }
         public virtual DbSet<Country> Countries { get; set; }
         public virtual DbSet<Credential> Credentials { get; set; }
@@ -44,18 +46,16 @@ namespace Model.EF
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<Slide> Slides { get; set; }
         public virtual DbSet<Tag> Tags { get; set; }
+        public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserGroup> UserGroups { get; set; }
         public virtual DbSet<Ward> Wards { get; set; }
         public virtual DbSet<OrderDetail> OrderDetails { get; set; }
         public virtual DbSet<SystemConfig> SystemConfigs { get; set; }
-        public virtual DbSet<v_WebAccount> v_WebAccount { get; set; }
         public virtual DbSet<v_CatalogueInfo> v_CatalogueInfo { get; set; }
-        public virtual DbSet<Category> Categories { get; set; }
-        public virtual DbSet<Content> Contents { get; set; }
-        public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<v_Category> v_Category { get; set; }
         public virtual DbSet<v_CategoryOfProduct> v_CategoryOfProduct { get; set; }
         public virtual DbSet<v_Content> v_Content { get; set; }
+        public virtual DbSet<v_WebAccount> v_WebAccount { get; set; }
     
         public virtual ObjectResult<sp_Category_Search_Paging_Sorting_Result> sp_Category_Search_Paging_Sorting(Nullable<int> pageNbr, Nullable<int> pageSize, string sortCol)
         {

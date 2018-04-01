@@ -1,0 +1,46 @@
+﻿@using Model.Extension
+@using Model.ViewModel
+@model ContentFilter
+<div class="mb-1">
+    @using (Html.BeginForm("ContentList", "CMS", FormMethod.Post, new { @class = "form-basic" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="row">
+            <div class="col-sm-3">
+                <label>Tìm kiếm</label>
+                <div class="input-group" role="group" aria-label="...">
+                    @Html.TextBoxFor(m => m.SearchString, new { @class = "form-control", placeholder = "Nhập tên bài mới..." })
+                    <div class="input-group-btn">
+                        <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                    </div>
+                    @*<div class="input-group-btn">
+                        <a class="btn btn-primary" data-toggle="tooltip" data-placement="top" href="@Url.Action("Create","Create")" title="Thêm mới bài viết">
+                            <i class="fa fa-plus-circle"></i>
+                        </a>
+                    </div>*@              
+                </div>                
+            </div>
+
+            <div class="col-sm-2">
+                <label>Nhóm trạng thái</label>
+                <div class="input-group"> 
+                    @Html.DropDownListFor(m => m.Status, ListExtensions.StatusEntityList, new { @class = "form-control select2-single", id = "select2-1", onchange = "this.form.submit();" })                    
+                </div>             
+            </div>
+
+            <div class="col-sm-2">
+                <label>Nhóm danh bạ</label>
+                <div class="input-group">             
+                    @Html.DropDownListFor(m => m.CategoryID, ListExtensions.CategoryList, new { @class = "form-control select1-single", id = "select2-2", onchange = "this.form.submit();" })
+                </div>
+            </div>   
+            <div class="col-sm-2">
+                <label>Danh sách website</label>
+                <div class="input-group">
+                    @Html.DropDownListFor(m => m.CatalogueId, ListExtensions.CatalogueList, new { @class = "form-control select1-single", id = "select2-3", onchange = "this.form.submit();" })
+                </div>
+            </div>   
+        </div>
+    }
+</div>

@@ -25,6 +25,7 @@ namespace Model.EF
         public string Facebook { get; set; }
         public string Youtube { get; set; }
         public string Twitter { get; set; }
+        public string GooglePlus { get; set; }
         public long ManagerBy { get; set; }
         public string MetaDescriptions { get; set; }
         public string MetaKeywords { get; set; }
@@ -33,6 +34,5 @@ namespace Model.EF
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public Nullable<long> ModifiedBy { get; set; }
         public string Status { get; set; }
-        public string GooglePlus { get; set; }
     }
 }

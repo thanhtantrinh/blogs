@@ -1,6 +1,8 @@
 ﻿using Common;
 using cPanel.Filters;
+using cPanel.Resource;
 using Model.ViewModel;
+using StaticResources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +30,8 @@ namespace cPanel.Controllers
                 Session["ContentFilter"] = filter;
             }
             var model = _contentRepo.GetContentPaging(filter, page, pageSize, sortby);
+            ViewBag.PageNumber = page;
+            ViewBag.Title = "Danh sách bài viết";
             return View(model);          
         }
 
@@ -42,10 +46,45 @@ namespace cPanel.Controllers
 
             return RedirectToAction("ContentList");
         }
-
-        public ActionResult ContentEdit()
+        [HttpGet]
+        public ActionResult ContentEdit(long Id=0)
         {
-            return View();
+            var actionStatus = new ActionResultHelper();
+            actionStatus.ActionStatus = ResultSubmit.failed;
+            string errorString = "";
+            bool IsValid = true;
+
+            if (Id>0)
+            {
+                ContentViewModel model = _contentRepo.GetContentById(Id);
+                if (model == null)
+                {
+                    IsValid = false;
+                    errorString += Resources.MSG_THE_CONTENT_HAS_NOT_FOUND;
+                    goto actionError;
+                }
+                else
+                {
+                    ViewBag.Title = String.Format(Resources.LABEL_UPDATE, model.Name);                    
+                    return View(model);
+                }
+            }
+            else
+            {
+                IsValid = false;
+                errorString = Resources.MSG_THE_CONTENT_HAS_NOT_FOUND;
+                goto actionError;
+            }
+
+
+            actionError:
+            if (!IsValid)
+            {
+                actionStatus.ErrorReason = String.Format(SiteResource.HTML_ALERT_ERROR, errorString);
+                Session["ACTION_STATUS"] = actionStatus;
+            }
+            return RedirectToAction("ContentList");
+            
         }
 
         public ActionResult ContentCreate()
@@ -56,7 +95,19 @@ namespace cPanel.Controllers
         #endregion
 
         #region Catagory Manager
+        public ActionResult CategoryList()
+        {
+            return View();
+        }
 
+        public ActionResult CategoryEdit()
+        {
+            return View();
+        }
+        public ActionResult CategoryCreate()
+        {
+            return View();
+        }
         #endregion;
     }
 }

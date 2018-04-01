@@ -60,6 +60,7 @@ namespace Model.ViewModel
     public class ContentFilter
     {
         public long CategoryID { get; set; }
+        public long CatalogueId { get; set; }
         public string SearchString { get; set; }
         public string Status { get; set; }
 
@@ -68,6 +69,7 @@ namespace Model.ViewModel
             SearchString = "";
             Status = "";
             CategoryID = 0;
+            CatalogueId = 0;
         }
     }
 

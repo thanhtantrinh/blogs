@@ -38,7 +38,18 @@ namespace cPanel
                "~/Scripts/adminjs/app.js"
                ));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
+            bundles.Add(new ScriptBundle("~/bundles/js/form").Include(
+               "~/Scripts/adminjs/libs/jquery.maskedinput.js",
+               "~/Scripts/adminjs/libs/moment.js",
+               "~/Scripts/adminjs/libs/select2.js",
+               "~/Scripts/adminjs/libs/daterangepicker.js",
+               "~/Scripts/adminjs/views/advanced-forms.js"
+               ));
+
+              
+
+
+                bundles.Add(new StyleBundle("~/Content/css").Include(
             "~/Content/css/font-awesome.css",
             "~/Content/css/simple-line-icons.css",
             "~/Content/css/vs2015.css",

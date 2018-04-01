@@ -32,7 +32,9 @@ namespace Model.Extension
                 return years;
             }
         }
-
+        /// <summary>
+        /// Get all Category 
+        /// </summary>
         public static List<SelectListItem> CategoryList
         {
             get
@@ -49,14 +51,40 @@ namespace Model.Extension
             }
         }
         /// <summary>
+        /// Get all catalogue
+        /// </summary>
+        public static List<SelectListItem> CatalogueList
+        {
+            get
+            {
+                var catalogueList = new List<SelectListItem>();
+                using (var db = new OnlineShopEntities())
+                {
+                    catalogueList = db.Catalogues.Where(w => w.Status == nameof(StatusEntity.Active) && w.Id!=0)
+                                        .AsEnumerable().Select(s => new SelectListItem() { Text = s.Name, Value = s.Id.ToString() }).ToList();
+                    catalogueList.Insert(0, new SelectListItem { Text = "Tất cả", Value = "" });
+                }
+                return catalogueList;
+            }
+        }
+
+        /// <summary>
         /// get status of the entity
         /// </summary>
         public static List<SelectListItem> StatusEntityList
         {
             get
             {
-                var selectListItems = (from StatusEntity d in Enum.GetValues(typeof(StatusEntity))
-                                      select new SelectListItem() { Value = nameof(d), Text = nameof(d).ToLower() }).ToList();
+                //var selectListItems = (from StatusEntity d in Enum.GetValues(typeof(StatusEntity))
+                //                      select new SelectListItem() { Value = nameof(d), Text = nameof(d).ToLower() }).ToList();
+
+                var selectListItems = Enum.GetValues(typeof(StatusEntity)).Cast<StatusEntity>().Select(v => new SelectListItem
+                {
+                    Text = v.ToString(),
+                    //Value = ((int)v).ToString()
+                    Value = v.ToString()
+                }).ToList();
+
                 selectListItems.Insert(0, new SelectListItem { Text = "Chọn trạng thái", Value = "" });
                 return selectListItems;      
             }

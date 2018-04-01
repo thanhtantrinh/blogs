@@ -145,12 +145,10 @@ namespace Model.Dao
                 cfg.CreateMap<v_Content, ContentViewModel>();
             });
             IMapper mapper = config.CreateMapper();
-
             try
             {
                 Content content = new Content();
                 //Xử lý alias
-
                 //
                 content.CategoryID = model.CategoryID;
                 content.Name = model.Name.Trim();
@@ -255,6 +253,8 @@ namespace Model.Dao
             return result;
 
         }
+
+
         public void RemoveAllContentTag(long contentId)
         {
             db.ContentTags.RemoveRange(db.ContentTags.Where(x => x.ContentID == contentId));

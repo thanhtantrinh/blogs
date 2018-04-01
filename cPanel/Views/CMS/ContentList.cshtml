@@ -5,6 +5,7 @@
 @model PagedList.IPagedList<v_Content>
 @{
     var actionStaus = (ActionResultHelper)Session["ACTION_STATUS"];
+    ContentFilter filter = (ContentFilter)Session["ContentFilter"];
     Breadcrumb breadcrumb = new Breadcrumb();
     int pageno = (int)ViewBag.PageNumber;
     int currentno = ((pageno - 1) * 20) + 1;
@@ -19,7 +20,7 @@
                     <div class="card-header">
                         <i class="fa fa-align-justify"></i> Danh sách bài viết
                         <div class="card-actions">
-                            <a href="@Url.Action("ContentCreate")">                                
+                            <a href="@Url.Action("ContentCreate")">
                                 <i class="fa fa-plus"></i>
                             </a>
                         </div>
@@ -37,15 +38,20 @@
                             }
                             Session["ACTION_STATUS"] = null;
                         }
+
+                        @{Html.RenderPartial("_ContentFilter", filter);}
+
                         <table class="table table-bordered table-striped table-condensed">
                             <thead>
                                 <tr>
                                     <th width="35">#</th>
                                     <th width="120">Action</th>
                                     <th>Tên bài viết</th>
-                                    <th>Danh mục</th>
-                                    <th>Trạng thái</th>
-                                    <th>Ngày tạo</th>
+                                    <th width="220">Danh mục</th>
+                                    <th width="110" align="center">Trạng thái</th>
+                                    <th width="110">Người tạo</th>
+                                    <th width="110">Ngày tạo</th>
+                                    <th width="110">Cập nhật</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -75,7 +81,7 @@
                                                         <span class="fa fa-check-circle text-@textStatus"></span>
                                                     </button>
 
-                                                    <a href="@Url.Action("Edit",new { id=item.ID})" class="btn btn-secondary btn-sm">
+                                                    <a href="@Url.Action("ContentEdit",new { Id=item.ID})" class="btn btn-secondary btn-sm">
                                                         <span class="fa fa-pencil"></span>
                                                     </a>
                                                     <button type="button" class="btn btn-secondary btn-sm">
@@ -84,18 +90,27 @@
                                                 </span>
                                             </td>
                                             <td>
-                                                <a href="@Url.Action("Edit",new { id=item.ID})">
+                                                <a href="@Url.Action("ContentEdit",new { Id=item.ID})">
                                                     @item.Name
-                                                </a>
+                                                </a> <br />
+                                                <small>(Alias: @item.MetaTitle)</small>
                                             </td>
                                             <td>
-                                              @item.CategoryName
+                                                <a href="@Url.Action("CategoryEdit", new { id = item.CategoryID })">@item.CategoryName</a>
+                                                <br />
+                                                <small>(Alias: @item.CategoryAlias)</small>
                                             </td>
-                                            <td>
+                                            <td class="text-center">
                                                 <span class="badge badge-@textStatus">@item.Status</span>
                                             </td>
                                             <td>
+                                                @item.CreatedByName
+                                            </td>
+                                            <td>
                                                 @item.CreatedDate.ToShortDateString()
+                                            </td>
+                                            <td>
+                                                @item.ModifiedDate.ToShortDateString()
                                             </td>
                                         </tr>
                                         currentno = currentno + 1;
@@ -105,7 +120,7 @@
                                 else
                                 {
                                     <tr>
-                                        <td colspan="5">
+                                        <td colspan="8">
                                             Không tìm thấy thông tin
                                         </td>
                                     </tr>
@@ -115,7 +130,7 @@
                         </table>
                         @if (Model != null && Model.Count > 0)
                         {
-                            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+                            @Html.PagedListPager(Model, page => Url.Action("ContentList", new { page }))
                         }
 
                     </div>
@@ -125,3 +140,6 @@
         </div>
     </div>
 </div>
+@section scripts{
+    @Scripts.Render("~/bundles/js/form")
+}
