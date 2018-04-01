@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using Model.ViewModel;
 using cPanel.Resource;
 using StaticResources;
+using cPanel.Helpers;
 
 namespace cPanel.Controllers
 {
@@ -51,7 +52,7 @@ namespace cPanel.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(CatalogueView model, string save="")
+        public ActionResult Create(CatalogueView model, string saveclose = "", string savenew="")
         {
             var actionStatus = new ActionResultHelper();
             actionStatus.ActionStatus = ResultSubmit.failed;
@@ -66,13 +67,15 @@ namespace cPanel.Controllers
 
                 if(result!=null && result.Id > 0)
                 {
-                    if (String.IsNullOrWhiteSpace(save))
+                    if (!String.IsNullOrWhiteSpace(saveclose))
                     {
-                        return RedirectToAction("Edit", new { id = result.Id });
+                        return RedirectToAction("Index");
                     }
+                    else if (!String.IsNullOrWhiteSpace(savenew))
+                        return RedirectToAction("Create");
                     else
                     {
-                        return RedirectToAction("Create");
+                        return RedirectToAction("Edit", new { id = result.Id });                        
                     }
                 }
                 else
@@ -99,7 +102,7 @@ namespace cPanel.Controllers
 
             if (model!=null && String.IsNullOrWhiteSpace(message))
             {
-                ViewBag.Title = model.SiteName;
+                ViewBag.Title =  String.Format(Resources.LABEL_UPDATE,model.SiteName);
                 return View(model);
             }
             else
@@ -108,6 +111,54 @@ namespace cPanel.Controllers
                 Session["ACTION_STATUS"] = actionStatus;
             }
             return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(CatalogueView model, string saveclose, string savenew)
+        {
+            CatalogueView remodel = new CatalogueView();
+            var actionStatus = new ActionResultHelper();
+            actionStatus.ActionStatus = ResultSubmit.failed;
+            string errorString = "";
+            string message = "";
+            bool IsValid = true;
+
+            if (ModelState.IsValid)
+            {
+                model.ModifiedById = CurrentUser.ID;                
+
+                remodel = _catalogueRepo.UpdateCatalogue(model, out message);              
+                if (remodel!=null && String.IsNullOrWhiteSpace(message))
+                {
+                    actionStatus.ErrorReason = String.Format(SiteResource.HTML_ALERT_SUCCESS, SiteResource.MSG_THE_SITE_CONFIGUARATION_HAS_BEEN_UPDATED_SUCCESSFULLY);
+                    actionStatus.ActionStatus = ResultSubmit.success;
+                    Session["ACTION_STATUS"] = actionStatus;
+
+                    if (!String.IsNullOrEmpty(saveclose))                    
+                        return RedirectToAction("Index");                    
+                    else if(String.IsNullOrWhiteSpace(savenew))
+                        return RedirectToAction("Create");
+                    else                    
+                        return RedirectToAction("Edit", new { Id = remodel.Id });
+                                     
+                }
+                else
+                {
+                    IsValid = false;
+                    errorString = message;
+                    goto actionError;
+                }
+            }
+
+            actionError:
+            if (!IsValid)
+            {
+                actionStatus.ErrorReason = String.Format(SiteResource.HTML_ALERT_ERROR, SiteResource.MSG_ERROR_ENTER_DATA_FOR_FORM + errorString);
+                Session["ACTION_STATUS"] = actionStatus;
+            }
+
+            return View(model);
         }
     }
 }

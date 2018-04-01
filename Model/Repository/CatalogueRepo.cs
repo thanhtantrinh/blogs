@@ -68,7 +68,15 @@ namespace Model.Repository
                 using (var entities = new OnlineShopEntities())
                 {
                     var catalogue = entities.Catalogues.SingleOrDefault(s => s.Id == model.Id);
+
+                    if (catalogue == null)
+                    {
+                        message = StaticResources.Resources.MSG_THE_CATEGORY_HAS_NOT_FOUND;
+                        return null;
+                    }
+
                     ///site info
+                    catalogue.Name = model.CatalogueName;
                     catalogue.SiteName = model.SiteName;
                     catalogue.SiteUrl = model.SiteUrl;
                     ///email
@@ -87,7 +95,7 @@ namespace Model.Repository
                     catalogue.ModifiedDate = DateTime.Now;
                     catalogue.ModifiedBy = model.ModifiedById;
 
-                    if (entities.SaveChanges() > 0)
+                    if (catalogue!=null && entities.SaveChanges() > 0)
                     {
                         v_CatalogueInfo catalogueInfo = entities.v_CatalogueInfo.Where(w => w.Id == catalogue.Id).FirstOrDefault();
                         result = mapper.Map<v_CatalogueInfo, CatalogueView>(catalogueInfo);

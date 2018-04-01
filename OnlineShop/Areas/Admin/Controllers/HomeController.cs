@@ -105,7 +105,7 @@ namespace OnlineShop.Areas.Admin.Controllers
                 goto actionError;
             }
 
-        actionError:
+            actionError:
             if (!IsValid)
             {
                 actionStatus.ErrorReason = String.Format(SiteResource.HTML_ALERT_ERROR, SiteResource.MSG_ERROR_ENTER_DATA_FOR_FORM + errorString);
@@ -187,7 +187,7 @@ namespace OnlineShop.Areas.Admin.Controllers
                 goto actionError;
             }
 
-        actionError:
+            actionError:
             if (!IsValid)
             {
                 actionStatus.ErrorReason = String.Format(SiteResource.HTML_ALERT_ERROR, SiteResource.MSG_ERROR_ENTER_DATA_FOR_FORM + errorString);
