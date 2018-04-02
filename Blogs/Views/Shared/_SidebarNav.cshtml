@@ -1,4 +1,5 @@
-﻿<div class="sidebar">
+﻿
+<div class="sidebar">
     <nav class="sidebar-nav">
         <ul class="nav">
             <li class="nav-title text-center">
@@ -18,21 +19,7 @@
                         <a class="nav-link" href="@Url.Action("Detail", "Category" , new{Id=20, alias="sql-server"})"><i class="icon-puzzle"></i> SQL Query</a>
                     </li>                             
                 </ul>
-            </li>
-
-            @*<li class="nav-item nav-dropdown">
-                <a class="nav-link" href="#"><i class="icon-note"></i> ASP.NET MVC</a>
-                <ul class="nav-dropdown-items">
-                    
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="icon-note"></i> View</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="3"><i class="icon-note"></i> Partial View</a>
-                    </li>   
-                </ul>
-            </li>*@    
+            </li>  
 
             <li class="nav-item">
                 <a class="nav-link" href="@Url.Action("Detail", "Category", new{Id=15, alias="aspnet-mvc"})"><i class="icon-note"></i> ASP.NET MVC</a>
@@ -41,6 +28,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="@Url.Action("About", "Home")"><i class="fa fa-users"></i> Giới thiệu</a>
             </li>  
+
         </ul>
     </nav>
 </div>
