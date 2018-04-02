@@ -60,9 +60,6 @@ namespace Model
                     //DB.Query<WebAccount>
                     var result = db.v_WebAccount.Where(w => w.UserName == username && w.Password == password).FirstOrDefault();
                     userService = mapper.Map<WebAccount>(result);
-
-
-
                 }
             }
             catch (Exception ex)

@@ -8,6 +8,8 @@ using System.Data.SqlClient;
 using Dapper;
 using Common;
 using Model.Repository;
+using System.Net;
+using System.Web.Mvc;
 
 namespace Blogs.Helpers
 {
@@ -52,6 +54,7 @@ namespace Blogs.Helpers
             string catalogueid = ConfigurationManager.AppSettings["catalogueid"] ?? "0"; // name database
             
             var catalogueRepo = new CatalogueRepo(DbConnectionString);
+
             string message = "";
             var catalogueView = catalogueRepo.GetCatalogue(int.Parse(catalogueid), out message);
             if (catalogueView != null)
@@ -82,13 +85,16 @@ namespace Blogs.Helpers
             var conn = "data source={0};initial catalog={1};user id={2};password={3}; Pooling=True";
             DbConnectionString = String.Format(conn, dbserver, dbcatalog, dbuser, dbpass);            
             try
-            {
-                var Connection = new SqlConnection(DbConnectionString);                
+            {                
                 //Connection.Open();
+                using (var Connection = new SqlConnection(DbConnectionString))
+                {
+                    Connection.Open();
+                }
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message);                
                 throw;
             }
         }

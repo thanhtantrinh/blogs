@@ -1,4 +1,5 @@
-﻿
+﻿@using Model.ViewModel
+@model List<MenuItem>
 <div class="sidebar">
     <nav class="sidebar-nav">
         <ul class="nav">
@@ -7,28 +8,64 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="@Url.Action("Index", "Home")"><i class="icon-speedometer"></i> Dashboard <span class="badge badge-info">NEW</span></a>
-            </li>     
-  
+            </li>
+
+            @if (Model.Count > 0)
+            {
+                foreach (var item in Model)
+                {
+                    if (item.ParentId==0)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Detail", "Category", new { Id = item.Id, alias = item.Alias })"><i class="icon-note"></i> @item.Name</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item nav-dropdown">
+                            <a class="nav-link nav-dropdown-toggle" href="@Url.Action("Detail", "Category", new { Id = item.Id, alias = item.Alias })"><i class="icon-puzzle"></i> @item.Name</a>
+                            @subMenu(Model, item.ParentId)
+                        </li>
+                    }
+                }
+            }
+
             <li class="nav-item nav-dropdown">
                 <a class="nav-link nav-dropdown-toggle" href="@Url.Action("Detail", "Category", new{Id=13, alias= "sql-server" })"><i class="icon-puzzle"></i> SQL Server</a>
                 <ul class="nav-dropdown-items">
                     <li class="nav-item">
                         <a class="nav-link" href="@Url.Action("Detail", "Category", new{Id=14, alias= "stored-procedure" })"><i class="icon-puzzle"></i> Stored Procedure</a>
-                    </li> 
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="@Url.Action("Detail", "Category" , new{Id=20, alias="sql-server"})"><i class="icon-puzzle"></i> SQL Query</a>
-                    </li>                             
+                    </li>
                 </ul>
-            </li>  
+            </li>
 
             <li class="nav-item">
                 <a class="nav-link" href="@Url.Action("Detail", "Category", new{Id=15, alias="aspnet-mvc"})"><i class="icon-note"></i> ASP.NET MVC</a>
-            </li> 
+            </li>
 
             <li class="nav-item">
                 <a class="nav-link" href="@Url.Action("About", "Home")"><i class="fa fa-users"></i> Giới thiệu</a>
-            </li>  
+            </li>
 
         </ul>
     </nav>
 </div>
+
+
+@helper subMenu(List<MenuItem> subMenu, long parentId)
+{
+    @if (subMenu.Count > 0)
+    {
+        <ul class="nav-dropdown-items">
+            @foreach (var item in subMenu.Where(w=>w.ParentId==parentId).ToList())
+            {
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("Detail", "Category", new{Id=14, alias= "stored-procedure" })"><i class="icon-puzzle"></i> Stored Procedure</a>
+                </li>
+            }
+        </ul>
+    }
+}

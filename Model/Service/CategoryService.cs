@@ -9,8 +9,6 @@ namespace Model.Service
 {
     public class CategoryService
     {
-                
-
         public CategoryService()
         {
 

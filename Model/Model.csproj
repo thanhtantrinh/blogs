@@ -185,6 +185,7 @@
     <Compile Include="EF\Ward.cs">
       <DependentUpon>OnlineShopDbContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="Extension\Helper.cs" />
     <Compile Include="Extension\ListExtensions.cs" />
     <Compile Include="Models\PagingModel.cs" />
     <Compile Include="Models\UserAccount.cs" />
@@ -202,6 +203,7 @@
     <Compile Include="ViewModel\ContactModel.cs" />
     <Compile Include="ViewModel\ContentViewModel.cs" />
     <Compile Include="ViewModel\LoginModel.cs" />
+    <Compile Include="ViewModel\MenuItem.cs" />
     <Compile Include="ViewModel\OrderViewModel.cs" />
     <Compile Include="ViewModel\ProductCategoryView.cs" />
     <Compile Include="ViewModel\ProductViewModel.cs" />
