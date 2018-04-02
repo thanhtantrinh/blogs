@@ -193,6 +193,7 @@ namespace Model.Repository
                 if (content != null)
                 {
                     content.CategoryID = model.CategoryID;
+                    content.CatalogueId = model.CatalogueId;
                     content.Name = model.Name.Trim();
                     content.Description = Regex.Replace(model.Description.Trim(), @"<[^>]*>", String.Empty);
                     content.Detail = model.Detail;

@@ -30,7 +30,9 @@ namespace Model.ViewModel
     public class CategoryView
     {
         public long ID { get; set; }
-
+        [Display(Name = "Nhóm Website")]
+        [Required(ErrorMessage = "Bạn chọn nhóm Website")]
+        public int CatalogueId { get; set; }
         [Display(Name = "Tên nhóm bài viết")]
         [Required(ErrorMessage = "Bạn cần nhập thông tin")]
         public string Name { get; set; }

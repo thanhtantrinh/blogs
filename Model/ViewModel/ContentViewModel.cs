@@ -17,9 +17,15 @@ namespace Model.ViewModel
         [Display(Name = "Tên Alias")]
         [Required(ErrorMessage = "Bạn cần nhập thông tin")]
         public string MetaTitle { get; set; }
+
+        [Display(Name = "Nhóm webiste")]
+        [Required(ErrorMessage = "Bạn chọn nhóm Website")]
+        public int CatalogueId { get; set; }
+
         [Display(Name = "Tên Danh mục")]
         [Required(ErrorMessage = "Bạn chọn thông tin cho danh mục bài viết")]
         public long CategoryID { get; set; }
+        
         [Display(Name = "Tên nhóm bài viết")]        
         public string CategoryName { get; set; }
         public string CategoryAlias { get; set; }

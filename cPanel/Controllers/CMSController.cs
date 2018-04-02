@@ -107,7 +107,7 @@ namespace cPanel.Controllers
                 remodel = _contentRepo.Update(model, out message);
                 if (remodel != null && String.IsNullOrWhiteSpace(message))
                 {
-                    actionStatus.ErrorReason = String.Format(SiteResource.HTML_ALERT_SUCCESS, Resources.MSG_THE_CATEGORY_HAS_UPDATED_SUCCESSFULLY);
+                    actionStatus.ErrorReason = String.Format(SiteResource.HTML_ALERT_SUCCESS, Resources.MSG_THE_CONTENT_HAS_UPDATED_SUCCESSFULLY);
                     actionStatus.ActionStatus = ResultSubmit.success;
                     Session["ACTION_STATUS"] = actionStatus;
 
@@ -121,7 +121,7 @@ namespace cPanel.Controllers
                 else
                 {
                     IsValid = false;
-                    errorString = Resources.MSG_THE_CATEGORY_HAS_UPDATED_UNSUCCESSFULLY;
+                    errorString = Resources.MSG_THE_CONTENT_HAS_UPDATED_UNSUCCESSFULLY;
                     goto actionError;
                 }
             }

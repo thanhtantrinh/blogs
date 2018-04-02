@@ -136,8 +136,8 @@ namespace Model.Repository
                     category.Language = model.Language;
                     category.Image = model.Image;
                     category.ShowOnHome = model.ShowOnHome;
-
-                    category.Status = model.Status;
+                    category.CatalogueId = model.CatalogueId;
+                    
 
                     if (string.IsNullOrEmpty(model.MetaTitle))
                     {
@@ -148,6 +148,8 @@ namespace Model.Repository
                     category.SeoTitle = model.SeoTitle;
                     category.MetaDescriptions = model.MetaDescriptions;
                     category.MetaKeywords = model.MetaKeywords;
+
+                    category.Status = model.Status;
                     category.ModifiedBy = model.ModifiedBy;
                     category.ModifiedDate = DateTime.Now;
 
