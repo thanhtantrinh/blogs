@@ -21,8 +21,10 @@ namespace cPanel.Controllers
         protected CatalogueRepo _catalogueRepo = new CatalogueRepo();
         protected ProductRepo _proRepo = new ProductRepo();
         protected ContentRepo _contentRepo = new ContentRepo();
+        protected CategoryRepo _categoryRepo = new CategoryRepo();
 
         public CustomIdentity CurrentUser;
+        public string currentCulture = "vi";
 
         //initilizing culture on controller initialization
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)
@@ -38,7 +40,7 @@ namespace cPanel.Controllers
             if (Session[CommonConstants.CurrentCulture] != null)
             {
                 Thread.CurrentThread.CurrentCulture = new CultureInfo(Session[CommonConstants.CurrentCulture].ToString());
-                Thread.CurrentThread.CurrentUICulture = new CultureInfo(Session[CommonConstants.CurrentCulture].ToString());
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo(Session[CommonConstants.CurrentCulture].ToString());                
             }
             else
             {
@@ -46,6 +48,7 @@ namespace cPanel.Controllers
                 Thread.CurrentThread.CurrentCulture = new CultureInfo("vi");
                 Thread.CurrentThread.CurrentUICulture = new CultureInfo("vi");
             }
+            currentCulture = Session[CommonConstants.CurrentCulture].ToString();
         }
 
         // changing culture
@@ -54,13 +57,14 @@ namespace cPanel.Controllers
             Thread.CurrentThread.CurrentCulture = new CultureInfo(ddlCulture);
             Thread.CurrentThread.CurrentUICulture = new CultureInfo(ddlCulture);
             Session[CommonConstants.CurrentCulture] = ddlCulture;
+            currentCulture = Session[CommonConstants.CurrentCulture].ToString();
             return Redirect(returnUrl);
         }
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             base.OnActionExecuting(filterContext);
-        } 
-        
+        }
+
     }
 }

@@ -43,18 +43,18 @@ namespace cPanel
                "~/Scripts/adminjs/libs/moment.js",
                "~/Scripts/adminjs/libs/select2.js",
                "~/Scripts/adminjs/libs/daterangepicker.js",
+               "~/Scripts/adminjs/libs/vietalias.js",
+               "~/Scripts/adminjs/libs/ckeditor/ckeditor.js",
+               "~/Scripts/adminjs/views/ckeditor_sample.js",
                "~/Scripts/adminjs/views/advanced-forms.js"
-               ));
-
-              
-
-
-                bundles.Add(new StyleBundle("~/Content/css").Include(
-            "~/Content/css/font-awesome.css",
-            "~/Content/css/simple-line-icons.css",
-            "~/Content/css/vs2015.css",
-            "~/Content/css/style.css"
-            ));
+               ));             
+            
+            bundles.Add(new StyleBundle("~/Content/css").Include(
+                "~/Content/css/font-awesome.css",
+                "~/Content/css/simple-line-icons.css",
+                "~/Content/css/vs2015.css",
+                "~/Content/css/style.css"
+                ));
 
             bundles.Add(new StyleBundle("~/Content/styles").Include(
             "~/Content/css/font-awesome.css",

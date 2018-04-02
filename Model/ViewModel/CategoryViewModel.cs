@@ -73,6 +73,7 @@ namespace Model.ViewModel
     public class CategoryFilter
     {
         public long ParentID { get; set; }
+        public int CatalogueId { get; set; }
         public string SearchString { get; set; }
         public string Status { get; set; }
 
@@ -81,6 +82,7 @@ namespace Model.ViewModel
             SearchString = "";
             Status = "";
             ParentID = 0;
+            CatalogueId = 0;
         }
     }
 

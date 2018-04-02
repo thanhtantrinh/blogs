@@ -1,36 +1,53 @@
 .breadcrumb-menu {
-  position: absolute;
-  top: 0;
-  right: $breadcrumb-padding-x;
+    /*position: absolute;
+    top: 0;
+    right: $breadcrumb-padding-x;*/
+    margin-left: auto;
 
-  &::before {
-    display: none;
-  }
-
-  .btn {
-    padding-top: $breadcrumb-padding-y;
-    padding-bottom: $breadcrumb-padding-y;
-  }
-
-  .btn.btn-secondary {
-    color: $text-muted;
-    border: 0;
-
-    &:hover, &.active {
-      color: $body-color;
-      background: transparent;
+    &::before {
+        display: none;
     }
-  }
 
-  .open {
+    .btn {
+        padding-top: $breadcrumb-padding-y;
+        padding-bottom: $breadcrumb-padding-y;
+    }
+
     .btn.btn-secondary {
-      color: $body-color;
-      background: transparent;
-    }
-  }
+        color: $text-muted;
+        border: 0;
 
-  .dropdown-menu {
-    min-width: 180px;
-    line-height: $line-height-base;
-  }
+        &:hover, &.active {
+            color: $body-color;
+            background: transparent;
+        }
+    }
+
+    .open {
+        .btn.btn-secondary {
+            color: $body-color;
+            background: transparent;
+        }
+    }
+
+    .dropdown-menu {
+        min-width: 180px;
+        line-height: $line-height-base;
+    }
+
+
+    .btn-group {
+        vertical-align: top;
+    }
+
+    .btn {
+        padding: 0 0.75rem;
+        color: $breadcrumb-active-color;
+        vertical-align: top;
+        border: 0;
+
+        &:hover, &.active {
+            color: $body-color;            
+        }
+    }
 }

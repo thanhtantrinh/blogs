@@ -155,7 +155,6 @@ namespace Model.Repository
 
                 content.Status = model.Status;
                 content.Language = model.Language;
-
                 content.ViewCount = 0;
 
                 entities.Contents.Add(content);

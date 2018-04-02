@@ -20,9 +20,12 @@
                     <div class="card-header">
                         <i class="fa fa-align-justify"></i> Danh sách bài viết
                         <div class="card-actions">
-                            <a href="@Url.Action("ContentCreate")">
+                            <a href="#" onclick="window.location = '@Url.Action("ContentCreate")'; ">
                                 <i class="fa fa-plus"></i>
                             </a>
+                            @*<a href="@Url.Action("ContentList")">
+                                <i class="fa fa-refresh"></i>
+                            </a>*@
                         </div>
                     </div>
                     <div class="card-block">

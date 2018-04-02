@@ -8,7 +8,7 @@
     Breadcrumb breadcrumb = new Breadcrumb();
 }
 @Html.Partial("_Breadcrumb", breadcrumb)
-@using (Html.BeginForm(formAction, "Catalogue", FormMethod.Post, new { @class = "form-basic", }))
+@using (Html.BeginForm(formAction, "CMS", FormMethod.Post, new { @class = "form-basic", }))
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(m => m.ID)
@@ -23,7 +23,7 @@
                             @if (!String.IsNullOrWhiteSpace(formAction) && formAction == "ContentEdit")
                             {
                                 <div class="card-actions">
-                                    <a href="@Url.Action("ContentCreate")">
+                                    <a href="#" onclick="window.location = '@Url.Action("ContentCreate")';">
                                         <small class="fa fa-plus"></small>
                                     </a>
                                 </div>
@@ -65,7 +65,7 @@
                             <div class="form-group row">
                                 @Html.LabelFor(model => model.CategoryID, new { @class = "form-control-label col-md-3" })
                                 <div class="col-md-9">                                    
-                                    @Html.DropDownListFor(model => model.CategoryID, ListExtensions.CategoryList, new { @class = "form-control " })
+                                    @Html.DropDownListFor(model => model.CategoryID, ListExtensions.CategoryList, new { @class = "form-control select2-single", id= "select2-1" })
                                     @Html.ValidationMessageFor(model => model.CategoryID, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -73,7 +73,7 @@
                             <div class="form-group row">
                                 @Html.LabelFor(model => model.Description, new { @class = "form-control-label col-md-3" })
                                 <div class="col-md-9">
-                                    @Html.TextBoxFor(model => model.Description, new { @class = "form-control" })
+                                    @Html.TextAreaFor(model => model.Description, 5, 10,new { @class = "form-control" })
                                     @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -81,7 +81,7 @@
                             <div class="form-group row">
                                 @Html.LabelFor(model => model.Detail, new { @class = "form-control-label col-md-3" })
                                 <div class="col-md-9">
-                                    @Html.TextBoxFor(model => model.Detail, new { @class = "form-control" })
+                                    @Html.TextAreaFor(model => model.Detail, new { @class = "form-control", id= "editor" })
                                     @Html.ValidationMessageFor(model => model.Detail, "", new { @class = "text-danger" })
                                 </div>
                             </div>                              
@@ -200,5 +200,9 @@
         </div>
     </div>
 }
-
-
+@section scripts{
+    @Scripts.Render("~/bundles/js/form")
+<script>
+    initSample();
+</script>
+}

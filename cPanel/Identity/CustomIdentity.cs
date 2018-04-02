@@ -25,15 +25,21 @@ namespace cPanel.Identity
         {
             get { return _ticket; }
         }
+
         public bool IsAuthenticated
         {
             get { return true; }
         }
+        /// <summary>
+        /// UserName of the user
+        /// </summary>
         public string Name
         {
             get { return _ticket.Name; }
         }
-
+        /// <summary>
+        /// Roles of the user 
+        /// </summary>
         public string[] Roles
         {
             get
@@ -41,17 +47,22 @@ namespace cPanel.Identity
                 return _userDataPieces[0].Split(';');
             }
         }
+        /// <summary>
+        /// User Id
+        /// </summary>
         public int ID
         {
             get
             {
                 int id = 0;
                 int.TryParse(_userDataPieces[1], out id);
-
                 return id;
             }
         }
 
+        /// <summary>
+        /// User Name to display
+        /// </summary>
         public string DisplayName
         {
             get

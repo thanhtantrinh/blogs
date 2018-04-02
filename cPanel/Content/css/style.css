@@ -5300,6 +5300,7 @@ header.navbar .dropdown-item {
 .breadcrumb {
   position: relative;
   margin-bottom: 1.5rem;
+  display: flex;
 }
 
 /* line 1, ../Sass/bootstrap_src/_pagination.scss */
@@ -19600,38 +19601,54 @@ hr.transparent {
 
 /* line 1, ../Sass/core/_breadcrumb-menu.scss */
 .breadcrumb-menu {
-  position: absolute;
+  /*position: absolute;
   top: 0;
-  right: 2rem;
+  right: $breadcrumb-padding-x;*/
+  margin-left: auto;
 }
-/* line 6, ../Sass/core/_breadcrumb-menu.scss */
+/* line 7, ../Sass/core/_breadcrumb-menu.scss */
 .breadcrumb-menu::before {
   display: none;
 }
-/* line 10, ../Sass/core/_breadcrumb-menu.scss */
+/* line 11, ../Sass/core/_breadcrumb-menu.scss */
 .breadcrumb-menu .btn, .breadcrumb-menu .fc button, .fc .breadcrumb-menu button {
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
 }
-/* line 15, ../Sass/core/_breadcrumb-menu.scss */
+/* line 16, ../Sass/core/_breadcrumb-menu.scss */
 .breadcrumb-menu .btn.btn-secondary, .breadcrumb-menu .fc button, .fc .breadcrumb-menu button {
   color: #c0cadd;
   border: 0;
 }
-/* line 19, ../Sass/core/_breadcrumb-menu.scss */
+/* line 20, ../Sass/core/_breadcrumb-menu.scss */
 .breadcrumb-menu .btn.btn-secondary:hover, .breadcrumb-menu .fc button:hover, .fc .breadcrumb-menu button:hover, .breadcrumb-menu .btn.btn-secondary.active, .breadcrumb-menu .fc button.active, .fc .breadcrumb-menu button.active {
   color: #374767;
   background: transparent;
 }
-/* line 26, ../Sass/core/_breadcrumb-menu.scss */
+/* line 27, ../Sass/core/_breadcrumb-menu.scss */
 .breadcrumb-menu .open .btn.btn-secondary, .breadcrumb-menu .open .fc button, .fc .breadcrumb-menu .open button {
   color: #374767;
   background: transparent;
 }
-/* line 32, ../Sass/core/_breadcrumb-menu.scss */
+/* line 33, ../Sass/core/_breadcrumb-menu.scss */
 .breadcrumb-menu .dropdown-menu {
   min-width: 180px;
   line-height: 1.5;
+}
+/* line 39, ../Sass/core/_breadcrumb-menu.scss */
+.breadcrumb-menu .btn-group, .breadcrumb-menu .fc-button-group {
+  vertical-align: top;
+}
+/* line 43, ../Sass/core/_breadcrumb-menu.scss */
+.breadcrumb-menu .btn, .breadcrumb-menu .fc button, .fc .breadcrumb-menu button {
+  padding: 0 0.75rem;
+  color: #c0cadd;
+  vertical-align: top;
+  border: 0;
+}
+/* line 49, ../Sass/core/_breadcrumb-menu.scss */
+.breadcrumb-menu .btn:hover, .breadcrumb-menu .fc button:hover, .fc .breadcrumb-menu button:hover, .breadcrumb-menu .btn.active, .breadcrumb-menu .fc button.active, .fc .breadcrumb-menu button.active {
+  color: #374767;
 }
 
 /* line 1, ../Sass/core/_avatars.scss */
