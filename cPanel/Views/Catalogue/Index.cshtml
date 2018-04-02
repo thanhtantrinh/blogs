@@ -5,7 +5,7 @@
 @model PagedList.IPagedList<v_CatalogueInfo>
 @{
     var actionStaus = (ActionResultHelper)Session["ACTION_STATUS"];
-    Breadcrumb breadcrumb = new Breadcrumb();
+    var breadcrumb = new List<Breadcrumb>();
     int pageno = (int)ViewBag.PageNumber;
     int currentno = ((pageno - 1) * 20) + 1;
 }
@@ -48,7 +48,9 @@
                                     <th>Tên Site</th>
                                     <th>URL</th>
                                     <th>Trạng thái</th>
+                                    <th>Người tạo</th>
                                     <th>Ngày tạo</th>
+                                    <th>Ngày cập nhật</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -100,53 +102,35 @@
                                                 {
                                                     <a href="@item.SiteUrl" target="_blank">@item.SiteUrl</a>
                                                 }
-                                             </td>
-                                        <td>
-
-                                            <span class="badge badge-@textStatus">@item.Status</span>
+                                            </td>
+                                            <td>
+                                                <span class="badge badge-@textStatus">@item.Status</span>
+                                            </td>
+                                            <td>
+                                                @item.CreatedBy
                                         </td>
                                         <td>
                                             @item.CreatedDate.ToShortDateString()
                                         </td>
+                                        <td>
+                                            @item.ModifiedDate.Value.ToShortDateString()
+                                        </td>
                                     </tr>
-                                    currentno = currentno + 1;
-                                }
+                                        currentno = currentno + 1;
+                                    }
 
-                            }
-                            else
-                            {
-                                <tr>
-                                    <td colspan="5">
-                                        Không tìm thấy thông tin
-                                    </td>
-                                </tr>
-                            }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="7">
+                                            Không tìm thấy thông tin
+                                        </td>
+                                    </tr>
+                                }
 
                             </tbody>
                         </table>
-
-                        @*<nav>
-                                <ul class="pagination">
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">Prev</a>
-                                    </li>
-                                    <li class="page-item active">
-                                        <a class="page-link" href="#">1</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">2</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">3</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">4</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">Next</a>
-                                    </li>
-                                </ul>
-                            </nav>*@
 
                         @if (Model != null && Model.Count > 0)
                         {

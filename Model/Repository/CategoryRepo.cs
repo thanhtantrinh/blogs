@@ -138,13 +138,15 @@ namespace Model.Repository
                     category.ShowOnHome = model.ShowOnHome;
                     category.CatalogueId = model.CatalogueId;
                     
-
-                    if (string.IsNullOrEmpty(model.MetaTitle))
+                    if (String.IsNullOrEmpty(model.MetaTitle))
                     {
                         model.MetaTitle = StringHelper.ToUnsignString(model.Name);
                     }
+                    else
+                    {
+                        category.MetaTitle = model.MetaTitle;
+                    }
 
-                    category.MetaTitle = model.MetaTitle;
                     category.SeoTitle = model.SeoTitle;
                     category.MetaDescriptions = model.MetaDescriptions;
                     category.MetaKeywords = model.MetaKeywords;
@@ -176,7 +178,12 @@ namespace Model.Repository
             }
             return result;
         }
-
+        /// <summary>
+        /// Create a new Catatory
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="message"></param>
+        /// <returns></returns>
         public CategoryView Create(CategoryView model, out string message)
         {
             CategoryView result = new CategoryView();

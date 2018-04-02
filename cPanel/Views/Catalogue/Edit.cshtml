@@ -4,7 +4,8 @@
 @{
     var actionStaus = (ActionResultHelper)Session["ACTION_STATUS"];
     string formAction = String.IsNullOrWhiteSpace(ViewBag.Action) ? "Edit" : ViewBag.Action.ToString();
-    Breadcrumb breadcrumb = new Breadcrumb();
+    var breadcrumb = new List<Breadcrumb>();
+    breadcrumb.Add(new Breadcrumb { LinkText = "Danh sách Website", Url = Url.Action("Index") });
 }
 @Html.Partial("_Breadcrumb", breadcrumb)
 

@@ -5,7 +5,8 @@
 @{
     var actionStaus = (ActionResultHelper)Session["ACTION_STATUS"];
     string formAction = String.IsNullOrWhiteSpace(ViewBag.Action) ? "ContentEdit" : ViewBag.Action.ToString();
-    Breadcrumb breadcrumb = new Breadcrumb();
+    var breadcrumb = new List<Breadcrumb>();
+    breadcrumb.Add(new Breadcrumb { LinkText = "Bài viết", Url = Url.Action("ContentList") });
 }
 @Html.Partial("_Breadcrumb", breadcrumb)
 @using (Html.BeginForm(formAction, "CMS", FormMethod.Post, new { @class = "form-basic", }))

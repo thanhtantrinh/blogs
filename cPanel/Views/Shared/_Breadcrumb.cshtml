@@ -1,5 +1,5 @@
 ﻿@using Model.ViewModel
-@model Breadcrumb
+@model List<Breadcrumb>
 
 <ol class="breadcrumb mb-0">
     @*<li class="breadcrumb-item">Trang chủ</li>*@
@@ -8,11 +8,14 @@
         <a href="@Url.Action("Index","Home")">Trang chủ</a>
     </li>
 
-    @if (Model != null && !String.IsNullOrWhiteSpace(Model.LinkText))
+    @if (Model != null && Model.Count() > 0)
     {
-        <li class="breadcrumb-item">
-            <a href="@Model.Url">@Model.LinkText</a>
-        </li>
+        foreach (var item in Model)
+        {
+            <li class="breadcrumb-item">
+                <a href="@item.Url">@item.LinkText</a>
+            </li>
+        }
     }
 
     <li class="breadcrumb-item active">@ViewBag.Title</li>

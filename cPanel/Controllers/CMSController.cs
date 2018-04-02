@@ -145,7 +145,7 @@ namespace cPanel.Controllers
             model.ModifiedDate = DateTime.Now;
             model.CreatedDate = DateTime.Now;
             model.Language = currentCulture;
-
+            
             ViewBag.Title = "Tạo bài viết mới";
             ViewBag.Action = "ContentCreate";
             return View("ContentEdit", model);
@@ -164,11 +164,11 @@ namespace cPanel.Controllers
 
             if (ModelState.IsValid)
             {
-                model.ModifiedByName = CurrentUser.DisplayName;
-                model.CreatedByName = CurrentUser.DisplayName;
+                model.ModifiedBy = CurrentUser.ID;
+                model.CreatedBy = CurrentUser.ID;
                 model.ModifiedDate = DateTime.Now;
                 model.CreatedDate = DateTime.Now;
-                model.Language = Session[CommonConstants.CurrentCulture].ToString();
+                model.Language = currentCulture;
 
                 remodel = _contentRepo.Create(model, out message);
                 if (remodel != null && String.IsNullOrWhiteSpace(message))

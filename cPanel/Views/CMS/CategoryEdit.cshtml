@@ -5,9 +5,13 @@
 @{
     var actionStaus = (ActionResultHelper)Session["ACTION_STATUS"];
     string formAction = String.IsNullOrWhiteSpace(ViewBag.Action) ? "CategoryEdit" : ViewBag.Action.ToString();
-    Breadcrumb breadcrumb = new Breadcrumb();
+    var breadcrumb = new List<Breadcrumb>();
+    breadcrumb.Add(new Breadcrumb{LinkText= "Danh mục", Url= Url.Action("CategoryList") });
+
 }
-@Html.Partial("_Breadcrumb", breadcrumb)
+
+
+    @Html.Partial("_Breadcrumb", breadcrumb)
 @using (Html.BeginForm(formAction, "CMS", FormMethod.Post, new { @class = "form-basic", }))
 {
     @Html.AntiForgeryToken()
@@ -99,9 +103,24 @@
                         <div class="card-block">
 
                             <div class="form-group row">
+                                @Html.LabelFor(model => model.ShowOnHome, new { @class = "form-control-label col-md-4" })
+                                <div class="col-md-8">
+                                    <label class="radio-inline" for="inline-radio1">
+                                        @Html.RadioButtonFor(m => m.ShowOnHome, true, new { @class = "radio-inline" })
+                                        Hiển thị
+                                    </label>
+                                    &nbsp;
+                                    <label class="radio-inline" for="inline-radio2">
+                                        @Html.RadioButtonFor(m => m.ShowOnHome, false, new { @class = "radio-inline" })
+                                        Không hiển thị
+                                    </label>
+                                    @Html.ValidationMessageFor(model => model.ShowOnHome, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
                                 @Html.LabelFor(model => model.Status, new { @class = "form-control-label col-md-4" })
                                 <div class="col-md-8">
-
                                     <label class="radio-inline" for="inline-radio1">
                                         @*<input type="radio" id="inline-radio1" name="inline-radios" value="option1">One*@
                                         @Html.RadioButtonFor(m => m.Status, nameof(StatusEntity.Active), new { @class = "radio-inline" })

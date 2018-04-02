@@ -156,6 +156,7 @@ namespace Model.Repository
                 content.Status = model.Status;
                 content.Language = model.Language;
                 content.ViewCount = 0;
+                
 
                 entities.Contents.Add(content);
                 if (entities.SaveChanges() > 0)
@@ -180,12 +181,11 @@ namespace Model.Repository
         {
             ContentViewModel result = new ContentViewModel();
             message = null;
-            var config = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<v_Content, ContentViewModel>();
-            });
-            IMapper mapper = config.CreateMapper();
-
+            //var config = new MapperConfiguration(cfg =>
+            //{
+            //    cfg.CreateMap<v_Content, ContentViewModel>();
+            //});
+            //IMapper mapper = config.CreateMapper();
             try
             {
                 var content = entities.Contents.Find(model.ID);
@@ -211,7 +211,7 @@ namespace Model.Repository
 
                     if (entities.SaveChanges() > 0)
                     {
-                        result = mapper.Map<ContentViewModel>(GetContentById(content.ID));
+                        result = GetContentById(content.ID);
                     }
                     else
                     {

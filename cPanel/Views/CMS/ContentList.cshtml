@@ -6,7 +6,7 @@
 @{
     var actionStaus = (ActionResultHelper)Session["ACTION_STATUS"];
     ContentFilter filter = (ContentFilter)Session["ContentFilter"];
-    Breadcrumb breadcrumb = new Breadcrumb();
+    var breadcrumb = new List<Breadcrumb>();
     int pageno = (int)ViewBag.PageNumber;
     int currentno = ((pageno - 1) * 20) + 1;
 }

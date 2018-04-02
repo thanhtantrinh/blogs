@@ -25,7 +25,7 @@
             </li>
         </ul>
         @Html.Partial("_Search")
-        @*@Html.Partial("_Choselanguage")*@
+        @Html.Partial("_Choselanguage")
     </header>
 
     <div class="app-body">
@@ -36,7 +36,7 @@
             @RenderBody()
             <!-- /.conainer-fluid -->
         </main>
-        @*@Html.Partial("_AsideMenu")*@
+        @Html.Partial("_AsideMenu")
     </div>
     @Scripts.Render("~/bundles/cpaneladmin/scripts")
     @RenderSection("scripts", required: false)
