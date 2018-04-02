@@ -62,9 +62,11 @@
         <ul class="nav-dropdown-items">
             @foreach (var item in subMenu.Where(w=>w.ParentId==parentId).ToList())
             {
+
                 <li class="nav-item">
                     <a class="nav-link" href="@Url.Action("Detail", "Category", new{Id=14, alias= "stored-procedure" })"><i class="icon-puzzle"></i> Stored Procedure</a>
                 </li>
+
             }
         </ul>
     }
