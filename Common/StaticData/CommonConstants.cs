@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Common
 {
@@ -22,5 +23,12 @@ namespace Common
         public static string ADMIN_GROUP = "ADMIN";
         public static string MOD_GROUP = "MOD";
         public static string CurrentCulture { set; get; }
+    }
+    public class SitemapNode
+    {
+        public SitemapFrequency? Frequency { get; set; }
+        public DateTime? LastModified { get; set; }
+        public double? Priority { get; set; }
+        public string Url { get; set; }
     }
 }

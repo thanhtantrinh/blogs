@@ -6,6 +6,8 @@ using System.Web;
 using System.Web.Mvc;
 using Model;
 using Blogs.Helpers;
+using Common;
+using System.Text;
 
 namespace Blogs.Controllers
 {
@@ -45,5 +47,16 @@ namespace Blogs.Controllers
             
             return PartialView("_SidebarNav", model);
         }
+
+        #region For SEO
+        [Route("sitemap.xml")]
+        public ActionResult SitemapXml()
+        {
+            var sitemap = new SiteMapHelper();
+            var sitemapNodes = sitemap.GetSitemapNodes();
+            string xml = sitemap.GetSitemapDocument(sitemapNodes);
+            return this.Content(xml, "text/xml", Encoding.UTF8);
+        }
+        #endregion
     }
 }
