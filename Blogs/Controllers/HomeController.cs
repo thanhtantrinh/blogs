@@ -8,10 +8,11 @@ using Model;
 using Blogs.Helpers;
 using Common;
 using System.Text;
+using Common.Helpers;
 
 namespace Blogs.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         public ActionResult Index()
         {
@@ -31,29 +32,24 @@ namespace Blogs.Controllers
 
             return View();
         }
+        #region PartialView
 
-        
         public ActionResult SideBar()
         {
             var model = new List<MenuItem>();
             string message = "";
-            
             model = Helper.GetMenuByCatalogueId(SiteConfiguration.CatalogueId, out message);
-
-            //if (!String.IsNullOrWhiteSpace(message))
-            //{
-
-            //}     
-            
             return PartialView("_SidebarNav", model);
         }
+
+        #endregion
 
         #region For SEO
         [Route("sitemap.xml")]
         public ActionResult SitemapXml()
         {
             var sitemap = new SiteMapHelper();
-            var sitemapNodes = sitemap.GetSitemapNodes();
+            var sitemapNodes = GetSitemapNodes();
             string xml = sitemap.GetSitemapDocument(sitemapNodes);
             return this.Content(xml, "text/xml", Encoding.UTF8);
         }

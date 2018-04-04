@@ -505,16 +505,26 @@ warning 6002: The table/view 'tant4482_db.dbo.v_Content' does not have a primary
           <Property Name="Language" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6013: The table/view 'tant4482_db.dbo.v_Menu' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="v_Menu">
-          <Property Name="Id" Type="bigint" />
-          <Property Name="Name" Type="nvarchar" MaxLength="250" />
-          <Property Name="Alias" Type="varchar" MaxLength="250" />
-          <Property Name="Level" Type="int" />
-          <Property Name="ParentId" Type="bigint" />
-          <Property Name="Status" Type="nvarchar" MaxLength="20" />
-          <Property Name="Order" Type="int" />
-        </EntityType>-->
+warning 6002: The table/view 'tant4482_db.dbo.v_SiteMap' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="v_SiteMap">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Alias" />
+            <PropertyRef Name="IsCategory" />
+            <PropertyRef Name="CategoryAlias" />
+            <PropertyRef Name="CategoryID" />
+            <PropertyRef Name="CatalogueId" />
+            <PropertyRef Name="ModifiedDate" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" />
+          <Property Name="Alias" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="IsCategory" Type="int" Nullable="false" />
+          <Property Name="CategoryAlias" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="CategoryID" Type="bigint" Nullable="false" />
+          <Property Name="CatalogueId" Type="int" Nullable="false" />
+          <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
+          <Property Name="URL" Type="varchar" MaxLength="523" />
+        </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="v_WebAccount">
@@ -760,6 +770,18 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
     [v_Content].[Language] AS [Language]
     FROM [dbo].[v_Content] AS [v_Content]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="v_SiteMap" EntityType="Self.v_SiteMap" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [v_SiteMap].[Id] AS [Id], 
+    [v_SiteMap].[Alias] AS [Alias], 
+    [v_SiteMap].[IsCategory] AS [IsCategory], 
+    [v_SiteMap].[CategoryAlias] AS [CategoryAlias], 
+    [v_SiteMap].[CategoryID] AS [CategoryID], 
+    [v_SiteMap].[CatalogueId] AS [CatalogueId], 
+    [v_SiteMap].[ModifiedDate] AS [ModifiedDate], 
+    [v_SiteMap].[URL] AS [URL]
+    FROM [dbo].[v_SiteMap] AS [v_SiteMap]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="v_WebAccount" EntityType="Self.v_WebAccount" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [v_WebAccount].[UserId] AS [UserId], 
@@ -871,6 +893,7 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
             <End Role="District" EntitySet="Districts" />
             <End Role="Ward" EntitySet="Wards" />
           </AssociationSet>
+          <EntitySet Name="v_SiteMap" EntityType="OnlineShopDbContext.v_SiteMap" />
           </EntityContainer>
         <ComplexType Name="sp_Category_Search_Paging_Sorting_Result">
           <Property Type="Int64" Name="ID" Nullable="false" />
@@ -1503,6 +1526,25 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="v_SiteMap">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Alias" />
+            <PropertyRef Name="IsCategory" />
+            <PropertyRef Name="CategoryAlias" />
+            <PropertyRef Name="CategoryID" />
+            <PropertyRef Name="CatalogueId" />
+            <PropertyRef Name="ModifiedDate" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" />
+          <Property Name="Alias" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="IsCategory" Type="Int32" Nullable="false" />
+          <Property Name="CategoryAlias" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="CategoryID" Type="Int64" Nullable="false" />
+          <Property Name="CatalogueId" Type="Int32" Nullable="false" />
+          <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="URL" Type="String" MaxLength="523" FixedLength="false" Unicode="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2059,6 +2101,20 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="v_SiteMap">
+            <EntityTypeMapping TypeName="OnlineShopDbContext.v_SiteMap">
+              <MappingFragment StoreEntitySet="v_SiteMap">
+                <ScalarProperty Name="URL" ColumnName="URL" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CatalogueId" ColumnName="CatalogueId" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="CategoryAlias" ColumnName="CategoryAlias" />
+                <ScalarProperty Name="IsCategory" ColumnName="IsCategory" />
+                <ScalarProperty Name="Alias" ColumnName="Alias" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

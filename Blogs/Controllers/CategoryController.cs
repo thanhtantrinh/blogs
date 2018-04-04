@@ -13,10 +13,12 @@ namespace Blogs.Controllers
 {
     [RoutePrefix("danh-muc")]
     [Route("{action=index}")]
-    public class CategoryController : Controller
+    public class CategoryController : BaseController
     {
-        private ContentDao _contentDAO = new ContentDao();
-        private CategoryDao _categoryDAO = new CategoryDao();
+        public CategoryController() : base()
+        {
+
+        }
 
         [HttpGet]
         public ActionResult Index()
@@ -24,8 +26,7 @@ namespace Blogs.Controllers
             ViewBag.Title = "Index";
             return View();
         }
-
-        
+                
         [HttpGet]
         public ActionResult Detail(int Id=0, int page = 1, int pageSize = 10)
         {

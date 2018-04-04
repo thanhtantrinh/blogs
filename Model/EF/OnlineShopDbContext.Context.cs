@@ -56,6 +56,7 @@ namespace Model.EF
         public virtual DbSet<v_CategoryOfProduct> v_CategoryOfProduct { get; set; }
         public virtual DbSet<v_Content> v_Content { get; set; }
         public virtual DbSet<v_WebAccount> v_WebAccount { get; set; }
+        public virtual DbSet<v_SiteMap> v_SiteMap { get; set; }
     
         public virtual ObjectResult<sp_Category_Search_Paging_Sorting_Result> sp_Category_Search_Paging_Sorting(Nullable<int> pageNbr, Nullable<int> pageSize, string sortCol)
         {

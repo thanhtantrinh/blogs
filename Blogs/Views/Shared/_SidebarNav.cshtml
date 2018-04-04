@@ -14,47 +14,46 @@
             {
                 foreach (var item in Model)
                 {
-                    var submenus = Model.Where(w => w.Id == item.ParentId && w.ParentId != 0).ToList();
+                    if (item.ParentId == 0)
+                    {
+                        var submenus = Model.Where(w => w.ParentId == item.Id).ToList();
 
-                    if (item.ParentId == 0 || submenus.Count == 0)
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link" href="@Url.Action("Detail", "Category", new { Id = item.Id, alias = item.Alias })"><i class="icon-note"></i> @item.Name</a>
-                        </li>
-                    }
-                    else
-                    {
-                        if (submenus.Count > 0)
+                        if (submenus.Count == 0)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" href="@Url.Action("Detail", "Category", new { Id = item.Id, alias = item.Alias })"><i class="icon-note"></i> @item.Name</a>
+                            </li>
+                        }
+                        else
                         {
                             <li class="nav-item nav-dropdown">
                                 <a class="nav-link nav-dropdown-toggle" href="@Url.Action("Detail", "Category", new { Id = item.Id, alias = item.Alias })"><i class="icon-puzzle"></i> @item.Name</a>
-                                @subMenu(submenus, item.ParentId)
+                                @subMenu(submenus, item.Id)
                             </li>
                         }
-
                     }
                 }
             }
 
             @*<li class="nav-item nav-dropdown">
-                <a class="nav-link nav-dropdown-toggle" href="@Url.Action("Detail", "Category", new{Id=13, alias= "sql-server" })"><i class="icon-puzzle"></i> SQL Server</a>
-                <ul class="nav-dropdown-items">
-                    <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("Detail", "Category", new{Id=14, alias= "stored-procedure" })"><i class="icon-puzzle"></i> Stored Procedure</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("Detail", "Category" , new{Id=20, alias="sql-server"})"><i class="icon-puzzle"></i> SQL Query</a>
-                    </li>
-                </ul>
-            </li>
+                    <a class="nav-link nav-dropdown-toggle" href="@Url.Action("Detail", "Category", new{Id=13, alias= "sql-server" })"><i class="icon-puzzle"></i> SQL Server</a>
+                    <ul class="nav-dropdown-items">
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Detail", "Category", new{Id=14, alias= "stored-procedure" })"><i class="icon-puzzle"></i> Stored Procedure</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Detail", "Category" , new{Id=20, alias="sql-server"})"><i class="icon-puzzle"></i> SQL Query</a>
+                        </li>
+                    </ul>
+                </li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="@Url.Action("Detail", "Category", new{Id=15, alias="aspnet-mvc"})"><i class="icon-note"></i> ASP.NET MVC</a>
-            </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("Detail", "Category", new{Id=15, alias="aspnet-mvc"})"><i class="icon-note"></i> ASP.NET MVC</a>
+                </li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="@Url.Action("About", "Home")"><i class="fa fa-users"></i> Giới thiệu</a>
-            </li>*@
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("About", "Home")"><i class="fa fa-users"></i> Giới thiệu</a>
+                </li>*@
 
         </ul>
     </nav>
@@ -62,19 +61,17 @@
 
 
 @helper subMenu(List<MenuItem> menus, long parentId)
+{
+    var subMenu = menus.Where(p => p.ParentId == parentId).ToList();
+    if (subMenu.Count > 0)
     {
-        var subMenu = menus.Where(p => p.ParentId == parentId).ToList();
-        if (subMenu.Count > 0)
-        {
             <ul class="nav-dropdown-items">
-
                 @foreach (var item in subMenu)
                 {
                     <li class="nav-item">
                         <a class="nav-link" href="@Url.Action("Detail", "Category", new { Id=item.Id, alias= item.Alias })"><i class="icon-puzzle"></i> @item.Name</a>
                     </li>
                 }
-
             </ul>
-        }
+    }
 }

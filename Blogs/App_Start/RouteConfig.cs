@@ -14,7 +14,7 @@ namespace Blogs
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.MapRoute(
                name: "About-Me",
-               url: "tu-su",
+               url: "gioi-thieu-blog",
                defaults: new { controller = "Home", action = "About" }
             );
 
@@ -32,10 +32,14 @@ namespace Blogs
 
             routes.MapRoute(
                 name: "ContentDetail",
-                url: "{CategoryAlias}/{alias}-{Id}",
+                url: "{CategoryAlias}-{CategoryId}/{alias}-{Id}",
                 defaults: new { controller = "Category", action = "ContentDetail", Id = UrlParameter.Optional }
             );
-
+            routes.MapRoute(
+            "Sitemap",
+            "sitemap.xml",
+            new { controller = "Home", action = "SitemapXml" }
+            );
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

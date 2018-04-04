@@ -47,5 +47,40 @@ namespace Model
             }
             return result;
         }
+        /// <summary>
+        /// Get SiteMap from database
+        /// </summary>
+        /// <param name="catalogueId"></param>
+        /// <param name="message"></param>
+        /// <returns></returns>
+        public static List<SiteMapItem> GetSiteMap(long catalogueId, out string message)
+        {
+            var result = new List<SiteMapItem>();
+            message = null;
+            try
+            {
+                using (var db = new SqlConnection(conn))
+                {
+                    var parameters = new DynamicParameters();
+                    string SqlQuery = "SELECT * FROM v_SiteMap WHERE CatalogueId=@catalogueId";
+                    if (catalogueId >= 0)
+                    {
+                        parameters.Add("@catalogueId", catalogueId);
+                        result = db.Query<SiteMapItem>(SqlQuery, parameters).ToList();
+                    }
+                    else
+                    {
+                        message = String.Format(StaticResources.Resources.SYSTEM_ERROR_THE_PARAMETER_LARGE_ZERO, catalogueId);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string subject = "Error " + SiteSetting.SiteName + " at GetSiteMap at Helper at Model.Extension";
+                message += subject + StringHelper.Parameters2ErrorString(ex, catalogueId);
+
+            }
+            return result;
+        }
     }
 }
