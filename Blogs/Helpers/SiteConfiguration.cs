@@ -28,6 +28,7 @@ namespace Blogs.Helpers
         public static string Youtube { get; set; }
         public static string Twitter { get; set; }
         public static string GooglePlus { get; set; }
+        public static string MetaDescriptions { get; set; }
 
         public static string DbConnectionString { get; set; }
         public static SqlConnection DbConnection { get; set; }
@@ -64,10 +65,11 @@ namespace Blogs.Helpers
                 SiteUrl = catalogueView.SiteUrl;
                 EmailAdmin = catalogueView.EmailAdmin;
                 EmailSite = catalogueView.EmailSite;
-                ManagerBy = catalogueView.ManagerBy;
+                ManagerBy = !String.IsNullOrWhiteSpace(catalogueView.ManagerBy) ? catalogueView.ManagerBy : ""; ;
                 Address = !String.IsNullOrWhiteSpace(catalogueView.Address) ? catalogueView.Address : "";
                 Phones = !String.IsNullOrWhiteSpace(catalogueView.Phones) ? catalogueView.Phones : "";
                 CatalogueId = catalogueView.Id;
+                MetaDescriptions = catalogueView.MetaDescriptions;
                 //social netword
                 Facebook = !String.IsNullOrWhiteSpace(catalogueView.Facebook) ? catalogueView.Facebook : "";
                 Twitter = !String.IsNullOrWhiteSpace(catalogueView.Twitter) ? catalogueView.Twitter : "";

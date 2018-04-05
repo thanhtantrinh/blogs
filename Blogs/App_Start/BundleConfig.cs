@@ -46,5 +46,7 @@ namespace Blogs
             ));
             BundleTable.EnableOptimizations = false;
         }
+
+        
     }
 }

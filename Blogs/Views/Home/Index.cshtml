@@ -1,9 +1,31 @@
-﻿@using Model.ViewModel
+﻿@using MXTires.Microdata.Intangible
+@using MXTires.Microdata
+@using MXTires.Microdata.Intangible.Enumeration
+@using Model.ViewModel
+@using Blogs.Helpers
 @{
     ViewBag.Title = "Dashboard";
     Breadcrumb breadcrumb = new Breadcrumb();
     //breadcrumb.Url = Url.Action("Index", "Home");
     //breadcrumb.LinkText = "Home";
+    WebSite webSite = new WebSite();
+    webSite.Url = SiteConfiguration.SiteUrl;
+    webSite.Name = SiteConfiguration.SiteName;
+    webSite.PotentialAction = new SearchAction()
+    {
+        Target = new MXTires.Microdata.Intangible.EntryPoint() { UrlTemplate = SiteConfiguration.SiteUrl+"/Search/?q={q}", },
+        //Query = "required name=q",
+        QueryInput = new PropertyValueSpecification() { ValueName = "q", ValueRequired = true, MultipleValues = true },
+        ActionStatus = MXTires.Microdata.Intangible.Enumeration.ActionStatusType.PotentialActionStatus,
+    };
+    webSite.Author = new Person() { Name="Tan Trinh"};
+    webSite.Description = SiteConfiguration.MetaDescriptions;
+    webSite.Publisher = new Organization() { Name=SiteConfiguration.ManagerBy};
+}
+
+@section scripts
+{
+    @Html.Raw(webSite.ToIndentedJson())
 }
 
 @Html.Partial("_Breadcrumb", breadcrumb)
@@ -43,4 +65,3 @@
         </div>
     </div>
 </div>
-

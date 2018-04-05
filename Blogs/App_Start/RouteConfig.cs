@@ -12,6 +12,7 @@ namespace Blogs
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+
             routes.MapRoute(
                name: "About-Me",
                url: "gioi-thieu-blog",
@@ -40,11 +41,15 @@ namespace Blogs
             "sitemap.xml",
             new { controller = "Home", action = "SitemapXml" }
             );
+
+            //routes.MapRoute("RobotsText", "robots.txt", new { controller = "Home", action = "RobotsText" });
+            routes.MapRoute(name: "RobotsText", url: "robots.txt", defaults: new { controller = "Home", action = "RobotsText" });
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+            routes.IgnoreRoute("robots.txt");
         }
     }
 }

@@ -1,5 +1,18 @@
 ﻿@using Model.ViewModel
+@using MXTires.Microdata.Intangible
+@using MXTires.Microdata
+@using MXTires.Microdata.Intangible.Enumeration
+@using Blogs.Helpers
 @model Breadcrumb
+
+@{ 
+    var breadcrumbList = new BreadcrumbList();
+    breadcrumbList.ItemListElement = new LinkedList<ListItem>();
+    breadcrumbList.ItemListElement.AddLast(new ListItem()
+    {
+        Item = new Thing() { Name = "Trang chủ", Url = SiteConfiguration.SiteUrl, Id = SiteConfiguration.SiteUrl },
+    });
+}
 
 <ol class="breadcrumb mb-0">
     @*<li class="breadcrumb-item">Trang chủ</li>*@
@@ -10,10 +23,36 @@
 
     @if (Model != null && !String.IsNullOrWhiteSpace(Model.LinkText))
     {
+        breadcrumbList.ItemListElement.AddLast(new ListItem()
+        {
+            Item = new Thing() { Name = Model.LinkText, Url = Model.Url, Id = Model.Url },
+        });
+
         <li class="breadcrumb-item">
             <a href="@Model.Url">@Model.LinkText</a>
         </li>
     }
 
     <li class="breadcrumb-item active">@ViewBag.Title</li>
+
 </ol>
+@{ 
+    breadcrumbList.ItemListElement.AddLast(new ListItem()
+    {
+        Item = new Thing() { Name = ViewBag.Title, Url = "#", Id = "#" },
+    });
+
+    if (breadcrumbList.ItemListOrder == ItemListOrderType.ItemListOrderAscending)
+    {
+        var i = 1;
+        for (LinkedListNode<ListItem> currentNode = breadcrumbList.ItemListElement.First; currentNode != null; currentNode = currentNode.Next)
+        {
+            currentNode.Value.Position = i++;
+            //currentNode.Value.Type = currentNode.Value.Url;                    
+            //currentNode.Value.NextItem = currentNode.Next == null ? null : currentNode.Next.Value;
+            //currentNode.Value.PreviousItem = currentNode.Previous == null ? null : currentNode.Previous.Value;
+        }
+    }
+}
+
+@Html.Raw(breadcrumbList.ToIndentedJson())
