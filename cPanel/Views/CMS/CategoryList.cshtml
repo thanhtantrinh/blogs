@@ -47,6 +47,7 @@
                                     <th width="120">Action</th>
                                     <th>Danh mục</th>
                                     <th width="220">Danh mục cha</th>
+                                    <th width="220">Website</th>
                                     <th width="110" align="center">Trạng thái</th>
                                     <th width="110">Người tạo</th>
                                     <th width="110">Ngày tạo</th>
@@ -104,7 +105,9 @@
                                                     @item.ParentCategoryName
                                                 }
                                             </td>
-
+                                            <td class="text-center">
+                                                @item.CatalogueId
+                                            </td>
                                             <td class="text-center">
                                                 <span class="badge badge-@textStatus">@item.Status</span>
                                             </td>
@@ -125,7 +128,7 @@
                                 else
                                 {
                                     <tr>
-                                        <td colspan="8">
+                                        <td colspan="9">
                                             Không tìm thấy thông tin
                                         </td>
                                     </tr>

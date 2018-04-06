@@ -8,6 +8,7 @@ using Model.ViewModel;
 using Model.EF;
 using System.Net;
 using StaticResources;
+using Common;
 
 namespace Blogs.Controllers
 {
@@ -34,11 +35,10 @@ namespace Blogs.Controllers
             ContentFilter filter = (ContentFilter)Session["ContentFilter"];
             if (filter == null)
             {
-                filter = new ContentFilter();
-                filter.Status = "1";
+                filter = new ContentFilter();                
                 Session["ContentFilter"] = filter;
             }
-
+            filter.Status = nameof(StatusEntity.Active);
             if (Id>0)
             {
                 filter.CategoryID = Id;

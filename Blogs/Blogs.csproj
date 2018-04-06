@@ -217,6 +217,7 @@
     <Content Include="Images\clients\logo-3.jpg" />
     <Content Include="Images\clients\logo-4.jpg" />
     <Content Include="Images\clients\logo-5.jpg" />
+    <Content Include="Images\Content\json-ld-1.jpg" />
     <Content Include="Images\favicon.png" />
     <Content Include="Images\flags\Afghanistan.png" />
     <Content Include="Images\flags\African Union.png" />

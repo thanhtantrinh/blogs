@@ -89,6 +89,7 @@ namespace cPanel.Controllers
             return RedirectToAction("Login");
         }
 
+        [OutputCache(Duration = 3600, VaryByCustom = "User")]
         public ActionResult Index()
         {
             return View();
