@@ -17,7 +17,7 @@ namespace OnlineShop.Controllers
     {
         private const string CartSession = "CartSession";
         
-        // GET: Cart
+        [Route("gio-hang")]
         public ActionResult Index()
         {
             var cart = Session[CartSession];
@@ -81,6 +81,23 @@ namespace OnlineShop.Controllers
             Session[CartSession] = sessionCart;
             return Json(new { status = true, result = RenderRazorViewToString("partialCart", sessionCart) });
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Update(int[] quantity)
+        {            
+            var sessionCart = (List<CartItem>)Session[CartSession];
+            int step = 0;
+            foreach (var item in sessionCart)
+            {
+                item.Quantity = quantity[step];
+                step++;
+            }
+            Session[CartSession] = sessionCart;
+
+            return RedirectToAction("Index");
+        }
+
         [HttpPost]
         public ActionResult AddItem(long ID, int quantity = 1)
         {
@@ -96,6 +113,7 @@ namespace OnlineShop.Controllers
                         if (item.Product.ID == ID)
                         {
                             item.Quantity += quantity;
+                            item.isProduct = true;
                         }
                     }
                 }
@@ -115,7 +133,7 @@ namespace OnlineShop.Controllers
                 //tạo mới đối tượng cart item
                 var item = new CartItem();
                 item.Product = product;
-                item.Quantity = quantity;
+                item.Quantity = quantity;                
                 var list = new List<CartItem>();
                 list.Add(item);
                 //Gán vào session
@@ -134,10 +152,7 @@ namespace OnlineShop.Controllers
                 cartItems = (List<CartItem>)cart;
                 model.cartItems = cartItems;
             }
-
-            var address = new AddressDao();
-            var provinces = address.getProvinces();            
-            ViewBag.provinces = new SelectList(provinces, "Id", "Name", 0);
+            model.shippingdetail.ProvinceId = 79;
 
             return View(model);
         }

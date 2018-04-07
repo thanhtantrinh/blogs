@@ -13,12 +13,12 @@ namespace OnlineShop.Models
         public List<CartItem> cartItems { get; set; }
         public Shipping shippingdetail { get; set; }
         public Payment paymentdetail { get; set; }
-        public SelectListItem[] provinces { get; set; }
+        
 
         public PaymentViewModel()
         {
-            var addressDB = new AddressDao();
-            this.provinces = addressDB.getProvinces().Select(s=>new SelectListItem() { Value = s.Id.ToString(), Text = s.Name }).ToArray();
+            shippingdetail = new Shipping();
+            paymentdetail = new Payment();
         }
     }
 }

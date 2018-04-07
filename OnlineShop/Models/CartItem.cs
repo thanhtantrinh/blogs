@@ -11,6 +11,13 @@ namespace OnlineShop.Models
     {
         public Product Product { set; get; }
         public int Quantity { set; get; }
+        public bool isProduct { get; set; }
+
+        public CartItem()
+        {
+            isProduct = true;
+            Quantity = 1;
+        }
     }
 
     public class OrderView

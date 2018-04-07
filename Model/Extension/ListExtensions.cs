@@ -32,6 +32,23 @@ namespace Model.Extension
                 return years;
             }
         }
+
+        
+
+        public static List<SelectListItem> ProvinceList
+        {
+            get
+            {                
+                var provinceList = new List<SelectListItem>();
+                using (var db = new OnlineShopEntities())
+                {
+                    provinceList = db.Provinces.Where(w => w.IsDeleted.Value!=true).OrderBy(o=>o.SortOrder)
+                                        .AsEnumerable().Select(s => new SelectListItem() { Text = s.Name, Value = s.Id.ToString() }).ToList();                    
+                }
+                return provinceList;
+            }
+        }
+
         /// <summary>
         /// Get all Category 
         /// </summary>

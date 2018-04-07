@@ -2,17 +2,18 @@
 
 @if (Model.Count > 0)
 {
-         using (Html.BeginForm("Update", "Cart", FormMethod.Post, new { @class = "viewcart-box", role = "form" }))
-         {
+    using (Html.BeginForm("Update", "Cart", FormMethod.Post, new { @class = "viewcart-box", role = "form" }))
+    {
+            @Html.AntiForgeryToken()
             <table class="CartDetail table table-hover">
                 <thead>
                     <tr>
-                        <td align="center">Ảnh SP</td>                        
-                        <td>Tên SP</td>
-                        <td>Số lượng</td>
-                        <td>Đơn giá</td>
-                        <td>Thành tiền</td>
-                        <td></td>
+                        <td align="center">Sản Phẩm</td>                        
+                        <td align="center">Tên SP</td>
+                        <td align="center">Số lượng</td>
+                        <td align="center">Đơn giá</td>
+                        <td align="center">Thành tiền</td>
+                        <td width="50"></td>
                     </tr>
                 </thead>
                 <tbody>
@@ -21,12 +22,21 @@
                         <tr class="cartItem">
                             <td><img src="@Url.Content("~/Images/Products/min/" + item.Product.Image)" width="80" /></td>               
                             <td>@item.Product.Name</td>
-                            <td><input type="number" class="Qty" data-id="@item.Product.ID" value="@item.Quantity" /></td>
-                            <td>@item.Product.Price.GetValueOrDefault(0).ToString("N0")</td>
-                            <td>@((item.Product.Price.GetValueOrDefault(0) * item.Quantity).ToString("N0"))</td>
-                            <td><a href="#" data-id="@item.Product.ID" class="btn btn-delete"><i class="fa fa-trash"></i> </a></td>
+                            <td align="center"><input type="number" name="quantity[]" class="Qty" data-id="@item.Product.ID" value="@item.Quantity" /></td>
+                            <td align="right">@item.Product.Price.GetValueOrDefault(0).ToString("N0")</td>
+                            <td align="right">@((item.Product.Price.GetValueOrDefault(0) * item.Quantity).ToString("N0"))</td>
+                            <td align="center"><a href="#" data-id="@item.Product.ID" class="btn-delete"><i class="fa fa-trash"></i> </a></td>
                         </tr>
-                    }
+                    }              
+                    <tr>
+                        <td colspan="4" align="right" class="">
+                            Tổng tiền
+                        </td>
+                        <td align="right">
+                            @Model.Sum(i=>i.Quantity*i.Product.Price).Value.ToString("N0")
+                        </td>
+                        <td></td>
+                    </tr>
                 </tbody>
             </table>
             <div class="text-right">

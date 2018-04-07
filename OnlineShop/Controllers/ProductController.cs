@@ -30,8 +30,8 @@ namespace OnlineShop.Controllers
                 status = true
             },JsonRequestBehavior.AllowGet);
         }
-        [Route("{metatitle}-{cateId}")]
-        public ActionResult Category(string metatitle="", long cateId=0, int page = 1, int pageSize = 10)
+        [Route("danh-muc-san-pham")]
+        public ActionResult Category(long cateId=0, int page = 1, int pageSize = 10)
         {
             var category = new CategoryDao().ViewDetail(cateId);
             ViewBag.Category = category;
