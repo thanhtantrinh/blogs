@@ -2681,6 +2681,7 @@
     <Content Include="Views\Cart\partialViewCart.cshtml" />
     <Content Include="Views\Contact\EmailContactTemplate.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\Cart\OrderConfirmation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

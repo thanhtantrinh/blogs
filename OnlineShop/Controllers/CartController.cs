@@ -10,14 +10,15 @@ using Model.EF;
 using Common;
 using System.Configuration;
 using System.IO;
+using OnlineShop.Helpers;
 
 namespace OnlineShop.Controllers
 {
+    [Route("gio-hang")]
     public class CartController : BaseController
     {
-        private const string CartSession = "CartSession";
+        private const string CartSession = "CartSession";      
         
-        [Route("gio-hang")]
         public ActionResult Index()
         {
             var cart = Session[CartSession];
@@ -94,7 +95,6 @@ namespace OnlineShop.Controllers
                 step++;
             }
             Session[CartSession] = sessionCart;
-
             return RedirectToAction("Index");
         }
 
@@ -177,16 +177,16 @@ namespace OnlineShop.Controllers
             }
 
         }
-
+        [Route("thong-tin-thanh-toan")]
         [HttpPost]
-        public ActionResult Payment(string shipName, string mobile, string address, string email)
+        public ActionResult Payment(PaymentViewModel model)
         {
             var order = new Order();
             order.CreatedDate = DateTime.Now;
-            order.ShipAddress = address;
-            order.ShipMobile = mobile;
-            order.ShipName = shipName;
-            order.ShipEmail = email;
+            order.ShipAddress = model.shippingdetail.Address;
+            order.ShipMobile = model.shippingdetail.Phone;
+            order.ShipName = model.shippingdetail.Fullname;
+            order.ShipEmail = model.shippingdetail.Email;
             try
             {
                 var id = new OrderDao().Insert(order);
@@ -206,17 +206,15 @@ namespace OnlineShop.Controllers
                 }
                 string content = System.IO.File.ReadAllText(Server.MapPath("~/assets/client/template/neworder.html"));
 
-                content = content.Replace("{{CustomerName}}", shipName);
-                content = content.Replace("{{Phone}}", mobile);
-                content = content.Replace("{{Email}}", email);
-                content = content.Replace("{{Address}}", address);
+                content = content.Replace("{{CustomerName}}", order.ShipName);
+                content = content.Replace("{{Phone}}", order.ShipMobile);
+                content = content.Replace("{{Email}}", order.ShipEmail);
+                content = content.Replace("{{Address}}", order.ShipAddress);
                 content = content.Replace("{{Total}}", total.ToString("N0"));
                 var toEmail = ConfigurationManager.AppSettings["ToEmailAddress"].ToString();
 
-                //new MailHelper().SendMail(email, "Đơn hàng mới từ OnlineShop", content);
-                //new MailHelper().SendMail(toEmail, "Đơn hàng mới từ OnlineShop", content);
+                var task = MailHelper.SendMailAsync(order.ShipEmail, order.ShipName, SiteConfiguration.EmailSite, SiteConfiguration.SiteName, "Thông tin xát nhận đơn hàng từ " + SiteConfiguration.SiteName, content, null, new string[] { SiteConfiguration.EmailAdmin });
 
-                MailHelper.SendMails(new string[] { email, toEmail }, "Đơn hàng mới từ ", content);
             }
             catch (Exception ex)
             {
@@ -226,7 +224,10 @@ namespace OnlineShop.Controllers
 
             return Redirect("Payment");
         }
-
+        public ActionResult ViewOrder(int ordernumber=0)
+        {
+            return View();
+        }
         public ActionResult Success()
         {
             return View();
