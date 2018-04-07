@@ -1,5 +1,6 @@
 ﻿@using OnlineShop.Helpers
 @using Model.ViewModel
+@using Common
 @model ContactModel
 @{
     ViewBag.Title = "Yêu cầu hỗ trợ";
@@ -17,7 +18,6 @@
 }
 
 <div class="container">
-
     <div class="row">
         <div class="col-md-12">
             <div class="col-md-6">
@@ -36,8 +36,7 @@
                             <span style="text-decoration: underline;">
                                 <a href="mailto:@SiteConfiguration.EmailSite?subject=@SiteConfiguration.SiteName Yêu cầu hỗ trợ" target="_blank">@SiteConfiguration.EmailSite</a>
                             </span>
-                        </em>
-                    
+                        </em>                    
                     <br>
                     <strong>Website:</strong>
                     <em> <span style="text-decoration: underline;"><a href="@SiteConfiguration.SiteUrl" target="_blank">@SiteConfiguration.SiteUrl</a></span></em>

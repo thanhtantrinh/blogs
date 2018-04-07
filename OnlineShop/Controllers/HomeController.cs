@@ -62,9 +62,9 @@ namespace OnlineShop.Controllers
             {
                 list = (List<CartItem>)cart;
             }
-
             return PartialView(list);
         }
+
         [ChildActionOnly]
         [OutputCache(Duration = 3600 * 24)]
         public ActionResult Footer()

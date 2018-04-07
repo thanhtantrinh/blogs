@@ -2,38 +2,38 @@
 
 @if (Model.Count > 0)
 {
-
-        <table class="CartDetail table table-hover">
-            <thead>
-                <tr>
-                    <td align="center">Ảnh SP</td>
-                    <td>Mã SP</td>
-                    <td>Tên SP</td>
-                    <td>Số lượng</td>
-                    <td>Đơn giá</td>
-                    <td>Thành tiền</td>
-                    <td></td>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr class="cartItem">
-                        <td><img src="@Url.Content("~/Images/Products/min/" + item.Product.Image)" width="80" /></td>
-                        <td>@item.Product.ID</td>
-                        <td>@item.Product.Name</td>
-                        <td><input type="number" class="Qty" data-id="@item.Product.ID" value="@item.Quantity" /></td>
-                        <td>@item.Product.Price.GetValueOrDefault(0).ToString("N0")</td>
-                        <td>@((item.Product.Price.GetValueOrDefault(0) * item.Quantity).ToString("N0"))</td>
-                        <td><a href="#" data-id="@item.Product.ID" class="btn btn-delete"><i class="fa fa-trash"></i> </a></td>
+         using (Html.BeginForm("Update", "Cart", FormMethod.Post, new { @class = "viewcart-box", role = "form" }))
+         {
+            <table class="CartDetail table table-hover">
+                <thead>
+                    <tr>
+                        <td align="center">Ảnh SP</td>                        
+                        <td>Tên SP</td>
+                        <td>Số lượng</td>
+                        <td>Đơn giá</td>
+                        <td>Thành tiền</td>
+                        <td></td>
                     </tr>
-                }
-            </tbody>
-        </table>
-        <div class="text-right">
-            <button id="btnUpdate" class="btn" onclick="cart.regEvents()">Cập nhật giỏ hàng</button>
-            <a href="@Url.Action("Payment")" id="btnPayment" class="btn btn-danger">Thanh toán</a>
-        </div>    
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr class="cartItem">
+                            <td><img src="@Url.Content("~/Images/Products/min/" + item.Product.Image)" width="80" /></td>               
+                            <td>@item.Product.Name</td>
+                            <td><input type="number" class="Qty" data-id="@item.Product.ID" value="@item.Quantity" /></td>
+                            <td>@item.Product.Price.GetValueOrDefault(0).ToString("N0")</td>
+                            <td>@((item.Product.Price.GetValueOrDefault(0) * item.Quantity).ToString("N0"))</td>
+                            <td><a href="#" data-id="@item.Product.ID" class="btn btn-delete"><i class="fa fa-trash"></i> </a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="text-right">
+                <button id="btnUpdate" class="btn" type="submit">Cập nhật giỏ hàng</button>
+                <a href="@Url.Action("Payment")" id="btnPayment" class="btn btn-danger">Thanh toán</a>
+            </div>
+        }
 }
 else
 {
