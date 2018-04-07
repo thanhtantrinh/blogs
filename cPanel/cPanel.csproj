@@ -167,6 +167,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CatalogueController.cs" />
     <Compile Include="Controllers\CMSController.cs" />
+    <Compile Include="Controllers\EcommerceController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Filters\AuthLogAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -933,6 +934,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\Sass\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Ecommerce\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

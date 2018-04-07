@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using OnlineShop.Models;
 using Model.EF;
+using Common;
 
 namespace OnlineShop.Helpers
 {
@@ -49,10 +50,9 @@ namespace OnlineShop.Helpers
         public static List<SelectListItem> CategoryListSelected(long Id = 0)
         {
             var categoryList = new List<SelectListItem>();
-
             using (var db = new OnlineShopEntities())
             {
-                categoryList = db.Categories.Where(w => w.Status == true)
+                categoryList = db.Categories.Where(w => w.Status == nameof(StatusEntity.Active))
                                     .AsEnumerable().Select(s => new SelectListItem() { Text = s.Name, Value = s.ID.ToString(), Selected = s.ID == Id ? true : false }).ToList();
                 categoryList.Insert(0, new SelectListItem { Text = "Chọn nhóm bài viết", Value = "" });
                 categoryList.Insert(1, new SelectListItem { Text = "Nhóm Root", Value = "0" });
@@ -68,11 +68,10 @@ namespace OnlineShop.Helpers
                 var categoryList = new List<SelectListItem>();
                 using (var db = new OnlineShopEntities())
                 {
-                    categoryList = db.Categories.Where(w => w.Status == true)
+                    categoryList = db.Categories.Where(w => w.Status == nameof(StatusEntity.Active))
                                         .AsEnumerable().Select(s => new SelectListItem() { Text = s.Name, Value = s.ID.ToString() }).ToList();
                     categoryList.Insert(0, new SelectListItem { Text = "Chọn nhóm bài viết", Value = "" });
                     categoryList.Insert(1, new SelectListItem { Text = "Nhóm Root", Value = "0" });
-
                 }
                 return categoryList;
             }
