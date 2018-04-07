@@ -16,7 +16,11 @@ namespace Model.EF
     {
         public long ProductID { get; set; }
         public long OrderID { get; set; }
-        public Nullable<int> Quantity { get; set; }
-        public Nullable<decimal> Price { get; set; }
+        public int Quantity { get; set; }
+        public decimal Price { get; set; }
+        public System.DateTime CreateDate { get; set; }
+        public long CreateBy { get; set; }
+        public long ModifiedBy { get; set; }
+        public System.DateTime ModifiedDate { get; set; }
     }
 }

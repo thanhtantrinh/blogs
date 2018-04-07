@@ -179,6 +179,9 @@
     <Compile Include="EF\v_Content.cs">
       <DependentUpon>OnlineShopDbContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="EF\v_OrderDetail.cs">
+      <DependentUpon>OnlineShopDbContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="EF\v_SiteMap.cs">
       <DependentUpon>OnlineShopDbContext.tt</DependentUpon>
     </Compile>

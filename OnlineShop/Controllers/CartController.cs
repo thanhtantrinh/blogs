@@ -7,18 +7,21 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using Model.EF;
+using Model.ViewModel;
 using Common;
 using System.Configuration;
 using System.IO;
 using OnlineShop.Helpers;
+using System.Threading.Tasks;
 
 namespace OnlineShop.Controllers
 {
-    [Route("gio-hang")]
+    
     public class CartController : BaseController
     {
-        private const string CartSession = "CartSession";      
-        
+        private const string CartSession = "CartSession";
+
+        [Route("gio-hang")]
         public ActionResult Index()
         {
             var cart = Session[CartSession];
@@ -141,6 +144,7 @@ namespace OnlineShop.Controllers
             }
             return RedirectToAction("Detail", "Product", new { ID = ID });
         }
+        
         [HttpGet]
         public ActionResult Payment()
         {
@@ -151,8 +155,13 @@ namespace OnlineShop.Controllers
             {
                 cartItems = (List<CartItem>)cart;
                 model.cartItems = cartItems;
+                model.shippingdetail.ProvinceId = 79;
             }
-            model.shippingdetail.ProvinceId = 79;
+            else
+            {
+                return RedirectToAction("Index","Home");
+            }
+            
 
             return View(model);
         }
@@ -177,43 +186,40 @@ namespace OnlineShop.Controllers
             }
 
         }
-        [Route("thong-tin-thanh-toan")]
+        
         [HttpPost]
         public ActionResult Payment(PaymentViewModel model)
         {
-            var order = new Order();
-            order.CreatedDate = DateTime.Now;
-            order.ShipAddress = model.shippingdetail.Address;
-            order.ShipMobile = model.shippingdetail.Phone;
-            order.ShipName = model.shippingdetail.Fullname;
-            order.ShipEmail = model.shippingdetail.Email;
+
             try
             {
+                var order = new Order();
+                order.CreatedDate = DateTime.Now;
+                order.ShipAddress = model.shippingdetail.Address;
+                order.ShipMobile = model.shippingdetail.Phone;
+                order.ShipName = model.shippingdetail.Fullname;
+                order.ShipEmail = model.shippingdetail.Email;
+                order.Status = nameof(eOrderStatusUI.Pending);
+                order.Note = model.shippingdetail.Note;
+
                 var id = new OrderDao().Insert(order);
                 var cart = (List<CartItem>)Session[CartSession];
-                var detailDao = new Model.Dao.OrderDetailDao();
-                decimal total = 0;
+                var detailDao = new OrderDetailDao();
+                
                 foreach (var item in cart)
                 {
                     var orderDetail = new OrderDetail();
                     orderDetail.ProductID = item.Product.ID;
                     orderDetail.OrderID = id;
-                    orderDetail.Price = item.Product.Price;
-                    orderDetail.Quantity = item.Quantity;
-                    detailDao.Insert(orderDetail);
-
-                    total += (item.Product.Price.GetValueOrDefault(0) * item.Quantity);
+                    orderDetail.Price = item.Product.Price.Value;
+                    orderDetail.Quantity = item.Quantity;                    
+                    detailDao.Insert(orderDetail);                    
                 }
-                string content = System.IO.File.ReadAllText(Server.MapPath("~/assets/client/template/neworder.html"));
 
-                content = content.Replace("{{CustomerName}}", order.ShipName);
-                content = content.Replace("{{Phone}}", order.ShipMobile);
-                content = content.Replace("{{Email}}", order.ShipEmail);
-                content = content.Replace("{{Address}}", order.ShipAddress);
-                content = content.Replace("{{Total}}", total.ToString("N0"));
-                var toEmail = ConfigurationManager.AppSettings["ToEmailAddress"].ToString();
-
-                var task = MailHelper.SendMailAsync(order.ShipEmail, order.ShipName, SiteConfiguration.EmailSite, SiteConfiguration.SiteName, "Thông tin xát nhận đơn hàng từ " + SiteConfiguration.SiteName, content, null, new string[] { SiteConfiguration.EmailAdmin });
+                if (id > 0)
+                {
+                    return RedirectToAction("OrderConfirmation", new { ordernumber = id, send = true });
+                }
 
             }
             catch (Exception ex)
@@ -224,9 +230,22 @@ namespace OnlineShop.Controllers
 
             return Redirect("Payment");
         }
-        public ActionResult ViewOrder(int ordernumber=0)
+        public async Task<ActionResult> OrderConfirmation(long ordernumber=23, bool send = false)
         {
-            return View();
+            var orderDao = new OrderDao();
+            OrderViewModel model = orderDao.getOrderById(ordernumber);
+
+            if (model != null && send)
+            {
+                string content = RenderRazorViewToString("OrderConfirmation", model);
+                //MailHelper.SendMail(model.Email, "Thông tin xát nhận đơn hàng từ " + SiteConfiguration.SiteName, content);
+                var bcc = new string[] { SiteConfiguration.EmailAdmin, "thanhtantrinh@hotmail.com" };
+                var task = MailHelper.SendMailAsync(model.Email, model.FullName, SiteConfiguration.EmailSite, SiteConfiguration.SiteName, "Thông tin xác nhận đơn hàng từ " + SiteConfiguration.SiteName, content, null, bcc);
+
+                await Task.WhenAll(task);
+            }
+
+            return View(model);
         }
         public ActionResult Success()
         {

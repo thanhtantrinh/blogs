@@ -55,12 +55,21 @@ namespace OnlineShop
                 defaults: new { controller = "Product", action = "Search", id = UrlParameter.Optional },
                 namespaces: new[] { "OnlineShop.Controllers" }
             );
+
             routes.MapRoute(
                 name: "Cart",
                 url: "gio-hang",
                 defaults: new { controller = "Cart", action = "Index" },
                 namespaces: new[] { "OnlineShop.Controllers" }
             );
+
+            routes.MapRoute(
+                name: "Payment",
+                url: "thanh-toan",
+                defaults: new { controller = "Cart", action = "Payment" },
+                namespaces: new[] { "OnlineShop.Controllers" }
+            );
+
             routes.MapRoute(
             name: "Payment Success",
             url: "hoan-thanh",

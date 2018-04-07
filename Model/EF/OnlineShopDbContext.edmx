@@ -184,15 +184,16 @@
           </Key>
           <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
-          <Property Name="CustomerID" Type="bigint" />
-          <Property Name="ShipName" Type="nvarchar" MaxLength="50" />
-          <Property Name="ShipMobile" Type="varchar" MaxLength="50" />
-          <Property Name="ShipAddress" Type="nvarchar" MaxLength="50" />
-          <Property Name="ShipEmail" Type="nvarchar" MaxLength="50" />
-          <Property Name="Status" Type="int" />
+          <Property Name="CustomerID" Type="bigint" Nullable="false" />
+          <Property Name="ShipName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ShipMobile" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ShipAddress" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ShipEmail" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Note" Type="nvarchar" MaxLength="50" />
+          <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="bigint" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'tant4482_db.dbo.OrderDetail' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="OrderDetail">
           <Key>
             <PropertyRef Name="ProductID" />
@@ -200,8 +201,12 @@ warning 6002: The table/view 'tant4482_db.dbo.OrderDetail' does not have a prima
           </Key>
           <Property Name="ProductID" Type="bigint" Nullable="false" />
           <Property Name="OrderID" Type="bigint" Nullable="false" />
-          <Property Name="Quantity" Type="int" />
-          <Property Name="Price" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="Price" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="CreateBy" Type="bigint" Nullable="false" />
+          <Property Name="ModifiedBy" Type="bigint" Nullable="false" />
+          <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -505,6 +510,24 @@ warning 6002: The table/view 'tant4482_db.dbo.v_Content' does not have a primary
           <Property Name="Language" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view 'tant4482_db.dbo.v_OrderDetail' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="v_OrderDetail">
+          <Key>
+            <PropertyRef Name="ProductID" />
+            <PropertyRef Name="OrderID" />
+            <PropertyRef Name="Quantity" />
+            <PropertyRef Name="Price" />
+          </Key>
+          <Property Name="ProductID" Type="bigint" Nullable="false" />
+          <Property Name="OrderID" Type="bigint" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="Price" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="ProductName" Type="nvarchar" MaxLength="250" />
+          <Property Name="ProductAlias" Type="varchar" MaxLength="250" />
+          <Property Name="Status" Type="bit" />
+          <Property Name="ProductImage" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'tant4482_db.dbo.v_SiteMap' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="v_SiteMap">
           <Key>
@@ -643,6 +666,7 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
           <EntitySet Name="Menu" EntityType="Self.Menu" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MenuType" EntityType="Self.MenuType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderDetail" EntityType="Self.OrderDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductCategory" EntityType="Self.ProductCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Province" EntityType="Self.Province" Schema="dbo" store:Type="Tables" />
@@ -652,14 +676,6 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserGroup" EntityType="Self.UserGroup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Ward" EntityType="Self.Ward" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="OrderDetail" EntityType="Self.OrderDetail" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [OrderDetail].[ProductID] AS [ProductID], 
-    [OrderDetail].[OrderID] AS [OrderID], 
-    [OrderDetail].[Quantity] AS [Quantity], 
-    [OrderDetail].[Price] AS [Price]
-    FROM [dbo].[OrderDetail] AS [OrderDetail]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="SystemConfig" EntityType="Self.SystemConfig" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [SystemConfig].[ID] AS [ID], 
@@ -770,6 +786,18 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
     [v_Content].[Language] AS [Language]
     FROM [dbo].[v_Content] AS [v_Content]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="v_OrderDetail" EntityType="Self.v_OrderDetail" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [v_OrderDetail].[ProductID] AS [ProductID], 
+    [v_OrderDetail].[OrderID] AS [OrderID], 
+    [v_OrderDetail].[Quantity] AS [Quantity], 
+    [v_OrderDetail].[Price] AS [Price], 
+    [v_OrderDetail].[ProductName] AS [ProductName], 
+    [v_OrderDetail].[ProductAlias] AS [ProductAlias], 
+    [v_OrderDetail].[Status] AS [Status], 
+    [v_OrderDetail].[ProductImage] AS [ProductImage]
+    FROM [dbo].[v_OrderDetail] AS [v_OrderDetail]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="v_SiteMap" EntityType="Self.v_SiteMap" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [v_SiteMap].[Id] AS [Id], 
@@ -856,7 +884,6 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
           <EntitySet Name="Languages" EntityType="OnlineShopDbContext.Language" />
           <EntitySet Name="Menus" EntityType="OnlineShopDbContext.Menu" />
           <EntitySet Name="MenuTypes" EntityType="OnlineShopDbContext.MenuType" />
-          <EntitySet Name="Orders" EntityType="OnlineShopDbContext.Order" />
           <EntitySet Name="Products" EntityType="OnlineShopDbContext.Product" />
           <EntitySet Name="ProductCategories" EntityType="OnlineShopDbContext.ProductCategory" />
           <EntitySet Name="Provinces" EntityType="OnlineShopDbContext.Province" />
@@ -866,7 +893,6 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
           <EntitySet Name="Users" EntityType="OnlineShopDbContext.User" />
           <EntitySet Name="UserGroups" EntityType="OnlineShopDbContext.UserGroup" />
           <EntitySet Name="Wards" EntityType="OnlineShopDbContext.Ward" />
-          <EntitySet Name="OrderDetails" EntityType="OnlineShopDbContext.OrderDetail" />
           <EntitySet Name="SystemConfigs" EntityType="OnlineShopDbContext.SystemConfig" />
           <EntitySet Name="v_CatalogueInfo" EntityType="OnlineShopDbContext.v_CatalogueInfo" />
           <EntitySet Name="v_Category" EntityType="OnlineShopDbContext.v_Category" />
@@ -894,6 +920,9 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
             <End Role="Ward" EntitySet="Wards" />
           </AssociationSet>
           <EntitySet Name="v_SiteMap" EntityType="OnlineShopDbContext.v_SiteMap" />
+          <EntitySet Name="v_OrderDetail" EntityType="OnlineShopDbContext.v_OrderDetail" />
+          <EntitySet Name="OrderDetails" EntityType="OnlineShopDbContext.OrderDetail" />
+          <EntitySet Name="Orders" EntityType="OnlineShopDbContext.Order" />
           </EntityContainer>
         <ComplexType Name="sp_Category_Search_Paging_Sorting_Result">
           <Property Type="Int64" Name="ID" Nullable="false" />
@@ -1115,19 +1144,6 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="Order">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CustomerID" Type="Int64" />
-          <Property Name="ShipName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ShipMobile" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ShipAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ShipEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="Int32" />
-        </EntityType>
         <EntityType Name="Product">
           <Key>
             <PropertyRef Name="ID" />
@@ -1269,16 +1285,6 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
           <Property Name="IsPublished" Type="Boolean" />
           <Property Name="IsDeleted" Type="Boolean" />
           <NavigationProperty Name="District" Relationship="OnlineShopDbContext.FK_Ward_District" FromRole="Ward" ToRole="District" />
-        </EntityType>
-        <EntityType Name="OrderDetail">
-          <Key>
-            <PropertyRef Name="ProductID" />
-            <PropertyRef Name="OrderID" />
-          </Key>
-          <Property Name="ProductID" Type="Int64" Nullable="false" />
-          <Property Name="OrderID" Type="Int64" Nullable="false" />
-          <Property Name="Quantity" Type="Int32" />
-          <Property Name="Price" Type="Decimal" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="SystemConfig">
           <Key>
@@ -1545,6 +1551,52 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
           <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="URL" Type="String" MaxLength="523" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="v_OrderDetail">
+          <Key>
+            <PropertyRef Name="ProductID" />
+            <PropertyRef Name="OrderID" />
+            <PropertyRef Name="Quantity" />
+            <PropertyRef Name="Price" />
+          </Key>
+          <Property Name="ProductID" Type="Int64" Nullable="false" />
+          <Property Name="OrderID" Type="Int64" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="ProductName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ProductAlias" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="Boolean" />
+          <Property Name="ProductImage" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="OrderDetail">
+          <Key>
+            <PropertyRef Name="ProductID" />
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="ProductID" Type="Int64" Nullable="false" />
+          <Property Name="OrderID" Type="Int64" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreateBy" Type="Int64" Nullable="false" />
+          <Property Name="ModifiedBy" Type="Int64" Nullable="false" />
+          <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CustomerID" Type="Int64" Nullable="false" />
+          <Property Name="ShipName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ShipMobile" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ShipAddress" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ShipEmail" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Note" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int64" Nullable="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1786,20 +1838,6 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Orders">
-            <EntityTypeMapping TypeName="OnlineShopDbContext.Order">
-              <MappingFragment StoreEntitySet="Order">
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="ShipEmail" ColumnName="ShipEmail" />
-                <ScalarProperty Name="ShipAddress" ColumnName="ShipAddress" />
-                <ScalarProperty Name="ShipMobile" ColumnName="ShipMobile" />
-                <ScalarProperty Name="ShipName" ColumnName="ShipName" />
-                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Products">
             <EntityTypeMapping TypeName="OnlineShopDbContext.Product">
               <MappingFragment StoreEntitySet="Product">
@@ -1943,16 +1981,6 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="OrderDetails">
-            <EntityTypeMapping TypeName="OnlineShopDbContext.OrderDetail">
-              <MappingFragment StoreEntitySet="OrderDetail">
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
-                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2115,6 +2143,51 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
                 <ScalarProperty Name="IsCategory" ColumnName="IsCategory" />
                 <ScalarProperty Name="Alias" ColumnName="Alias" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="v_OrderDetail">
+            <EntityTypeMapping TypeName="OnlineShopDbContext.v_OrderDetail">
+              <MappingFragment StoreEntitySet="v_OrderDetail">
+                <ScalarProperty Name="ProductImage" ColumnName="ProductImage" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ProductAlias" ColumnName="ProductAlias" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderDetails">
+            <EntityTypeMapping TypeName="OnlineShopDbContext.OrderDetail">
+              <MappingFragment StoreEntitySet="OrderDetail">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="OnlineShopDbContext.Order">
+              <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ShipEmail" ColumnName="ShipEmail" />
+                <ScalarProperty Name="ShipAddress" ColumnName="ShipAddress" />
+                <ScalarProperty Name="ShipMobile" ColumnName="ShipMobile" />
+                <ScalarProperty Name="ShipName" ColumnName="ShipName" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

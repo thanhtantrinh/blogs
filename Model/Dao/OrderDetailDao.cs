@@ -14,17 +14,22 @@ namespace Model.Dao
         {
             db = new OnlineShopEntities();
         }
-        public bool Insert(OrderDetail detail)
+        public long Insert(OrderDetail detail)
         {
             try
             {
-                db.OrderDetails.Add(detail);
+                detail.CreateBy = 0;
+                detail.CreateDate = DateTime.Now;
+                detail.ModifiedBy = 0;
+                detail.ModifiedDate = DateTime.Now;
+                detail = db.OrderDetails.Add(detail);
                 db.SaveChanges();
-                return true;
+
+                return detail.OrderID;
             }
             catch
             {
-                return false;
+                return 0;
 
             }
         }

@@ -102,8 +102,7 @@ namespace Common
             message.Subject = subject;
             message.IsBodyHtml = true;
             message.Body = body;
-            message.IsBodyHtml = true;
-
+            
             if (bcc != null && bcc.Count() > 0)
             {
                 Array.ForEach(bcc, m => message.Bcc.Add(new MailAddress(m)));
@@ -118,6 +117,7 @@ namespace Common
             client.EnableSsl = true;
             client.Port = !string.IsNullOrEmpty(smtpPort) ? Convert.ToInt32(smtpPort) : 0;
             await client.SendMailAsync(message);
-        }
+        }       
+
     }
 }

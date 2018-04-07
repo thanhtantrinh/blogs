@@ -97,11 +97,14 @@
                         <div class="bill-to">
                             <p>Giao hàng đến</p>
                             <div class="form-one">
-                                <input type="text" placeholder="Họ và tên *">
-                                <input type="text" placeholder="Điện thoại *">
+                                @Html.TextBoxFor(m => m.shippingdetail.Fullname, new { placeholder = "Họ và tên *" })
+                                @Html.TextBoxFor(m => m.shippingdetail.Phone, new { placeholder = "Điện thoại *" })
+                                @Html.TextBoxFor(m => m.shippingdetail.CompanyName, new { placeholder = "Tên công ty *" })
+                                @Html.TextBoxFor(m=>m.shippingdetail.Email,new { placeholder = "Email *" })                                
+                                @*<input type="text" placeholder="Điện thoại *">
                                 <input type="tel" placeholder="Di động">
                                 <input type="text" placeholder="Tên công ty">
-                                <input name="email" type="text" placeholder="Email*">
+                                <input name="email" type="text" placeholder="Email*">*@
                             </div>
                             <div class="form-two">
                                 @Html.DropDownListFor(model => model.shippingdetail.ProvinceId, ListExtensions.ProvinceList, "-- Tỉnh thành --", new { @class = "form-control ", id = "provinces", onchange = "buildDistricts();" })
@@ -109,15 +112,17 @@
                                 <select class="form-control" id="ddlDistricts">
                                     <option>-- Quận / Huyện  --</option>                                    
                                 </select>
-                                <input name="address" type="text" placeholder="Địa chỉ 1 *">
-
+                                @*<input name="address" type="text" placeholder="Địa chỉ 1 *">*@
+                                @Html.TextBoxFor(m => m.shippingdetail.Address, new { placeholder = "Địa chỉ 1 *" })
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-5">
                         <div class="order-message">
                             <p>Yêu cầu khác</p>
-                            <textarea name="message" placeholder="Những yêu cầu khác nếu có ..." rows="16"></textarea>
+                            @*<textarea name="message" placeholder="Những yêu cầu khác nếu có ..." rows="16"></textarea>*@
+                            @Html.TextAreaFor(m => m.shippingdetail.Email, 16,5,new { placeholder = "Những yêu cầu khác nếu có ..." })
+
                             <div class="shopper-info">                                
                                 <div class="payment-options">
                                     <button class="btn btn-primary" type="submit">Thanh toán</button>
