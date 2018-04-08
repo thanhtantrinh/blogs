@@ -14,24 +14,6 @@ namespace Model.Dao
         {
             db = new OnlineShopEntities();
         }
-        public long Insert(OrderDetail detail)
-        {
-            try
-            {
-                detail.CreateBy = 0;
-                detail.CreateDate = DateTime.Now;
-                detail.ModifiedBy = 0;
-                detail.ModifiedDate = DateTime.Now;
-                detail = db.OrderDetails.Add(detail);
-                db.SaveChanges();
 
-                return detail.OrderID;
-            }
-            catch
-            {
-                return 0;
-
-            }
-        }
     }
 }

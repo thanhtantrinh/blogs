@@ -155,66 +155,26 @@ namespace OnlineShop.Controllers
             {
                 cartItems = (List<CartItem>)cart;
                 model.cartItems = cartItems;
-                model.shippingdetail.ProvinceId = 79;
+                //model.shippingdetail.ProvinceId = 79;
             }
             else
             {
-                return RedirectToAction("Index","Home");
+                return RedirectToAction("Index", "Home");
             }
             
 
             return View(model);
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        [HttpGet]
-        public JsonResult ListDistricts(int id=0)
-        {
-            try
-            {
-                var address = new AddressDao();
-                var districts = address.getDistricts(id).Select(s=>new SelectListItem() { Value = s.Id.ToString(), Text = s.Name}).ToList();
-                return Json(new { status = true, result = districts }, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception)
-            {
-                //send mail to site's manager
-                throw;
-            }
 
-        }
         
         [HttpPost]
         public ActionResult Payment(PaymentViewModel model)
         {
-
             try
-            {
-                var order = new Order();
-                order.CreatedDate = DateTime.Now;
-                order.ShipAddress = model.shippingdetail.Address;
-                order.ShipMobile = model.shippingdetail.Phone;
-                order.ShipName = model.shippingdetail.Fullname;
-                order.ShipEmail = model.shippingdetail.Email;
-                order.Status = nameof(eOrderStatusUI.Pending);
-                order.Note = model.shippingdetail.Note;
-
-                var id = new OrderDao().Insert(order);
+            {    
                 var cart = (List<CartItem>)Session[CartSession];
-                var detailDao = new OrderDetailDao();
+                OrderModel orderModel = new OrderModel();     
                 
-                foreach (var item in cart)
-                {
-                    var orderDetail = new OrderDetail();
-                    orderDetail.ProductID = item.Product.ID;
-                    orderDetail.OrderID = id;
-                    orderDetail.Price = item.Product.Price.Value;
-                    orderDetail.Quantity = item.Quantity;                    
-                    detailDao.Insert(orderDetail);                    
-                }
 
                 if (id > 0)
                 {
@@ -228,29 +188,57 @@ namespace OnlineShop.Controllers
                 return RedirectToAction("Payment");
             }
 
-            return Redirect("Payment");
+            return View(model);
         }
-        public async Task<ActionResult> OrderConfirmation(long ordernumber=23, bool send = false)
+        public async Task<ActionResult> OrderConfirmation(long ordernumber=0, bool send = false)
         {
-            var orderDao = new OrderDao();
-            OrderViewModel model = orderDao.getOrderById(ordernumber);
-
-            if (model != null && send)
+            if (ordernumber>0)
             {
-                string content = RenderRazorViewToString("OrderConfirmation", model);
-                //MailHelper.SendMail(model.Email, "Thông tin xát nhận đơn hàng từ " + SiteConfiguration.SiteName, content);
-                var bcc = new string[] { SiteConfiguration.EmailAdmin, "thanhtantrinh@hotmail.com" };
-                var task = MailHelper.SendMailAsync(model.Email, model.FullName, SiteConfiguration.EmailSite, SiteConfiguration.SiteName, "Thông tin xác nhận đơn hàng từ " + SiteConfiguration.SiteName, content, null, bcc);
+                var orderDao = new OrderDao();
+                OrderViewModel model = orderDao.getOrderById(ordernumber);
 
-                await Task.WhenAll(task);
+                if (model != null && send)
+                {
+                    string content = RenderRazorViewToString("OrderConfirmation", model);
+                    //MailHelper.SendMail(model.Email, "Thông tin xát nhận đơn hàng từ " + SiteConfiguration.SiteName, content);
+                    var bcc = new string[] { SiteConfiguration.EmailAdmin, "thanhtantrinh@hotmail.com" };
+                    var task = MailHelper.SendMailAsync(model.Email, model.FullName, SiteConfiguration.EmailSite, SiteConfiguration.SiteName, "Thông tin xác nhận đơn hàng từ " + SiteConfiguration.SiteName, content, null, bcc);
+
+                    await Task.WhenAll(task);
+                }
+
+                return View(model);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
             }
 
-            return View(model);
         }
         public ActionResult Success()
         {
             return View();
         }
-        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public JsonResult ListDistricts(int id = 0)
+        {
+            try
+            {
+                var address = new AddressDao();
+                var districts = address.getDistricts(id).Select(s => new SelectListItem() { Value = s.Id.ToString(), Text = s.Name }).ToList();
+                return Json(new { status = true, result = districts }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                //send mail to site's manager
+                throw;
+            }
+
+        }
     }
 }

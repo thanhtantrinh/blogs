@@ -6,11 +6,15 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using Model.EF;
 using Common;
+using System.Runtime.Caching;
 
 namespace Model.Extension
 {
     public class ListExtensions
     {
+        /// <summary>
+        /// Get 10 years nearly
+        /// </summary>
         public static List<SelectListItem> Years
         {
             get
@@ -38,12 +42,26 @@ namespace Model.Extension
         public static List<SelectListItem> ProvinceList
         {
             get
-            {                
+            {
+                ObjectCache cache = MemoryCache.Default;
+                string CacheKey = CacheList.CacheKeyProvince;
                 var provinceList = new List<SelectListItem>();
-                using (var db = new OnlineShopEntities())
+
+                if (cache.Contains(CacheKey))
                 {
-                    provinceList = db.Provinces.Where(w => w.IsDeleted.Value!=true).OrderBy(o=>o.SortOrder)
-                                        .AsEnumerable().Select(s => new SelectListItem() { Text = s.Name, Value = s.Id.ToString() }).ToList();                    
+                    provinceList = (List<SelectListItem>)cache.Get(CacheKey);
+                }                    
+                else
+                {                    
+                    using (var db = new OnlineShopEntities())
+                    {
+                        provinceList = db.Provinces.Where(w => w.IsPublished.Value == true).OrderBy(o => o.Type)
+                                            .AsEnumerable().Select(s => new SelectListItem() { Text = s.Name, Value = s.Id.ToString() }).ToList();
+                    }
+                    // Store data in the cache    
+                    CacheItemPolicy cacheItemPolicy = new CacheItemPolicy();
+                    cacheItemPolicy.AbsoluteExpiration = DateTime.Now.AddHours(4.0);
+                    cache.Add(CacheKey, provinceList, cacheItemPolicy);
                 }
                 return provinceList;
             }
@@ -94,14 +112,11 @@ namespace Model.Extension
             {
                 //var selectListItems = (from StatusEntity d in Enum.GetValues(typeof(StatusEntity))
                 //                      select new SelectListItem() { Value = nameof(d), Text = nameof(d).ToLower() }).ToList();
-
                 var selectListItems = Enum.GetValues(typeof(StatusEntity)).Cast<StatusEntity>().Select(v => new SelectListItem
                 {
-                    Text = v.ToString(),
-                    //Value = ((int)v).ToString()
+                    Text = v.ToString(),                    
                     Value = v.ToString()
                 }).ToList();
-
                 selectListItems.Insert(0, new SelectListItem { Text = "Chọn trạng thái", Value = "" });
                 return selectListItems;      
             }

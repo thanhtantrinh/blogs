@@ -17,6 +17,7 @@ namespace OnlineShop.Models
         {
             isProduct = true;
             Quantity = 1;
+            Product = new Product();
         }
     }
 

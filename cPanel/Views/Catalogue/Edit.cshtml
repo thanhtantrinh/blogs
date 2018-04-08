@@ -24,7 +24,7 @@
                             @if (!String.IsNullOrWhiteSpace(formAction) && formAction == "Edit")
                             {
                                 <div class="card-actions">
-                                    <a href="@Url.Action("Create")">
+                                    <a href="#" onclick="window.location = '@Url.Action("Create")';">
                                         <small class="fa fa-plus"></small>
                                     </a>
                                 </div>

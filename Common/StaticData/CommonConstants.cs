@@ -31,4 +31,12 @@ namespace Common
         public double? Priority { get; set; }
         public string Url { get; set; }
     }
+
+    public static class CacheList
+    {
+        public static string CacheKeyProvince = "CacheProvince";
+        //public static string CacheKeyProvince = "CacheProvince";
+    
+    }
+
 }

@@ -6,11 +6,7 @@
 <div id="header_right">
     <div class="blockcart_top clearfix inner pull-right">
         <div id="viewcart" class="shopping_cart">
-            
-                @if (Model.Count > 0)
-                {                 
-                    @Html.Partial("partialViewCart", Model)
-                }
+            @Html.Partial("partialViewCart", Model)
             
         </div>
     </div>

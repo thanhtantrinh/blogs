@@ -28,7 +28,7 @@ namespace OnlineShop.Helpers
         public static string GooglePlus { get; set; }
 
         public static string DbConnectionString { get; set; }
-        public static SqlConnection DbConnection { get; set; }
+        //public static SqlConnection DbConnection { get; set; }
 
         public static void StoreSettings()
         {

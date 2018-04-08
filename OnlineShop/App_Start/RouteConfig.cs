@@ -44,6 +44,12 @@ namespace OnlineShop
             );
 
             routes.MapRoute(
+                name: "Contact",
+                url: "lien-he",
+                defaults: new { controller = "Contact", action = "Inquiry" },
+                namespaces: new[] { "OnlineShop.Controllers" }
+            );
+            routes.MapRoute(
                 name: "Login",
                 url: "dang-nhap",
                 defaults: new { controller = "User", action = "Login", id = UrlParameter.Optional },

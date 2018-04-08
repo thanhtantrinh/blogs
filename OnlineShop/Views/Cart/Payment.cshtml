@@ -22,16 +22,16 @@
                         <td class="image">Sản phẩm</td>
                         <td class="description"></td>
                         <td class="price">Giá</td>
-                        <td class="quantity">Số lượng</td>
-                        <td class="total" colspan="2">Tổng</td>
+                        <td class="quantity" align="center">Số lượng</td>
+                        <td class="total" colspan="2" align="center">Tổng</td>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var item in Model.cartItems)
                     {
-                        string link = Url.Action("Detail", "Product", new { id = item.Product.ID });
+                        string link = Url.Action("Detail", "Product", new { id = item.Product.ID,   metatitle= item.Product.MetaTitle  });
                         <tr>
-                            <td class="cart_product">
+                            <td class="cart_product" width="150">
                                 <a href="@link" title="@item.Product.Name"><img src="@Url.Content("~/Images/Products/min/" + item.Product.Image)" alt="@item.Product.Name"></a>
                             </td>
 
@@ -39,7 +39,7 @@
                                 <a href="@link" title="@item.Product.Name">@item.Product.Name</a>                            
                             </td>
 
-                            <td class="cart_price">
+                            <td class="cart_price" align="right">
                                 @item.Product.Price.GetValueOrDefault(0).ToString("N0") VNĐ
                             </td>
 
@@ -52,7 +52,7 @@
                             </td>
 
                             <td class="cart_delete" width="50" align="center">
-                                <a data-id="@item.Product.ID" class="btn-primary cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
+                                @*<a data-id="@item.Product.ID" class="btn-primary cart_quantity_delete" href=""><i class="fa fa-times"></i></a>*@
                             </td>
 
                         </tr>
@@ -98,22 +98,25 @@
                             <p>Giao hàng đến</p>
                             <div class="form-one">
                                 @Html.TextBoxFor(m => m.shippingdetail.Fullname, new { placeholder = "Họ và tên *" })
+                                @Html.ValidationMessageFor(model => model.shippingdetail.Fullname, "", new { @class = "text-danger" })
+
                                 @Html.TextBoxFor(m => m.shippingdetail.Phone, new { placeholder = "Điện thoại *" })
-                                @Html.TextBoxFor(m => m.shippingdetail.CompanyName, new { placeholder = "Tên công ty *" })
-                                @Html.TextBoxFor(m=>m.shippingdetail.Email,new { placeholder = "Email *" })                                
-                                @*<input type="text" placeholder="Điện thoại *">
-                                <input type="tel" placeholder="Di động">
-                                <input type="text" placeholder="Tên công ty">
-                                <input name="email" type="text" placeholder="Email*">*@
+                                @Html.ValidationMessageFor(model => model.shippingdetail.Phone, "", new { @class = "text-danger" })
+                                @*@Html.TextBoxFor(m => m.shippingdetail.CompanyName, new { placeholder = "Tên công ty *" })*@
+                                @Html.TextBoxFor(m => m.shippingdetail.Email, new { placeholder = "Email *" })
+                                @Html.ValidationMessageFor(model => model.shippingdetail.Email, "", new { @class = "text-danger" })
+                              
                             </div>
                             <div class="form-two">
                                 @Html.DropDownListFor(model => model.shippingdetail.ProvinceId, ListExtensions.ProvinceList, "-- Tỉnh thành --", new { @class = "form-control ", id = "provinces", onchange = "buildDistricts();" })
-                                
+                                @Html.ValidationMessageFor(model => model.shippingdetail.ProvinceId, "", new { @class = "text-danger" })
                                 <select class="form-control" id="ddlDistricts">
-                                    <option>-- Quận / Huyện  --</option>                                    
+                                    <option>-- Quận / Huyện  --</option>
                                 </select>
+
                                 @*<input name="address" type="text" placeholder="Địa chỉ 1 *">*@
                                 @Html.TextBoxFor(m => m.shippingdetail.Address, new { placeholder = "Địa chỉ 1 *" })
+                                @Html.ValidationMessageFor(model => model.shippingdetail.Address, "", new { @class = "text-danger" })
                             </div>
                         </div>
                     </div>
@@ -121,8 +124,7 @@
                         <div class="order-message">
                             <p>Yêu cầu khác</p>
                             @*<textarea name="message" placeholder="Những yêu cầu khác nếu có ..." rows="16"></textarea>*@
-                            @Html.TextAreaFor(m => m.shippingdetail.Email, 16,5,new { placeholder = "Những yêu cầu khác nếu có ..." })
-
+                            @Html.TextAreaFor(m => m.shippingdetail.Email, 16, 5,new { placeholder = "Những yêu cầu khác nếu có ..." })
                             <div class="shopper-info">                                
                                 <div class="payment-options">
                                     <button class="btn btn-primary" type="submit">Thanh toán</button>

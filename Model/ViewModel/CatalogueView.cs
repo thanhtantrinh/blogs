@@ -19,15 +19,21 @@ namespace Model.ViewModel
 
         [Display(Name = "Tên miền Website")]
         [Required(ErrorMessage = "Bạn cần nhập thông tin tên miền")]
+        [Url(ErrorMessage = "Please enter a valid url")]        
         public string SiteUrl { get; set; }
 
         [Display(Name = "Email người quản trị")]
         [Required(ErrorMessage = "Bạn cần nhập thông tin email nhân viên quản trị website")]
+        [EmailAddress(ErrorMessage = "Bạn cần nhập đúng định dạng email")]
         public string EmailAdmin { get; set; }
+
         [Display(Name = "Email Website")]
         [Required(ErrorMessage = "Bạn cần nhập thông tin email website. Email dùng gửi và nhận email khách hàng ")]
+        [EmailAddress(ErrorMessage = "Bạn cần nhập đúng định dạng email")]
         public string EmailSite { get; set; }
+
         public long ManagerId { get; set; }
+
         public string Status { get; set; }
 
         [Display(Name = "Link Facebook")]
@@ -51,6 +57,7 @@ namespace Model.ViewModel
         public long ModifiedById { get; set; }
         [Display(Name = "Ngày cập nhận lần cuối")]
         public DateTime ModifiedDate { get; set; }
+
         public long CreatedById { get; set; }
         [Display(Name = "Ngày tạo")]
         public DateTime CreatedDate { get; set; }

@@ -158,6 +158,7 @@
   </data>
   <data name="SYSTEM_ERROR_THE_PARAMETER_LARGE_ZERO" xml:space="preserve">
     <value>Biến {0} truyền vào phải lớn hơn 0.</value>
+    <comment>SYSTEM ERROR</comment>
   </data>
   <data name="LABEL_SITE_NAME" xml:space="preserve">
     <value>Tên website</value>
@@ -198,6 +199,7 @@
   </data>
   <data name="SYSTEM_ERROR_EXECUTE_SAVECHANGE_IN_ENTITY" xml:space="preserve">
     <value>Không thì hành được entity</value>
+    <comment>SYSTEM ERROR</comment>
   </data>
   <data name="SYSTEM_ERROR_MODEL_IS_NULL" xml:space="preserve">
     <value>Model truyền vào là null</value>
@@ -237,5 +239,21 @@
   <data name="MSG_THE_SITE_CONFIGUARATION_HAS_BEEN_UPDATED_UNSUCCESSFULLY" xml:space="preserve">
     <value>Thông tin cấu hình website được cập nhật không thành công</value>
     <comment>CATALOGUE MANAGER</comment>
+  </data>
+  <data name="MSG_ORDER_HAS_CREATED_SUCCESSFULLY" xml:space="preserve">
+    <value>Đơn hàng đã tạo thành công</value>
+    <comment>ORDER MANAGER</comment>
+  </data>
+  <data name="MSG_ORDER_HAS_CREATED_UNSUCCESSFULLY" xml:space="preserve">
+    <value>Đơn hàng đã tạo không thành công</value>
+    <comment>ORDER MANAGER</comment>
+  </data>
+  <data name="SYSTEM_ERROR_THE_PARAMETER_INCORRECT" xml:space="preserve">
+    <value>Biến {0} truyền vào chưa đúng.</value>
+    <comment>SYSTEM ERROR</comment>
+  </data>
+  <data name="MSG_ORDER_HAS_NOT_FOUND" xml:space="preserve">
+    <value>Đơn hàng không tìm thấy trong hệ thống</value>
+    <comment>ORDER MANAGER</comment>
   </data>
 </root>

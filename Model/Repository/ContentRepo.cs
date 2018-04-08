@@ -134,16 +134,16 @@ namespace Model.Repository
                 //Xử lý alias
                 //
                 content.CategoryID = model.CategoryID;
+                content.CatalogueId = model.CatalogueId;
                 content.Name = model.Name.Trim();
                 content.Description = Regex.Replace(model.Description.Trim(), @"<[^>]*>", String.Empty);
                 content.Detail = model.Detail;
                 content.Image = model.Image;
-
                 //for SEO
                 if (string.IsNullOrEmpty(model.MetaTitle))
                     content.MetaTitle = StringHelper.ToUnsignString(model.Name);
                 else
-                    content.MetaTitle = model.MetaTitle;
+                    content.MetaTitle = model.MetaTitle.Trim();
 
                 content.MetaDescriptions = model.MetaDescriptions;
                 content.MetaKeywords = model.MetaKeywords;
@@ -155,8 +155,7 @@ namespace Model.Repository
 
                 content.Status = model.Status;
                 content.Language = model.Language;
-                content.ViewCount = 0;
-                
+                content.ViewCount = 0;                
 
                 entities.Contents.Add(content);
                 if (entities.SaveChanges() > 0)

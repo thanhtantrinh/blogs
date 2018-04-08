@@ -223,6 +223,33 @@ namespace StaticResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Đơn hàng đã tạo thành công.
+        /// </summary>
+        public static string MSG_ORDER_HAS_CREATED_SUCCESSFULLY {
+            get {
+                return ResourceManager.GetString("MSG_ORDER_HAS_CREATED_SUCCESSFULLY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Đơn hàng đã tạo không thành công.
+        /// </summary>
+        public static string MSG_ORDER_HAS_CREATED_UNSUCCESSFULLY {
+            get {
+                return ResourceManager.GetString("MSG_ORDER_HAS_CREATED_UNSUCCESSFULLY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Đơn hàng không tìm thấy trong hệ thống.
+        /// </summary>
+        public static string MSG_ORDER_HAS_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("MSG_ORDER_HAS_NOT_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Danh mục tin tức đã tạo thành công.
         /// </summary>
         public static string MSG_THE_CATEGORY_HAS_CREATED_SUCCESSFULLY {
@@ -354,6 +381,15 @@ namespace StaticResources {
         public static string SYSTEM_ERROR_MODEL_IS_NULL {
             get {
                 return ResourceManager.GetString("SYSTEM_ERROR_MODEL_IS_NULL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Biến {0} truyền vào chưa đúng..
+        /// </summary>
+        public static string SYSTEM_ERROR_THE_PARAMETER_INCORRECT {
+            get {
+                return ResourceManager.GetString("SYSTEM_ERROR_THE_PARAMETER_INCORRECT", resourceCulture);
             }
         }
         

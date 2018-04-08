@@ -118,7 +118,7 @@ namespace Model.Dao
                              Images = x.Images,
                              Name = x.Name,
                              MetaTitle = x.MetaTitle,
-                             Price = x.Price
+                             Price = x.Price.Value
                          });
             model.OrderByDescending(x => x.CreatedDate).Skip((pageIndex - 1) * pageSize).Take(pageSize);
             return model.ToList();
@@ -149,7 +149,7 @@ namespace Model.Dao
                              Images = x.Images,
                              Name = x.Name,
                              MetaTitle = x.MetaTitle,
-                             Price = x.Price
+                             Price = x.Price.Value
                          });
             model.OrderByDescending(x => x.CreatedDate).Skip((pageIndex - 1) * pageSize).Take(pageSize);
             return model.ToList();
