@@ -17,12 +17,12 @@ using Model;
 using OnlineShop.Binders;
 
 namespace OnlineShop.Controllers
-{    
+{
     public class CartController : BaseController
-    {        
+    {
         [Route("gio-hang")]
         public ActionResult Index(CartModel cart)
-        {            
+        {
             var list = new List<CartItem>();
             if (cart != null)
             {
@@ -36,9 +36,9 @@ namespace OnlineShop.Controllers
         }
 
         public ActionResult ViewCart(CartModel cart)
-        {            
+        {
             var list = new List<CartItem>();
-            if (cart != null && cart.CartItems.Count>0)
+            if (cart != null && cart.CartItems.Count > 0)
             {
                 list = cart.CartItems;
             }
@@ -58,18 +58,22 @@ namespace OnlineShop.Controllers
         //    });
         //}
 
-        //public JsonResult Delete(long id)
-        //{
-        //    var sessionCart = (List<CartItem>)Session[CartSession];
-        //    sessionCart.RemoveAll(x => x.Product.ID == id);
-        //    Session[CartSession] = sessionCart;
-        //    return Json(new { status = true, result = RenderRazorViewToString("partialCart", sessionCart) });
-        //}
+        public ActionResult Delete(CartModel cart, long Id = 0)
+        {
+            if (cart.CartItems.Count > 0 && Id > 0)
+            {
+                List<CartItem> Items = cart.CartItems;
+                CartItem ItemDelete = Items.Where(w => w.ProductId == Id).FirstOrDefault();
+                //int position = Items.IndexOf(ItemDelete);
+                Items.Remove(ItemDelete);
+                cart.CartItems = Items;
+            }
+            return RedirectToAction("Index");
+        }
 
         //public JsonResult Update(CartModel cart, string cartModel)
         //{
         //    var jsonCart = new JavaScriptSerializer().Deserialize<List<CartItem>>(cartModel);
-            
         //    foreach (var item in cart.CartItems)
         //    {
         //        var jsonItem = jsonCart.SingleOrDefault(x => x.Product.ID == item.Product.ID);
@@ -79,13 +83,12 @@ namespace OnlineShop.Controllers
         //        }
         //    }
         //    Session[CartSession] = sessionCart;
-
         //    return Json(new { status = true, result = RenderRazorViewToString("partialCart", sessionCart) });
         //}
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Update(CartModel cart,int[] quantity)
+        public ActionResult Update(CartModel cart, int[] quantity)
         {
             if (cart.CartItems.Count > 0)
             {
@@ -93,94 +96,82 @@ namespace OnlineShop.Controllers
                 List<CartItem> Items = cart.CartItems;
                 foreach (var item in Items)
                 {
-                    if (quantity[step]>0)
+                    if (quantity[step] > 0)
                     {
                         item.Quantity = quantity[step];
                     }
                     step++;
                 }
                 cart.CartItems = Items;
-            }            
+            }
             return RedirectToAction("Index");
         }
 
         [HttpPost]
         public ActionResult AddItem(CartModel cart, long ID, int quantity = 1)
         {
-            var product = new ProductDao().ViewDetail(ID);            
-            //if (cart != null)
-            //{
-                
-                if (cart.CartItems.Exists(x => x.ProductId == ID))
+            var product = new ProductDao().ViewDetail(ID);
+            if (cart.CartItems.Exists(x => x.ProductId == ID))
+            {
+                foreach (var item in cart.CartItems)
                 {
-                    foreach (var item in cart.CartItems)
+                    if (item.ProductId == ID)
                     {
-                        if (item.ProductId == ID)
-                        {
-                            item.Quantity += quantity;
-                            item.isProduct = true;
-                        }
+                        item.Quantity += quantity;
+                        item.isProduct = true;
                     }
                 }
-                else
-                {
-                    //tạo mới đối tượng cart item
-                    var item = new CartItem();
-                    item.ProductId = product.ID;
-                    item.ProductName = product.Name;
-                    item.ProductAlias = product.MetaTitle;
-                    item.ProductImage = product.Image;
-                    item.Quantity = quantity;
-                    item.Price = product.Price.Value;
-                    cart.CartItems.Add(item);
-                }
-                //Gán vào session
-                //Session[CartSession] = list;
-            //}
-            //else
-            //{
-            //    //tạo mới đối tượng cart item
-            //    var item = new CartItem();
-            //    item.ProductId = product.ID;
-            //    item.ProductName = product.Name;
-            //    item.ProductImage = product.Image;
-            //    item.Quantity = quantity;
-
-            //    cart.CartItems.Add(item);
-            //    //Gán vào session
-            //    //                Session[CartSession] = list;
-            //}
+            }
+            else
+            {
+                var item = new CartItem();
+                item.ProductId = product.ID;
+                item.ProductName = product.Name;
+                item.ProductAlias = product.MetaTitle;
+                item.ProductImage = product.Image;
+                item.Quantity = quantity;
+                item.Price = product.Price.Value;
+                cart.CartItems.Add(item);
+            }
             return RedirectToAction("Detail", "Product", new { ID = ID });
         }
-        
+
         [HttpGet]
         public ActionResult Payment(CartModel cart)
         {
-            return View(cart);
+            CheckoutModel model = new CheckoutModel();
+            model.CartItems = cart.CartItems;
+            return View(model);
         }
 
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Payment(CartModel cart, string test ="")
+        public ActionResult Payment(CartModel cart, CheckoutModel checkout)
         {
-            //string message = null;
-            //if (ModelState.IsValid)
-            //{
-            //    var cart = (List<CartItem>)Session[CartSession];
+            string message = null;
+            if (ModelState.IsValid)
+            {
+                if (cart.CartItems.Count()>0)
+                {
+                    OrderModel orderModel = Helper.ConvertCheckOutModelToOrder(checkout);
+                    orderModel.Items = Helper.ConvertCartItemsToOrderItems(cart.CartItems);
 
-            //    OrderModel orderModel = Helper.ConvertCheckOutModelToOrder(model);
-            //    orderModel = _orderRepo.CreateOrder(orderModel, out message);
-                
-            //    return RedirectToAction("OrderConfirmation", new { ordernumber = orderModel.OrderId, send = true });
-
-            //}
-            return View(cart);
+                    orderModel = _orderRepo.CreateOrder(orderModel, out message);
+                    if (!String.IsNullOrWhiteSpace(message))
+                        return RedirectToAction("OrderConfirmation", new { ordernumber = orderModel.OrderId, send = true });
+                }
+                else
+                {
+                    return RedirectToAction("Payment");
+                }
+            }
+            return View(checkout);
         }
 
-        public async Task<ActionResult> OrderConfirmation(long ordernumber=0, bool send = false)
+        public async Task<ActionResult> OrderConfirmation(long ordernumber = 0, bool send = false)
         {
-            if (ordernumber>0)
+            if (ordernumber > 0)
             {
                 var orderDao = new OrderDao();
                 OrderViewModel model = orderDao.getOrderById(ordernumber);

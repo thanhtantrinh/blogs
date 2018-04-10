@@ -211,6 +211,7 @@
     <Compile Include="ViewModel\CatalogueView.cs" />
     <Compile Include="ViewModel\CategoryBlogViewModel.cs" />
     <Compile Include="ViewModel\CategoryViewModel.cs" />
+    <Compile Include="ViewModel\CheckoutModel.cs" />
     <Compile Include="ViewModel\ContactModel.cs" />
     <Compile Include="ViewModel\ContentViewModel.cs" />
     <Compile Include="ViewModel\DistrictModel.cs" />

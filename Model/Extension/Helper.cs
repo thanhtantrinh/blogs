@@ -84,16 +84,62 @@ namespace Model
             return result;
         }
 
-        public static OrderModel ConvertCheckOutModelToOrder(CartModel checkOut)
+        public static OrderModel ConvertCartModelToOrder(CartModel checkOut)
         {
             OrderModel result = new OrderModel();
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<CartModel, OrderModel>();
+                cfg.CreateMap<CartModel, CheckoutModel>();
             });
             IMapper mapper = config.CreateMapper();
             result = mapper.Map<CartModel, OrderModel>(checkOut);
-
+            return result;
+        }
+        public static OrderModel ConvertCheckOutModelToOrder(CheckoutModel checkOut)
+        {
+            OrderModel result = new OrderModel();
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<CheckoutModel, OrderModel>()
+                .ForMember(o => o.Address, co => co.MapFrom(src => src.ShippingDetail.Address))
+                .ForMember(o => o.Email, co => co.MapFrom(src => src.ShippingDetail.Email))
+                .ForMember(o => o.FullName, co => co.MapFrom(src => src.ShippingDetail.Fullname))
+                .ForMember(o => o.Phone, co => co.MapFrom(src => src.ShippingDetail.Phone))
+                .ForMember(o => o.Notes, co => co.MapFrom(src => src.ShippingDetail.Note));                
+            });  
+            IMapper mapper = config.CreateMapper();
+            result = mapper.Map<CheckoutModel, OrderModel>(checkOut);
+            //Manel
+            result.Address = checkOut.ShippingDetail.Address;
+            result.Email = checkOut.ShippingDetail.Email;
+            result.FullName = checkOut.ShippingDetail.Fullname;
+            result.Phone = checkOut.ShippingDetail.Phone;
+            result.Notes = checkOut.ShippingDetail.Note;
+            result.Items = ConvertCartItemsToOrderItems(checkOut.CartItems);
+            return result;
+        }
+        /// <summary>
+        /// Convert the CartItems to OrderItems
+        /// </summary>
+        /// <param name="CartItems"></param>
+        /// <returns></returns>
+        public static List<OrderItem> ConvertCartItemsToOrderItems(List<CartItem> CartItems)
+        {
+            List<OrderItem> result = new List<OrderItem>();
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<CartItem, OrderItem>()
+                .ForMember(o => o.ProductId, co => co.MapFrom(src => src.ProductId))
+                .ForMember(o => o.ProductName, co => co.MapFrom(src => src.ProductName))
+                .ForMember(o => o.ProductImage, co => co.MapFrom(src => src.ProductImage))
+                .ForMember(o => o.Price, co => co.MapFrom(src => src.Price))
+                .ForMember(o => o.Quantity, co => co.MapFrom(src => src.Quantity));
+            });
+            IMapper mapper = config.CreateMapper();
+            foreach (var item in CartItems)
+            {
+                result.Add(mapper.Map<CartItem, OrderItem>(item));
+            }
             return result;
         }
     }

@@ -1,7 +1,7 @@
 ﻿@using Model.ViewModel
 @using Model.Extension
 
-@model CartModel
+@model CheckoutModel
 @{
     ViewBag.Title = "Thanh toán";
     Layout = "~/Views/Shared/_LayoutBptchemicals.cshtml";
@@ -25,7 +25,7 @@
                         <td class="description"></td>
                         <td class="price">Giá</td>
                         <td class="quantity" align="center">Số lượng</td>
-                        <td class="total" colspan="2" align="center">Tổng</td>
+                        <td width="150" class="total" colspan="2" align="center">Tổng</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -33,30 +33,22 @@
                     {
                         string link = Url.Action("Detail", "Product", new { id = item.ProductId, metatitle = item.ProductAlias  });
                         <tr>
-                            <td class="cart_product" width="150">
+                            <td class="cart_product">
                                 <a href="@link" title="@item.ProductName"><img src="@Url.Content("~/Images/Products/min/" + item.ProductImage)" alt="@item.ProductName"></a>
                             </td>
 
-                            <td class="cart_description" width="250">
+                            <td class="cart_description">
                                 <a href="@link" title="@item.ProductName">@item.ProductName</a>                            
                             </td>
-
                             <td class="cart_price" align="right">
                                 @item.Price.ToString("N0") VNĐ
                             </td>
-
                             <td align="center">
                                @item.Quantity
                             </td>
-
-                            <td class="cart_total" width="150" align="right">
+                            <td class="cart_total" align="right" colspan="2">
                                 <p class="cart_total_price">@((item.Price* item.Quantity).ToString("N0")) VNĐ</p>
                             </td>
-
-                            <td class="cart_delete" width="50" align="center">
-                                @*<a data-id="@item.Product.ID" class="btn-primary cart_quantity_delete" href=""><i class="fa fa-times"></i></a>*@
-                            </td>
-
                         </tr>
                     }
                     <tr>
