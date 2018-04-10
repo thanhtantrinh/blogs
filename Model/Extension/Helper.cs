@@ -8,6 +8,7 @@ using Model.ViewModel;
 using Dapper;
 using System.Data.SqlClient;
 using Common;
+using AutoMapper;
 
 namespace Model
 {
@@ -80,6 +81,19 @@ namespace Model
                 message += subject + StringHelper.Parameters2ErrorString(ex, catalogueId);
 
             }
+            return result;
+        }
+
+        public static OrderModel ConvertCheckOutModelToOrder(CartModel checkOut)
+        {
+            OrderModel result = new OrderModel();
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<CartModel, OrderModel>();
+            });
+            IMapper mapper = config.CreateMapper();
+            result = mapper.Map<CartModel, OrderModel>(checkOut);
+
             return result;
         }
     }

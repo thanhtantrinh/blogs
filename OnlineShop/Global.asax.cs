@@ -1,17 +1,15 @@
-﻿using OnlineShop.Areas.Admin.Controllers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using OnlineShop.Models;
 using OnlineShop.Helpers;
 using System.Security.Principal;
 using System.Web.Security;
 using OnlineShop.Identity;
 using System.Threading;
+using OnlineShop.Binders;
+using Model.ViewModel;
 
 namespace OnlineShop
 {
@@ -23,10 +21,10 @@ namespace OnlineShop
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            ModelBinders.Binders.Add(typeof(CartModel), new CartBinder());
             //FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             //load config
-            SiteConfiguration.StoreSettings();
-            
+            SiteConfiguration.StoreSettings();            
         }
 
         protected void Application_BeginRequest(object sender, EventArgs e)

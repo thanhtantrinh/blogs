@@ -209,30 +209,30 @@ namespace OnlineShop.Controllers
                 status = true
             });
         }
-        public JsonResult LoadDistrict(int provinceID)
-        {
-            var xmlDoc = XDocument.Load(Server.MapPath(@"~/assets/client/data/Provinces_Data.xml"));
+        //public JsonResult LoadDistrict(int provinceID)
+        //{
+        //    var xmlDoc = XDocument.Load(Server.MapPath(@"~/assets/client/data/Provinces_Data.xml"));
 
-            var xElement = xmlDoc.Element("Root").Elements("Item")
-                .Single(x => x.Attribute("type").Value == "province" && int.Parse(x.Attribute("id").Value) == provinceID);
+        //    var xElement = xmlDoc.Element("Root").Elements("Item")
+        //        .Single(x => x.Attribute("type").Value == "province" && int.Parse(x.Attribute("id").Value) == provinceID);
 
-            var list = new List<DistrictModel>();
-            DistrictModel district = null;
-            foreach (var item in xElement.Elements("Item").Where(x => x.Attribute("type").Value == "district"))
-            {
-                district = new DistrictModel();
-                district.ID = int.Parse(item.Attribute("id").Value);
-                district.Name = item.Attribute("value").Value;
-                district.ProvinceID = int.Parse(xElement.Attribute("id").Value);
-                list.Add(district);
+        //    var list = new List<DistrictModel>();
+        //    DistrictModel district = null;
+        //    foreach (var item in xElement.Elements("Item").Where(x => x.Attribute("type").Value == "district"))
+        //    {
+        //        district = new DistrictModel();
+        //        district.ID = int.Parse(item.Attribute("id").Value);
+        //        district.Name = item.Attribute("value").Value;
+        //        district.ProvinceID = int.Parse(xElement.Attribute("id").Value);
+        //        list.Add(district);
 
-            }
-            return Json(new
-            {
-                data = list,
-                status = true
-            });
-        }
+        //    }
+        //    return Json(new
+        //    {
+        //        data = list,
+        //        status = true
+        //    });
+        //}
 
     }
 }

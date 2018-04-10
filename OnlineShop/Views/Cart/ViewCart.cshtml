@@ -1,8 +1,6 @@
-﻿@model List<OnlineShop.Models.CartItem>
+﻿@using Model.ViewModel
+@model List<CartItem>
 
-@{
-    var totalPrice = Model.Sum(x => x.Product.Price * x.Quantity);
-}
 <div id="header_right">
     <div class="blockcart_top clearfix inner pull-right">
         <div id="viewcart" class="shopping_cart">

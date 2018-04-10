@@ -197,6 +197,7 @@
     <Compile Include="Areas\Admin\Controllers\ProductsController.cs" />
     <Compile Include="Areas\Admin\Controllers\SlideController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
+    <Compile Include="Binders\CartBinder.cs" />
     <Compile Include="Common\HasCredentialAttribute.cs" />
     <Compile Include="Filters\AuthLogAttribute.cs" />
     <Compile Include="Helpers\HTMLExtensions.cs" />
@@ -215,10 +216,6 @@
     <Compile Include="Helpers\SiteConfiguration.cs" />
     <Compile Include="Identity\CustomIdentity.cs" />
     <Compile Include="Identity\CustomPrincipal.cs" />
-    <Compile Include="Models\CartItem.cs" />
-    <Compile Include="Models\DistrictModel.cs" />
-    <Compile Include="Models\PaymentModel.cs" />
-    <Compile Include="Models\ProvinceModel.cs" />
     <Compile Include="Models\RegisterModel.cs" />
     <Compile Include="Models\SiteSetting.cs" />
     <Compile Include="Models\UserAccount.cs" />

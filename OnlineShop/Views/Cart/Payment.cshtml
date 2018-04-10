@@ -1,12 +1,14 @@
-﻿@using Model.Extension
-@model OnlineShop.Models.PaymentViewModel    
+﻿@using Model.ViewModel
+@using Model.Extension
+
+@model CartModel
 @{
     ViewBag.Title = "Thanh toán";
     Layout = "~/Views/Shared/_LayoutBptchemicals.cshtml";
     decimal subtotal = 0;
-    if (Model.cartItems!=null && Model.cartItems.Count()>0)
+    if (Model.CartItems!=null && Model.CartItems.Count()>0)
     {
-        subtotal = Model.cartItems.Sum(s => s.Product.Price.Value * s.Quantity);
+        subtotal = Model.CartItems.Sum(s => s.Price * s.Quantity);
     }
 }
 <div id="cart_items" class="content">
@@ -14,7 +16,7 @@
         <h2>Thông tin giỏ hàng</h2>
     </div>
     <div class="table-responsive cart_info">
-        @if (Model.cartItems != null)
+        @if (Model.CartItems != null)
         {
             <table class="table table-condensed">
                 <thead>
@@ -27,20 +29,20 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model.cartItems)
+                    @foreach (var item in Model.CartItems)
                     {
-                        string link = Url.Action("Detail", "Product", new { id = item.Product.ID,   metatitle= item.Product.MetaTitle  });
+                        string link = Url.Action("Detail", "Product", new { id = item.ProductId, metatitle = item.ProductAlias  });
                         <tr>
                             <td class="cart_product" width="150">
-                                <a href="@link" title="@item.Product.Name"><img src="@Url.Content("~/Images/Products/min/" + item.Product.Image)" alt="@item.Product.Name"></a>
+                                <a href="@link" title="@item.ProductName"><img src="@Url.Content("~/Images/Products/min/" + item.ProductImage)" alt="@item.ProductName"></a>
                             </td>
 
                             <td class="cart_description" width="250">
-                                <a href="@link" title="@item.Product.Name">@item.Product.Name</a>                            
+                                <a href="@link" title="@item.ProductName">@item.ProductName</a>                            
                             </td>
 
                             <td class="cart_price" align="right">
-                                @item.Product.Price.GetValueOrDefault(0).ToString("N0") VNĐ
+                                @item.Price.ToString("N0") VNĐ
                             </td>
 
                             <td align="center">
@@ -48,7 +50,7 @@
                             </td>
 
                             <td class="cart_total" width="150" align="right">
-                                <p class="cart_total_price">@((item.Product.Price.GetValueOrDefault(0) * item.Quantity).ToString("N0")) VNĐ</p>
+                                <p class="cart_total_price">@((item.Price* item.Quantity).ToString("N0")) VNĐ</p>
                             </td>
 
                             <td class="cart_delete" width="50" align="center">
@@ -84,7 +86,7 @@
             <p>Bạn cần thêm sản phẩm vào giỏ hàng.</p>
         }
     </div>
-    @if (Model.cartItems != null)
+    @if (Model.CartItems != null)
     {
     <div class="section group">
         @using (Html.BeginForm("Payment", "Cart", FormMethod.Post))
@@ -97,26 +99,26 @@
                         <div class="bill-to">
                             <p>Giao hàng đến</p>
                             <div class="form-one">
-                                @Html.TextBoxFor(m => m.shippingdetail.Fullname, new { placeholder = "Họ và tên *" })
-                                @Html.ValidationMessageFor(model => model.shippingdetail.Fullname, "", new { @class = "text-danger" })
+                                @Html.TextBoxFor(m => m.ShippingDetail.Fullname, new { placeholder = "Họ và tên *" })
+                                @Html.ValidationMessageFor(model => model.ShippingDetail.Fullname, "", new { @class = "text-danger" })
 
-                                @Html.TextBoxFor(m => m.shippingdetail.Phone, new { placeholder = "Điện thoại *" })
-                                @Html.ValidationMessageFor(model => model.shippingdetail.Phone, "", new { @class = "text-danger" })
+                                @Html.TextBoxFor(m => m.ShippingDetail.Phone, new { placeholder = "Điện thoại *" })
+                                @Html.ValidationMessageFor(model => model.ShippingDetail.Phone, "", new { @class = "text-danger" })
                                 @*@Html.TextBoxFor(m => m.shippingdetail.CompanyName, new { placeholder = "Tên công ty *" })*@
-                                @Html.TextBoxFor(m => m.shippingdetail.Email, new { placeholder = "Email *" })
-                                @Html.ValidationMessageFor(model => model.shippingdetail.Email, "", new { @class = "text-danger" })
+                                @Html.TextBoxFor(m => m.ShippingDetail.Email, new { placeholder = "Email *" })
+                                @Html.ValidationMessageFor(model => model.ShippingDetail.Email, "", new { @class = "text-danger" })
                               
                             </div>
                             <div class="form-two">
-                                @Html.DropDownListFor(model => model.shippingdetail.ProvinceId, ListExtensions.ProvinceList, "-- Tỉnh thành --", new { @class = "form-control ", id = "provinces", onchange = "buildDistricts();" })
-                                @Html.ValidationMessageFor(model => model.shippingdetail.ProvinceId, "", new { @class = "text-danger" })
+                                @Html.DropDownListFor(model => model.ShippingDetail.ProvinceId, ListExtensions.ProvinceList, "-- Tỉnh thành --", new { @class = "form-control ", id = "provinces", onchange = "buildDistricts();" })
+                                @Html.ValidationMessageFor(model => model.ShippingDetail.ProvinceId, "", new { @class = "text-danger" })
                                 <select class="form-control" id="ddlDistricts">
                                     <option>-- Quận / Huyện  --</option>
                                 </select>
 
                                 @*<input name="address" type="text" placeholder="Địa chỉ 1 *">*@
-                                @Html.TextBoxFor(m => m.shippingdetail.Address, new { placeholder = "Địa chỉ 1 *" })
-                                @Html.ValidationMessageFor(model => model.shippingdetail.Address, "", new { @class = "text-danger" })
+                                @Html.TextBoxFor(m => m.ShippingDetail.Address, new { placeholder = "Địa chỉ 1 *" })
+                                @Html.ValidationMessageFor(model => model.ShippingDetail.Address, "", new { @class = "text-danger" })
                             </div>
                         </div>
                     </div>
@@ -124,7 +126,7 @@
                         <div class="order-message">
                             <p>Yêu cầu khác</p>
                             @*<textarea name="message" placeholder="Những yêu cầu khác nếu có ..." rows="16"></textarea>*@
-                            @Html.TextAreaFor(m => m.shippingdetail.Email, 16, 5,new { placeholder = "Những yêu cầu khác nếu có ..." })
+                            @Html.TextAreaFor(m => m.ShippingDetail.Email, 16, 5,new { placeholder = "Những yêu cầu khác nếu có ..." })
                             <div class="shopper-info">                                
                                 <div class="payment-options">
                                     <button class="btn btn-primary" type="submit">Thanh toán</button>

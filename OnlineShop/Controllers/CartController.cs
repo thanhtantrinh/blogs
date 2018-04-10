@@ -13,22 +13,20 @@ using System.Configuration;
 using System.IO;
 using OnlineShop.Helpers;
 using System.Threading.Tasks;
+using Model;
+using OnlineShop.Binders;
 
 namespace OnlineShop.Controllers
-{
-    
+{    
     public class CartController : BaseController
-    {
-        private const string CartSession = "CartSession";
-
+    {        
         [Route("gio-hang")]
-        public ActionResult Index()
-        {
-            var cart = Session[CartSession];
+        public ActionResult Index(CartModel cart)
+        {            
             var list = new List<CartItem>();
             if (cart != null)
             {
-                list = (List<CartItem>)cart;
+                list = cart.CartItems;
             }
             if (Request.IsAjaxRequest())
             {
@@ -37,13 +35,12 @@ namespace OnlineShop.Controllers
             return View(list);
         }
 
-        public ActionResult ViewCart()
-        {
-            var cart = Session[CartSession];
+        public ActionResult ViewCart(CartModel cart)
+        {            
             var list = new List<CartItem>();
-            if (cart != null)
+            if (cart != null && cart.CartItems.Count>0)
             {
-                list = (List<CartItem>)cart;
+                list = cart.CartItems;
             }
             if (Request.IsAjaxRequest())
             {
@@ -52,68 +49,73 @@ namespace OnlineShop.Controllers
             return View(list);
         }
 
-        public JsonResult DeleteAll()
-        {
-            Session[CartSession] = null;
-            return Json(new
-            {
-                status = true
-            });
-        }
+        //public JsonResult DeleteAll()
+        //{
+        //    Session[CartSession] = null;
+        //    return Json(new
+        //    {
+        //        status = true
+        //    });
+        //}
 
-        public JsonResult Delete(long id)
-        {
-            var sessionCart = (List<CartItem>)Session[CartSession];
-            sessionCart.RemoveAll(x => x.Product.ID == id);
-            Session[CartSession] = sessionCart;
-            return Json(new { status = true, result = RenderRazorViewToString("partialCart", sessionCart) });
-        }
+        //public JsonResult Delete(long id)
+        //{
+        //    var sessionCart = (List<CartItem>)Session[CartSession];
+        //    sessionCart.RemoveAll(x => x.Product.ID == id);
+        //    Session[CartSession] = sessionCart;
+        //    return Json(new { status = true, result = RenderRazorViewToString("partialCart", sessionCart) });
+        //}
 
-        public JsonResult Update(string cartModel)
-        {
-            var jsonCart = new JavaScriptSerializer().Deserialize<List<CartItem>>(cartModel);
-            var sessionCart = (List<CartItem>)Session[CartSession];
+        //public JsonResult Update(CartModel cart, string cartModel)
+        //{
+        //    var jsonCart = new JavaScriptSerializer().Deserialize<List<CartItem>>(cartModel);
+            
+        //    foreach (var item in cart.CartItems)
+        //    {
+        //        var jsonItem = jsonCart.SingleOrDefault(x => x.Product.ID == item.Product.ID);
+        //        if (jsonItem != null)
+        //        {
+        //            item.Quantity = jsonItem.Quantity;
+        //        }
+        //    }
+        //    Session[CartSession] = sessionCart;
 
-            foreach (var item in sessionCart)
-            {
-                var jsonItem = jsonCart.SingleOrDefault(x => x.Product.ID == item.Product.ID);
-                if (jsonItem != null)
-                {
-                    item.Quantity = jsonItem.Quantity;
-                }
-            }
-            Session[CartSession] = sessionCart;
-            return Json(new { status = true, result = RenderRazorViewToString("partialCart", sessionCart) });
-        }
+        //    return Json(new { status = true, result = RenderRazorViewToString("partialCart", sessionCart) });
+        //}
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Update(int[] quantity)
-        {            
-            var sessionCart = (List<CartItem>)Session[CartSession];
-            int step = 0;
-            foreach (var item in sessionCart)
+        public ActionResult Update(CartModel cart,int[] quantity)
+        {
+            if (cart.CartItems.Count > 0)
             {
-                item.Quantity = quantity[step];
-                step++;
-            }
-            Session[CartSession] = sessionCart;
+                int step = 0;
+                List<CartItem> Items = cart.CartItems;
+                foreach (var item in Items)
+                {
+                    if (quantity[step]>0)
+                    {
+                        item.Quantity = quantity[step];
+                    }
+                    step++;
+                }
+                cart.CartItems = Items;
+            }            
             return RedirectToAction("Index");
         }
 
         [HttpPost]
-        public ActionResult AddItem(long ID, int quantity = 1)
+        public ActionResult AddItem(CartModel cart, long ID, int quantity = 1)
         {
-            var product = new ProductDao().ViewDetail(ID);
-            var cart = Session[CartSession];
-            if (cart != null)
-            {
-                var list = (List<CartItem>)cart;
-                if (list.Exists(x => x.Product.ID == ID))
+            var product = new ProductDao().ViewDetail(ID);            
+            //if (cart != null)
+            //{
+                
+                if (cart.CartItems.Exists(x => x.ProductId == ID))
                 {
-                    foreach (var item in list)
+                    foreach (var item in cart.CartItems)
                     {
-                        if (item.Product.ID == ID)
+                        if (item.ProductId == ID)
                         {
                             item.Quantity += quantity;
                             item.isProduct = true;
@@ -124,72 +126,58 @@ namespace OnlineShop.Controllers
                 {
                     //tạo mới đối tượng cart item
                     var item = new CartItem();
-                    item.Product = product;
+                    item.ProductId = product.ID;
+                    item.ProductName = product.Name;
+                    item.ProductAlias = product.MetaTitle;
+                    item.ProductImage = product.Image;
                     item.Quantity = quantity;
-                    list.Add(item);
+                    item.Price = product.Price.Value;
+                    cart.CartItems.Add(item);
                 }
                 //Gán vào session
-                Session[CartSession] = list;
-            }
-            else
-            {
-                //tạo mới đối tượng cart item
-                var item = new CartItem();
-                item.Product = product;
-                item.Quantity = quantity;                
-                var list = new List<CartItem>();
-                list.Add(item);
-                //Gán vào session
-                Session[CartSession] = list;
-            }
+                //Session[CartSession] = list;
+            //}
+            //else
+            //{
+            //    //tạo mới đối tượng cart item
+            //    var item = new CartItem();
+            //    item.ProductId = product.ID;
+            //    item.ProductName = product.Name;
+            //    item.ProductImage = product.Image;
+            //    item.Quantity = quantity;
+
+            //    cart.CartItems.Add(item);
+            //    //Gán vào session
+            //    //                Session[CartSession] = list;
+            //}
             return RedirectToAction("Detail", "Product", new { ID = ID });
         }
         
         [HttpGet]
-        public ActionResult Payment()
+        public ActionResult Payment(CartModel cart)
         {
-            var cart = Session[CartSession];
-            PaymentViewModel model = new PaymentViewModel();
-            var cartItems = new List<CartItem>();
-            if (cart != null)
-            {
-                cartItems = (List<CartItem>)cart;
-                model.cartItems = cartItems;
-                //model.shippingdetail.ProvinceId = 79;
-            }
-            else
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            
-
-            return View(model);
+            return View(cart);
         }
 
         
         [HttpPost]
-        public ActionResult Payment(PaymentViewModel model)
+        [ValidateAntiForgeryToken]
+        public ActionResult Payment(CartModel cart, string test ="")
         {
-            try
-            {    
-                var cart = (List<CartItem>)Session[CartSession];
-                OrderModel orderModel = new OrderModel();     
+            //string message = null;
+            //if (ModelState.IsValid)
+            //{
+            //    var cart = (List<CartItem>)Session[CartSession];
+
+            //    OrderModel orderModel = Helper.ConvertCheckOutModelToOrder(model);
+            //    orderModel = _orderRepo.CreateOrder(orderModel, out message);
                 
+            //    return RedirectToAction("OrderConfirmation", new { ordernumber = orderModel.OrderId, send = true });
 
-                if (id > 0)
-                {
-                    return RedirectToAction("OrderConfirmation", new { ordernumber = id, send = true });
-                }
-
-            }
-            catch (Exception ex)
-            {
-                //ghi log
-                return RedirectToAction("Payment");
-            }
-
-            return View(model);
+            //}
+            return View(cart);
         }
+
         public async Task<ActionResult> OrderConfirmation(long ordernumber=0, bool send = false)
         {
             if (ordernumber>0)
@@ -219,6 +207,7 @@ namespace OnlineShop.Controllers
         {
             return View();
         }
+
         /// <summary>
         /// 
         /// </summary>
