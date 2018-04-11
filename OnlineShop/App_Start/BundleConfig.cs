@@ -35,6 +35,11 @@ namespace OnlineShop
                     "~/bower_components/smartmenus/src/addons/bootstrap/jquery.smartmenus.bootstrap.css"
                     //"~/bower_components/smartmenus/src/css/sm-simple/sm-simple.css"
                       ));
+
+            bundles.Add(new StyleBundle("~/assets/vegetarian/styles.css").Include(
+                "~/assets/vegetarian/css/Styles.css"
+          ));
+
             BundleTable.EnableOptimizations = false;
         }
     }

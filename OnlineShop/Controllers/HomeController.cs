@@ -124,7 +124,7 @@ namespace OnlineShop.Controllers
         //[OutputCache(Duration = 3600 * 24)]
         public ActionResult _blockProductHome()
         {
-            var model = new ProductCategoryDao().ListAllPaging(null, 1, 10, 0, true, true);
+            var model = new ProductDao().ProductsPaging(null, 1, 8, 0, true, true);
             return PartialView(model);
         }
 
@@ -141,7 +141,7 @@ namespace OnlineShop.Controllers
         //[OutputCache(Duration = 3600 * 24)]
         public ActionResult _blockProductFeatures()
         {
-            var model = new ProductDao().ProductsPaging("", 1, 24, 0, true);
+            var model = new ProductDao().ProductsPaging("", 1, 8, 0, true);
             return PartialView(model);
         }
 
@@ -149,7 +149,7 @@ namespace OnlineShop.Controllers
         //[OutputCache(Duration = 3600 * 24)]
         public ActionResult _blockProductNew()
         {
-            var model = new ProductDao().ProductsPaging("", 1, 24, 0, false,true);
+            var model = new ProductDao().ProductsPaging("", 1, 8, 0, false,true);
             return PartialView(model);
         }
     }

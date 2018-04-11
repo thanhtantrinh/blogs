@@ -1,17 +1,30 @@
 ﻿@model List<Model.EF.Menu>
 @{ 
     var baseurl = Request.Url.GetLeftPart(UriPartial.Authority) + Url.Content("~");
+    int step = 1;
+    int total = Model.Count();
 }
-@*<ul id="menu-main" class="list-inline">    
-    @foreach (var item in Model)
-    {
-        <li class="item-@item.ID">
-            <a href="@baseurl@item.Link" target="@item.Target">@item.Text</a>
-        </li>
-    }
-</ul>*@
-<!-- Navbar -->
-<div class="navbar navbar-ishop" role="navigation">
+<div class="menu menu_desktop">
+    <ul>
+        <li class=" active"><a class="" href="@baseurl"><span>TRANG CHỦ</span></a></li>
+
+        @foreach (var item in Model)
+        {         
+            <li class="item-@item.ID @(step==total?"last":"") "><a class="" href="@baseurl@item.Link" target="@item.Target"><span>@item.Text</span></a></li>
+            step++;
+        }
+
+        
+
+        @*<li class=" "><a class="" href="http://demonongnghiep.web30s.vn/San-pham"><span>Sản phẩm</span></a><ul class="dl-submenu  "><li><a href="http://demonongnghiep.web30s.vn/Nhom-trai-cay-336912">» Nhóm trái cây</a></li><li><a href="http://demonongnghiep.web30s.vn/Nhom-cu-qua-336913">» Nhóm củ, quả</a></li><li><a href="http://demonongnghiep.web30s.vn/Nhom-cai-bap-rau-la-336914">» Nhóm cải bắp, rau lá</a></li><li><a href="http://demonongnghiep.web30s.vn/Nhom-rau-tao-mui-336915">» Nhóm rau tạo mùi</a></li></ul></li>
+        <li class=" "><a class="" href="http://demonongnghiep.web30s.vn/Tin-tuc"><span>Tin tức</span></a><ul class="dl-submenu  "><li><a href="http://demonongnghiep.web30s.vn/Tin-nong-nghiep-336930">» Tin nông nghiệp</a></li><li><a href="http://demonongnghiep.web30s.vn/Kien-thuc-nong-nghiep-336931">» Kiến thức nông nghiệp</a></li><li><a href="http://demonongnghiep.web30s.vn/Chuyen-nha-nong-336932">» Chuyện nhà nông</a></li></ul></li>
+        <li class=""><a class="" href="http://demonongnghiep.web30s.vn/Dich-vu-337151"><span>Dịch vụ</span></a></li>
+        <li class=""><a class="" href="http://demonongnghiep.web30s.vn/Tuyen-dung-336960"><span>Tuyển dụng</span></a></li>
+        <li class=""><a class="" href="http://demonongnghiep.web30s.vn/Lien-he-336958"><span>Liên hệ</span></a></li>*@
+    </ul>
+</div>
+
+@*<div class="navbar navbar-ishop" role="navigation">
     <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
             <span class="sr-only">Toggle navigation</span>
@@ -21,10 +34,8 @@
         </button>        
     </div>
     <div class="navbar-collapse collapse">
-
         <!-- Left nav -->
         <ul class="nav navbar-nav">
-
             <li class="item-0">
                 <a href="@baseurl" title="">Trang chủ</a>
             </li>
@@ -33,100 +44,9 @@
                 <li class="item-@item.ID">
                     <a href="@baseurl@item.Link" target="@item.Target">@item.Text</a>
                 </li>
-            }
-            @*<li>
-                <a href="#">Dropdown <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li class="divider"></li>
-                    <li class="dropdown-header">Nav header</li>
-                    <li><a href="#">Separated link</a></li>
-                    <li>
-                        <a href="#">One more separated link <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li>
-                                <a href="#">A long sub menu <span class="caret"></span></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">Action</a></li>
-                                    <li><a href="#">Something else here</a></li>
-                                    <li class="disabled"><a class="disabled" href="#">Disabled item</a></li>
-                                    <li><a href="#">One more link</a></li>
-                                    <li><a href="#">Menu item 1</a></li>
-                                    <li><a href="#">Menu item 2</a></li>
-                                    <li><a href="#">Menu item 3</a></li>
-                                    <li><a href="#">Menu item 4</a></li>
-                                    <li><a href="#">Menu item 5</a></li>
-                                    <li><a href="#">Menu item 6</a></li>
-                                    <li><a href="#">Menu item 7</a></li>
-                                    <li><a href="#">Menu item 8</a></li>
-                                    <li><a href="#">Menu item 9</a></li>
-                                    <li><a href="#">Menu item 10</a></li>
-                                    <li><a href="#">Menu item 11</a></li>
-                                    <li><a href="#">Menu item 12</a></li>
-                                    <li><a href="#">Menu item 13</a></li>
-                                    <li><a href="#">Menu item 14</a></li>
-                                    <li><a href="#">Menu item 15</a></li>
-                                    <li><a href="#">Menu item 16</a></li>
-                                    <li><a href="#">Menu item 17</a></li>
-                                    <li><a href="#">Menu item 18</a></li>
-                                    <li><a href="#">Menu item 19</a></li>
-                                    <li><a href="#">Menu item 20</a></li>
-                                    <li><a href="#">Menu item 21</a></li>
-                                    <li><a href="#">Menu item 22</a></li>
-                                    <li><a href="#">Menu item 23</a></li>
-                                    <li><a href="#">Menu item 24</a></li>
-                                    <li><a href="#">Menu item 25</a></li>
-                                    <li><a href="#">Menu item 26</a></li>
-                                    <li><a href="#">Menu item 27</a></li>
-                                    <li><a href="#">Menu item 28</a></li>
-                                    <li><a href="#">Menu item 29</a></li>
-                                    <li><a href="#">Menu item 30</a></li>
-                                    <li><a href="#">Menu item 31</a></li>
-                                    <li><a href="#">Menu item 32</a></li>
-                                    <li><a href="#">Menu item 33</a></li>
-                                    <li><a href="#">Menu item 34</a></li>
-                                    <li><a href="#">Menu item 35</a></li>
-                                    <li><a href="#">Menu item 36</a></li>
-                                    <li><a href="#">Menu item 37</a></li>
-                                    <li><a href="#">Menu item 38</a></li>
-                                    <li><a href="#">Menu item 39</a></li>
-                                    <li><a href="#">Menu item 40</a></li>
-                                    <li><a href="#">Menu item 41</a></li>
-                                    <li><a href="#">Menu item 42</a></li>
-                                    <li><a href="#">Menu item 43</a></li>
-                                    <li><a href="#">Menu item 44</a></li>
-                                    <li><a href="#">Menu item 45</a></li>
-                                    <li><a href="#">Menu item 46</a></li>
-                                    <li><a href="#">Menu item 47</a></li>
-                                    <li><a href="#">Menu item 48</a></li>
-                                    <li><a href="#">Menu item 49</a></li>
-                                    <li><a href="#">Menu item 50</a></li>
-                                    <li><a href="#">Menu item 51</a></li>
-                                    <li><a href="#">Menu item 52</a></li>
-                                    <li><a href="#">Menu item 53</a></li>
-                                    <li><a href="#">Menu item 54</a></li>
-                                    <li><a href="#">Menu item 55</a></li>
-                                    <li><a href="#">Menu item 56</a></li>
-                                    <li><a href="#">Menu item 57</a></li>
-                                    <li><a href="#">Menu item 58</a></li>
-                                    <li><a href="#">Menu item 59</a></li>
-                                    <li><a href="#">Menu item 60</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="#">Another link</a></li>
-                            <li><a href="#">One more link</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>*@
+            }           
         </ul>
-
-        <!-- Right nav -->
-        
+        <!-- Right nav -->        
             <form id="searchbox" method="get" action="#" class="navbar-form navbar-right">
                 <div class="input-group">
                     <input type="hidden" name="controller" value="search">
@@ -145,4 +65,4 @@
         
 
     </div><!--/.nav-collapse -->
-</div>
+</div>*@

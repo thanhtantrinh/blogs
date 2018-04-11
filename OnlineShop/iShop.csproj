@@ -1851,6 +1851,7 @@
     <Content Include="assets\client\js\script.js" />
     <Content Include="assets\client\js\slides.min.jquery.js" />
     <Content Include="assets\client\js\startstop-slider.js" />
+    <Content Include="assets\vegetarian\fonts\font-awesome\fontawesome-webfont.svg" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\ico-mail.jpg" />
@@ -2022,6 +2023,11 @@
     <Content Include="Areas\Admin\Views\Home\AuthorizeFailed.cshtml" />
     <Content Include="Areas\Admin\Views\Category\_CategoryFilter.cshtml" />
     <Content Include="Areas\Admin\Views\Content\_ContentFilter.cshtml" />
+    <Content Include="assets\vegetarian\sass\_customize.scss" />
+    <Content Include="assets\vegetarian\fonts\font-awesome\fontawesome-webfont.eot" />
+    <Content Include="assets\vegetarian\fonts\font-awesome\fontawesome-webfont.ttf" />
+    <Content Include="assets\vegetarian\fonts\font-awesome\fontawesome-webfont.woff" />
+    <Content Include="assets\vegetarian\fonts\font-awesome\fontawesome-webfont.woff2" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -2679,12 +2685,15 @@
     <Content Include="Views\Contact\EmailContactTemplate.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Cart\OrderConfirmation.cshtml" />
+    <Content Include="Views\Shared\_LayoutVegetarian.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Base\" />
     <Folder Include="assets\admin\pages\" />
+    <Folder Include="assets\vegetarian\css\" />
+    <Folder Include="assets\vegetarian\images\" />
     <Folder Include="Data\files\" />
     <Folder Include="Data\flash\" />
     <Folder Include="Data\images\ada\" />

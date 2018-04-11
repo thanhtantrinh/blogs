@@ -1,18 +1,65 @@
 ﻿@{
     ViewBag.Title = "Trang chủ";
-    Layout = "~/Views/Shared/_LayoutBptchemicals.cshtml";
+    Layout = "~/Views/Shared/_LayoutVegetarian.cshtml";
     var slides = (List<Model.EF.Slide>)ViewBag.Slides;
     var listNewProducts = (List<Model.EF.Product>)ViewBag.NewProducts;
     var listFeatureProducts = (List<Model.EF.Product>)ViewBag.ListFeatureProducts;
     var ListNewsEvent = (List<Model.EF.Content>)ViewBag.ListNewsEvent;
 }
 
+<div class="dv-metroid">
+    <div class="container">
+        <div class="header-bottom">
+            <div class="header-grids">
+                <div class="col-md-3 col-sm-6 col-xs-6 col-min-12 header-grid">
+                    <div class="header-img1 header-img wow bounceInLeft animated animated" data-wow-delay="0.4s">
+                        <a href="http://demonongnghiep.web30s.vn/Nhom-trai-cay-336912"><img src="http://demonongnghiep.web30s.vn/datafiles/4252/upload/thumb_images/14750369071798_1384489545_8.jpg" class="img-responsive" alt="Nhóm trái cây"></a>
+                        <a href="http://demonongnghiep.web30s.vn/Nhom-trai-cay-336912"><h4>Nhóm trái cây</h4></a>
+                        <p>Là một trong những ngành kinh tế chủ lực, nông nghiệp Việt Nam đang có bước chuyển mình phát triển mạnh mẽ. Các hộ gia đình đã mạnh dạn đầu tư vào sản xuất nông nghiệp nay càng có thêm</p>
+                    </div>
+                </div><div class="col-md-3 col-sm-6 col-xs-6 col-min-12 header-grid">
+                    <div class="header-img1 header-img wow fadeInDownBig animated animated" data-wow-delay="0.4s">
+                        <a href="http://demonongnghiep.web30s.vn/Nhom-cu-qua-336913"><img src="http://demonongnghiep.web30s.vn/datafiles/4252/upload/thumb_images/14750370207534_bo-do-choi-rau-cu-qua-trang-tiki-500x500.jpg" class="img-responsive" alt="Nhóm củ, quả"></a>
+                        <a href="http://demonongnghiep.web30s.vn/Nhom-cu-qua-336913"><h4>Nhóm củ, quả</h4></a>
+                        <p>Các giống đu đủ của Việt Nam hay của Thái Lan, Đài Loan, Trung Quốc, ấn Độ... đều để giống được, với điều kiện không phải là giống lai F1</p>
+                    </div>
+                </div><div class="col-md-3 col-sm-6 col-xs-6 col-min-12 header-grid">
+                    <div class="header-img1 header-img wow fadeInUpBig animated animated" data-wow-delay="0.4s">
+                        <a href="http://demonongnghiep.web30s.vn/Nhom-cai-bap-rau-la-336914"><img src="http://demonongnghiep.web30s.vn/datafiles/4252/upload/thumb_images/14750371694137_GAP2009-500x500.jpg" class="img-responsive" alt="Nhóm cải bắp, rau lá"></a>
+                        <a href="http://demonongnghiep.web30s.vn/Nhom-cai-bap-rau-la-336914"><h4>Nhóm cải bắp, rau lá</h4></a>
+                        <p>Có rất nhiều cây xoài mọc từ hạt mà không hề thoái hoá mà chất lượng trái xoài vẫn được đảm bảo. Nhiều giống xoài của ta trong hạt có nhiều phôi</p>
+                    </div>
+                </div><div class="col-md-3 col-sm-6 col-xs-6 col-min-12 header-grid">
+                    <div class="header-img1 header-img wow bounceInRight animated animated" data-wow-delay="0.4s">
+                        <a href="http://demonongnghiep.web30s.vn/Nhom-rau-tao-mui-336915"><img src="http://demonongnghiep.web30s.vn/datafiles/4252/upload/thumb_images/14750372251130_20160516152120-trong-rau11.jpg" class="img-responsive" alt="Nhóm rau tạo mùi"></a>
+                        <a href="http://demonongnghiep.web30s.vn/Nhom-rau-tao-mui-336915"><h4>Nhóm rau tạo mùi</h4></a>
+                        <p>Trong hoạt động sản xuất nông nghiệp, ngoài giống cây trồng, vật nuôi thì phân bón, thức ăn chăn nuôi và thuốc bảo vệ thực vật cũng đóng vai trò quan trọng không kém.</p>
+                    </div>
+                </div>				<div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<div class="panel">
-    @*@{ Html.RenderAction("_blockProductHome", "Home");}*@
+<div class="content">
 
-    @{ Html.RenderAction("_blockProductFeatures", "Home");}
+    <div class="service-section">
+        <div class="container">
+            @{ Html.RenderAction("_blockProductNew", "Home");}
+        </div>
+    </div>
 
-    @{ Html.RenderAction("_blockProductNew", "Home");}
+    <div class="work-section wow bounceIn animated">
+        <div class="container">
+            @{ Html.RenderAction("_blockProductFeatures", "Home");}
+        </div>
+    </div>
+
+    <div class="news-section">
+        <div class="container">
+            @{ Html.RenderAction("_blockProductHome", "Home");}
+        </div>
+    </div>
 
 </div>
+

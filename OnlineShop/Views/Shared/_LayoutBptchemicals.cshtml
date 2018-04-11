@@ -1,8 +1,6 @@
 ﻿@using OnlineShop.Helpers
 @{
     Layout = null;
-    //string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
-    //string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
     string controllerName = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();
 }
 <!DOCTYPE html>

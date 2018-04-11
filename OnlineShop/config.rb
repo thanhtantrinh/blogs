@@ -1,5 +1,5 @@
-﻿css_dir = 'assets/ishop/css'
-sass_dir = 'assets/ishop/css'
+﻿css_dir = 'assets/vegetarian/css'
+sass_dir = 'assets/vegetarian/sass'
 relative_assets = true
 line_comments = true
 output_style = :expanded

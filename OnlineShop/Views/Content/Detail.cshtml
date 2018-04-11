@@ -2,49 +2,22 @@
 @model ContentViewModel
 @{
     ViewBag.Title = @Model.Name;
-    Layout = "~/Views/Shared/_LayoutBptchemicals.cshtml";
+    Layout = "~/Views/Shared/_LayoutVegetarian.cshtml";
 }
+<div class="product-model gioi-thieu-model">
 
-@*@section slide{
-    <section id="slider" class="slider box-slideshow">
-        <div class="container">
-            <div class="col-md-12">
-                <p class="text-center">
-                    @if (Model.ID==13)
-                    {
-                        <img class="img-responsive" src="~/Data/images/slide-intro/global-freights.jpg" />
-                    }
-                    else
-                    {
-                        <img class="img-responsive" src="~/Data/images/slide-intro/news_events.jpg" />
-                    }                    
-                </p>    
+
+    <div class="container">
+        <div class="col-md-12">
+
+            <div class="heading">
+                <h3>@Model.Name</h3>
+            </div>
+            <div class="details">
+                @Html.Raw(Model.Detail)
             </div>
         </div>
-    </section>
-}*@
 
-<div class="content">
-    <div class="content_top">
-        <div class="heading">
-            <h3>@Model.Name</h3>
-        </div>
-        <div class="details">
-            @Html.Raw(Model.Detail)
-        </div>    
     </div>
 
-    @*<div class="section-group">
-        <ul>
-            @{
-                var tags = (List<Model.EF.Tag>)ViewBag.Tags;
-                foreach (var tag in tags)
-                {
-                    <li><a href="/tag/@tag.ID">@tag.Name</a></li>
-                }
-            }
-        </ul>
-    </div>*@
-
 </div>
-

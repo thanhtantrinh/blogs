@@ -11,7 +11,7 @@
     <div class="product-container clearfix" itemscope itemtype="http://schema.org/Product">
         <div class="image ">
             <a class="product_img_link" href="@link" title="@Html.Raw(Model.Name)" itemprop="url">
-                <img class="replace-2x img-responsive" src="@Url.Content("~/Images/Products/medium/"+Model.MoreImages) " alt="@Html.Raw(Model.Name)" width="@width_block.ToString()" height="@height_block.ToString()" itemprop="image" />
+                <img class="replace-2x img-responsive" src="@Url.Content("~/Images/Products/medium/"+ Model.MoreImages) " alt="@Html.Raw(Model.Name)" width="@width_block.ToString()" height="@height_block.ToString()" itemprop="image" />
             </a>
             <span class="new-box">
                 <span class="new-label product-label"></span>
