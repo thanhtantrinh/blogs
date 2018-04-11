@@ -156,10 +156,11 @@ namespace OnlineShop.Controllers
                 {
                     OrderModel orderModel = Helper.ConvertCheckOutModelToOrder(checkout);
                     orderModel.Items = Helper.ConvertCartItemsToOrderItems(cart.CartItems);
-
                     orderModel = _orderRepo.CreateOrder(orderModel, out message);
-                    if (!String.IsNullOrWhiteSpace(message))
+                    if (String.IsNullOrWhiteSpace(message)&& orderModel != null)
+                    {
                         return RedirectToAction("OrderConfirmation", new { ordernumber = orderModel.OrderId, send = true });
+                    }                        
                 }
                 else
                 {

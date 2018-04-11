@@ -95,6 +95,11 @@ namespace Model
             result = mapper.Map<CartModel, OrderModel>(checkOut);
             return result;
         }
+        /// <summary>
+        /// Convert Checkout Model to Order Model
+        /// </summary>
+        /// <param name="checkOut"></param>
+        /// <returns></returns>
         public static OrderModel ConvertCheckOutModelToOrder(CheckoutModel checkOut)
         {
             OrderModel result = new OrderModel();
