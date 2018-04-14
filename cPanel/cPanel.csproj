@@ -929,12 +929,13 @@
     <Content Include="Views\CMS\CategoryList.cshtml" />
     <Content Include="Views\CMS\_CategoryFilter.cshtml" />
     <Content Include="Views\CMS\CategoryEdit.cshtml" />
+    <Content Include="Views\Ecommerce\ProductCategory.cshtml" />
+    <Content Include="Views\Ecommerce\_ProductCategoryFilter.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Sass\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\Ecommerce\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

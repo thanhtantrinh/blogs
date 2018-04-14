@@ -86,6 +86,24 @@ namespace Model.Extension
             }
         }
         /// <summary>
+        /// Get all Category 
+        /// </summary>
+        public static List<SelectListItem> ProductCategoryList
+        {
+            get
+            {
+                var categoryList = new List<SelectListItem>();
+                using (var db = new OnlineShopEntities())
+                {
+                    categoryList = db.ProductCategories.Where(w => w.Status == nameof(StatusEntity.Active))
+                                        .AsEnumerable().Select(s => new SelectListItem() { Text = s.Name, Value = s.ID.ToString() }).ToList();
+                    categoryList.Insert(0, new SelectListItem { Text = "Nhóm Root", Value = "0" });
+
+                }
+                return categoryList;
+            }
+        }
+        /// <summary>
         /// Get all catalogue
         /// </summary>
         public static List<SelectListItem> CatalogueList

@@ -26,7 +26,7 @@ namespace Model.Dao
         }
         public IEnumerable<ProductsView> ProductsPaging(string searchString="", int pageIndex=1, int pageSize=10, long catid=0, bool isShowHome = false, bool isNew = false)
         {
-            var model = db.Products.Join(db.ProductCategories, p => p.CategoryID, pc => pc.ID, (p, pc) => new { ProductCategory = pc, Product = p });
+            var model = db.Products.Join(db.ProductCategories, p => p.CategoryId, pc => pc.ID, (p, pc) => new { ProductCategory = pc, Product = p });
             //search
             if (!String.IsNullOrEmpty(searchString)&& searchString!="")
             {
@@ -36,7 +36,7 @@ namespace Model.Dao
             //filter caterogy
             if (catid > 0)
             {
-               model = model.Where(w => w.Product.CategoryID == catid);
+               model = model.Where(w => w.Product.CategoryId == catid);
             }
 
             if (isShowHome)
@@ -52,18 +52,18 @@ namespace Model.Dao
 
             var result = model.AsEnumerable().Select(s => new ProductsView
             {
-                ID = s.Product.ID,
+                ID = s.Product.Id,
                 Name = s.Product.Name,
                 Price = s.Product.Price,
                 CatMetaTitle = s.ProductCategory.MetaTitle,
                 CatName = s.ProductCategory.Name,
                 CreatedDate = s.Product.CreatedDate,               
                 MetaTitle = s.Product.MetaTitle,
-                Status = s.Product.Status.Value,
+                Status = s.Product.Status,
                 Code=s.Product.Code,
                 Description=s.Product.Description,
                 IncludedVAT=s.Product.IncludedVAT,
-                CategoryID=s.Product.CategoryID,
+                CategoryID=s.Product.CategoryId,
                 CreatedBy=s.Product.CreatedBy,
                 Detail=s.Product.Detail,
                 IsDiscount=s.Product.PromotionPrice>0?true:false,
@@ -94,17 +94,17 @@ namespace Model.Dao
         /// <returns></returns>
         public List<ProductViewModel> ListByCategoryId(long categoryID, ref int totalRecord, int pageIndex = 1, int pageSize = 2)
         {
-            totalRecord = db.Products.Where(x => x.CategoryID == categoryID).Count();
+            totalRecord = db.Products.Where(x => x.CategoryId == categoryID).Count();
             var model = (from a in db.Products
                          join b in db.ProductCategories
-                         on a.CategoryID equals b.ID
-                         where a.CategoryID == categoryID
+                         on a.CategoryId equals b.ID
+                         where a.CategoryId == categoryID
                          select new
                          {
                              CateMetaTitle = b.MetaTitle,
                              CateName = b.Name,
                              CreatedDate = a.CreatedDate,
-                             ID = a.ID,
+                             ID = a.Id,
                              Images = a.Image,
                              Name = a.Name,
                              MetaTitle = a.MetaTitle,
@@ -118,7 +118,7 @@ namespace Model.Dao
                              Images = x.Images,
                              Name = x.Name,
                              MetaTitle = x.MetaTitle,
-                             Price = x.Price.Value
+                             Price = x.Price
                          });
             model.OrderByDescending(x => x.CreatedDate).Skip((pageIndex - 1) * pageSize).Take(pageSize);
             return model.ToList();
@@ -128,14 +128,14 @@ namespace Model.Dao
             totalRecord = db.Products.Where(x => x.Name == keyword).Count();
             var model = (from a in db.Products
                          join b in db.ProductCategories
-                         on a.CategoryID equals b.ID
+                         on a.CategoryId equals b.ID
                          where a.Name.Contains(keyword)
                          select new
                          {
                              CateMetaTitle = b.MetaTitle,
                              CateName = b.Name,
                              CreatedDate = a.CreatedDate,
-                             ID = a.ID,
+                             ID = a.Id,
                              Images = a.Image,
                              Name = a.Name,
                              MetaTitle = a.MetaTitle,
@@ -149,7 +149,7 @@ namespace Model.Dao
                              Images = x.Images,
                              Name = x.Name,
                              MetaTitle = x.MetaTitle,
-                             Price = x.Price.Value
+                             Price = x.Price
                          });
             model.OrderByDescending(x => x.CreatedDate).Skip((pageIndex - 1) * pageSize).Take(pageSize);
             return model.ToList();
@@ -166,7 +166,7 @@ namespace Model.Dao
         public List<Product> ListRelatedProducts(long productId)
         {
             var product = db.Products.Find(productId);
-            return db.Products.Where(x => x.ID != productId && x.CategoryID == product.CategoryID).ToList();
+            return db.Products.Where(x => x.Id != productId && x.CategoryId == product.CategoryId).ToList();
         }
         public Product ViewDetail(long id)
         {
@@ -175,7 +175,7 @@ namespace Model.Dao
         public ProductsView Find(long id)
         {
             Mapper.Initialize(cfg => cfg.CreateMap<Product, ProductsView>());
-            var model = db.Products.Where(w => w.ID == id).FirstOrDefault();
+            var model = db.Products.Where(w => w.Id == id).FirstOrDefault();
             var result = Mapper.Map<Product, ProductsView>(model);
             return result;
 
@@ -188,7 +188,7 @@ namespace Model.Dao
             {
                 item.MetaTitle = StringHelper.ToUnsignString(product.MetaTitle.Trim().ToLower());
             }
-            item.Price = product.Price;
+            item.Price = product.Price.HasValue?product.Price.Value:0;
             item.PromotionPrice = product.PromotionPrice;
             item.Quantity = product.Quantity;
             item.Detail = product.Detail;
@@ -199,8 +199,8 @@ namespace Model.Dao
             item.MetaKeywords = product.MetaKeywords;            
             item.ModifiedBy = 2;
             item.ModifiedDate = DateTime.Now;
-            item.CategoryID = product.CategoryID;
-            item.Code = product.CategoryID.ToString() + "-" + item.ID.ToString();
+            item.CategoryId = product.CategoryID;
+            item.Code = product.CategoryID.ToString() + "-" + item.Id.ToString();
             item.IncludedVAT = product.IncludedVAT;
 
             if (!String.IsNullOrWhiteSpace(product.MoreImages))

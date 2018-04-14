@@ -88,7 +88,7 @@ namespace Model.ViewModel
                 
         public string MetaDescriptions { get; set; }
         [Display(Name = "Trạng thái")]
-        public bool Status { get; set; }
+        public string Status { get; set; }
 
         [Display(Name = "Trên trang chủ")]
         public bool? ShowHome { get; set; }

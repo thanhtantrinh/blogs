@@ -80,17 +80,7 @@ namespace Model.Dao
             {
                 model.MetaTitle = StringHelper.ToUnsignString(model.Name);
             }
-
-            if (model.Status==null)
-            {
-                model.Status = true;
-            }
-
-            if (model.ShowOnHome==null)
-            {
-                model.ShowOnHome = false;
-            }
-
+            
             model.CreatedBy = 2;
             model.CreatedDate = DateTime.Now;
             model.ModifiedBy = 2;

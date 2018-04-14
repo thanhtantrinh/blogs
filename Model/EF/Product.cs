@@ -14,28 +14,28 @@ namespace Model.EF
     
     public partial class Product
     {
-        public long ID { get; set; }
-        public int CatalogueId { get; set; }
-        public long CategoryID { get; set; }
+        public long Id { get; set; }
         public string Name { get; set; }
         public string Code { get; set; }
         public string MetaTitle { get; set; }
         public string Description { get; set; }
         public string Image { get; set; }
         public string MoreImages { get; set; }
-        public Nullable<decimal> Price { get; set; }
+        public decimal Price { get; set; }
         public Nullable<decimal> PromotionPrice { get; set; }
         public Nullable<bool> IncludedVAT { get; set; }
         public int Quantity { get; set; }
+        public int CatalogueId { get; set; }
+        public long CategoryId { get; set; }
         public string Detail { get; set; }
         public Nullable<int> Warranty { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public long CreatedBy { get; set; }
-        public Nullable<System.DateTime> ModifiedDate { get; set; }
-        public Nullable<long> ModifiedBy { get; set; }
+        public System.DateTime ModifiedDate { get; set; }
+        public long ModifiedBy { get; set; }
         public string MetaKeywords { get; set; }
         public string MetaDescriptions { get; set; }
-        public Nullable<bool> Status { get; set; }
+        public string Status { get; set; }
         public Nullable<System.DateTime> TopHot { get; set; }
         public Nullable<int> ViewCount { get; set; }
         public Nullable<bool> ShowHome { get; set; }

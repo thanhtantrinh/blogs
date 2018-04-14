@@ -76,12 +76,18 @@ namespace Model.ViewModel
 
         public string SearchBy { get; set; }        
         public string SearchString { get; set; }
+        public int CatalogueId { get; set; }
+        public int ParentId { get; set; }
+        public string Status { get; set; }
 
         public ProductCategoryFilter()
         {
             DateFrom = new DateTime(DateTime.Now.Year, 01, 01);
             DateTo = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);            
-            SearchString = "name";
+            SearchString = "";
+            Status = "";
+            CatalogueId = 0;
+            ParentId = 0;
         }
     }
 

@@ -18,16 +18,16 @@ namespace Model.EF
         public int CatalogueId { get; set; }
         public string Name { get; set; }
         public string MetaTitle { get; set; }
-        public Nullable<long> ParentID { get; set; }
+        public long ParentID { get; set; }
         public Nullable<int> DisplayOrder { get; set; }
         public string SeoTitle { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public long CreatedBy { get; set; }
-        public Nullable<System.DateTime> ModifiedDate { get; set; }
-        public Nullable<long> ModifiedBy { get; set; }
+        public System.DateTime ModifiedDate { get; set; }
+        public long ModifiedBy { get; set; }
         public string MetaKeywords { get; set; }
         public string MetaDescriptions { get; set; }
-        public Nullable<bool> Status { get; set; }
-        public Nullable<bool> ShowOnHome { get; set; }
+        public string Status { get; set; }
+        public bool ShowOnHome { get; set; }
     }
 }
