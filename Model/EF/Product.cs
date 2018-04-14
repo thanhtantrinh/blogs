@@ -15,6 +15,8 @@ namespace Model.EF
     public partial class Product
     {
         public long ID { get; set; }
+        public int CatalogueId { get; set; }
+        public long CategoryID { get; set; }
         public string Name { get; set; }
         public string Code { get; set; }
         public string MetaTitle { get; set; }
@@ -25,7 +27,6 @@ namespace Model.EF
         public Nullable<decimal> PromotionPrice { get; set; }
         public Nullable<bool> IncludedVAT { get; set; }
         public int Quantity { get; set; }
-        public Nullable<long> CategoryID { get; set; }
         public string Detail { get; set; }
         public Nullable<int> Warranty { get; set; }
         public System.DateTime CreatedDate { get; set; }

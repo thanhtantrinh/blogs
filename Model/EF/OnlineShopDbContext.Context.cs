@@ -39,8 +39,6 @@ namespace Model.EF
         public virtual DbSet<Language> Languages { get; set; }
         public virtual DbSet<Menu> Menus { get; set; }
         public virtual DbSet<MenuType> MenuTypes { get; set; }
-        public virtual DbSet<Product> Products { get; set; }
-        public virtual DbSet<ProductCategory> ProductCategories { get; set; }
         public virtual DbSet<Province> Provinces { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<Slide> Slides { get; set; }
@@ -55,9 +53,12 @@ namespace Model.EF
         public virtual DbSet<v_Content> v_Content { get; set; }
         public virtual DbSet<v_WebAccount> v_WebAccount { get; set; }
         public virtual DbSet<v_SiteMap> v_SiteMap { get; set; }
-        public virtual DbSet<v_OrderDetail> v_OrderDetail { get; set; }
         public virtual DbSet<OrderDetail> OrderDetails { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
+        public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<ProductCategory> ProductCategories { get; set; }
+        public virtual DbSet<v_Order> v_Order { get; set; }
+        public virtual DbSet<v_OrderDetail> v_OrderDetail { get; set; }
     
         public virtual ObjectResult<sp_Category_Search_Paging_Sorting_Result> sp_Category_Search_Paging_Sorting(Nullable<int> pageNbr, Nullable<int> pageSize, string sortCol)
         {

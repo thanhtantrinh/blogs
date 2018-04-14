@@ -256,4 +256,25 @@
     <value>Đơn hàng không tìm thấy trong hệ thống</value>
     <comment>ORDER MANAGER</comment>
   </data>
+  <data name="LABEL_CREATED_BY" xml:space="preserve">
+    <value>Người tạo</value>
+  </data>
+  <data name="LABEL_CREATED_DATE" xml:space="preserve">
+    <value>Ngày tạo</value>
+  </data>
+  <data name="LABEL_CREATED_NAME" xml:space="preserve">
+    <value>Tên người tạo</value>
+  </data>
+  <data name="LABEL_MODIFIED_BY" xml:space="preserve">
+    <value>Người sửa</value>
+  </data>
+  <data name="LABEL_MODIFIED_DATE" xml:space="preserve">
+    <value>Ngày sửa</value>
+  </data>
+  <data name="LABEL_MODIFIED_NAME" xml:space="preserve">
+    <value>Tên người sửa</value>
+  </data>
+  <data name="LABEL_CATALOGUE_NAME" xml:space="preserve">
+    <value>Tên danh mục</value>
+  </data>
 </root>

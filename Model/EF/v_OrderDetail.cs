@@ -15,7 +15,7 @@ namespace Model.EF
     public partial class v_OrderDetail
     {
         public long ProductID { get; set; }
-        public long OrderID { get; set; }
+        public long OrderId { get; set; }
         public int Quantity { get; set; }
         public decimal Price { get; set; }
         public string ProductName { get; set; }

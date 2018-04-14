@@ -21,6 +21,10 @@ namespace Model.ViewModel
         [Display(Name = "Nhóm cha")]
         public long? ParentID { get; set; }
 
+        [Display(Name = "Nhóm website")]
+        [Required(ErrorMessage ="Chọn nhóm website")]
+        public int CatalogueId { get; set; }
+
         [Display(Name = "Tên nhóm cha")]
         public string ParentName { get; set; }
 

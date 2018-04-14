@@ -36,7 +36,7 @@ namespace Model.Dao
             //filter caterogy
             if (catid > 0)
             {
-               model = model.Where(w => w.Product.CategoryID.Value == catid);
+               model = model.Where(w => w.Product.CategoryID == catid);
             }
 
             if (isShowHome)
@@ -64,7 +64,7 @@ namespace Model.Dao
                 Description=s.Product.Description,
                 IncludedVAT=s.Product.IncludedVAT,
                 CategoryID=s.Product.CategoryID,
-                CreatedBy="Admin",
+                CreatedBy=s.Product.CreatedBy,
                 Detail=s.Product.Detail,
                 IsDiscount=s.Product.PromotionPrice>0?true:false,
                 Quantity=s.Product.Quantity,

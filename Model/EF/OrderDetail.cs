@@ -22,5 +22,6 @@ namespace Model.EF
         public long CreateBy { get; set; }
         public long ModifiedBy { get; set; }
         public System.DateTime ModifiedDate { get; set; }
+        public string ProductName { get; set; }
     }
 }

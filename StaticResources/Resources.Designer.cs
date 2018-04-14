@@ -187,11 +187,74 @@ namespace StaticResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tên danh mục.
+        /// </summary>
+        public static string LABEL_CATALOGUE_NAME {
+            get {
+                return ResourceManager.GetString("LABEL_CATALOGUE_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Thêm bài viết mới.
         /// </summary>
         public static string LABEL_CREATE_NEW_CONTENT {
             get {
                 return ResourceManager.GetString("LABEL_CREATE_NEW_CONTENT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Người tạo.
+        /// </summary>
+        public static string LABEL_CREATED_BY {
+            get {
+                return ResourceManager.GetString("LABEL_CREATED_BY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ngày tạo.
+        /// </summary>
+        public static string LABEL_CREATED_DATE {
+            get {
+                return ResourceManager.GetString("LABEL_CREATED_DATE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tên người tạo.
+        /// </summary>
+        public static string LABEL_CREATED_NAME {
+            get {
+                return ResourceManager.GetString("LABEL_CREATED_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Người sửa.
+        /// </summary>
+        public static string LABEL_MODIFIED_BY {
+            get {
+                return ResourceManager.GetString("LABEL_MODIFIED_BY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ngày sửa.
+        /// </summary>
+        public static string LABEL_MODIFIED_DATE {
+            get {
+                return ResourceManager.GetString("LABEL_MODIFIED_DATE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tên người sửa.
+        /// </summary>
+        public static string LABEL_MODIFIED_NAME {
+            get {
+                return ResourceManager.GetString("LABEL_MODIFIED_NAME", resourceCulture);
             }
         }
         

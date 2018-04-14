@@ -11,6 +11,7 @@ namespace Model.ViewModel
     public class CatalogueView
     {
         public int Id { get; set; }
+        [Display(Name = "LABEL_CATALOGUE_NAME", ResourceType = typeof(Resources))]
         public string CatalogueName { get; set; }
 
         [Display(Name = "Tên Website" )]
@@ -57,7 +58,7 @@ namespace Model.ViewModel
         public long ModifiedById { get; set; }
         [Display(Name = "Ngày cập nhận lần cuối")]
         public DateTime ModifiedDate { get; set; }
-
+        [Display(Name = "LABEL_CREATED_BY", ResourceType =typeof(Resources))]
         public long CreatedById { get; set; }
         [Display(Name = "Ngày tạo")]
         public DateTime CreatedDate { get; set; }

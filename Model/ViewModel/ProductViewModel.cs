@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using PagedList;
 using System.ComponentModel.DataAnnotations;
 using System.Web;
+using StaticResources;
 
 namespace Model.ViewModel
 {
@@ -50,12 +51,14 @@ namespace Model.ViewModel
         public bool? IncludedVAT { set; get; }
 
         [Display(Name = "Nhóm Sản phẩm")]
-        public long? CategoryID { get; set; }
+        public long CategoryID { get; set; }
 
         [Display(Name = "Nhóm Sản phẩm")]
         public string CatName { set; get; }
 
         public string CatMetaTitle { set; get; }
+        [Display(Name = "Nhóm Website")]
+        public long CatalogueId { get; set; }
 
         [Display(Name = "Alias")]
         public string MetaTitle { set; get; }
@@ -72,11 +75,13 @@ namespace Model.ViewModel
 
         [Display(Name = "Mô tả Sản phẩm")]
         public string Detail { get; set; }
-                
-        public string CreatedBy { get; set; }
+        [Display(Name= "LABEL_CREATED_BY", ResourceType = typeof(Resources))]
+        public long CreatedBy { get; set; }
+        [Display(Name ="Tên người tạo")]
+        public string CreatedByName { get; set; }
 
         [Display(Name = "Ngày tạo")]
-        public DateTime? CreatedDate { set; get; }
+        public DateTime CreatedDate { set; get; }
         
         public string MetaKeywords { get; set; }
         public int? Warranty { get; set; }

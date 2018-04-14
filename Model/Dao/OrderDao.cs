@@ -35,9 +35,9 @@ namespace Model.Dao
             result.CreateDate = order.CreatedDate;
             result.ID = order.ID;
             result.Status = order.Status;
-            result.Items = db.v_OrderDetail.Where(w => w.OrderID == orderId)
+            result.Items = db.v_OrderDetail.Where(w => w.OrderId == orderId)
                 .Select(s => new OrderItem() {
-                    OrderId = s.OrderID,
+                    OrderId = s.OrderId,
                     Price = s.Price,
                     ProductId = s.ProductID,
                     Quantity = s.Quantity,

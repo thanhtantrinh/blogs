@@ -15,6 +15,7 @@ namespace Model.EF
     public partial class ProductCategory
     {
         public long ID { get; set; }
+        public int CatalogueId { get; set; }
         public string Name { get; set; }
         public string MetaTitle { get; set; }
         public Nullable<long> ParentID { get; set; }
