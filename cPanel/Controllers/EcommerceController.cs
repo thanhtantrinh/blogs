@@ -6,6 +6,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Model.ViewModel;
+using cPanel.Resource;
+using StaticResources;
 
 namespace cPanel.Controllers
 {
@@ -46,14 +48,76 @@ namespace cPanel.Controllers
 
         public ActionResult ProductCategoryEdit()
         {
-
             return View();
         }
 
+        [HttpGet]
         public ActionResult ProductCategoryCreate()
         {
+            var model = new ProductCategoryView();
+            model.CreatedByName = CurrentUser.Name;
+            model.CreatedDate = DateTime.Now;
+            model.ModifiedByName = CurrentUser.Name;
+            model.ModifiedDate = DateTime.Now;
 
-            return View();
+            return View(model);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ProductCategoryCreate(ProductCategoryView model, string saveclose, string savenew)
+        {
+            var actionStatus = new ActionResultHelper();
+            actionStatus.ActionStatus = ResultSubmit.failed;
+            string errorString = "";
+            string message = "";
+            bool IsValid = true;
+
+            if (ModelState.IsValid)
+            {
+                model.Language = currentCulture.ToString();
+                model.CreatedBy = CurrentUser.UserID;
+                model.ModifiedBy = CurrentUser.UserID;
+
+                ProductCategoryView remodel = _proRepo.Create(model, out message);
+
+                if (remodel != null && String.IsNullOrEmpty(message))
+                {
+                    actionStatus.ActionStatus = ResultSubmit.success;
+                    actionStatus.ErrorReason = String.Format(SiteResource.HTML_ALERT_SUCCESS, Resources.MSG_THE_CATEGORY_HAS_CREATED_SUCCESSFULLY);
+                    Session["ACTION_STATUS"] = actionStatus;
+
+                    if (!String.IsNullOrEmpty(saveclose))
+                        return RedirectToAction("ProductCategory");
+                    else if (!String.IsNullOrWhiteSpace(savenew))
+                        return RedirectToAction("ProductCategoryCreate");
+                    else
+                        return RedirectToAction("ProductCategoryEdit", new { Id = remodel.ID });
+                }
+                else
+                {
+                    //ModelState.AddModelError("", Resources.MSG_THE_CATEGORY_HAS_CREATED_UNSUCCESSFULLY);                    
+                    actionStatus.ErrorReason = String.Format(SiteResource.HTML_ALERT_ERROR, Resources.MSG_THE_CATEGORY_HAS_CREATED_UNSUCCESSFULLY);
+                    Session["ACTION_STATUS"] = actionStatus;
+                    return RedirectToAction("Index");
+                }
+            }
+            else
+            {
+                IsValid = false;
+                goto actionError;
+            }
+
+            actionError:
+            if (!IsValid)
+            {
+                actionStatus.ErrorReason = String.Format(SiteResource.HTML_ALERT_ERROR, Resources.MSG_ERROR_ENTER_DATA_FOR_FORM + errorString);
+                Session["ACTION_STATUS"] = actionStatus;
+            }
+
+            ViewBag.Title = Resources.CATEGORY_CREATE_A_NEW;
+            ViewBag.Action = "CategoryCreate";
+            return View("ProductCategoryEdit", model);
+            
         }
         #endregion
 

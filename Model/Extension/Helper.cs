@@ -9,6 +9,7 @@ using Dapper;
 using System.Data.SqlClient;
 using Common;
 using AutoMapper;
+using Model.EF;
 
 namespace Model
 {
@@ -145,6 +146,68 @@ namespace Model
             {
                 result.Add(mapper.Map<CartItem, OrderItem>(item));
             }
+            return result;
+        }
+        /// <summary>
+        /// Convert a ProductCategoryView To ProductCategory
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public static ProductCategory ConvertProductCategoryViewToProductCategory(ProductCategoryView model)
+        {
+            ProductCategory result = new ProductCategory();
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<ProductCategoryView, ProductCategory>()
+               .ForMember(v => v.ID, co => co.MapFrom(src => src.ID))
+               .ForMember(v => v.CatalogueId, co => co.MapFrom(src => src.CatalogueId))
+               .ForMember(v => v.ParentID, co => co.MapFrom(src => src.ParentID))
+               .ForMember(v => v.MetaTitle, co => co.MapFrom(src => src.MetaTitle))
+               .ForMember(v => v.Name, co => co.MapFrom(src => src.Name))
+               .ForMember(v => v.DisplayOrder, co => co.MapFrom(src => src.DisplayOrder))
+               .ForMember(v => v.SeoTitle, co => co.MapFrom(src => src.SeoTitle))
+               .ForMember(v => v.CreatedDate, co => co.MapFrom(src => src.CreatedDate))
+               .ForMember(v => v.CreatedBy, co => co.MapFrom(src => src.CreatedBy))
+               .ForMember(v => v.ModifiedDate, co => co.MapFrom(src => src.ModifiedDate))
+               .ForMember(v => v.ModifiedBy, co => co.MapFrom(src => src.ModifiedBy))
+               .ForMember(v => v.MetaKeywords, co => co.MapFrom(src => src.MetaKeywords))
+               .ForMember(v => v.MetaDescriptions, co => co.MapFrom(src => src.MetaDescriptions))
+               .ForMember(v => v.Status, co => co.MapFrom(src => src.Status))
+               .ForMember(v => v.ShowOnHome, co => co.MapFrom(src => src.ShowOnHome))
+               ;
+            });
+            IMapper mapper = config.CreateMapper();
+            result = mapper.Map<ProductCategoryView, ProductCategory>(model);
+            return result;
+        }
+        public static ProductCategoryView ConvertProductCategoryToProductCategoryView(v_CategoryOfProduct model)
+        {
+            ProductCategoryView result = new ProductCategoryView();
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<v_CategoryOfProduct, ProductCategoryView>()
+               .ForMember(v => v.ID, co => co.MapFrom(src => src.ID))
+               .ForMember(v => v.CatalogueId, co => co.MapFrom(src => src.CatalogueId))
+               .ForMember(v => v.CatalogueName, co => co.MapFrom(src => src.CategoryName))
+               .ForMember(v => v.ParentID, co => co.MapFrom(src => src.ParentId))
+               .ForMember(v => v.ParentName, co => co.MapFrom(src => src.ParentName))
+               .ForMember(v => v.MetaTitle, co => co.MapFrom(src => src.MetaTitle))
+               .ForMember(v => v.Name, co => co.MapFrom(src => src.CategoryName))
+               .ForMember(v => v.DisplayOrder, co => co.MapFrom(src => src.Orders))
+               .ForMember(v => v.SeoTitle, co => co.MapFrom(src => src.Title))
+               .ForMember(v => v.CreatedDate, co => co.MapFrom(src => src.CreatedDate))
+               .ForMember(v => v.CreatedBy, co => co.MapFrom(src => src.CreatedBy))
+               .ForMember(v => v.ModifiedDate, co => co.MapFrom(src => src.ModifiedDate))
+               .ForMember(v => v.ModifiedBy, co => co.MapFrom(src => src.ModifiedBy))
+               .ForMember(v => v.MetaKeywords, co => co.MapFrom(src => src.MetaKeywords))
+               .ForMember(v => v.MetaDescriptions, co => co.MapFrom(src => src.MetaDescriptions))
+               .ForMember(v => v.Status, co => co.MapFrom(src => src.Status))
+               .ForMember(v => v.ShowOnHome, co => co.MapFrom(src => src.ShowOnHome))
+               
+               ;
+            });
+            IMapper mapper = config.CreateMapper();
+            result = mapper.Map<v_CategoryOfProduct, ProductCategoryView>(model);
             return result;
         }
     }

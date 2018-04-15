@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StaticResources;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -19,11 +20,15 @@ namespace Model.ViewModel
         public string MetaTitle { get; set; }
 
         [Display(Name = "Nhóm cha")]
-        public long? ParentID { get; set; }
+        public long ParentID { get; set; }
 
         [Display(Name = "Nhóm website")]
         [Required(ErrorMessage ="Chọn nhóm website")]
         public int CatalogueId { get; set; }
+
+        [Display(Name = "LABEL_CATALOGUE_NAME", ResourceType =typeof(Resources))]
+        [Required(ErrorMessage = "Chọn tên nhóm website")]
+        public string CatalogueName { get; set; }        
 
         [Display(Name = "Tên nhóm cha")]
         public string ParentName { get; set; }
@@ -36,7 +41,7 @@ namespace Model.ViewModel
         public string SeoTitle { get; set; }
 
         [Display(Name = "Ngày tạo")]
-        public DateTime? CreatedDate { get; set; }
+        public DateTime CreatedDate { get; set; }
 
         [Display(Name = "Tạo bởi Id")]
         public long CreatedBy { get; set; }
@@ -45,12 +50,16 @@ namespace Model.ViewModel
         [Display(Name = "Tạo bởi")]
         public string CreatedByName { get; set; }
 
-        [Display(Name = "Cập nhật")]
-        public DateTime? ModifiedDate { get; set; }
+        [Display(Name = "LABEL_MODIFIED_DATE", ResourceType = typeof(Resources))]
+        public DateTime ModifiedDate { get; set; }
 
         [StringLength(50)]
-        [Display(Name = "Tạo bởi")]
+        [Display(Name = "LABEL_MODIFIED_BY", ResourceType =typeof(Resources))]
         public long ModifiedBy { get; set; }
+
+        [StringLength(50)]
+        [Display(Name = "LABEL_MODIFIED_NAME", ResourceType = typeof(Resources))]
+        public string ModifiedByName { get; set; }
 
         [StringLength(250)]
         [Display(Name = "Keywords")]
@@ -61,12 +70,15 @@ namespace Model.ViewModel
         public string MetaDescriptions { get; set; }
 
         [Display(Name = "Hiện thị")]
-        public bool? Status { get; set; }
+        public string Status { get; set; }
 
         [Display(Name = "Trên trang chủ")]
         public bool? ShowOnHome { get; set; }
 
         public int TotalCount { get; set; }
+
+        public string Language { get; set; }
+        public string LanguageCode { get; set; }
     }
 
     public class ProductCategoryFilter

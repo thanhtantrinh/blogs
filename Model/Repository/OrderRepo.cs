@@ -129,7 +129,6 @@ namespace Model.Repository
                 message = StringHelper.Parameters2ErrorString(ex);
                 MailHelper.SendMail(SiteSetting.EmailAdmin, subject, message);
             }
-
             return null;
         }
     }

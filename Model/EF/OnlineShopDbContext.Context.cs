@@ -57,8 +57,8 @@ namespace Model.EF
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductCategory> ProductCategories { get; set; }
         public virtual DbSet<v_CatalogueInfo> v_CatalogueInfo { get; set; }
-        public virtual DbSet<v_CategoryOfProduct> v_CategoryOfProduct { get; set; }
         public virtual DbSet<v_Order> v_Order { get; set; }
+        public virtual DbSet<v_CategoryOfProduct> v_CategoryOfProduct { get; set; }
     
         public virtual ObjectResult<sp_Category_Search_Paging_Sorting_Result> sp_Category_Search_Paging_Sorting(Nullable<int> pageNbr, Nullable<int> pageSize, string sortCol)
         {

@@ -208,6 +208,7 @@
     <Compile Include="Repository\CategoryRepo.cs" />
     <Compile Include="Repository\ContentRepo.cs" />
     <Compile Include="Repository\OrderRepo.cs" />
+    <Compile Include="Repository\ProductCategoryRepo.cs" />
     <Compile Include="Repository\ProductRepo.cs" />
     <Compile Include="Service\CategoryService.cs" />
     <Compile Include="Service\UserService.cs" />

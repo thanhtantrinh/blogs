@@ -403,6 +403,15 @@ namespace StaticResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nhóm sản phẩm không tìm thấy..
+        /// </summary>
+        public static string MSG_THE_PRODUCT_CATEGORY_HAS_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("MSG_THE_PRODUCT_CATEGORY_HAS_NOT_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Thông tin cấu hình website được cập nhật thành công.
         /// </summary>
         public static string MSG_THE_SITE_CONFIGUARATION_HAS_BEEN_UPDATED_SUCCESSFULLY {

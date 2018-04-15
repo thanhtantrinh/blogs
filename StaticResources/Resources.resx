@@ -277,4 +277,7 @@
   <data name="LABEL_CATALOGUE_NAME" xml:space="preserve">
     <value>Tên danh mục</value>
   </data>
+  <data name="MSG_THE_PRODUCT_CATEGORY_HAS_NOT_FOUND" xml:space="preserve">
+    <value>Nhóm sản phẩm không tìm thấy.</value>
+  </data>
 </root>
