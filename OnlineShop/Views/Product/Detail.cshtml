@@ -1,7 +1,7 @@
 ﻿@model Model.EF.Product
 @{
     ViewBag.Title = Model.Name;
-    Layout = "~/Views/Shared/_Layout2Col.cshtml";
+    Layout = "~/Views/Shared/_LayoutVegetarian.cshtml";
     var category = (Model.EF.ProductCategory)ViewBag.Category;
     var relatedProducts = (List<Model.EF.Product>)ViewBag.RelatedProducts;
 }
@@ -18,7 +18,7 @@
 {
     @Html.AntiForgeryToken()
 
-    @Html.HiddenFor(x => x.ID)
+    @Html.HiddenFor(x => x.Id)
 
     <div id="detail">
 
@@ -30,7 +30,7 @@
             <h2 class="product-name">@Model.Name</h2>
             <div class="product-price">
                 Giá: 
-                <span class="price"> @(Model.Price.HasValue ? Model.Price.Value.ToString("N0") + " VNĐ" : "Liên hệ") </span>
+                <span class="price"> @(Model.Price>0 ? Model.Price.ToString("N0") + " VNĐ" : "Liên hệ") </span>
             </div>
             <div class="product-shortdesc">
                 @Html.Raw(Model.Description)

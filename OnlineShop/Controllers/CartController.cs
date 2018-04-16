@@ -125,12 +125,12 @@ namespace OnlineShop.Controllers
             else
             {
                 var item = new CartItem();
-                item.ProductId = product.ID;
+                item.ProductId = product.Id;
                 item.ProductName = product.Name;
                 item.ProductAlias = product.MetaTitle;
                 item.ProductImage = product.Image;
                 item.Quantity = quantity;
-                item.Price = product.Price.Value;
+                item.Price = product.Price;
                 cart.CartItems.Add(item);
             }
             return RedirectToAction("Detail", "Product", new { ID = ID });

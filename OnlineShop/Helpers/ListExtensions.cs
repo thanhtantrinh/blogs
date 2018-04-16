@@ -39,7 +39,7 @@ namespace OnlineShop.Helpers
             {
                 using (var db = new OnlineShopEntities())
                 {
-                    var categoryList = db.ProductCategories.Where(w => w.Status == true)
+                    var categoryList = db.ProductCategories.Where(w => w.Status == nameof(StatusEntity.Active))
                                         .AsEnumerable().Select(s => new SelectListItem() { Text = s.Name, Value = s.ID.ToString() }).ToList();
                     categoryList.Insert(0, new SelectListItem { Text = "Chọn nhóm sản phẩm", Value = "0" });
                     //categoryList.Insert(1, new SelectListItem { Text = "Nhóm Root", Value = "0" });

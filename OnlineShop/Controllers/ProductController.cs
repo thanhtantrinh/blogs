@@ -80,7 +80,7 @@ namespace OnlineShop.Controllers
         public ActionResult Detail(long id)
         {
             var product = new ProductDao().ViewDetail(id);
-            ViewBag.Category = new ProductCategoryDao().ViewDetail(product.CategoryID);
+            ViewBag.Category = new ProductCategoryDao().ViewDetail(product.CategoryId);
             ViewBag.RelatedProducts = new ProductDao().ListRelatedProducts(id);
             return View(product);
         }
@@ -89,7 +89,7 @@ namespace OnlineShop.Controllers
         public ActionResult Product(long id, long cateId)
         {
             var product = new ProductDao().ViewDetail(id);
-            ViewBag.Category = new ProductCategoryDao().ViewDetail(product.CategoryID);
+            ViewBag.Category = new ProductCategoryDao().ViewDetail(product.CategoryId);
             ViewBag.RelatedProducts = new ProductDao().ListRelatedProducts(id);
             return View(product);
         }

@@ -62,11 +62,11 @@ namespace OnlineShop.Areas.Admin.Controllers
             {
                 var DAO = new ProductDao();
                 var result = DAO.Add(product);
-                if (result.ID>0)
+                if (result.Id>0)
                 {
                     if (product.Images != null && !String.IsNullOrWhiteSpace(product.Images.FileName))
                     {
-                        string path = Path.Combine(Server.MapPath("~/Images/Products/large"), Path.GetFileName(result.ID.ToString() + "_" + product.Images.FileName));
+                        string path = Path.Combine(Server.MapPath("~/Images/Products/large"), Path.GetFileName(result.Id.ToString() + "_" + product.Images.FileName));
                         product.Images.SaveAs(path);
                         //resize cho vao tung thu muc
                         ImageHelper.CreateThumbnail(150, 150, path, Server.MapPath("~/Images/Products/small/"));

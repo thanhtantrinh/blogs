@@ -25,7 +25,7 @@ namespace OnlineShop.Areas.Admin.Controllers
             int totalitem = 0;
             int limitItem = 0;
 
-            Tuple<List<ProductCategoryView>, int> result = _proRepo.getCategories(filter, page??1, pageSize, sortBy);
+            Tuple<List<ProductCategoryView>, int> result = _proCategory.getCategories(filter, page??1, pageSize, sortBy);
             if (result.Item2 > 0)
             {
                 totalitem = result.Item2;
