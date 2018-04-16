@@ -1,0 +1,149 @@
+﻿@using Common
+@using Model.ViewModel
+@using Model.EF
+@using PagedList.Mvc
+@model PagedList.IPagedList<v_CategoryOfProduct>
+@{
+    var actionStaus = (ActionResultHelper)Session["ACTION_STATUS"];
+    ProductCategoryFilter filter = (ProductCategoryFilter)Session["ProductCategoryFilter"];
+    var breadcrumb = new List<Breadcrumb>();
+    int pageno = (int)ViewBag.PageNumber;
+    int currentno = ((pageno - 1) * 20) + 1;
+}
+@Html.Partial("_Breadcrumb", breadcrumb)
+<div class="container-fluid">
+    <div class="animated fadeIn">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fa fa-align-justify"></i> Danh sách bài viết
+                        <div class="card-actions">
+                            <a href="#" onclick="window.location = '@Url.Action("ProductCategoryCreate")'; ">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card-block">
+                        @if (actionStaus != null && !String.IsNullOrWhiteSpace(actionStaus.ErrorReason))
+                        {
+                            if (actionStaus.ActionStatus == ResultSubmit.failed)
+                            {
+                                @Html.Raw(actionStaus.ErrorReason);
+                            }
+                            else
+                            {
+                                @Html.Raw(actionStaus.ErrorReason);
+                            }
+                            Session["ACTION_STATUS"] = null;
+                        }
+
+                        @{Html.RenderPartial("_ProductCategoryFilter", filter);}
+
+                        <table class="table table-bordered table-striped table-condensed">
+                            <thead>
+                                <tr>
+                                    <th width="35">#</th>
+                                    <th width="120">Action</th>
+                                    <th>Danh mục</th>
+                                    <th width="220">Danh mục cha</th>
+                                    <th width="220">Website</th>
+                                    <th width="110" align="center">Trạng thái</th>
+                                    <th width="110">Người tạo</th>
+                                    <th width="110">Ngày tạo</th>
+                                    <th width="110">Cập nhật</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null && Model.Count > 0)
+                                {
+                                    foreach (var item in Model)
+                                    {
+                                        string textStatus;
+                                        switch (item.Status)
+                                        {
+                                            case nameof(StatusEntity.Active):
+                                                textStatus = "success";
+                                                break;
+                                            case nameof(StatusEntity.Locked):
+                                                textStatus = "warning";
+                                                break;
+                                            case nameof(StatusEntity.Deleted):
+                                            default:
+                                                textStatus = "danger";
+                                                break;
+                                        }
+                                        <tr>
+                                            <td>@currentno</td>
+                                            <td>
+                                                <span class="btn-group">
+                                                    <button type="button" class="btn btn-secondary btn-sm">
+                                                        <span class="fa fa-check-circle text-@textStatus"></span>
+                                                    </button>
+                                                    <a href="@Url.Action("CategoryEdit",new { Id=item.ID})" class="btn btn-secondary btn-sm">
+                                                        <span class="fa fa-pencil"></span>
+                                                    </a>
+                                                    <button type="button" class="btn btn-secondary btn-sm">
+                                                        <span class="fa fa-trash-o"></span>
+                                                    </button>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <a href="@Url.Action("CategoryEdit",new { Id=item.ID})">
+                                                    @item.CategoryName
+                                                </a> <br />
+                                                <small>(Alias: @item.MetaTitle)</small>
+                                            </td>
+                                            <td>
+                                                @if (item.ParentId > 0)
+                                                {
+                                                    <a href="@Url.Action("CategoryEdit", new { id = item.ParentId })">@item.ParentName</a>
+                                                }
+                                                else
+                                                {
+                                                    @item.ParentName
+                                                }
+                                            </td>
+                                            <td class="text-center">
+                                                @item.CatalogueId
+                                            </td>
+                                            <td class="text-center">
+                                                <span class="badge badge-@textStatus">@item.Status</span>
+                                            </td>
+                                            <td>
+                                                @item.CreatedByName
+                                            </td>
+                                            <td>
+                                                @item.CreatedDate.ToShortDateString()
+                                            </td>
+                                            <td>
+                                                @item.ModifiedDate.ToShortDateString()
+                                            </td>
+                                        </tr>
+                                        currentno = currentno + 1;
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="9">
+                                            Không tìm thấy thông tin
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        @if (Model != null && Model.Count > 0)
+                        {
+                            @Html.PagedListPager(Model, page => Url.Action("CategoryList", new { page }))
+                        }
+                    </div>
+                </div>
+            </div>
+            <!--/.col-->
+        </div>
+    </div>
+</div>
+@section scripts{
+    @Scripts.Render("~/bundles/js/form")
+}
