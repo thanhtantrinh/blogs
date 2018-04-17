@@ -6,56 +6,49 @@
     var relatedProducts = (List<Model.EF.Product>)ViewBag.RelatedProducts;
 }
 
-<div id="product-detail" class="product-details">
+<div class="product-model">
+    <div class="items-sec bre_viewpro view_product_sp">
+        @using (Html.BeginForm("AddItem", "Cart", FormMethod.Post, new { @class = "ProductDetail", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(x => x.Id)
+            <div class="main_content_top main_content_top_cus1">
 
-    <ol class="breadcrumb">
-        <li><a href="@Url.Action("Index","Home")">Trang chủ</a></li>
-        <li><a href="@Url.Action("Category", "Product", new {cateId= category.ID})">@category.Name</a></li>
-        <li class="active">@Model.Name</li>
-    </ol>
+                <div class="simpleLens-gallery-container main_col_left main_col_left_cus1">
+                    <img id="ViewImg" class="img-responsive" src="@Url.Content("~/Images/Products/medium/" + Model.Image)" alt="">
+                </div>
 
-@using (Html.BeginForm("AddItem", "Cart", FormMethod.Post, new { @class = "ProductDetail", role = "form" }))
-{
-    @Html.AntiForgeryToken()
-
-    @Html.HiddenFor(x => x.Id)
-
-    <div id="detail">
-
-        <div id="detail-left" class="col-xs-12 col-md-5 col-lg-5 col-sm-5">
-            <img id="ViewImg" class="img-responsive" src="@Url.Content("~/Images/Products/large/" + Model.Image)" alt="">
-        </div>
-
-        <div id="detail-right" class="col-xs-12 col-md-7 col-lg-7 col-sm-7">
-            <h2 class="product-name">@Model.Name</h2>
-            <div class="product-price">
-                Giá: 
-                <span class="price"> @(Model.Price>0 ? Model.Price.ToString("N0") + " VNĐ" : "Liên hệ") </span>
-            </div>
-            <div class="product-shortdesc">
-                @Html.Raw(Model.Description)
-            </div>
-            <div id="detail-options">                
-                <div class="box-addtobag">
-                    <div id="product-qty">
-                        Số lượng: <input id="quantity" name="quantity" value="1" class="input-mc" type="number" maxlength="2">
+                <div class="main_col_right main_col_right_cus1">
+                    <br />
+                    <h2 class="main_right_title">@Model.Name</h2>
+                    <div class="gia_thanhtien gia_thanhtien_cus1">
+                        @*Giá:*@
+                        <span class="price glo-tgiagoc"> @(Model.Price>0 ? Model.Price.ToString("N0") + " VNĐ" : "Liên hệ") </span>
                     </div>
-                    <div id="detail-add">
-                        <button type="submit" class="btn btn-mc btn-mc-active btn-primary">Thêm vào giỏ</button>
+                    <div class="product-shortdesc">
+                        @Html.Raw(Model.Description)
+                    </div>
+                    <div class="product-quantity">
+                        <div class="numbers-row">
+                            <div class="buttontext left" onclick="ADD_num_quantity('-')">-</div>
+                            <input id="input-quantity" name="quantity" value="1" class="intext left" type="number" maxlength="2">
+                            <div class="buttontext left" onclick="ADD_num_quantity('+')">+</div>
+                            @*<div class="left icon_body icon_body_love_cus1"><a href="@Url.Content("~/Images/Products/large/" + Model.Image)" class="lightbox"><i class="fa fa-search-plus"></i></a></div>*@
+                        </div>
+                    </div>
+                    <div class="product-bottom">
+                        <button type="submit" class="button btn-cart shopng-btn">Thêm vào giỏ</button>
                     </div>
                 </div>
+                <div class="clearfix"></div>
             </div>
-        </div>
-        <div id="detail-description" class="col-xs-12 col-md-12 col-lg-12 col-sm-12">
-            <label class="title-description">Mô tả: </label>
-            <div class="content-description">
-                @Html.Raw(Model.Detail)
+            <div class="main_content_body main_content_body_cus1">
+                <label class="title-description">Mô tả: </label>
+                <div class="content-description">
+                    @Html.Raw(Model.Detail)
+                </div>
+                <div class="clearfix"></div>
             </div>
-        </div>
-
-
+        }
     </div>
-
-}
-
 </div>

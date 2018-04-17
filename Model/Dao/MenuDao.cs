@@ -64,9 +64,9 @@ namespace Model.Dao
             return item.ID;
         }
 
-        public List<MenuView> GetMenuProducts()
+        public List<MenuView> GetMenuProducts(int CatalogueId=0)
         {
-            return db.ProductCategories.Where(w => w.Status == nameof(StatusEntity.Active))
+            return db.ProductCategories.Where(w => w.Status == nameof(StatusEntity.Active) && w.CatalogueId== CatalogueId)
                 .AsEnumerable()
                 .Select(s => new MenuView {
                     ID =s.ID,

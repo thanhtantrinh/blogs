@@ -4,20 +4,11 @@
     ViewBag.Title = @Model.Name;
     Layout = "~/Views/Shared/_LayoutVegetarian.cshtml";
 }
-<div class="product-model gioi-thieu-model">
 
 
-    <div class="container">
-        <div class="col-md-12">
-
-            <div class="heading">
-                <h3>@Model.Name</h3>
-            </div>
-            <div class="details">
-                @Html.Raw(Model.Detail)
-            </div>
-        </div>
-
-    </div>
-
+<div class="heading">
+    <h3>@Model.Name</h3>
+</div>
+<div class="details">
+    @Html.Raw(Model.Detail)
 </div>

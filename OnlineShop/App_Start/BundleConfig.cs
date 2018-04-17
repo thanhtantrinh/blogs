@@ -36,8 +36,8 @@ namespace OnlineShop
                     //"~/bower_components/smartmenus/src/css/sm-simple/sm-simple.css"
                       ));
 
-            bundles.Add(new StyleBundle("~/assets/vegetarian/styles.css").Include(
-                "~/assets/vegetarian/css/Styles.css"
+            bundles.Add(new StyleBundle("~/assets/vegetarian/css/styles.css").Include(
+                "~/assets/vegetarian/css/styles.css"
           ));
 
             BundleTable.EnableOptimizations = false;

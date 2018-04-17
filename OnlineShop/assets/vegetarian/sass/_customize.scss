@@ -46,7 +46,7 @@ body {
 }
 
 .header {
-    background: url("../images/banner.jpg")no-repeat 0px 0px;
+    background: url("../images/banner.jpg")no-repeat center center;
     background-size: cover;
     min-height: 400px;
     text-align: center;
@@ -2444,12 +2444,15 @@ a.b-home:hover {
     text-transform: capitalize;
     font-weight: 600;
 }
+
 .productOfYou:hover {
     border: 1px dashed #37353b;
 }
+
 .productOfYou .women a {
     color: #272727;
 }
+
 .productOfYou .women a:hover {
     color: #16a667;
 }
@@ -3187,11 +3190,13 @@ a.global_subnote_fa:hover {
     right: 0;
     position: absolute;
 }
+
 .menu ul li.last a:after {
     content: "";
     right: 0;
     position: absolute;
 }
+
 .menu ul li ul a {
     text-shadow: none
 }
@@ -4215,4 +4220,12 @@ a.global_subnote_fa:hover {
 
 .blog {
     margin: 60px 0 40px;
+}
+
+.footer-grids {
+    color: #fff;
+
+    a {
+        color: #fff;
+    }
 }

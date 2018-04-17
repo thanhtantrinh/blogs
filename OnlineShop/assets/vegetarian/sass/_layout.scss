@@ -6625,13 +6625,13 @@ input.received-buy:disabled, textarea.received-buy:disabled {
 }
 
 .HomePage .bg_header {
-    background-size: 100% 100%;
+    background-size: cover;
     min-height: 700px;
 }
 
 .bg_header {
-    background: url("/images/banner.jpg") fixed;
-    background-size: 100% auto;
+    /*background-: url("/images/banner.jpg");*/
+    background-size: cover;
     min-height: 400px;
 }
 

@@ -9,11 +9,18 @@
     }
 
 }
-<div class="cart-inner media-body">
-    <a href="@Url.Action("Index","Cart")" title="Xem giỏ hàng" rel="nofollow">
-        <ul class="list-inline">
-            <li>@*<i class="fa fa-opencart"></i>*@Giỏ hàng: @Model.Count Sản phẩm</li>
-            <li>@totalPrice.ToString("N0") VNĐ</li>
-        </ul>
-    </a>
+
+<div class="panel panel-default">
+    <div class="panel-heading"><i class="fa fa-cart-plus"></i> Giỏ hàng</div>
+    <div class="panel-body">
+        <div class="cart-inner media-body">
+            <div class="text-center">
+                <a href="@Url.Action("Index","Cart")" title="Xem giỏ hàng" rel="nofollow">
+                    <i class="fa fa-cubes"></i> x @Model.Sum(s=>s.Quantity) = @totalPrice.ToString("N0") VNĐ
+                </a>
+            </div>            
+        </div>
+    </div>
 </div>
+
+

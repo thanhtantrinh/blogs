@@ -1,5 +1,4 @@
 ﻿using Model.Dao;
-
 using OnlineShop.Models;
 using System;
 using System.Collections.Generic;
@@ -9,6 +8,7 @@ using System.Web.Mvc;
 using System.Web.UI;
 using Model.ViewModel;
 using Common;
+using OnlineShop.Helpers;
 
 namespace OnlineShop.Controllers
 {
@@ -89,7 +89,7 @@ namespace OnlineShop.Controllers
 
         public ActionResult _MenuCatProduct()
         {
-            var model = new MenuDao().GetMenuProducts();
+            var model = new MenuDao().GetMenuProducts(SiteConfiguration.CatalogueId);
             return PartialView(model);
         }
 

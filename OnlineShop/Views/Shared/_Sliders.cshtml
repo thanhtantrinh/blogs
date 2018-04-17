@@ -1,4 +1,5 @@
-﻿@model List<Model.EF.Slide>
+﻿@using OnlineShop.Helpers
+@model List<Model.EF.Slide>
 @{
     var slides = (List<Model.EF.Slide>)ViewBag.Slides;
     var dot = 0;
@@ -6,7 +7,7 @@
 }
 
 <div class="logo wow bounceIn animated animated" data-wow-delay="0.4s" style="visibility: visible; animation-delay: 0.4s; animation-name: bounceIn;">
-    <a href="http://demonongnghiep.web30s.vn">NÔNG NGHIỆP</a>
+    <a href="@Url.Action("Index","Home")">@SiteConfiguration.SiteName</a>
 </div>
 
 

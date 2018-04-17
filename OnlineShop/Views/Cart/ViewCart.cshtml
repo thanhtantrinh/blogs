@@ -1,11 +1,4 @@
 ﻿@using Model.ViewModel
 @model List<CartItem>
-
-<div id="header_right">
-    <div class="blockcart_top clearfix inner pull-right">
-        <div id="viewcart" class="shopping_cart">
-            @Html.Partial("partialViewCart", Model)
-            
-        </div>
-    </div>
-</div>
+<br />
+@Html.Partial("partialViewCart", Model)

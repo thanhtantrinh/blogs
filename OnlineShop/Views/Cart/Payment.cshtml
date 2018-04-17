@@ -4,136 +4,181 @@
 @model CheckoutModel
 @{
     ViewBag.Title = "Thanh toán";
-    Layout = "~/Views/Shared/_LayoutBptchemicals.cshtml";
+    Layout = "~/Views/Shared/_LayoutVegetarian.cshtml";
     decimal subtotal = 0;
-    if (Model.CartItems!=null && Model.CartItems.Count()>0)
+    if (Model.CartItems != null && Model.CartItems.Count() > 0)
     {
         subtotal = Model.CartItems.Sum(s => s.Price * s.Quantity);
     }
 }
 <div id="cart_items" class="content">
-    <div class="review-payment">
-        <h2>Thông tin giỏ hàng</h2>
-    </div>
-    <div class="table-responsive cart_info">
-        @if (Model.CartItems != null)
-        {
-            <table class="table table-condensed">
-                <thead>
-                    <tr class="cart_menu">
-                        <td class="image">Sản phẩm</td>
-                        <td class="description"></td>
-                        <td class="price">Giá</td>
-                        <td class="quantity" align="center">Số lượng</td>
-                        <td width="150" class="total" colspan="2" align="center">Tổng</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model.CartItems)
-                    {
-                        string link = Url.Action("Detail", "Product", new { id = item.ProductId, metatitle = item.ProductAlias  });
-                        <tr>
-                            <td class="cart_product">
-                                <a href="@link" title="@item.ProductName"><img src="@Url.Content("~/Images/Products/min/" + item.ProductImage)" alt="@item.ProductName"></a>
-                            </td>
 
-                            <td class="cart_description">
-                                <a href="@link" title="@item.ProductName">@item.ProductName</a>                            
-                            </td>
-                            <td class="cart_price" align="right">
-                                @item.Price.ToString("N0") VNĐ
-                            </td>
-                            <td align="center">
-                               @item.Quantity
-                            </td>
-                            <td class="cart_total" align="right" colspan="2">
-                                <p class="cart_total_price">@((item.Price* item.Quantity).ToString("N0")) VNĐ</p>
-                            </td>
-                        </tr>
-                    }
-                    <tr>
-                        <td colspan="4">&nbsp;</td>
-                        <td colspan="2">
-                            <table class="table table-condensed total-result">
-                                <tr>
-                                    <td>Tiền hàng</td>
-                                    <td align="right">@subtotal.ToString("N0") VNĐ</td>
-                                </tr>
-                                <tr class="shipping-cost">
-                                    <td>Tiền vận chuyển</td>
-                                    <td align="right">0 VNĐ</td>
-                                </tr>
-                                <tr>
-                                    <td>Tổng</td>
-                                    <td align="right"><span>@subtotal.ToString("N0") VNĐ</span></td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        }
-        else
-        {
-            <p>Bạn cần thêm sản phẩm vào giỏ hàng.</p>
-        }
-    </div>
     @if (Model.CartItems != null)
     {
-    <div class="section group">
-        @using (Html.BeginForm("Payment", "Cart", FormMethod.Post))
+        using (Html.BeginForm("Payment", "Cart", FormMethod.Post, new { @class="form-horizontal"}))
         {
-            @Html.AntiForgeryToken()
-            <div class="shopper-informations">
-                <div class="row">
-         
-                    <div class="col-sm-7 clearfix">
-                        <div class="bill-to">
-                            <p>Giao hàng đến</p>
-                            <div class="form-one">
-                                @Html.TextBoxFor(m => m.ShippingDetail.Fullname, new { placeholder = "Họ và tên *" })
-                                @Html.ValidationMessageFor(model => model.ShippingDetail.Fullname, "", new { @class = "text-danger" })
+            <div class="section group">
 
-                                @Html.TextBoxFor(m => m.ShippingDetail.Phone, new { placeholder = "Điện thoại *" })
-                                @Html.ValidationMessageFor(model => model.ShippingDetail.Phone, "", new { @class = "text-danger" })
-                                @*@Html.TextBoxFor(m => m.shippingdetail.CompanyName, new { placeholder = "Tên công ty *" })*@
-                                @Html.TextBoxFor(m => m.ShippingDetail.Email, new { placeholder = "Email *" })
-                                @Html.ValidationMessageFor(model => model.ShippingDetail.Email, "", new { @class = "text-danger" })
-                              
+                @Html.AntiForgeryToken()
+                <div class="shopper-informations">
+                    <div class="">
+                        <div class="col-sm-6 clearfix">
+                            <div class="bill-to">                                
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.ShippingDetail.Fullname)
+                                    @Html.TextBoxFor(m => m.ShippingDetail.Fullname, new { @class = "form-control", placeholder = "Nhập họ và tên" })
+                                    @Html.ValidationMessageFor(model => model.ShippingDetail.Fullname, "", new { @class = "text-danger" })
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.ShippingDetail.Phone)
+                                    @Html.TextBoxFor(m => m.ShippingDetail.Phone, new { @class = "form-control", placeholder = "Nhập Điện thoại" })
+                                    @Html.ValidationMessageFor(model => model.ShippingDetail.Phone, "", new { @class = "text-danger" })  
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.ShippingDetail.Email)
+                                    @Html.TextBoxFor(m => m.ShippingDetail.Email, new { @class = "form-control", placeholder = "Nhập Điện thoại" })
+                                    @Html.ValidationMessageFor(model => model.ShippingDetail.Email, "", new { @class = "text-danger" })
+                                </div>                                                  
                             </div>
-                            <div class="form-two">
+                        </div>
+                        <div class="col-sm-5 col-lg-offset-1">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.ShippingDetail.ProvinceId)
                                 @Html.DropDownListFor(model => model.ShippingDetail.ProvinceId, ListExtensions.ProvinceList, "-- Tỉnh thành --", new { @class = "form-control ", id = "provinces", onchange = "buildDistricts();" })
                                 @Html.ValidationMessageFor(model => model.ShippingDetail.ProvinceId, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.ShippingDetail.DistrictId)
                                 <select class="form-control" id="ddlDistricts">
                                     <option>-- Quận / Huyện  --</option>
                                 </select>
+                                @Html.ValidationMessageFor(model => model.ShippingDetail.DistrictId, "", new { @class = "text-danger" })
+                            </div>
 
-                                @*<input name="address" type="text" placeholder="Địa chỉ 1 *">*@
-                                @Html.TextBoxFor(m => m.ShippingDetail.Address, new { placeholder = "Địa chỉ 1 *" })
+
+                            @*<div class="row">
+                                <div class="col-sm-6">
+                                 
+                                </div>
+                                <div class="col-sm-5 col-lg-offset-1">
+                             
+                                </div>
+                            </div>*@
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.ShippingDetail.Address)
+                                @Html.TextBoxFor(m => m.ShippingDetail.Address, new { @class = "form-control", placeholder = "Nhập Địa chỉ" })
                                 @Html.ValidationMessageFor(model => model.ShippingDetail.Address, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                    </div>
-                    <div class="col-sm-5">
-                        <div class="order-message">
-                            <p>Yêu cầu khác</p>
-                            @*<textarea name="message" placeholder="Những yêu cầu khác nếu có ..." rows="16"></textarea>*@
-                            @Html.TextAreaFor(m => m.ShippingDetail.Email, 16, 5,new { placeholder = "Những yêu cầu khác nếu có ..." })
-                            <div class="shopper-info">                                
-                                <div class="payment-options">
-                                    <button class="btn btn-primary" type="submit">Thanh toán</button>
-                                    <a class="btn btn-primary" href="@Url.Action("Index", "Home")">Tiếp tục mua hàng</a>
-                                </div>
-                            </div>
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.ShippingDetail.Note)
+                                @Html.TextAreaFor(m => m.ShippingDetail.Note, 5, 5, new { @class = "form-control", placeholder = "Những yêu cầu khác nếu có ..." })
+                                @Html.ValidationMessageFor(model => model.ShippingDetail.Note, "", new { @class = "text-danger" })
+                            </div>                          
                         </div>
+
                     </div>
                 </div>
-            </div>
-        }
-    </div>
 
-    @section scriptsFooter{
-        <script>
+            </div>
+            <div class="clearfix"></div>
+            <div class="table-responsive cart_info">
+                @if (Model.CartItems != null)
+                {
+                    <table class="table table-condensed" width="100%">
+                        <thead>
+                            <tr class="cart_menu">
+                                <td class="image" colspan="2" align="center">Sản phẩm</td>
+                                <td class="price" align="center">Giá</td>
+                                <td class="quantity" align="center">Số lượng</td>
+                                <td width="150" class="total" colspan="2" align="center">Tổng</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.CartItems.Count > 0)
+                            {
+                                foreach (var item in Model.CartItems)
+                            {
+                                string link = Url.Action("Detail", "Product", new { id = item.ProductId, metatitle = item.ProductAlias });
+                                    <tr>
+                                        <td class="cart_product" align="center">
+                                            <a href="@link" title="@item.ProductName"><img src="@Url.Content("~/Images/Products/min/" + item.ProductImage)" alt="@item.ProductName"></a>
+                                        </td>
+                                        <td class="cart_description" align="left">
+                                            <a href="@link" title="@item.ProductName">@item.ProductName</a>
+                                        </td>
+                                        <td class="cart_price" align="right">
+                                            @item.Price.ToString("N0") VNĐ
+                                        </td>
+                                        <td align="center">
+                                            @item.Quantity
+                                        </td>
+                                        <td class="cart_total" align="right" colspan="1">
+                                            <p class="cart_total_price">@((item.Price * item.Quantity).ToString("N0")) VNĐ</p>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td class="" colspan="5">
+                                        <p>
+                                            Không có sản phẩm nào trong giỏ hàng của bạn
+                                        </p>
+                                    </td>
+                                </tr>
+                            }
+
+                            <tr>
+                                <td colspan="3">&nbsp;</td>
+                                <td colspan="2" align="right">
+                                    <br />
+                                    
+                                    <table class="table table-condensed total-result" width="250" style="width:280px;">
+                                        <tr>
+                                            <td>Tiền hàng</td>
+                                            <td align="right">@subtotal.ToString("N0") VNĐ</td>
+                                        </tr>
+                                        <tr class="shipping-cost">
+                                            <td>Tiền vận chuyển</td>
+                                            <td align="right">0 VNĐ</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tổng</td>
+                                            <td align="right"><span>@subtotal.ToString("N0") VNĐ</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" align="right">
+                                                <br />
+                                                
+                                                <button class="btn btn-primary" type="submit">Thanh toán</button>
+                                                <a class="btn btn-primary" href="@Url.Action("Index", "Home")">Tiếp tục mua hàng</a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <p>Bạn cần thêm sản phẩm vào giỏ hàng.</p>
+                }
+            </div>
+
+        }
+
+
+        @section scriptsFooter{
+            <script>
 
         function buildDistricts()
         {
@@ -151,8 +196,7 @@
 
             });
         }
-        </script>
+            </script>
+        }
     }
-}
 </div>
-

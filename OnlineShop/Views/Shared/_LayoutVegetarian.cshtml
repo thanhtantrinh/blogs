@@ -2,11 +2,11 @@
 @{
     Layout = null;
     string controllerName = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();
-    ViewBag.ClassPage = String.IsNullOrWhiteSpace(ViewBag.ClassPage)?"": ViewBag.ClassPage;
+    ViewBag.ClassPage = String.IsNullOrWhiteSpace(ViewBag.ClassPage) ? "" : ViewBag.ClassPage;
 
     if (!String.IsNullOrWhiteSpace(controllerName) && controllerName == "Home")
     {
-        ViewBag.ClassPage = ViewBag.ClassPage+" HomePage";
+        ViewBag.ClassPage = ViewBag.ClassPage + " HomePage";
     }
 }
 <!DOCTYPE html>
@@ -17,7 +17,7 @@
     <title>@ViewBag.Title - @SiteConfiguration.SiteName</title>
     <link href="~/Images/favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon" />
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,400i,700" rel="stylesheet">
-    @Styles.Render("~/assets/vegetarian/styles.css")
+    @Styles.Render("~/assets/vegetarian/css/styles.css")
     
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -46,10 +46,36 @@
     <article>
         <section class="content gallery pad1" style="padding:0">
             <div class="midle_main_idclass fix1200_cus1">
-                @RenderBody()
+
+                @if (!String.IsNullOrWhiteSpace(controllerName) && (controllerName == "Contact" || controllerName == "Home"))
+                {
+                    <div class="">
+                        @RenderBody()
+                    </div>
+                }
+                else
+                {
+                    <div class="dv-dssp">
+                        <div class="container">
+                            <div class="row">
+
+                                <div class="col-md-9 col-sm-8 col-xs-12 col-min-12 dv-ndung-sptt nobostrap">
+                                    <h2 class="type text-center bre_sptintuc">@ViewBag.Title</h2>
+                                    @RenderBody()
+                                </div>
+
+                                <div class="col-md-3 col-sm-4 col-xs-12 col-min-12 single-page-right right">                                    
+                                    @Html.Partial("_MenuLeft")
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
         </section>
     </article>
+
+
 
     @*@{ Html.RenderAction("_Sliders", "Home");}*@
     @*<div id="wrapper-page" class="container">
