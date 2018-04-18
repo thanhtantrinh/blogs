@@ -85,10 +85,25 @@ namespace Common
     {
         public ResultSubmit ActionStatus { get; set; }
         public string ErrorReason { get; set; }
+        public List<string> ErrorStrings { get; set; }
         public ActionResultHelper()
         {
             this.ActionStatus = ResultSubmit.success;
             this.ErrorReason = "";
+        }
+        public string ShowErrorStrings()
+        {
+            string errors = "";
+            if (ErrorStrings.Count > 0)
+            {
+                errors += "<ul class='list-unstyled'>";
+                foreach (var item in ErrorStrings)
+                {
+                    errors += "<li>" + item + "</li>";
+                }
+                errors += "</ul>";
+            }
+            return errors;
         }
     }
     public enum SitemapFrequency
