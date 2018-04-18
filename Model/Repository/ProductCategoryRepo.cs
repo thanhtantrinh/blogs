@@ -160,7 +160,52 @@ namespace Model.Repository
             }
             return result;
         }
+        public ProductCategoryView Edit(ProductCategoryView model, out string message)
+        {
+            ProductCategoryView result = new ProductCategoryView();
+            message = null;
+            try
+            {
+                var productCategory = entities.ProductCategories.Find(model.ID);
+                if (productCategory != null)
+                {
+                    productCategory.CatalogueId = model.CatalogueId;
+                    productCategory.MetaTitle = model.MetaTitle;
+                    productCategory.Name = model.Name;
+                    productCategory.ParentID = model.ParentID;
+                    productCategory.SeoTitle = model.SeoTitle;
+                    productCategory.Status = model.Status;
+                    productCategory.ShowOnHome = model.ShowOnHome;
+                    productCategory.DisplayOrder = model.DisplayOrder;
+                    //SEO
+                    productCategory.MetaDescriptions = model.MetaDescriptions;
+                    productCategory.MetaKeywords = model.MetaKeywords;
+                    productCategory.ModifiedBy = model.ModifiedBy;
+                    productCategory.ModifiedDate = DateTime.Now;
 
+                    if (entities.SaveChanges() > 0)
+                    {
+                        result = GetProductCategoryById(productCategory.ID, out message);
+                    }
+                    else
+                    {
+                        message = Resources.SYSTEM_ERROR_EXECUTE_SAVECHANGE_IN_ENTITY;
+                    }
+                }
+                else
+                {
+                    message = Resources.MSG_THE_PRODUCT_CATEGORY_HAS_NOT_FOUND;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                string subject = "Error " + SiteSetting.SiteName + " at Edit at ProductCategoryRepo at Model.Repository. ";
+                message = StringHelper.Parameters2ErrorString(ex, model.ID);
+                MailHelper.SendMail(SiteSetting.EmailAdmin, subject, message);
+            }
+            return result;
+        }
 
     }
 }

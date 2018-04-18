@@ -232,6 +232,15 @@ namespace StaticResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Keywords.
+        /// </summary>
+        public static string LABEL_KEYWORDS {
+            get {
+                return ResourceManager.GetString("LABEL_KEYWORDS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Người sửa.
         /// </summary>
         public static string LABEL_MODIFIED_BY {
@@ -403,11 +412,56 @@ namespace StaticResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nhóm sản phẩm được tạo thành công.
+        /// </summary>
+        public static string MSG_THE_PRODUCT_CATEGORY_HAS_CREATED_SUCCESSFULLLY {
+            get {
+                return ResourceManager.GetString("MSG_THE_PRODUCT_CATEGORY_HAS_CREATED_SUCCESSFULLLY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nhóm sản phẩm được tạo không thành công.
+        /// </summary>
+        public static string MSG_THE_PRODUCT_CATEGORY_HAS_CREATED_UNSUCCESSFULLLY {
+            get {
+                return ResourceManager.GetString("MSG_THE_PRODUCT_CATEGORY_HAS_CREATED_UNSUCCESSFULLLY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nhóm sản phẩm không tìm thấy..
         /// </summary>
         public static string MSG_THE_PRODUCT_CATEGORY_HAS_NOT_FOUND {
             get {
                 return ResourceManager.GetString("MSG_THE_PRODUCT_CATEGORY_HAS_NOT_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nhóm sản phẩm được cập nhật thành công.
+        /// </summary>
+        public static string MSG_THE_PRODUCT_CATEGORY_HAS_UPDATED_SUCCESSFULLLY {
+            get {
+                return ResourceManager.GetString("MSG_THE_PRODUCT_CATEGORY_HAS_UPDATED_SUCCESSFULLLY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nhóm sản phẩm cập nhật không thành công.
+        /// </summary>
+        public static string MSG_THE_PRODUCT_CATEGORY_HAS_UPDATED_UNSUCCESSFULLLY {
+            get {
+                return ResourceManager.GetString("MSG_THE_PRODUCT_CATEGORY_HAS_UPDATED_UNSUCCESSFULLLY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sản phẩm không tìm thấy.
+        /// </summary>
+        public static string MSG_THE_PRODUCT_HAS_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("MSG_THE_PRODUCT_HAS_NOT_FOUND", resourceCulture);
             }
         }
         

@@ -54,7 +54,6 @@ namespace cPanel.Controllers
             actionStatus.ActionStatus = ResultSubmit.failed;
             string errorString = "";
             bool IsValid = true;
-
             if (Id>0)
             {
                 ContentViewModel model = _contentRepo.GetContentById(Id);
@@ -76,16 +75,13 @@ namespace cPanel.Controllers
                 errorString = Resources.MSG_THE_CONTENT_HAS_NOT_FOUND;
                 goto actionError;
             }
-
-
             actionError:
             if (!IsValid)
             {
                 actionStatus.ErrorReason = String.Format(SiteResource.HTML_ALERT_ERROR, errorString);
                 Session["ACTION_STATUS"] = actionStatus;
             }
-            return RedirectToAction("ContentList");
-            
+            return RedirectToAction("ContentList");            
         }
 
         [HttpPost]

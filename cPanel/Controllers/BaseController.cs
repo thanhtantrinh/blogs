@@ -18,10 +18,12 @@ namespace cPanel.Controllers
     {
         //protected OnlineShopEntities db = new OnlineShopEntities();        
         protected BaseRepository _baseRepository = new BaseRepository(SiteConfiguration.DbConnectionString);
+
         protected CatalogueRepo _catalogueRepo = new CatalogueRepo();
         protected ProductRepo _proRepo = new ProductRepo();
         protected ContentRepo _contentRepo = new ContentRepo();
         protected CategoryRepo _categoryRepo = new CategoryRepo();
+        protected ProductCategoryRepo _proCatRepo = new ProductCategoryRepo();
 
         public CustomIdentity CurrentUser;
         public string currentCulture = "vi";

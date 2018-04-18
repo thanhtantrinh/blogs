@@ -40,6 +40,8 @@ namespace Model.ViewModel
 
         [Display(Name = "Tên Sản phẩm")]
         public string Name { set; get; }
+        [Display(Name = "Alias")]
+        public string MetaTitle { set; get; }
 
         [Display(Name = "Giá")]        
         public decimal? Price { set; get; }
@@ -53,15 +55,15 @@ namespace Model.ViewModel
         [Display(Name = "Nhóm Sản phẩm")]
         public long CategoryID { get; set; }
 
-        [Display(Name = "Nhóm Sản phẩm")]
-        public string CatName { set; get; }
+        [Display(Name = "Tên Nhóm Sản phẩm")]
+        public string CategoryName { set; get; }
 
-        public string CatMetaTitle { set; get; }
-        [Display(Name = "Nhóm Website")]
+        public string CategoryAlias { set; get; }
+        [Display(Name = "Nhóm Catalogue")]
         public long CatalogueId { get; set; }
 
-        [Display(Name = "Alias")]
-        public string MetaTitle { set; get; }
+        [Display(Name = "Tên nhóm Catalogue")]
+        public string CatalogueName { get; set; }
 
         [Display(Name = "Còn hàng")]
         public int Quantity { get; set; }
@@ -75,14 +77,23 @@ namespace Model.ViewModel
 
         [Display(Name = "Mô tả Sản phẩm")]
         public string Detail { get; set; }
+
         [Display(Name= "LABEL_CREATED_BY", ResourceType = typeof(Resources))]
         public long CreatedBy { get; set; }
-        [Display(Name ="Tên người tạo")]
-        public string CreatedByName { get; set; }
-
-        [Display(Name = "Ngày tạo")]
+        [Display(Name = "LABEL_CREATED_NAME", ResourceType = typeof(Resources))]
+        public string CreatedByName { get; set; }        
+        [Display(Name = "LABEL_CREATED_DATE", ResourceType = typeof(Resources))]
         public DateTime CreatedDate { set; get; }
         
+        [Display(Name = "LABEL_MODIFIED_DATE", ResourceType = typeof(Resources))]
+        public DateTime ModifiedDate { get; set; }
+        [StringLength(50)]
+        [Display(Name = "LABEL_MODIFIED_BY", ResourceType = typeof(Resources))]
+        public long ModifiedBy { get; set; }
+        [StringLength(50)]
+        [Display(Name = "LABEL_MODIFIED_NAME", ResourceType = typeof(Resources))]
+        public string ModifiedByName { get; set; }
+
         public string MetaKeywords { get; set; }
         public int? Warranty { get; set; }
                 
@@ -94,16 +105,19 @@ namespace Model.ViewModel
         public bool? ShowHome { get; set; }
 
         public bool IsDiscount { get; set; }
-
     }
-        
-
-    public class MenuView
-    {
-        public string Title { get; set; }
-        public string Link { get; set; }
-        public long ID { get; set; }
-        public string Target { get; set; }
-        public string Alias { get; set; }
+    public class ProductFilter
+    {       
+        public string SearchString { get; set; }
+        public int CatalogueId { get; set; }
+        public int CategoryId { get; set; }
+        public string Status { get; set; }
+        public ProductFilter()
+        {           
+            SearchString = "";
+            Status = "";
+            CatalogueId = 0;
+            CategoryId = 0;
+        }
     }
 }

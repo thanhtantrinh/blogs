@@ -21,7 +21,7 @@ namespace Model
         }
 
         public static List<MenuItem> GetMenuByCatalogueId(long catalogueId, out string message)
-        {                        
+        {
             var result = new List<MenuItem>();
             message = null;
             try
@@ -111,8 +111,8 @@ namespace Model
                 .ForMember(o => o.Email, co => co.MapFrom(src => src.ShippingDetail.Email))
                 .ForMember(o => o.FullName, co => co.MapFrom(src => src.ShippingDetail.Fullname))
                 .ForMember(o => o.Phone, co => co.MapFrom(src => src.ShippingDetail.Phone))
-                .ForMember(o => o.Notes, co => co.MapFrom(src => src.ShippingDetail.Note));                
-            });  
+                .ForMember(o => o.Notes, co => co.MapFrom(src => src.ShippingDetail.Note));
+            });
             IMapper mapper = config.CreateMapper();
             result = mapper.Map<CheckoutModel, OrderModel>(checkOut);
             //Manel
@@ -203,11 +203,56 @@ namespace Model
                .ForMember(v => v.MetaDescriptions, co => co.MapFrom(src => src.MetaDescriptions))
                .ForMember(v => v.Status, co => co.MapFrom(src => src.Status))
                .ForMember(v => v.ShowOnHome, co => co.MapFrom(src => src.ShowOnHome))
-               
+
                ;
             });
             IMapper mapper = config.CreateMapper();
             result = mapper.Map<v_CategoryOfProduct, ProductCategoryView>(model);
+            return result;
+        }
+
+        public static ProductsView ConvertProductToProductView(v_Product model)
+        {
+            ProductsView result = new ProductsView();
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<v_Product, ProductsView>()
+               .ForMember(v => v.ID, co => co.MapFrom(src => src.ProductId))
+               .ForMember(v => v.CatalogueId, co => co.MapFrom(src => src.CatalogueId))
+               .ForMember(v => v.CatalogueName, co => co.MapFrom(src => src.CatalogueName))
+               .ForMember(v => v.CategoryID, co => co.MapFrom(src => src.CategoryId))
+               .ForMember(v => v.CategoryAlias, co => co.MapFrom(src => src.CategoryAlias))
+               .ForMember(v => v.MetaTitle, co => co.MapFrom(src => src.ProductAlias))
+               .ForMember(v => v.Name, co => co.MapFrom(src => src.ProductName))
+               .ForMember(v => v.Code, co => co.MapFrom(src => src.Code))
+
+               .ForMember(v => v.Price, co => co.MapFrom(src => src.Price))
+               .ForMember(v => v.PromotionPrice, co => co.MapFrom(src => src.PromotionPrice))
+               .ForMember(v => v.Quantity, co => co.MapFrom(src => src.Quantity))
+               .ForMember(v => v.Warranty, co => co.MapFrom(src => src.Warranty))
+               .ForMember(v => v.TopHot, co => co.MapFrom(src => src.TopHot))
+               .ForMember(v => v.ViewCount, co => co.MapFrom(src => src.ViewCount))
+               .ForMember(v => v.IsDiscount, co => co.MapFrom(src => src.PromotionPrice > 0 ? true : false))
+               .ForMember(v => v.IncludedVAT, co => co.MapFrom(src => src.IncludedVAT))
+
+               .ForMember(v => v.MetaKeywords, co => co.MapFrom(src => src.MetaKeywords))
+               .ForMember(v => v.MetaDescriptions, co => co.MapFrom(src => src.MetaDescriptions))
+               .ForMember(v => v.Status, co => co.MapFrom(src => src.Status))
+
+               .ForMember(v => v.CreatedDate, co => co.MapFrom(src => src.CreatedDate))
+               .ForMember(v => v.CreatedBy, co => co.MapFrom(src => src.CreatedBy))
+               .ForMember(v => v.CreatedByName, co => co.MapFrom(src => src.CreatedByName))
+               .ForMember(v => v.ModifiedDate, co => co.MapFrom(src => src.ModifiedDate))
+               .ForMember(v => v.ModifiedBy, co => co.MapFrom(src => src.ModifiedBy))
+               .ForMember(v => v.ModifiedByName, co => co.MapFrom(src => src.ModifiedByName))
+               ;
+            });
+            IMapper mapper = config.CreateMapper();
+            result = mapper.Map<v_Product, ProductsView>(model);
+            //if (result.PromotionPrice > 0)
+            //{
+            //    result.IsDiscount = true;
+            //}
             return result;
         }
     }

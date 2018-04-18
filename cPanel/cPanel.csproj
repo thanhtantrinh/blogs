@@ -931,7 +931,10 @@
     <Content Include="Views\CMS\CategoryEdit.cshtml" />
     <Content Include="Views\Ecommerce\ProductCategory.cshtml" />
     <Content Include="Views\Ecommerce\_ProductCategoryFilter.cshtml" />
-    <Content Include="Views\Ecommerce\ProductCategoryCreate.cshtml" />
+    <Content Include="Views\Ecommerce\ProductCategoryEdit.cshtml" />
+    <Content Include="Views\Ecommerce\Products.cshtml" />
+    <Content Include="Views\Ecommerce\_ProductFilter.cshtml" />
+    <Content Include="Views\Ecommerce\ProductEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

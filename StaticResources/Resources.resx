@@ -279,5 +279,27 @@
   </data>
   <data name="MSG_THE_PRODUCT_CATEGORY_HAS_NOT_FOUND" xml:space="preserve">
     <value>Nhóm sản phẩm không tìm thấy.</value>
+    <comment>PRODUCT CATEGORY MANAGER</comment>
+  </data>
+  <data name="LABEL_KEYWORDS" xml:space="preserve">
+    <value>Keywords</value>
+  </data>
+  <data name="MSG_THE_PRODUCT_CATEGORY_HAS_CREATED_SUCCESSFULLLY" xml:space="preserve">
+    <value>Nhóm sản phẩm được tạo thành công</value>
+  </data>
+  <data name="MSG_THE_PRODUCT_CATEGORY_HAS_CREATED_UNSUCCESSFULLLY" xml:space="preserve">
+    <value>Nhóm sản phẩm được tạo không thành công</value>
+  </data>
+  <data name="MSG_THE_PRODUCT_CATEGORY_HAS_UPDATED_SUCCESSFULLLY" xml:space="preserve">
+    <value>Nhóm sản phẩm được cập nhật thành công</value>
+    <comment>PRODUCT CATEGORY MANAGER</comment>
+  </data>
+  <data name="MSG_THE_PRODUCT_CATEGORY_HAS_UPDATED_UNSUCCESSFULLLY" xml:space="preserve">
+    <value>Nhóm sản phẩm cập nhật không thành công</value>
+    <comment>PRODUCT CATEGORY MANAGER</comment>
+  </data>
+  <data name="MSG_THE_PRODUCT_HAS_NOT_FOUND" xml:space="preserve">
+    <value>Sản phẩm không tìm thấy</value>
+    <comment>PRODUCT MANAGER</comment>
   </data>
 </root>

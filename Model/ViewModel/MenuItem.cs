@@ -6,6 +6,15 @@ using System.Threading.Tasks;
 
 namespace Model.ViewModel
 {
+    public class MenuView
+    {
+        public string Title { get; set; }
+        public string Link { get; set; }
+        public long ID { get; set; }
+        public string Target { get; set; }
+        public string Alias { get; set; }
+    }
+
     public class MenuItem
     {
         public long Id { get; set; }

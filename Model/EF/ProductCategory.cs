@@ -29,5 +29,6 @@ namespace Model.EF
         public string MetaDescriptions { get; set; }
         public string Status { get; set; }
         public bool ShowOnHome { get; set; }
+        public string Language { get; set; }
     }
 }

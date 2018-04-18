@@ -23,12 +23,12 @@ namespace Model.ViewModel
         public long ParentID { get; set; }
 
         [Display(Name = "Nhóm website")]
-        [Required(ErrorMessage ="Chọn nhóm website")]
+        [Required(ErrorMessage = "Chọn nhóm website")]
         public int CatalogueId { get; set; }
 
-        [Display(Name = "LABEL_CATALOGUE_NAME", ResourceType =typeof(Resources))]
+        [Display(Name = "LABEL_CATALOGUE_NAME", ResourceType = typeof(Resources))]
         [Required(ErrorMessage = "Chọn tên nhóm website")]
-        public string CatalogueName { get; set; }        
+        public string CatalogueName { get; set; }
 
         [Display(Name = "Tên nhóm cha")]
         public string ParentName { get; set; }
@@ -54,7 +54,7 @@ namespace Model.ViewModel
         public DateTime ModifiedDate { get; set; }
 
         [StringLength(50)]
-        [Display(Name = "LABEL_MODIFIED_BY", ResourceType =typeof(Resources))]
+        [Display(Name = "LABEL_MODIFIED_BY", ResourceType = typeof(Resources))]
         public long ModifiedBy { get; set; }
 
         [StringLength(50)]
@@ -62,7 +62,7 @@ namespace Model.ViewModel
         public string ModifiedByName { get; set; }
 
         [StringLength(250)]
-        [Display(Name = "Keywords")]
+        [Display(Name = "LABEL_KEYWORDS", ResourceType = typeof(Resources))]
         public string MetaKeywords { get; set; }
 
         [Display(Name = "Meta Descriptions")]
@@ -73,10 +73,9 @@ namespace Model.ViewModel
         public string Status { get; set; }
 
         [Display(Name = "Trên trang chủ")]
-        public bool? ShowOnHome { get; set; }
+        public bool ShowOnHome { get; set; }
 
         public int TotalCount { get; set; }
-
         public string Language { get; set; }
         public string LanguageCode { get; set; }
     }
@@ -86,7 +85,7 @@ namespace Model.ViewModel
         public DateTime? DateFrom { get; set; }
         public DateTime? DateTo { get; set; }
 
-        public string SearchBy { get; set; }        
+        public string SearchBy { get; set; }
         public string SearchString { get; set; }
         public int CatalogueId { get; set; }
         public int ParentId { get; set; }
@@ -95,7 +94,7 @@ namespace Model.ViewModel
         public ProductCategoryFilter()
         {
             DateFrom = new DateTime(DateTime.Now.Year, 01, 01);
-            DateTo = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);            
+            DateTo = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
             SearchString = "";
             Status = "";
             CatalogueId = 0;
@@ -103,5 +102,5 @@ namespace Model.ViewModel
         }
     }
 
-    
+
 }
