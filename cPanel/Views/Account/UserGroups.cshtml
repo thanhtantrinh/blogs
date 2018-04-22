@@ -1,0 +1,138 @@
+﻿@using Common
+@using Model.ViewModel
+@using Model.EF
+@using PagedList.Mvc
+@model PagedList.IPagedList<v_UserGroup>
+@{
+    var actionStaus = (ActionResultHelper)Session["ACTION_STATUS"];
+    var breadcrumb = new List<Breadcrumb>();
+    int pageno = (int)ViewBag.PageNumber;
+    int currentno = ((pageno - 1) * 20) + 1;
+}
+@Html.Partial("_Breadcrumb", breadcrumb)
+<div class="container-fluid">
+    <div class="animated fadeIn">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fa fa-align-justify"></i> Danh sách nhóm người dùng
+                        <div class="card-actions">
+                            <a href="#" onclick="window.location = '@Url.Action("UserGroups")'; ">
+                                <i class="fa fa-list"></i>
+                            </a>
+                            <a href="#" onclick="window.location = '@Url.Action("UserGroupCreate")'; ">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card-block">
+                        @if (actionStaus != null && !String.IsNullOrWhiteSpace(actionStaus.ErrorReason))
+                        {
+                            if (actionStaus.ActionStatus == ResultSubmit.failed)
+                            {
+                                @Html.Raw(actionStaus.ErrorReason);
+                            }
+                            else
+                            {
+                                @Html.Raw(actionStaus.ErrorReason);
+                            }
+                            Session["ACTION_STATUS"] = null;
+                        }
+
+                        <table class="table table-bordered table-striped table-condensed">
+                            <thead>
+                                <tr>
+                                    <th width="35">#</th>
+                                    <th align="center" class="text-center" width="120">Action</th>
+                                    <th align="center" class="text-center">Tên quyền</th>
+                                    <th>Mô tả</th>
+                                    <th width="110" align="center">Trạng thái</th>
+                                    <th width="110">Người tạo</th>
+                                    <th width="110">Ngày tạo</th>
+                                    <th width="130">Người cập nhật</th>
+                                    <th width="110">Cập nhật</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null && Model.Count > 0)
+                                {
+                                    foreach (var item in Model)
+                                    {
+                                        string textStatus;
+                                        switch (item.Status)
+                                        {
+                                            case nameof(StatusEntity.Active):
+                                                textStatus = "success";
+                                                break;
+                                            case nameof(StatusEntity.Locked):
+                                                textStatus = "warning";
+                                                break;
+                                            case nameof(StatusEntity.Deleted):
+                                            default:
+                                                textStatus = "danger";
+                                                break;
+                                        }
+                                        <tr>
+                                            <td>@currentno</td>
+                                            <td>
+                                                <span class="btn-group">
+                                                    <button type="button" class="btn btn-secondary btn-sm">
+                                                        <span class="fa fa-check-circle text-@textStatus"></span>
+                                                    </button>
+                                                    <a href="@Url.Action("UserGroupEdit",new { Id=item.Id})" class="btn btn-secondary btn-sm">
+                                                        <span class="fa fa-pencil"></span>
+                                                    </a>
+                                                    <button type="button" class="btn btn-secondary btn-sm">
+                                                        <span class="fa fa-trash-o"></span>
+                                                    </button>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <a href="@Url.Action("UserGroupEdit",new { Id=item.Id})">
+                                                    @item.Name
+                                                </a>
+                                            </td>
+                                            <td>
+                                                @item.Description
+                                            </td>
+                                            <td class="text-center">
+                                                <span class="badge badge-@textStatus">@item.Status</span>
+                                            </td>
+                                            <td>
+                                                @item.CreatedByName
+                                            </td>
+                                            <td>
+                                                @item.CreatedDate.ToShortDateString()
+                                            </td>
+                                            <td>
+                                                @item.CreatedByName
+                                            </td>
+                                            <td>
+                                                @item.ModifiedDate.ToShortDateString()
+                                            </td>
+                                        </tr>
+                                        currentno = currentno + 1;
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="9">
+                                            Không tìm thấy thông tin
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        @if (Model != null && Model.Count > 0)
+                        {
+                            @Html.PagedListPager(Model, page => Url.Action("Rules", new { page }))
+                        }
+                    </div>
+                </div>
+            </div>
+            <!--/.col-->
+        </div>
+    </div>
+</div>

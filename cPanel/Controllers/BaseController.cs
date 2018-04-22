@@ -24,6 +24,7 @@ namespace cPanel.Controllers
         protected ContentRepo _contentRepo = new ContentRepo();
         protected CategoryRepo _categoryRepo = new CategoryRepo();
         protected ProductCategoryRepo _proCatRepo = new ProductCategoryRepo();
+        protected AccountRepo _accountRepo = new AccountRepo();
 
         public CustomIdentity CurrentUser;
         public string currentCulture = "vi";

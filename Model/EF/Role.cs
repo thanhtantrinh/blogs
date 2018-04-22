@@ -17,5 +17,10 @@ namespace Model.EF
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        public long CreatedBy { get; set; }
+        public System.DateTime CreatedDate { get; set; }
+        public long ModifiedBy { get; set; }
+        public System.DateTime ModifiedDate { get; set; }
+        public string Status { get; set; }
     }
 }

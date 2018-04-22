@@ -43,6 +43,8 @@
         <EntityTypeShape EntityType="OnlineShopDbContext.v_CategoryOfProduct" Width="1.5" PointX="17.375" PointY="13.75" />
         <EntityTypeShape EntityType="OnlineShopDbContext.v_Product" Width="1.5" PointX="19.375" PointY="5.75" />
         <EntityTypeShape EntityType="OnlineShopDbContext.v_Category" Width="1.5" PointX="19.375" PointY="13.75" />
+        <EntityTypeShape EntityType="OnlineShopDbContext.v_Role" Width="1.5" PointX="17.375" PointY="19.75" />
+        <EntityTypeShape EntityType="OnlineShopDbContext.v_UserGroup" Width="1.5" PointX="19.375" PointY="19.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

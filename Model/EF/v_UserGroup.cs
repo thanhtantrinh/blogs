@@ -12,15 +12,17 @@ namespace Model.EF
     using System;
     using System.Collections.Generic;
     
-    public partial class UserGroup
+    public partial class v_UserGroup
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public long CreatedBy { get; set; }
-        public System.DateTime CreatedDate { get; set; }
-        public long ModifiedBy { get; set; }
         public System.DateTime ModifiedDate { get; set; }
+        public long ModifiedBy { get; set; }
+        public System.DateTime CreatedDate { get; set; }
+        public long CreatedBy { get; set; }
         public string Status { get; set; }
+        public string CreatedByName { get; set; }
+        public string ModifiedByName { get; set; }
     }
 }

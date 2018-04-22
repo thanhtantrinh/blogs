@@ -60,6 +60,8 @@ namespace Model.EF
         public virtual DbSet<v_CategoryOfProduct> v_CategoryOfProduct { get; set; }
         public virtual DbSet<v_Product> v_Product { get; set; }
         public virtual DbSet<v_Category> v_Category { get; set; }
+        public virtual DbSet<v_Role> v_Role { get; set; }
+        public virtual DbSet<v_UserGroup> v_UserGroup { get; set; }
     
         public virtual ObjectResult<sp_Category_Search_Paging_Sorting_Result> sp_Category_Search_Paging_Sorting(Nullable<int> pageNbr, Nullable<int> pageSize, string sortCol)
         {
