@@ -43,11 +43,11 @@ namespace cPanel.Controllers
             else
                 Session["ProductCategoryFilter"] = new ProductCategoryFilter();
 
-            return RedirectToAction("CategoryProduct");            
+            return RedirectToAction("ProductCategory");            
         }
 
         [HttpGet]
-        public ActionResult ProductCategoryEdit(long Id)
+        public ActionResult ProductCategoryEdit(long Id=0)
         {
             var actionStatus = new ActionResultHelper();
             actionStatus.ActionStatus = ResultSubmit.failed;            
@@ -191,7 +191,6 @@ namespace cPanel.Controllers
 
         }
         #endregion
-
         #region Product manager
         [HttpGet]
         public ActionResult Products(int page = 1, int pageSize = 20, string sortby = "")
@@ -218,7 +217,7 @@ namespace cPanel.Controllers
             return RedirectToAction("Products");
         }
         [HttpGet]
-        public ActionResult ProductEdit(long Id)
+        public ActionResult ProductEdit(long Id=0)
         {
             var actionStatus = new ActionResultHelper();
             actionStatus.ActionStatus = ResultSubmit.failed;
@@ -255,16 +254,99 @@ namespace cPanel.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ProductEdit()
+        [ValidateInput(false)]
+        public ActionResult ProductEdit(ProductsView model, string saveclose, string savenew)
         {
-
-            return View();
+            ProductsView remodel = new ProductsView();
+            var actionStatus = new ActionResultHelper();
+            actionStatus.ActionStatus = ResultSubmit.failed;
+            string message = "";
+            bool IsValid = true;
+            if (ModelState.IsValid)
+            {
+                model.ModifiedBy = CurrentUser.ID;
+                model.Language = currentCulture.ToString();
+                remodel = _proRepo.Edit(model, out message);
+                if (remodel != null && String.IsNullOrWhiteSpace(message))
+                {
+                    actionStatus.ErrorReason = String.Format(SiteResource.HTML_ALERT_SUCCESS, Resources.MSG_THE_PRODUCT_HAS_UPDATED_SUCCESSFULLLY);
+                    actionStatus.ActionStatus = ResultSubmit.success;
+                    Session["ACTION_STATUS"] = actionStatus;
+                    if (!String.IsNullOrEmpty(saveclose))
+                        return RedirectToAction("Products");
+                    else if (!String.IsNullOrWhiteSpace(savenew))
+                        return RedirectToAction("ProductCreate");
+                    else
+                        return RedirectToAction("ProductEdit", new { Id = remodel.ID });
+                }
+                else
+                {
+                    IsValid = false;
+                    actionStatus.ErrorStrings.Add(Resources.MSG_THE_PRODUCT_HAS_UPDATED_UNSUCCESSFULLLY);
+                    goto actionError;
+                }
+            }
+            actionError:
+            if (!IsValid)
+            {
+                actionStatus.ErrorReason = String.Format(SiteResource.HTML_ALERT_ERROR, SiteResource.MSG_ERROR_ENTER_DATA_FOR_FORM + actionStatus.ShowErrorStrings());
+                Session["ACTION_STATUS"] = actionStatus;
+            }
+            return View(model);
         }
         public ActionResult ProductCreate()
         {
-
-            return View();
+            ProductsView model = new ProductsView();
+            ViewBag.Title = Resources.LABEL_CREATE_PRODUCT;
+            ViewBag.Action = "ProductCreate";
+            return View("ProductEdit", model);
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ProductCreate(ProductsView model, string saveclose, string savenew)
+        {
+            ProductsView remodel = new ProductsView();
+            var actionStatus = new ActionResultHelper();
+            actionStatus.ActionStatus = ResultSubmit.failed;
+            string message = "";
+            bool IsValid = true;
+            if (ModelState.IsValid)
+            {
+                model.ModifiedBy = CurrentUser.ID;
+                model.Language = currentCulture.ToString();
+                model.CreatedBy = CurrentUser.ID;
+                remodel  = _proRepo.Create(model, out message);
+                if (remodel != null && String.IsNullOrWhiteSpace(message))
+                {
+                    actionStatus.ErrorReason = String.Format(SiteResource.HTML_ALERT_SUCCESS, Resources.MSG_THE_PRODUCT_HAS_CREATED_SUCCESSFULL);
+                    actionStatus.ActionStatus = ResultSubmit.success;
+                    Session["ACTION_STATUS"] = actionStatus;
+
+                    if (!String.IsNullOrEmpty(saveclose))
+                        return RedirectToAction("Products");
+                    else if (!String.IsNullOrWhiteSpace(savenew))
+                        return RedirectToAction("ProductCreate");
+                    else
+                        return RedirectToAction("ProductEdit", new { Id = remodel.ID });
+                }
+                else
+                {
+                    IsValid = false;
+                    actionStatus.ErrorStrings.Add(Resources.MSG_THE_PRODUCT_HAS_CREATED_SUCCESSFULL);
+                    goto actionError;
+                }
+            }
+            actionError:
+            if (!IsValid)
+            {
+                actionStatus.ErrorReason = String.Format(SiteResource.HTML_ALERT_ERROR, actionStatus.ShowErrorStrings());
+                Session["ACTION_STATUS"] = actionStatus;
+            }
+            ViewBag.Title = Resources.LABEL_CREATE_PRODUCT;
+            ViewBag.Action = "ProductCreate";
+            return View("ProductEdit", model);            
+        }
+
         #endregion
     }
 }

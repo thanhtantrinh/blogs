@@ -25,7 +25,6 @@
         <EntityTypeShape EntityType="OnlineShopDbContext.UserGroup" Width="1.5" PointX="14.75" PointY="0.75" />
         <EntityTypeShape EntityType="OnlineShopDbContext.Ward" Width="1.5" PointX="12.5" PointY="2" />
         <EntityTypeShape EntityType="OnlineShopDbContext.SystemConfig" Width="1.5" PointX="14.75" PointY="6.75" />
-        <EntityTypeShape EntityType="OnlineShopDbContext.v_Category" Width="1.5" PointX="10.75" PointY="11.875" />
         <EntityTypeShape EntityType="OnlineShopDbContext.v_Content" Width="1.5" PointX="16.75" PointY="0.75" />
         <EntityTypeShape EntityType="OnlineShopDbContext.v_WebAccount" Width="1.5" PointX="16.75" PointY="7.75" />
         <AssociationConnector Association="OnlineShopDbContext.FK_Category_UserCreated" />
@@ -43,6 +42,7 @@
         <EntityTypeShape EntityType="OnlineShopDbContext.v_Order" Width="1.5" PointX="19.375" PointY="0.75" />
         <EntityTypeShape EntityType="OnlineShopDbContext.v_CategoryOfProduct" Width="1.5" PointX="17.375" PointY="13.75" />
         <EntityTypeShape EntityType="OnlineShopDbContext.v_Product" Width="1.5" PointX="19.375" PointY="5.75" />
+        <EntityTypeShape EntityType="OnlineShopDbContext.v_Category" Width="1.5" PointX="19.375" PointY="13.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

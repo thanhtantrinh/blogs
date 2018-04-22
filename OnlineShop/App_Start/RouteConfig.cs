@@ -39,7 +39,7 @@ namespace OnlineShop
             routes.MapRoute(
                 name: "About",
                 url: "gioi-thieu",
-                defaults: new { controller = "Content", action = "Detail", id = 2 },
+                defaults: new { controller = "Content", action = "Detail", id = 49 },
                 namespaces: new[] { "OnlineShop.Controllers" }
             );
 

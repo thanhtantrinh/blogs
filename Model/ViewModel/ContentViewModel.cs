@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.ComponentModel.DataAnnotations;
+using Common;
 
 namespace Model.ViewModel
 {
@@ -68,12 +69,12 @@ namespace Model.ViewModel
         public long CategoryID { get; set; }
         public long CatalogueId { get; set; }
         public string SearchString { get; set; }
-        public string Status { get; set; }
+        public string[] Status { get; set; }
 
         public ContentFilter()
         {
             SearchString = "";
-            Status = "";
+            Status = new string[] { nameof(StatusEntity.Active), nameof(StatusEntity.Locked) };
             CategoryID = 0;
             CatalogueId = 0;
         }

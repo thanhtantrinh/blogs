@@ -36,21 +36,9 @@ namespace Model.Dao
                 model = model.Where(x => x.CategoryID == filter.CategoryID);
             }
 
-            if (!String.IsNullOrWhiteSpace(filter.Status))
+            if (filter.Status.Count() > 0)
             {
-                switch (filter.Status.Trim())
-                {
-                    case nameof(StatusEntity.Active):
-                        model = model.Where(w => w.Status == nameof(StatusEntity.Active));
-                        break;
-                    case nameof(StatusEntity.Locked):
-                        model = model.Where(w => w.Status == nameof(StatusEntity.Locked));
-                        break;
-                    case nameof(StatusEntity.Deleted):                        
-                    default:
-                        model = model.Where(w => w.Status != nameof(StatusEntity.Deleted));
-                        break;
-                }
+                model = model.Where(w => filter.Status.Contains(w.Status));
             }
 
             return model.OrderByDescending(x => x.CreatedDate).ToPagedList(pageIndex, pageSize);
@@ -253,14 +241,11 @@ namespace Model.Dao
             return result;
 
         }
-
-
         public void RemoveAllContentTag(long contentId)
         {
             db.ContentTags.RemoveRange(db.ContentTags.Where(x => x.ContentID == contentId));
             db.SaveChanges();
         }
-
         public void InsertContentTag(long contentId, string tagId)
         {
             var contentTag = new ContentTag();

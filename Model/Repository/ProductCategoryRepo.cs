@@ -98,21 +98,9 @@ namespace Model.Repository
                     model = model.Where(x => x.CatalogueId == filter.ParentId);
                 }
 
-                if (!String.IsNullOrWhiteSpace(filter.Status))
+                if (filter.Status.Count()>0)
                 {
-                    switch (filter.Status.Trim())
-                    {
-                        case nameof(StatusEntity.Active):
-                            model = model.Where(w => w.Status == nameof(StatusEntity.Active));
-                            break;
-                        case nameof(StatusEntity.Locked):
-                            model = model.Where(w => w.Status == nameof(StatusEntity.Locked));
-                            break;
-                        case nameof(StatusEntity.Deleted):
-                        default:
-                            model = model.Where(w => w.Status != nameof(StatusEntity.Deleted));
-                            break;
-                    }
+                    model = model.Where(w => filter.Status.Contains(w.Status));
                 }
 
                 if (!String.IsNullOrWhiteSpace(sortby))

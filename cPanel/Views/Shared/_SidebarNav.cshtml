@@ -7,7 +7,17 @@
             <li class="nav-item">
                 <a class="nav-link" href="@Url.Action("Index", "Home")"><i class="icon-speedometer"></i> Dashboard <span class="badge badge-info">NEW</span></a>
             </li>
-
+            <li class="nav-item nav-dropdown">
+                <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-puzzle"></i> Quản lý tài khoản</a>
+                <ul class="nav-dropdown-items">
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("CategoryList", "CMS")"><i class="icon-puzzle"></i> Tài khoản</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("ContentList", "CMS")"><i class="icon-puzzle"></i> Quản lý Bài viết</a>
+                    </li>
+                </ul>
+            </li>
             <li class="nav-item nav-dropdown">
                 <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-puzzle"></i> Quản lý bài viết</a>
                 <ul class="nav-dropdown-items">
@@ -20,7 +30,7 @@
                 </ul>
             </li>
             <li class="nav-item nav-dropdown">
-                <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-puzzle"></i> Ecommect</a>
+                <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-puzzle"></i> E-commect</a>
                 <ul class="nav-dropdown-items">
                     <li class="nav-item">
                         <a class="nav-link" href="@Url.Action("ProductCategory", "Ecommerce")"><i class="icon-puzzle"></i> Nhóm sản phẩm</a>
@@ -46,28 +56,27 @@
                 </li>
             </ul>
         </li>
+        <li class="nav-item nav-dropdown">
+            <a class="nav-link" href="#"><i class="icon-note"></i> ASP.NET MVC</a>
+            <ul class="nav-dropdown-items">
 
-            <li class="nav-item nav-dropdown">
-                <a class="nav-link" href="#"><i class="icon-note"></i> ASP.NET MVC</a>
-                <ul class="nav-dropdown-items">
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="icon-note"></i> View</a>
+                </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="icon-note"></i> View</a>
-                    </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="3"><i class="icon-note"></i> Partial View</a>
+                </li>
+            </ul>
+        </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="3"><i class="icon-note"></i> Partial View</a>
-                    </li>
-                </ul>
-            </li>
+        <li class="nav-item">
+            <a class="nav-link" href="@Url.Action("Detail", "Category", new{Id=15, alias="aspnet-mvc"})"><i class="icon-note"></i> ASP.NET MVC</a>
+        </li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="@Url.Action("Detail", "Category", new{Id=15, alias="aspnet-mvc"})"><i class="icon-note"></i> ASP.NET MVC</a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="@Url.Action("About", "Home")"><i class="fa fa-users"></i> Giới thiệu</a>
-            </li>
+        <li class="nav-item">
+            <a class="nav-link" href="@Url.Action("About", "Home")"><i class="fa fa-users"></i> Giới thiệu</a>
+        </li>
             *@
         </ul>
     </nav>

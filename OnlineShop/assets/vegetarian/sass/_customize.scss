@@ -64,7 +64,7 @@ body {
 .logo {
     border-top: 4px solid#fff;
     border-bottom: 4px solid#fff;
-    margin: 200px 0px 80px;
+    margin: 40px 0px 80px;
     display: inline-block;
 }
 
@@ -78,6 +78,9 @@ body {
     width: 100%;
     overflow: hidden;
     display: block;
+    text-shadow: 3px 3px 5px #000000;
+    background: rgba(0, 0, 0, 0.41);
+    padding: 0 15px;
 }
 
 .top-menu {

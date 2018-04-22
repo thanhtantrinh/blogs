@@ -90,6 +90,7 @@ namespace Common
         {
             this.ActionStatus = ResultSubmit.success;
             this.ErrorReason = "";
+            ErrorStrings = new List<string>();
         }
         public string ShowErrorStrings()
         {

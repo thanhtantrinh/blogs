@@ -1,4 +1,5 @@
-﻿using StaticResources;
+﻿using Common;
+using StaticResources;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -20,14 +21,14 @@ namespace Model.ViewModel
         public string MetaTitle { get; set; }
 
         [Display(Name = "Nhóm cha")]
+        [Required(ErrorMessage = "Chọn nhóm cha")]
         public long ParentID { get; set; }
 
         [Display(Name = "Nhóm website")]
         [Required(ErrorMessage = "Chọn nhóm website")]
         public int CatalogueId { get; set; }
 
-        [Display(Name = "LABEL_CATALOGUE_NAME", ResourceType = typeof(Resources))]
-        [Required(ErrorMessage = "Chọn tên nhóm website")]
+        [Display(Name = "LABEL_CATALOGUE_NAME", ResourceType = typeof(Resources))] 
         public string CatalogueName { get; set; }
 
         [Display(Name = "Tên nhóm cha")]
@@ -53,7 +54,7 @@ namespace Model.ViewModel
         [Display(Name = "LABEL_MODIFIED_DATE", ResourceType = typeof(Resources))]
         public DateTime ModifiedDate { get; set; }
 
-        [StringLength(50)]
+        
         [Display(Name = "LABEL_MODIFIED_BY", ResourceType = typeof(Resources))]
         public long ModifiedBy { get; set; }
 
@@ -89,14 +90,14 @@ namespace Model.ViewModel
         public string SearchString { get; set; }
         public int CatalogueId { get; set; }
         public int ParentId { get; set; }
-        public string Status { get; set; }
+        public string[] Status { get; set; }
 
         public ProductCategoryFilter()
         {
             DateFrom = new DateTime(DateTime.Now.Year, 01, 01);
             DateTo = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
             SearchString = "";
-            Status = "";
+            Status = new string[] { nameof(StatusEntity.Active), nameof(StatusEntity.Locked) };
             CatalogueId = 0;
             ParentId = 0;
         }

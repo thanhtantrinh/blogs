@@ -45,7 +45,7 @@
                                 <tr>
                                     <th width="35">#</th>
                                     <th width="120">Action</th>
-                                    <th>Danh mục</th>
+                                    <th width="300">Danh mục</th>                                    
                                     <th width="220">Danh mục cha</th>
                                     <th width="220">Website</th>
                                     <th width="110" align="center">Trạng thái</th>
@@ -80,7 +80,7 @@
                                                     <button type="button" class="btn btn-secondary btn-sm">
                                                         <span class="fa fa-check-circle text-@textStatus"></span>
                                                     </button>
-                                                    <a href="@Url.Action("CategoryEdit",new { Id=item.ID})" class="btn btn-secondary btn-sm">
+                                                    <a href="@Url.Action("ProductCategoryEdit",new { Id=item.ID})" class="btn btn-secondary btn-sm">
                                                         <span class="fa fa-pencil"></span>
                                                     </a>
                                                     <button type="button" class="btn btn-secondary btn-sm">
@@ -89,7 +89,7 @@
                                                 </span>
                                             </td>
                                             <td>
-                                                <a href="@Url.Action("CategoryEdit",new { Id=item.ID})">
+                                                <a href="@Url.Action("ProductCategoryEdit",new { Id=item.ID})">
                                                     @item.CategoryName
                                                 </a> <br />
                                                 <small>(Alias: @item.MetaTitle)</small>
@@ -97,7 +97,7 @@
                                             <td>
                                                 @if (item.ParentId > 0)
                                                 {
-                                                    <a href="@Url.Action("CategoryEdit", new { id = item.c })">@item.ParentName</a>
+                                                    <a href="@Url.Action("ProductCategoryEdit", new { id = item.ParentId })">@item.ParentName</a>
                                                 }
                                                 else
                                                 {
@@ -105,7 +105,7 @@
                                                 }
                                             </td>
                                             <td class="text-center">
-                                                @item.CatalogueId
+                                                @item.CatalogueName
                                             </td>
                                             <td class="text-center">
                                                 <span class="badge badge-@textStatus">@item.Status</span>

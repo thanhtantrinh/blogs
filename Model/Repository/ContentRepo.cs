@@ -47,23 +47,9 @@ namespace Model.Repository
                     model = model.Where(x => x.CategoryID == filter.CategoryID);
                 }
 
-                if (!String.IsNullOrWhiteSpace(filter.Status))
+                if (filter.Status.Count()>0)
                 {
-                    switch (filter.Status.Trim())
-                    {
-                        case nameof(StatusEntity.Active):
-                            model = model.Where(w => w.Status == nameof(StatusEntity.Active));
-                            break;
-                        case nameof(StatusEntity.Locked):
-                            model = model.Where(w => w.Status == nameof(StatusEntity.Locked));
-                            break;
-                        case nameof(StatusEntity.Deleted):
-                            model = model.Where(w => w.Status == nameof(StatusEntity.Deleted));
-                            break;
-                        default:
-                            model = model.Where(w => w.Status != nameof(StatusEntity.Deleted));
-                            break;
-                    }
+                    model = model.Where(w => filter.Status.Contains(w.Status));
                 }
 
                 if (!String.IsNullOrWhiteSpace(sortby))
@@ -207,6 +193,12 @@ namespace Model.Repository
                     content.ModifiedBy = model.ModifiedBy;
                     content.Status = model.Status;
                     content.Language = model.Language;
+
+                    if (content.CreatedBy <= 0)
+                    {
+                        content.CreatedDate = DateTime.Now;
+                        content.CreatedBy = model.ModifiedBy;
+                    }
 
                     if (entities.SaveChanges() > 0)
                     {

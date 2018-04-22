@@ -302,4 +302,24 @@
     <value>Sản phẩm không tìm thấy</value>
     <comment>PRODUCT MANAGER</comment>
   </data>
+  <data name="MSG_THE_PRODUCT_HAS_UPDATED_SUCCESSFULLLY" xml:space="preserve">
+    <value>Sản phẩm được cập nhật thành công</value>
+    <comment>PRODUCT MANAGER</comment>
+  </data>
+  <data name="MSG_THE_PRODUCT_HAS_UPDATED_UNSUCCESSFULLLY" xml:space="preserve">
+    <value>Sản phẩm được cập nhật không thành công</value>
+    <comment>PRODUCT MANAGER</comment>
+  </data>
+  <data name="LABEL_CREATE_PRODUCT" xml:space="preserve">
+    <value>Tạo sản phẩm mới</value>
+  </data>
+  <data name="LABEL_UPDATE_PRODUCT" xml:space="preserve">
+    <value>Cập nhật sản phẩm</value>
+  </data>
+  <data name="MSG_THE_PRODUCT_HAS_CREATED_SUCCESSFULL" xml:space="preserve">
+    <value>Sản phẩm được tạo thành công</value>
+  </data>
+  <data name="MSG_THE_PRODUCT_HAS_CREATED_UNSUCCESSFULL" xml:space="preserve">
+    <value>Sản phẩm được tạo không thành công</value>
+  </data>
 </root>

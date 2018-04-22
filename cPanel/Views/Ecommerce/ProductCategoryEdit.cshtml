@@ -9,6 +9,7 @@
     breadcrumb.Add(new Breadcrumb { LinkText = "Nhóm sản phẩm", Url = Url.Action("ProductCategory") });
 }
 @Html.Partial("_Breadcrumb", breadcrumb)
+
 @using (Html.BeginForm(formAction, "Ecommerce", FormMethod.Post, new { @class = "form-basic", }))
 {
     @Html.AntiForgeryToken()
@@ -23,11 +24,14 @@
 
                             @if (!String.IsNullOrWhiteSpace(formAction) && formAction == "ProductCategoryEdit")
                             {
-                                <div class="card-actions">
-                                    <a href="#" onclick="window.location = '@Url.Action("ProductCategoryCreate")';">
-                                        <small class="fa fa-plus"></small>
-                                    </a>
-                                </div>
+                            <div class="card-actions">
+                                <a href="#" onclick="window.location = '@Url.Action("ProductCategoryCreate")';">
+                                    <small class="fa fa-plus"></small>
+                                </a>
+                                <a href="#" onclick="window.location = '@Url.Action("ProductCategory")';">
+                                    <small class="fa fa-list"></small>
+                                </a>
+                            </div>
                             }
                         </div>
                         <div class="card-block">

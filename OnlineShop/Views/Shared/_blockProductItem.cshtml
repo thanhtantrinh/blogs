@@ -4,7 +4,7 @@
 @{
     int width_block = 150;
     int height_block = 150;
-    string link = Url.Action(Model.MetaTitle + "-" + Model.ID, Model.CatMetaTitle + "-" + Model.CategoryID);
+    string link = Url.Action(Model.MetaTitle + "-" + Model.ID, Model.CategoryAlias + "-" + Model.CategoryID);
     NumberFormatInfo vnd = new CultureInfo("vi-VN", false).NumberFormat;
 }
 <div class="col-md-4 col-sm-6 col-xs-6 col-min-12">

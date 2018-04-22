@@ -249,10 +249,43 @@ namespace Model
             });
             IMapper mapper = config.CreateMapper();
             result = mapper.Map<v_Product, ProductsView>(model);
-            //if (result.PromotionPrice > 0)
-            //{
-            //    result.IsDiscount = true;
-            //}
+            return result;
+        }
+
+        public static Product ConvertProductViewToProduct(ProductsView model)
+        {
+            Product result = new Product();
+
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<ProductsView, Product>()
+               .ForMember(v => v.Id, co => co.MapFrom(src => src.ID))
+                              .ForMember(v => v.Name, co => co.MapFrom(src => src.Name))
+               .ForMember(v => v.Code, co => co.MapFrom(src => src.Code))
+               .ForMember(v => v.CatalogueId, co => co.MapFrom(src => src.CatalogueId))
+               .ForMember(v => v.CategoryId, co => co.MapFrom(src => src.CategoryID))
+               .ForMember(v => v.MetaTitle, co => co.MapFrom(src => src.MetaTitle))
+               .ForMember(v => v.Description, co => co.MapFrom(src => src.Description))
+               .ForMember(v => v.Detail, co => co.MapFrom(src => src.Detail))
+               .ForMember(v => v.Price, co => co.MapFrom(src => src.Price))
+               .ForMember(v => v.PromotionPrice, co => co.MapFrom(src => src.PromotionPrice))
+               .ForMember(v => v.IncludedVAT, co => co.MapFrom(src => src.IncludedVAT))
+               .ForMember(v => v.Quantity, co => co.MapFrom(src => src.Quantity))
+               .ForMember(v => v.Warranty, co => co.MapFrom(src => src.Warranty))
+               .ForMember(v => v.TopHot, co => co.MapFrom(src => src.TopHot))
+               .ForMember(v => v.ViewCount, co => co.MapFrom(src => src.ViewCount))               
+               .ForMember(v => v.MetaKeywords, co => co.MapFrom(src => src.MetaKeywords))
+               .ForMember(v => v.MetaDescriptions, co => co.MapFrom(src => src.MetaDescriptions))
+               .ForMember(v => v.Status, co => co.MapFrom(src => src.Status))               
+               .ForMember(v => v.ShowHome, co => co.MapFrom(src => src.ShowHome))
+               .ForMember(v => v.CreatedDate, co => co.MapFrom(src => src.CreatedDate))
+               .ForMember(v => v.CreatedBy, co => co.MapFrom(src => src.CreatedBy))
+               .ForMember(v => v.ModifiedDate, co => co.MapFrom(src => src.ModifiedDate))
+               .ForMember(v => v.ModifiedBy, co => co.MapFrom(src => src.ModifiedBy))
+               ;
+            });
+            IMapper mapper = config.CreateMapper();
+            result = mapper.Map<ProductsView, Product>(model);
             return result;
         }
     }

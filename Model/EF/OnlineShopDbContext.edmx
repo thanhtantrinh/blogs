@@ -391,9 +391,9 @@ warning 6002: The table/view 'tant4482_db.dbo.v_CatalogueInfo' does not have a p
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="MetaKeywords" Type="nvarchar" MaxLength="250" />
           <Property Name="MetaDescriptions" Type="nvarchar" MaxLength="250" />
-          <Property Name="ManagerBy" Type="varchar" MaxLength="50" />
-          <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
-          <Property Name="ModifiedBy" Type="varchar" MaxLength="50" />
+          <Property Name="ManagerBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="Facebook" Type="nvarchar" MaxLength="50" />
           <Property Name="Youtube" Type="nvarchar" MaxLength="50" />
           <Property Name="Twitter" Type="nvarchar" MaxLength="50" />
@@ -421,6 +421,8 @@ warning 6002: The table/view 'tant4482_db.dbo.v_Category' does not have a primar
           </Key>
           <Property Name="ID" Type="bigint" Nullable="false" />
           <Property Name="CatalogueId" Type="int" Nullable="false" />
+          <Property Name="CatalogueName" Type="nvarchar" MaxLength="50" />
+          <Property Name="SiteUrl" Type="nvarchar" MaxLength="50" />
           <Property Name="Name" Type="nvarchar" MaxLength="250" Nullable="false" />
           <Property Name="MetaTitle" Type="varchar" MaxLength="250" Nullable="false" />
           <Property Name="Status" Type="nvarchar" MaxLength="20" Nullable="false" />
@@ -812,6 +814,8 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
             <DefiningQuery>SELECT 
     [v_Category].[ID] AS [ID], 
     [v_Category].[CatalogueId] AS [CatalogueId], 
+    [v_Category].[CatalogueName] AS [CatalogueName], 
+    [v_Category].[SiteUrl] AS [SiteUrl], 
     [v_Category].[Name] AS [Name], 
     [v_Category].[MetaTitle] AS [MetaTitle], 
     [v_Category].[Status] AS [Status], 
@@ -1042,7 +1046,6 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
           <EntitySet Name="UserGroups" EntityType="OnlineShopDbContext.UserGroup" />
           <EntitySet Name="Wards" EntityType="OnlineShopDbContext.Ward" />
           <EntitySet Name="SystemConfigs" EntityType="OnlineShopDbContext.SystemConfig" />
-          <EntitySet Name="v_Category" EntityType="OnlineShopDbContext.v_Category" />
           <EntitySet Name="v_Content" EntityType="OnlineShopDbContext.v_Content" />
           <EntitySet Name="v_WebAccount" EntityType="OnlineShopDbContext.v_WebAccount" />
           <AssociationSet Name="FK_Category_UserCreated" Association="OnlineShopDbContext.FK_Category_UserCreated">
@@ -1075,6 +1078,7 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
           <EntitySet Name="v_Order" EntityType="OnlineShopDbContext.v_Order" />
           <EntitySet Name="v_CategoryOfProduct" EntityType="OnlineShopDbContext.v_CategoryOfProduct" />
           <EntitySet Name="v_Product" EntityType="OnlineShopDbContext.v_Product" />
+          <EntitySet Name="v_Category" EntityType="OnlineShopDbContext.v_Category" />
           </EntityContainer>
         <ComplexType Name="sp_Category_Search_Paging_Sorting_Result">
           <Property Type="Int64" Name="ID" Nullable="false" />
@@ -1400,43 +1404,6 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
           <Property Name="Status" Type="Boolean" />
           <Property Name="CatalogueId" Type="Int64" />
         </EntityType>
-        <EntityType Name="v_Category">
-          <Key>
-            <PropertyRef Name="ID" />
-            <PropertyRef Name="CatalogueId" />
-            <PropertyRef Name="Name" />
-            <PropertyRef Name="MetaTitle" />
-            <PropertyRef Name="Status" />
-            <PropertyRef Name="ParentID" />
-            <PropertyRef Name="DisplayOrder" />
-            <PropertyRef Name="CreatedDate" />
-            <PropertyRef Name="CreatedBy" />
-            <PropertyRef Name="ModifiedDate" />
-            <PropertyRef Name="ModifiedBy" />
-            <PropertyRef Name="ShowOnHome" />
-            <PropertyRef Name="ParentCategoryName" />
-          </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" />
-          <Property Name="CatalogueId" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="MetaTitle" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="Status" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="Language" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ParentID" Type="Int64" Nullable="false" />
-          <Property Name="DisplayOrder" Type="Int32" Nullable="false" />
-          <Property Name="Image" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="SeoTitle" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CreatedBy" Type="Int64" Nullable="false" />
-          <Property Name="CreatedByName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ModifiedBy" Type="Int64" Nullable="false" />
-          <Property Name="ModifiedByName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="MetaKeywords" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="MetaDescriptions" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="ShowOnHome" Type="Boolean" Nullable="false" />
-          <Property Name="ParentCategoryName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="v_Content">
           <Key>
             <PropertyRef Name="ID" />
@@ -1716,9 +1683,9 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="MetaKeywords" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="MetaDescriptions" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="ManagerBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ManagerBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Facebook" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Youtube" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Twitter" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -1839,6 +1806,45 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
           <Property Name="ViewCount" Type="Int32" />
           <Property Name="ShowHome" Type="Boolean" />
           <Property Name="New" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="v_Category">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="CatalogueId" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="MetaTitle" />
+            <PropertyRef Name="Status" />
+            <PropertyRef Name="ParentID" />
+            <PropertyRef Name="DisplayOrder" />
+            <PropertyRef Name="CreatedDate" />
+            <PropertyRef Name="CreatedBy" />
+            <PropertyRef Name="ModifiedDate" />
+            <PropertyRef Name="ModifiedBy" />
+            <PropertyRef Name="ShowOnHome" />
+            <PropertyRef Name="ParentCategoryName" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="CatalogueId" Type="Int32" Nullable="false" />
+          <Property Name="CatalogueName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SiteUrl" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="MetaTitle" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Language" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ParentID" Type="Int64" Nullable="false" />
+          <Property Name="DisplayOrder" Type="Int32" Nullable="false" />
+          <Property Name="Image" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="SeoTitle" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="Int64" Nullable="false" />
+          <Property Name="CreatedByName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int64" Nullable="false" />
+          <Property Name="ModifiedByName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MetaKeywords" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="MetaDescriptions" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ShowOnHome" Type="Boolean" Nullable="false" />
+          <Property Name="ParentCategoryName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -2188,32 +2194,6 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="v_Category">
-            <EntityTypeMapping TypeName="OnlineShopDbContext.v_Category">
-              <MappingFragment StoreEntitySet="v_Category">
-                <ScalarProperty Name="ParentCategoryName" ColumnName="ParentCategoryName" />
-                <ScalarProperty Name="ShowOnHome" ColumnName="ShowOnHome" />
-                <ScalarProperty Name="MetaDescriptions" ColumnName="MetaDescriptions" />
-                <ScalarProperty Name="MetaKeywords" ColumnName="MetaKeywords" />
-                <ScalarProperty Name="ModifiedByName" ColumnName="ModifiedByName" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="CreatedByName" ColumnName="CreatedByName" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="SeoTitle" ColumnName="SeoTitle" />
-                <ScalarProperty Name="Image" ColumnName="Image" />
-                <ScalarProperty Name="DisplayOrder" ColumnName="DisplayOrder" />
-                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
-                <ScalarProperty Name="Language" ColumnName="Language" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="MetaTitle" ColumnName="MetaTitle" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="CatalogueId" ColumnName="CatalogueId" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="v_Content">
             <EntityTypeMapping TypeName="OnlineShopDbContext.v_Content">
               <MappingFragment StoreEntitySet="v_Content">
@@ -2494,6 +2474,34 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
                 <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="ProductName" ColumnName="ProductName" />
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="v_Category">
+            <EntityTypeMapping TypeName="OnlineShopDbContext.v_Category">
+              <MappingFragment StoreEntitySet="v_Category">
+                <ScalarProperty Name="ParentCategoryName" ColumnName="ParentCategoryName" />
+                <ScalarProperty Name="ShowOnHome" ColumnName="ShowOnHome" />
+                <ScalarProperty Name="MetaDescriptions" ColumnName="MetaDescriptions" />
+                <ScalarProperty Name="MetaKeywords" ColumnName="MetaKeywords" />
+                <ScalarProperty Name="ModifiedByName" ColumnName="ModifiedByName" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedByName" ColumnName="CreatedByName" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="SeoTitle" ColumnName="SeoTitle" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="DisplayOrder" ColumnName="DisplayOrder" />
+                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+                <ScalarProperty Name="Language" ColumnName="Language" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="MetaTitle" ColumnName="MetaTitle" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="SiteUrl" ColumnName="SiteUrl" />
+                <ScalarProperty Name="CatalogueName" ColumnName="CatalogueName" />
+                <ScalarProperty Name="CatalogueId" ColumnName="CatalogueId" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

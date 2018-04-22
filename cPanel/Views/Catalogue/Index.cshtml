@@ -50,6 +50,7 @@
                                     <th>Trạng thái</th>
                                     <th>Người tạo</th>
                                     <th>Ngày tạo</th>
+                                    <th>Cập nhật</th>
                                     <th>Ngày cập nhật</th>
                                 </tr>
                             </thead>
@@ -75,47 +76,50 @@
                                                 break;
                                         }
 
-                                        <tr>
-                                            <td>@currentno</td>
-                                            <td>
-                                                <span class="btn-group">
+                                <tr>
+                                    <td>@currentno</td>
+                                    <td>
+                                        <span class="btn-group">
 
-                                                    <button type="button" class="btn btn-secondary btn-sm">
-                                                        <span class="fa fa-check-circle text-@textStatus"></span>
-                                                    </button>
+                                            <button type="button" class="btn btn-secondary btn-sm">
+                                                <span class="fa fa-check-circle text-@textStatus"></span>
+                                            </button>
 
-                                                    <a href="@Url.Action("Edit",new { id=item.Id})" class="btn btn-secondary btn-sm">
-                                                        <span class="fa fa-pencil"></span>
-                                                    </a>
-                                                    <button type="button" class="btn btn-secondary btn-sm">
-                                                        <span class="fa fa-trash-o"></span>
-                                                    </button>
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <a href="@Url.Action("Edit",new { id=item.Id})">
-                                                    @item.CatalogueName
-                                                </a>
-                                            </td>
-                                            <td>
-                                                @if (!String.IsNullOrWhiteSpace(item.SiteUrl))
-                                                {
-                                                    <a href="@item.SiteUrl" target="_blank">@item.SiteUrl</a>
-                                                }
-                                            </td>
-                                            <td>
-                                                <span class="badge badge-@textStatus">@item.Status</span>
-                                            </td>
-                                            <td>
-                                                @item.CreatedBy
-                                        </td>
-                                        <td>
-                                            @item.CreatedDate.ToShortDateString()
-                                        </td>
-                                        <td>
-                                            @item.ModifiedDate.Value.ToShortDateString()
-                                        </td>
-                                    </tr>
+                                            <a href="@Url.Action("Edit",new { id=item.Id})" class="btn btn-secondary btn-sm">
+                                                <span class="fa fa-pencil"></span>
+                                            </a>
+                                            <button type="button" class="btn btn-secondary btn-sm">
+                                                <span class="fa fa-trash-o"></span>
+                                            </button>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("Edit",new { id=item.Id})">
+                                            @item.CatalogueName
+                                        </a>
+                                    </td>
+                                    <td>
+                                        @if (!String.IsNullOrWhiteSpace(item.SiteUrl))
+        {
+                                <a href="@item.SiteUrl" target="_blank">@item.SiteUrl</a>
+}
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-@textStatus">@item.Status</span>
+                                    </td>
+                                    <td>
+                                        @item.CreatedBy
+                                    </td>
+                                    <td>
+                                        @item.CreatedDate.ToShortDateString()
+                                    </td>
+                                    <td>
+                                        @item.ModifiedBy
+                                    </td>
+                                    <td>
+                                        @item.ModifiedDate.Value.ToShortDateString()
+                                    </td>
+                                </tr>
                                         currentno = currentno + 1;
                                     }
 
@@ -123,7 +127,7 @@
                                 else
                                 {
                                     <tr>
-                                        <td colspan="7">
+                                        <td colspan="8">
                                             Không tìm thấy thông tin
                                         </td>
                                     </tr>

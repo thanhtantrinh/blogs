@@ -5,7 +5,7 @@
 {
 
     var ItemFirst = Model.FirstOrDefault();
-    var catName = ItemFirst.CatName;
+    var catName = ItemFirst.CatalogueName;
     var catID = ItemFirst.CategoryID;
 
     <h3 style="margin-bottom: 30px">Sản phẩm nổi bật</h3>
@@ -13,7 +13,7 @@
 
         @foreach (var item in Model)
         {
-            string link = Url.Action(item.MetaTitle + "-" + item.ID, item.CatMetaTitle + "-" + item.CategoryID);
+            string link = Url.Action(item.MetaTitle + "-" + item.ID, item.CategoryAlias + "-" + item.CategoryID);
             <div class="col-md-3 col-sm-4 col-xs-6 col-min-12">
                 <div class="arrival-grid simpleCart_shelfItem bounceInLeft">
                     <div class="grid-arr">

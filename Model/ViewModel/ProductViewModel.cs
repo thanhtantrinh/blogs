@@ -7,7 +7,7 @@ using PagedList;
 using System.ComponentModel.DataAnnotations;
 using System.Web;
 using StaticResources;
-
+using Common;
 namespace Model.ViewModel
 {
     public class ProductViewModel
@@ -21,13 +21,12 @@ namespace Model.ViewModel
         public string MetaTitle { set; get; }
         public DateTime CreatedDate { set; get; }
     }
-
     public class ProductsView
     {        
         [Required]
         public long ID { set; get; }
         //[Required, FileExtensions(Extensions = "jpg", ErrorMessage = "Specify a jpg file. (Comma-separated values)")]
-        [Display(Name = "Hình sản phẩm")]
+        [Display(Name = "Hình")]
         public HttpPostedFileBase Images { get; set; }
 
         public string Image { get; set; }
@@ -60,7 +59,7 @@ namespace Model.ViewModel
 
         public string CategoryAlias { set; get; }
         [Display(Name = "Nhóm Catalogue")]
-        public long CatalogueId { get; set; }
+        public int CatalogueId { get; set; }
 
         [Display(Name = "Tên nhóm Catalogue")]
         public string CatalogueName { get; set; }
@@ -73,8 +72,7 @@ namespace Model.ViewModel
         public int? ViewCount { get; set; }
 
         [Display(Name = "Mô tả ngắn")]
-        public string Description { get; set; }
-
+        public string Description { get; set; }        
         [Display(Name = "Mô tả Sản phẩm")]
         public string Detail { get; set; }
 
@@ -87,10 +85,10 @@ namespace Model.ViewModel
         
         [Display(Name = "LABEL_MODIFIED_DATE", ResourceType = typeof(Resources))]
         public DateTime ModifiedDate { get; set; }
-        [StringLength(50)]
+    
         [Display(Name = "LABEL_MODIFIED_BY", ResourceType = typeof(Resources))]
         public long ModifiedBy { get; set; }
-        [StringLength(50)]
+
         [Display(Name = "LABEL_MODIFIED_NAME", ResourceType = typeof(Resources))]
         public string ModifiedByName { get; set; }
 
@@ -105,17 +103,18 @@ namespace Model.ViewModel
         public bool? ShowHome { get; set; }
 
         public bool IsDiscount { get; set; }
+        public string Language { get; set; }
     }
     public class ProductFilter
     {       
         public string SearchString { get; set; }
         public int CatalogueId { get; set; }
         public int CategoryId { get; set; }
-        public string Status { get; set; }
+        public string[] Status { get; set; }
         public ProductFilter()
         {           
             SearchString = "";
-            Status = "";
+            Status = new string[] { nameof(StatusEntity.Active), nameof(StatusEntity.Locked)};
             CatalogueId = 0;
             CategoryId = 0;
         }

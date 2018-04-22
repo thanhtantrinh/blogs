@@ -45,7 +45,6 @@ namespace Model.Repository
         
         public IEnumerable<v_Product> GetProductPaging(ProductFilter filter, int pageIndex = 1, int pageSize = 20, string sortby = "")
         {
-
             IQueryable<v_Product> model = entities.v_Product;
             try
             {
@@ -63,21 +62,9 @@ namespace Model.Repository
                     model = model.Where(x => x.CategoryId == filter.CategoryId);
                 }
 
-                if (!String.IsNullOrWhiteSpace(filter.Status))
+                if (filter.Status.Count()>0)
                 {
-                    switch (filter.Status.Trim())
-                    {
-                        case nameof(StatusEntity.Active):
-                            model = model.Where(w => w.Status == nameof(StatusEntity.Active));
-                            break;
-                        case nameof(StatusEntity.Locked):
-                            model = model.Where(w => w.Status == nameof(StatusEntity.Locked));
-                            break;
-                        case nameof(StatusEntity.Deleted):
-                        default:
-                            model = model.Where(w => w.Status != nameof(StatusEntity.Deleted));
-                            break;
-                    }
+                    model = model.Where(w => filter.Status.Contains(w.Status));
                 }
 
                 if (!String.IsNullOrWhiteSpace(sortby))
@@ -125,6 +112,99 @@ namespace Model.Repository
             {
                 string subject = "Error " + SiteSetting.SiteName + " at GetProductCategoryById at ProductCategoryRepo at Model.Repository";
                 message = StringHelper.Parameters2ErrorString(ex, conn);
+                MailHelper.SendMail(SiteSetting.EmailAdmin, subject, message);
+            }
+            return result;
+        }
+
+        public ProductsView Edit(ProductsView model, out string message)
+        {
+            ProductsView result = new ProductsView();
+            message = null;
+            try
+            {
+                var product = entities.Products.Find(model.ID);
+                if (product != null)
+                {
+                    product.CatalogueId = model.CatalogueId;
+                    product.CategoryId = model.CategoryID;
+                    product.Name = product.Name.Trim();
+                    if (String.IsNullOrWhiteSpace(model.MetaTitle))
+                    {
+                        product.MetaTitle = StringHelper.ToUnsignString(model.Name.Trim().ToLower());
+                    }
+                    product.Price = model.Price.HasValue ? product.Price : 0;
+                    product.PromotionPrice = model.PromotionPrice;
+                    product.Quantity = model.Quantity;
+                    product.Detail = model.Detail;
+                    product.Description = model.Description;
+                    product.Status = model.Status;
+                    product.CategoryId = model.CategoryID;
+                    product.Code = model.CategoryID.ToString() + "-" + model.ID.ToString();
+                    product.IncludedVAT = product.IncludedVAT;
+
+                    if (!String.IsNullOrWhiteSpace(model.MoreImages))
+                    {
+                        product.MoreImages = product.MoreImages;
+                    }
+
+                    if (model.Images != null && !String.IsNullOrWhiteSpace(model.Images.FileName))
+                    {
+                        product.Image = model.ID.ToString() + "_" + model.Images.FileName;
+                    }
+                    product.ShowHome = product.ShowHome;
+                    //SEO
+                    product.MetaDescriptions = model.MetaDescriptions;
+                    product.MetaKeywords = model.MetaKeywords;
+                    product.ModifiedBy = model.ModifiedBy;
+                    product.ModifiedDate = DateTime.Now;
+
+                    if (entities.SaveChanges() > 0)
+                    {
+                        result = GetProductById(product.Id, out message);
+                    }
+                    else
+                    {
+                        message = Resources.SYSTEM_ERROR_EXECUTE_SAVECHANGE_IN_ENTITY;
+                    }
+                }
+                else
+                {
+                    message = Resources.MSG_THE_PRODUCT_CATEGORY_HAS_NOT_FOUND;
+                }
+            }
+            catch (Exception ex)
+            {
+                string subject = "Error " + SiteSetting.SiteName + " at Edit at ProductRepo at Model.Repository. ";
+                message = StringHelper.Parameters2ErrorString(ex, model.ID);
+                MailHelper.SendMail(SiteSetting.EmailAdmin, subject, message);
+            }
+            return result;
+        }
+
+        public ProductsView Create(ProductsView model, out string message)
+        {      
+            ProductsView result = new ProductsView();
+            message = null;
+            try
+            {
+                var product = Helper.ConvertProductViewToProduct(model);
+                product.CreatedDate = DateTime.Now;
+                product.ModifiedDate = DateTime.Now;
+                entities.Products.Add(product);
+                if (entities.SaveChanges() > 0)
+                {
+                    result = GetProductById(product.Id, out message);
+                }
+                else
+                {
+                    message = Resources.SYSTEM_ERROR_THE_UPDATING_WEBSITE_CONFI_HAS_BEEN_FINISHED;
+                }
+            }
+            catch (Exception ex)
+            {
+                string subject = "Error " + SiteSetting.SiteName + " at Create at ProductRepo at Model.Repository. ";
+                message = StringHelper.Parameters2ErrorString(ex);
                 MailHelper.SendMail(SiteSetting.EmailAdmin, subject, message);
             }
             return result;

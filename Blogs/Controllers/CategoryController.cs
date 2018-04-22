@@ -38,7 +38,7 @@ namespace Blogs.Controllers
                 filter = new ContentFilter();                
                 Session["ContentFilter"] = filter;
             }
-            filter.Status = nameof(StatusEntity.Active);
+            filter.Status = new string[] { nameof(StatusEntity.Active) };
             if (Id>0)
             {
                 filter.CategoryID = Id;

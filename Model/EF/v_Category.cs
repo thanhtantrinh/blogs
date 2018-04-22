@@ -16,6 +16,8 @@ namespace Model.EF
     {
         public long ID { get; set; }
         public int CatalogueId { get; set; }
+        public string CatalogueName { get; set; }
+        public string SiteUrl { get; set; }
         public string Name { get; set; }
         public string MetaTitle { get; set; }
         public string Status { get; set; }

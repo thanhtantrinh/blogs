@@ -23,11 +23,14 @@
 
                             @if (!String.IsNullOrWhiteSpace(formAction) && formAction == "ContentEdit")
                             {
-                                <div class="card-actions">
-                                    <a href="#" onclick="window.location = '@Url.Action("ContentCreate")';">
-                                        <small class="fa fa-plus"></small>
-                                    </a>
-                                </div>
+                            <div class="card-actions">
+                                <a href="#" onclick="window.location = '@Url.Action("ContentList")';">
+                                    <small class="fa fa-list"></small>
+                                </a>
+                                <a href="#" onclick="window.location = '@Url.Action("ContentCreate")';">
+                                    <small class="fa fa-plus"></small>
+                                </a>
+                            </div>
                             }
                         </div>
                         <div class="card-block">
@@ -169,39 +172,6 @@
                                     @Html.ValidationMessageFor(model => model.MetaDescriptions, "", new { @class = "text-danger" })
                                 </div>
                             </div>
-
-                            <div class="form-group row">
-                                @Html.LabelFor(model => model.CreatedByName, new { @class = "form-control-label col-md-4" })
-                                <div class="col-md-8">
-                                    @Html.TextBoxFor(model => model.CreatedByName, new { @class = "form-control", @disabled = "true" })
-                                    @Html.ValidationMessageFor(model => model.CreatedByName, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                @Html.LabelFor(model => model.CreatedDate, new { @class = "form-control-label col-md-4" })
-                                <div class="col-md-8">
-                                    @Html.TextBoxFor(model => model.CreatedDate, new { @class = "form-control", @disabled = "true" })
-                                    @Html.ValidationMessageFor(model => model.CreatedDate, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                @Html.LabelFor(model => model.ModifiedByName, new { @class = "form-control-label col-md-4" })
-                                <div class="col-md-8">
-                                    @Html.TextBoxFor(model => model.ModifiedByName, new { @class = "form-control", @disabled = "true" })
-                                    @Html.ValidationMessageFor(model => model.ModifiedByName, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                @Html.LabelFor(model => model.ModifiedDate, new { @class = "form-control-label col-md-4" })
-                                <div class="col-md-8">
-                                    @Html.TextBoxFor(model => model.ModifiedDate, new { @class = "form-control", @disabled = "true" })
-                                    @Html.ValidationMessageFor(model => model.ModifiedDate, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-
                         </div>
                     </div>
                 </div>

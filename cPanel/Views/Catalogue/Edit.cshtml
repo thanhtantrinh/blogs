@@ -23,11 +23,14 @@
 
                             @if (!String.IsNullOrWhiteSpace(formAction) && formAction == "Edit")
                             {
-                                <div class="card-actions">
-                                    <a href="#" onclick="window.location = '@Url.Action("Create")';">
-                                        <small class="fa fa-plus"></small>
-                                    </a>
-                                </div>
+                            <div class="card-actions">
+                                <a href="#" onclick="window.location = '@Url.Action("Index")';">
+                                    <small class="fa fa-list"></small>
+                                </a>
+                                <a href="#" onclick="window.location = '@Url.Action("Create")';">
+                                    <small class="fa fa-plus"></small>
+                                </a>
+                            </div>
                             }
                         </div>
                         <div class="card-block">

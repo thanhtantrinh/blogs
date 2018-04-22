@@ -47,7 +47,6 @@ namespace Model.EF
         public virtual DbSet<UserGroup> UserGroups { get; set; }
         public virtual DbSet<Ward> Wards { get; set; }
         public virtual DbSet<SystemConfig> SystemConfigs { get; set; }
-        public virtual DbSet<v_Category> v_Category { get; set; }
         public virtual DbSet<v_Content> v_Content { get; set; }
         public virtual DbSet<v_WebAccount> v_WebAccount { get; set; }
         public virtual DbSet<v_SiteMap> v_SiteMap { get; set; }
@@ -60,6 +59,7 @@ namespace Model.EF
         public virtual DbSet<v_Order> v_Order { get; set; }
         public virtual DbSet<v_CategoryOfProduct> v_CategoryOfProduct { get; set; }
         public virtual DbSet<v_Product> v_Product { get; set; }
+        public virtual DbSet<v_Category> v_Category { get; set; }
     
         public virtual ObjectResult<sp_Category_Search_Paging_Sorting_Result> sp_Category_Search_Paging_Sorting(Nullable<int> pageNbr, Nullable<int> pageSize, string sortCol)
         {
