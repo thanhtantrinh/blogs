@@ -16,7 +16,7 @@ namespace Model
         public long UserId { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
-        public bool Status { get; set; }
+        public string Status { get; set; }
 
         public string GroupID { get; set; }
         public string GroupName { get; set; }
@@ -34,11 +34,12 @@ namespace Model
         public string ProvinceName { get; set; }
 
         public DateTime CreatedDate { get; set; }
-        public string CreatedBy { get; set; }
-        public long CreatedById { get; set; }
+        public string CreatedByName { get; set; }
+        public long CreatedBy { get; set; }
+
         public DateTime ModifiedDate { get; set; }
-        public string ModifiedBy { get; set; }
-        public long ModifiedById { get; set; }
+        public string ModifiedByName { get; set; }
+        public long ModifiedBy { get; set; }
 
         public List<Role> roles { get; set; }
 
@@ -54,6 +55,7 @@ namespace Model
                 var config = new MapperConfiguration(cfg => {
                     cfg.CreateMap<v_WebAccount, WebAccount>();
                 });
+
                 IMapper mapper = config.CreateMapper();
                 using (var db = new OnlineShopEntities())
                 {
@@ -71,6 +73,11 @@ namespace Model
 
             return userService;
         }
+        /// <summary>
+        /// Get Password of the user
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
         public static string GetPassword(string username)
         {
             string password = null;
@@ -90,7 +97,5 @@ namespace Model
             }
             return password;
         }
-
-
     }
 }

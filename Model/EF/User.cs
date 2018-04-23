@@ -34,9 +34,9 @@ namespace Model.EF
         public Nullable<int> WardID { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public long CreatedBy { get; set; }
-        public Nullable<System.DateTime> ModifiedDate { get; set; }
-        public Nullable<long> ModifiedBy { get; set; }
-        public bool Status { get; set; }
+        public System.DateTime ModifiedDate { get; set; }
+        public long ModifiedBy { get; set; }
+        public string Status { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Category> Categories { get; set; }

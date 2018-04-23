@@ -1,5 +1,6 @@
 ﻿using Common;
 using cPanel.Filters;
+using StaticResources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -67,5 +68,54 @@ namespace cPanel.Controllers
         }
         #endregion
 
+        #region User manager
+        public ActionResult Users(int page = 1, int pageSize = 20)
+        {
+            var model = _accountRepo.GetUserPaging(page, pageSize);
+            ViewBag.PageNumber = page;
+            ViewBag.Title = "Danh sách";
+            return View(model);            
+        }
+
+        public ActionResult UserCreate()
+        {
+            return View();
+        }
+        public ActionResult UserEdit(long Id=0)
+        {
+            var actionStatus = new ActionResultHelper();
+            actionStatus.ActionStatus = ResultSubmit.failed;
+            string errorString = "";
+            bool IsValid = true;
+            if (Id > 0)
+            {
+                ContentViewModel model = _contentRepo.GetContentById(Id);
+                if (model == null)
+                {
+                    IsValid = false;
+                    errorString += Resources.MSG_THE_CONTENT_HAS_NOT_FOUND;
+                    goto actionError;
+                }
+                else
+                {
+                    ViewBag.Title = String.Format(Resources.LABEL_UPDATE, model.Name);
+                    return View(model);
+                }
+            }
+            else
+            {
+                IsValid = false;
+                errorString = Resources.MSG_THE_CONTENT_HAS_NOT_FOUND;
+                goto actionError;
+            }
+            actionError:
+            if (!IsValid)
+            {
+                actionStatus.ErrorReason = String.Format(SiteResource.HTML_ALERT_ERROR, errorString);
+                Session["ACTION_STATUS"] = actionStatus;
+            }
+            return RedirectToAction("ContentList");
+        }
+        #endregion
     }
 }

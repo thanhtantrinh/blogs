@@ -42,7 +42,7 @@ namespace cPanel.Controllers
 
                     if (userAccount.webAccount != null)
                     {
-                        if (userAccount.webAccount.Status == true)
+                        if (userAccount.webAccount.Status == nameof(StatusEntity.Active))
                         {
                             userAccount.Roles = new string[] { userAccount.webAccount.GroupName };
                             HttpCookie authCookie = FormsAuthentication.GetAuthCookie(userAccount.webAccount.UserName, false);
@@ -59,10 +59,13 @@ namespace cPanel.Controllers
 
                             return RedirectToAction("Index");
                         }
+                        else if(userAccount.webAccount.Status == nameof(StatusEntity.Locked))
+                        {                            
+                            ModelState.AddModelError("", "Tài khoản đang bị khoá.");
+                        }
                         else
                         {
-                            
-                            ModelState.AddModelError("", "Tài khoản đang bị khoá.");
+                            ModelState.AddModelError("", "Tài khoản đã xóa.");
                         }
 
                     }

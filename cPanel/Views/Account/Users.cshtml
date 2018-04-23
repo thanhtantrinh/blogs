@@ -2,7 +2,7 @@
 @using Model.ViewModel
 @using Model.EF
 @using PagedList.Mvc
-@model PagedList.IPagedList<v_UserGroup>
+@model PagedList.IPagedList<v_WebAccount>
 @{
     var actionStaus = (ActionResultHelper)Session["ACTION_STATUS"];
     var breadcrumb = new List<Breadcrumb>();
@@ -16,18 +16,14 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <i class="fa fa-align-justify"></i> Danh sách nhóm người dùng
+                        <i class="fa fa-align-justify"></i> Danh sách tài khoản
                         <div class="card-actions">
-                            <a href="#" onclick="window.location = '@Url.Action("UserGroups")'; ">
-                                <i class="fa fa-list"></i>
-                            </a>
-                            <a href="#" onclick="window.location = '@Url.Action("UserGroupCreate")'; ">
+                            <a href="#" onclick="window.location = '@Url.Action("UserCreate")'; ">
                                 <i class="fa fa-plus"></i>
                             </a>
                         </div>
                     </div>
                     <div class="card-block">
-
                         @if (actionStaus != null && !String.IsNullOrWhiteSpace(actionStaus.ErrorReason))
                         {
                             if (actionStaus.ActionStatus == ResultSubmit.failed)
@@ -45,8 +41,9 @@
                                 <tr>
                                     <th width="35">#</th>
                                     <th align="center" class="text-center" width="120">Action</th>
-                                    <th align="center" class="text-center">Tên quyền</th>
-                                    <th>Mô tả</th>
+                                    <th align="center" class="text-center">Username</th>
+                                    <th>Họ và Tên</th>
+                                    <th>Email</th>
                                     <th width="110" align="center">Trạng thái</th>
                                     <th width="110">Người tạo</th>
                                     <th width="110">Ngày tạo</th>
@@ -80,7 +77,7 @@
                                                     <button type="button" class="btn btn-secondary btn-sm">
                                                         <span class="fa fa-check-circle text-@textStatus"></span>
                                                     </button>
-                                                    <a href="@Url.Action("UserGroupEdit",new { Id=item.Id})" class="btn btn-secondary btn-sm">
+                                                    <a href="@Url.Action("UserEdit",new { Id=item.UserId})" class="btn btn-secondary btn-sm">
                                                         <span class="fa fa-pencil"></span>
                                                     </a>
                                                     <button type="button" class="btn btn-secondary btn-sm">
@@ -89,12 +86,17 @@
                                                 </span>
                                             </td>
                                             <td>
-                                                <a href="@Url.Action("UserGroupEdit",new { Id=item.Id})">
+                                                <a href="@Url.Action("UserEdit",new { Id=item.UserId})">
+                                                    @item.UserName
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a href="@Url.Action("UserEdit",new { Id=item.UserId})">
                                                     @item.Name
                                                 </a>
                                             </td>
                                             <td>
-                                                @item.Description
+                                                @item.Email
                                             </td>
                                             <td class="text-center">
                                                 <span class="badge badge-@textStatus">@item.Status</span>
@@ -106,7 +108,7 @@
                                                 @item.CreatedDate.ToShortDateString()
                                             </td>
                                             <td>
-                                                @item.CreatedByName
+                                                @item.ModifiedByName
                                             </td>
                                             <td>
                                                 @item.ModifiedDate.ToShortDateString()
@@ -118,7 +120,7 @@
                                 else
                                 {
                                     <tr>
-                                        <td colspan="9">
+                                        <td colspan="10">
                                             Không tìm thấy thông tin
                                         </td>
                                     </tr>
@@ -127,7 +129,7 @@
                         </table>
                         @if (Model != null && Model.Count > 0)
                         {
-                            @Html.PagedListPager(Model, page => Url.Action("Rules", new { page }))
+                            @Html.PagedListPager(Model, page => Url.Action("Users", new { page }))
                         }
                     </div>
                 </div>

@@ -12,15 +12,12 @@ namespace Model.EF
     using System;
     using System.Collections.Generic;
     
-    public partial class Role
+    public partial class sysdiagram
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public string Status { get; set; }
-        public long CreatedBy { get; set; }
-        public System.DateTime CreatedDate { get; set; }
-        public long ModifiedBy { get; set; }
-        public System.DateTime ModifiedDate { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

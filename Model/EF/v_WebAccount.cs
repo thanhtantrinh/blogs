@@ -23,18 +23,18 @@ namespace Model.EF
         public string Address { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
-        public Nullable<int> WardId { get; set; }
+        public Nullable<int> WardID { get; set; }
         public string WardName { get; set; }
         public Nullable<int> DistrictID { get; set; }
         public string DistrictName { get; set; }
         public Nullable<int> ProvinceID { get; set; }
         public string ProvinceName { get; set; }
         public System.DateTime CreatedDate { get; set; }
-        public long CreatedById { get; set; }
-        public string CreatedBy { get; set; }
-        public Nullable<System.DateTime> ModifiedDate { get; set; }
-        public Nullable<long> ModifiedById { get; set; }
-        public string ModifiedBy { get; set; }
-        public bool Status { get; set; }
+        public long CreatedBy { get; set; }
+        public string CreatedByName { get; set; }
+        public System.DateTime ModifiedDate { get; set; }
+        public long ModifiedBy { get; set; }
+        public string ModifiedByName { get; set; }
+        public string Status { get; set; }
     }
 }

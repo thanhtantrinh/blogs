@@ -68,8 +68,7 @@ namespace OnlineShop.Controllers
                 redirect_uri = RedirectUri.AbsoluteUri,
                 code = code
             });
-
-
+            
             var accessToken = result.access_token;
             if (!string.IsNullOrEmpty(accessToken))
             {
@@ -85,7 +84,7 @@ namespace OnlineShop.Controllers
                 var user = new User();
                 user.Email = email;
                 user.UserName = email;
-                user.Status = true;
+                user.Status = nameof(StatusEntity.Active);
                 user.Name = firstname + " " + middlename + " " + lastname;
                 user.CreatedDate = DateTime.Now;
                 var resultInsert = new UserDao().InsertForFacebook(user);
@@ -111,7 +110,7 @@ namespace OnlineShop.Controllers
             {
                 var dao = new UserDao();
                 var result = dao.Login(model.UserName, Encryptor.MD5Hash(model.Password));
-                if (result == 1)
+                if (result == StatusLogin.Successful)
                 {
                     var user = dao.GetById(model.UserName);
                     var userSession = new UserLogin();
@@ -124,11 +123,11 @@ namespace OnlineShop.Controllers
                 {
                     ModelState.AddModelError("", "Tài khoản không tồn tại.");
                 }
-                else if (result == -1)
+                else if (result == StatusLogin.NotActive)
                 {
                     ModelState.AddModelError("", "Tài khoản đang bị khoá.");
                 }
-                else if (result == -2)
+                else if (result == StatusLogin.WrongPassword)
                 {
                     ModelState.AddModelError("", "Mật khẩu không đúng.");
                 }
@@ -163,7 +162,9 @@ namespace OnlineShop.Controllers
                     user.Email = model.Email;
                     user.Address = model.Address;
                     user.CreatedDate = DateTime.Now;
-                    user.Status = true;
+                    user.CreatedBy = 0;
+                    user.ModifiedBy = 0;
+                    user.Status = nameof(StatusEntity.Active);
                     if (!string.IsNullOrEmpty(model.ProvinceID))
                     {
                         user.ProvinceID = int.Parse(model.ProvinceID);
@@ -191,7 +192,6 @@ namespace OnlineShop.Controllers
         public JsonResult LoadProvince()
         {
             var xmlDoc = XDocument.Load(Server.MapPath(@"~/assets/client/data/Provinces_Data.xml"));
-
             var xElements = xmlDoc.Element("Root").Elements("Item").Where(x => x.Attribute("type").Value == "province");
             var list = new List<ProvinceModel>();
             ProvinceModel province = null;
@@ -201,7 +201,6 @@ namespace OnlineShop.Controllers
                 province.ID = int.Parse(item.Attribute("id").Value);
                 province.Name = item.Attribute("value").Value;
                 list.Add(province);
-
             }
             return Json(new
             {

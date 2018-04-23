@@ -103,12 +103,12 @@ namespace Model.Dao
             return new List<string>() { "Admin" };
 
         }
-        public int Login(string userName, string passWord, bool isLoginAdmin = false)
+        public StatusLogin Login(string userName, string passWord, bool isLoginAdmin = false)
         {
             var result = db.Users.SingleOrDefault(x => x.UserName == userName);
             if (result == null)
             {
-                return 0;
+                return StatusLogin.CustomerNotExist;
             }
             else
             {
@@ -116,47 +116,48 @@ namespace Model.Dao
                 {
                     if (result.GroupID == GroupID.ADMIN || result.GroupID == GroupID.MOD)
                     {
-                        if (result.Status == false)
+                        if (result.Status != nameof(StatusEntity.Active))
                         {
-                            return -1;
+                            return StatusLogin.NotActive;
                         }
                         else
                         {
                             if (result.Password == passWord)
-                                return 1;
+                                return StatusLogin.Successful;
                             else
-                                return -2;
+                                return StatusLogin.WrongPassword;
                         }
                     }
                     else
                     {
-                        return -3;
+                        return StatusLogin.CustomerNotInGroup;
                     }
                 }
                 else
                 {
-                    if (result.Status == false)
+                    if (result.Status != nameof(StatusEntity.Active))
                     {
-                        return -1;
+                        return StatusLogin.NotActive;
                     }
                     else
                     {
                         if (result.Password == passWord)
-                            return 1;
+                            return StatusLogin.Successful;
                         else
-                            return -2;
+                            return StatusLogin.WrongPassword;
                     }
                 }
             }
         }
 
-        public bool ChangeStatus(long id)
+        public string ChangeStatus(long id)
         {
             var user = db.Users.Find(id);
-            user.Status = !user.Status;
+            user.Status = nameof(StatusEntity.Locked);
             db.SaveChanges();
             return user.Status;
         }
+
         public bool Delete(int id)
         {
             try

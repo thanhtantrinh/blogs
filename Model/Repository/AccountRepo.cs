@@ -69,5 +69,32 @@ namespace Model.Repository
             return model.ToPagedList(pageNumber, pageSize);
         }
         #endregion
+
+        #region User manager
+        public IEnumerable<v_WebAccount> GetUserPaging(int pageNumber = 1, int pageSize = 20, string SortBy = "")
+        {
+            IQueryable<v_WebAccount> model = entities.v_WebAccount;
+
+            try
+            {
+                if (!String.IsNullOrWhiteSpace(SortBy))
+                {
+                    model = model.OrderByDescending(x => x.CreatedDate);
+                }
+                else
+                {
+                    model = model.OrderByDescending(x => x.CreatedDate);
+                }
+            }
+            catch (Exception ex)
+            {
+                string subject = "Error " + SiteSetting.SiteName + " at GetUserPaging at AccountRepo at Model.Repository";
+                string message = StringHelper.Parameters2ErrorString(ex);
+                MailHelper.SendMail(SiteSetting.EmailAdmin, subject, message);
+            }
+
+            return model.ToPagedList(pageNumber, pageSize);
+        }
+        #endregion
     }
 }

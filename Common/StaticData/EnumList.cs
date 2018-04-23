@@ -62,6 +62,11 @@ namespace Common
         /// Locked out
         /// </summary>
         LockedOut = 7,
+
+        /// <summary>
+        /// Account have not been assigned to group  
+        /// </summary>
+        CustomerNotInGroup = 8,
     }
     public enum ResultSubmit
     {

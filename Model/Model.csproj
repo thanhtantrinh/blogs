@@ -159,6 +159,9 @@
     <Compile Include="EF\sp_Category_Search_Paging_Sorting_Result.cs">
       <DependentUpon>OnlineShopDbContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="EF\sysdiagram.cs">
+      <DependentUpon>OnlineShopDbContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="EF\SystemConfig.cs">
       <DependentUpon>OnlineShopDbContext.tt</DependentUpon>
     </Compile>
@@ -222,6 +225,7 @@
     <Compile Include="Repository\ProductRepo.cs" />
     <Compile Include="Service\CategoryService.cs" />
     <Compile Include="Service\UserService.cs" />
+    <Compile Include="ViewModel\AccountModel.cs" />
     <Compile Include="ViewModel\CatalogueView.cs" />
     <Compile Include="ViewModel\CategoryBlogViewModel.cs" />
     <Compile Include="ViewModel\CategoryViewModel.cs" />
