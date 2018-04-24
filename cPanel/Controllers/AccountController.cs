@@ -1,5 +1,7 @@
 ﻿using Common;
 using cPanel.Filters;
+using cPanel.Resource;
+using Model.ViewModel;
 using StaticResources;
 using System;
 using System.Collections.Generic;

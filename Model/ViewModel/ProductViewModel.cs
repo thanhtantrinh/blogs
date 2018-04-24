@@ -109,8 +109,23 @@ namespace Model.ViewModel
     {       
         public string SearchString { get; set; }
         public int CatalogueId { get; set; }
+        /// <summary>
+        /// Category of Product
+        /// </summary>
         public int CategoryId { get; set; }
+        /// <summary>
+        /// Status of product
+        /// </summary>
         public string[] Status { get; set; }
+        /// <summary>
+        /// Products are new
+        /// </summary>
+        public bool? IsNew { get; set; }
+        /// <summary>
+        /// Show Home Page
+        /// </summary>
+        public bool? IsShowHome { get; set; }
+
         public ProductFilter()
         {           
             SearchString = "";

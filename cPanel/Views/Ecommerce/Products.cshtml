@@ -39,7 +39,6 @@
                         }
 
                         @{Html.RenderPartial("_ProductFilter", filter);}
-
                         <table class="table table-bordered table-striped table-condensed">
                             <thead>
                                 <tr>
@@ -77,15 +76,15 @@
                                             <td>@currentno</td>
                                             <td>
                                                 <span class="btn-group">
-                                                    <button type="button" class="btn btn-secondary btn-sm">
+                                                    <a href="@Url.Action("SetLockProduct",new { Id=item.ProductId})" class="btn btn-secondary btn-sm">
                                                         <span class="fa fa-check-circle text-@textStatus"></span>
-                                                    </button>
+                                                    </a>
                                                     <a href="@Url.Action("ProductEdit",new { Id=item.ProductId})" class="btn btn-secondary btn-sm">
                                                         <span class="fa fa-pencil"></span>
                                                     </a>
-                                                    <button type="button" class="btn btn-secondary btn-sm">
+                                                    <a href="@Url.Action("SetDeletedProduct", new { Id=item.ProductId})" class="btn btn-secondary btn-sm">
                                                         <span class="fa fa-trash-o"></span>
-                                                    </button>
+                                                    </a>
                                                 </span>
                                             </td>
                                             <td>

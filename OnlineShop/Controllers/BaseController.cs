@@ -16,8 +16,8 @@ namespace OnlineShop.Controllers
     {
         public ContentDao _contentDAO = new ContentDao();
         public CategoryDao _categoryDAO = new CategoryDao();
-
         public OrderRepo _orderRepo = new OrderRepo();
+        public ProductRepo _productRepo = new ProductRepo();
 
         ////initilizing culture on controller initialization
         //protected override void Initialize(System.Web.Routing.RequestContext requestContext)

@@ -1,19 +1,19 @@
-﻿@using Model.ViewModel;
-@model IEnumerable<ProductsView>
+﻿@using Model.EF;
+@model List<v_Product>
 
 @if (Model.Count() > 0)
 {
 
     var ItemFirst = Model.FirstOrDefault();
-    var catName = ItemFirst.CatalogueName;
-    var catID = ItemFirst.CategoryID;
+    var catName = ItemFirst.CategoryName;
+    var catID = ItemFirst.CategoryId;
 
     <h3 style="margin-bottom: 30px">Sản phẩm nổi bật</h3>
     <div class="service-grids">
 
         @foreach (var item in Model)
         {
-            string link = Url.Action(item.MetaTitle + "-" + item.ID, item.CategoryAlias + "-" + item.CategoryID);
+            string link = Url.Action(item.ProductAlias + "-" + item.ProductId, item.CategoryAlias + "-" + item.CategoryId);
             <div class="col-md-3 col-sm-4 col-xs-6 col-min-12">
                 <div class="arrival-grid simpleCart_shelfItem bounceInLeft">
                     <div class="grid-arr">
@@ -28,9 +28,9 @@
                         </div>
                         <div class="women">
                             <div class="gr_price">
-                                <h4><a href="@link">@item.Name</a></h4>
+                                <h4><a href="@link">@item.ProductName</a></h4>
                                 <span class="hide gia_km"></span>
-                                <p class="item_price gia_ban">@item.Price.Value.ToString("N0") VND VNĐ</p>
+                                <p class="item_price gia_ban">@item.Price.ToString("N0") VNĐ</p>
                             </div>
 
                         </div>

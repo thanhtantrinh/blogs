@@ -42,7 +42,67 @@ namespace Model.Repository
             }
             return result;
         }
-        
+
+        public List<v_Product> GetProducts(ProductFilter filter, string sortby = "", int Limit=10)
+        {
+            IQueryable<v_Product> model = entities.v_Product;
+            try
+            {
+                if (!string.IsNullOrEmpty(filter.SearchString))
+                {
+                    string searchString = filter.SearchString.Trim();
+                    model = model.Where(x => x.CategoryName.Contains(searchString));
+                }
+
+                if (filter.CatalogueId > 0)
+                    model = model.Where(x => x.CatalogueId == filter.CatalogueId);
+
+                if (filter.CategoryId > 0)
+                {
+                    model = model.Where(x => x.CategoryId == filter.CategoryId);
+                }
+
+                if (filter.Status.Count() > 0)
+                {
+                    model = model.Where(w => filter.Status.Contains(w.Status));
+                }
+
+                if (filter.IsNew.HasValue)
+                {
+                    model = model.Where(w => w.New == true);
+                }
+
+                if (filter.IsShowHome.HasValue)
+                {
+                    model = model.Where(w => w.ShowHome == true);
+                }
+
+                if (!String.IsNullOrWhiteSpace(sortby))
+                {
+                    if (sortby == "ViewCount")
+                    {
+                        model = model.OrderByDescending(x => x.ViewCount);
+                    }
+                    else
+                    {
+                        model = model.OrderByDescending(x => x.CreatedDate);
+                    }
+                }
+                else
+                {
+                    model = model.OrderByDescending(x => x.CreatedDate);
+                }
+            }
+            catch (Exception ex)
+            {
+                string subject = "Error " + SiteSetting.SiteName + " at GetProducts at ProductRepo at Model.Repository";
+                string message = StringHelper.Parameters2ErrorString(ex, conn);
+                MailHelper.SendMail(SiteSetting.EmailAdmin, subject, message);
+            }
+            return model.Take(Limit).ToList();
+        }
+
+
         public IEnumerable<v_Product> GetProductPaging(ProductFilter filter, int pageIndex = 1, int pageSize = 20, string sortby = "")
         {
             IQueryable<v_Product> model = entities.v_Product;
@@ -67,9 +127,26 @@ namespace Model.Repository
                     model = model.Where(w => filter.Status.Contains(w.Status));
                 }
 
+                if (filter.IsNew.HasValue)
+                {
+                    model = model.Where(w => w.New == true);
+                }
+
+                if (filter.IsShowHome.HasValue)
+                {
+                    model = model.Where(w => w.ShowHome == true);
+                }
+
                 if (!String.IsNullOrWhiteSpace(sortby))
                 {
-                    model = model.OrderByDescending(x => x.CreatedDate);
+                    if (sortby == "ViewCount")
+                    {
+                        model = model.OrderByDescending(x => x.ViewCount);
+                    }
+                    else
+                    {
+                        model = model.OrderByDescending(x => x.CreatedDate);
+                    }
                 }
                 else
                 {
@@ -209,5 +286,6 @@ namespace Model.Repository
             }
             return result;
         }
+
     }
 }

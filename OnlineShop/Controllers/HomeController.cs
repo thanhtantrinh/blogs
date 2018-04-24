@@ -9,10 +9,11 @@ using System.Web.UI;
 using Model.ViewModel;
 using Common;
 using OnlineShop.Helpers;
+using Model.EF;
 
 namespace OnlineShop.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         // GET: Home
         public ActionResult Index()
@@ -124,7 +125,11 @@ namespace OnlineShop.Controllers
         //[OutputCache(Duration = 3600 * 24)]
         public ActionResult _blockProductHome()
         {
-            var model = new ProductDao().ProductsPaging(null, 1, 8, 0, true, true);
+            var filter = new ProductFilter();
+            filter.CatalogueId = SiteConfiguration.CatalogueId;
+            filter.IsShowHome = true;
+            filter.Status = new string[] { nameof(StatusEntity.Active) };
+            List<v_Product> model = _productRepo.GetProducts(filter, "", 8);
             return PartialView(model);
         }
 
@@ -141,7 +146,10 @@ namespace OnlineShop.Controllers
         //[OutputCache(Duration = 3600 * 24)]
         public ActionResult _blockProductFeatures()
         {
-            var model = new ProductDao().ProductsPaging("", 1, 8, 0, true);
+            var filter = new ProductFilter();
+            filter.CatalogueId = SiteConfiguration.CatalogueId;
+            filter.Status = new string[] { nameof(StatusEntity.Active) };
+            List<v_Product> model = _productRepo.GetProducts(filter, "ViewCount", 8);            
             return PartialView(model);
         }
 
@@ -149,7 +157,11 @@ namespace OnlineShop.Controllers
         //[OutputCache(Duration = 3600 * 24)]
         public ActionResult _blockProductNew()
         {
-            var model = new ProductDao().ProductsPaging("", 1, 8, 0, false,true);
+            var filter = new ProductFilter();
+            filter.CatalogueId = SiteConfiguration.CatalogueId;
+            filter.IsNew = true;
+            filter.Status = new string[] { nameof(StatusEntity.Active) };
+            List<v_Product> model = _productRepo.GetProducts(filter, "", 8);                        
             return PartialView(model);
         }
     }

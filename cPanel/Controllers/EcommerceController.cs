@@ -347,6 +347,75 @@ namespace cPanel.Controllers
             return View("ProductEdit", model);            
         }
 
+        public ActionResult SetLockProduct(int Id=0)
+        {            
+            var actionStatus = new ActionResultHelper();
+            actionStatus.ActionStatus = ResultSubmit.failed;
+            string message = "";
+            bool IsValid = true;
+            ProductsView model = _proRepo.GetProductById(Id, out message);
+            if (model != null)
+            {
+                model.Status = nameof(StatusEntity.Locked);
+                model = _proRepo.Edit(model, out message);
+
+                if(model!=null && String.IsNullOrWhiteSpace(message))
+                {
+                    actionStatus.ErrorReason = String.Format(SiteResource.HTML_ALERT_SUCCESS, Resources.MSG_THE_PRODUCT_HAS_UPDATED_SUCCESSFULLLY);
+                    actionStatus.ActionStatus = ResultSubmit.success;
+                    Session["ACTION_STATUS"] = actionStatus;
+                    return RedirectToAction("Products");
+                }
+            }
+            else
+            {
+                IsValid = false;
+                actionStatus.ErrorStrings.Add(Resources.MSG_THE_PRODUCT_HAS_NOT_FOUND);
+                goto actionError;
+            }
+            actionError:
+            if (!IsValid)
+            {
+                actionStatus.ErrorReason = String.Format(SiteResource.HTML_ALERT_ERROR, actionStatus.ShowErrorStrings());
+                Session["ACTION_STATUS"] = actionStatus;
+            }
+            return RedirectToAction("Products");
+        }
+
+        public ActionResult SetDeletedProduct(int Id = 0)
+        {
+            var actionStatus = new ActionResultHelper();
+            actionStatus.ActionStatus = ResultSubmit.failed;
+            string message = "";
+            bool IsValid = true;
+            ProductsView model = _proRepo.GetProductById(Id, out message);
+            if (model != null && Id>0)
+            {
+                model.Status = nameof(StatusEntity.Deleted);
+                model = _proRepo.Edit(model, out message);
+                if (model != null && String.IsNullOrWhiteSpace(message))
+                {
+                    actionStatus.ErrorReason = String.Format(SiteResource.HTML_ALERT_SUCCESS, Resources.MSG_THE_PRODUCT_HAS_UPDATED_SUCCESSFULLLY);
+                    actionStatus.ActionStatus = ResultSubmit.success;
+                    Session["ACTION_STATUS"] = actionStatus;
+                    return RedirectToAction("Products");
+                }
+            }
+            else
+            {
+                IsValid = false;
+                actionStatus.ErrorStrings.Add(Resources.MSG_THE_PRODUCT_HAS_NOT_FOUND);
+                goto actionError;
+            }
+
+            actionError:
+            if (!IsValid)
+            {
+                actionStatus.ErrorReason = String.Format(SiteResource.HTML_ALERT_ERROR, actionStatus.ShowErrorStrings());
+                Session["ACTION_STATUS"] = actionStatus;
+            }
+            return RedirectToAction("Products");
+        }
         #endregion
     }
 }

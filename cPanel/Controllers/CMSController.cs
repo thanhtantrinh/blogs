@@ -229,8 +229,7 @@ namespace cPanel.Controllers
 
             return RedirectToAction("CategoryList");
         }
-
-
+        
         [HttpGet]
         public ActionResult CategoryEdit(long Id=0)
         {

@@ -49,7 +49,7 @@ namespace OnlineShop.Areas.Admin.Controllers
 
                     if (userAccount.webAccount != null)
                     {
-                        if (userAccount.webAccount.Status == true)
+                        if (userAccount.webAccount.Status == nameof(StatusEntity.Active))
                         {
 
                             userAccount.Roles = new string[] { userAccount.webAccount.GroupName };
