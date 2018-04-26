@@ -24590,10 +24590,18 @@ a.global_subnote_fa:hover {
   color: #fff;
 }
 
+/* line 2, ../sass/_viewcart.scss */
+.CartDetail .Qty {
+  width: 50px;
+}
+
 /*
+
 @import "slider";
 @import "blockProductList";
 @import "Carts";
 @import "checkout";
 @import "viewcart";
-@import "product";*/
+@import "product";
+
+*/

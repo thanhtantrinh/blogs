@@ -10,15 +10,14 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="row">
 
-        <div class="col-sm-2">
+        <div class="col-sm-3">
             <label>Danh sách Website</label>
             <div class="input-group">
                 @Html.DropDownListFor(m => m.CatalogueId, ListExtensions.CatalogueList, new { @class = "form-control select1-single", id = "select2-3", onchange = "this.form.submit();" })
             </div>
         </div>
 
-
-        <div class="col-sm-2">
+        <div class="col-sm-3">
             <label>Nhóm danh bạ</label>
             <div class="input-group">
                 @Html.DropDownListFor(m => m.CategoryId, ListExtensions.ProductCategoryList, new { @class = "form-control select1-single", id = "select2-2", onchange = "this.form.submit();" })

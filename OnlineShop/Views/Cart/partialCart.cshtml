@@ -1,12 +1,18 @@
 ﻿@using Model.ViewModel
 @model List<CartItem>
-
+@{ 
+    decimal subtotal = 0;
+    if (Model != null && Model.Count() > 0)
+    {
+        subtotal = Model.Sum(s => s.Price * s.Quantity);
+    }
+}
 @if (Model.Count > 0)
 {
     using (Html.BeginForm("Update", "Cart", FormMethod.Post, new { @class = "viewcart-box", role = "form" }))
     {
             @Html.AntiForgeryToken()
-            <table class="CartDetail table table-hover">
+            <table class="CartDetail table">
                 <thead>
                     <tr>
                         <td align="center" colspan="2">Sản Phẩm</td>                                                
@@ -19,9 +25,13 @@
                 <tbody>
                     @foreach (var item in Model)
                     {
+                        string link = Url.Action("Detail", "Product", new { id = item.ProductId, metatitle = item.ProductAlias });
+
                         <tr class="cartItem">
                             <td width="80"><img src="@Url.Content("~/Images/Products/min/" + item.ProductImage)" width="80" /></td>               
-                            <td align="right">@item.ProductName</td>
+                            <td align="right">
+                                <a href="@link" title="@item.ProductName">@item.ProductName</a>
+                            </td>
                             <td align="center"><input type="number" name="quantity[]" class="Qty" data-id="@item.ProductId" value="@item.Quantity" /></td>
                             <td align="right">@item.Price.ToString("N0")</td>
                             <td align="right">@((item.Price * item.Quantity).ToString("N0"))</td>
@@ -29,13 +39,22 @@
                         </tr>
                     }              
                     <tr>
-                        <td colspan="4" align="right" class="">
-                            Tổng tiền
-                        </td>
-                        <td align="right">
-                            @Model.Sum(i=>i.Quantity*i.Price).ToString("N0")
-                        </td>
-                        <td></td>
+                        <td colspan="6" align="right" class="">
+                            <table class="table table-condensed total-result" width="250" style="width:280px;">
+                                <tr>
+                                    <td>Tiền hàng</td>
+                                    <td align="right">@subtotal.ToString("N0") VNĐ</td>
+                                </tr>
+                                <tr class="shipping-cost">
+                                    <td>Tiền vận chuyển</td>
+                                    <td align="right">0 VNĐ</td>
+                                </tr>
+                                <tr>
+                                    <td>Tổng</td>
+                                    <td align="right"><span>@subtotal.ToString("N0") VNĐ</span></td>
+                                </tr>                             
+                            </table>
+                        </td>                       
                     </tr>
                 </tbody>
             </table>
