@@ -37,7 +37,7 @@ namespace Model.Extension
             }
         }
 
-        
+
 
         public static List<SelectListItem> ProvinceList
         {
@@ -50,9 +50,9 @@ namespace Model.Extension
                 if (cache.Contains(CacheKey))
                 {
                     provinceList = (List<SelectListItem>)cache.Get(CacheKey);
-                }                    
+                }
                 else
-                {                    
+                {
                     using (var db = new OnlineShopEntities())
                     {
                         provinceList = db.Provinces.Where(w => w.IsPublished.Value == true).OrderBy(o => o.Type)
@@ -103,6 +103,35 @@ namespace Model.Extension
                 return categoryList;
             }
         }
+
+        /// <summary>
+        /// Get all Category 
+        /// </summary>
+        public static List<SelectListItem> CategoriesByCatalogueId(long catalogueId = 0)
+        {
+
+            var items = new List<SelectListItem>();
+            using (var db = new OnlineShopEntities())
+            {
+                var model = db.ProductCategories.Where(w => w.Status == nameof(StatusEntity.Active));
+
+                if (catalogueId > 0)
+                {
+                    model = model.Where(w => w.CatalogueId == catalogueId);
+                }
+                items = model.AsEnumerable().Select(s => new SelectListItem()
+                {
+                    Text = s.Name,
+                    Value = s.ID.ToString()
+                })
+                .ToList();
+
+                items.Insert(0, new SelectListItem { Text = "Nhóm Root", Value = "0" });
+            }
+            return items;
+
+        }
+
         /// <summary>
         /// Get all catalogue
         /// </summary>
@@ -113,7 +142,7 @@ namespace Model.Extension
                 var catalogueList = new List<SelectListItem>();
                 using (var db = new OnlineShopEntities())
                 {
-                    catalogueList = db.Catalogues.Where(w => w.Status == nameof(StatusEntity.Active) && w.Id!=0)
+                    catalogueList = db.Catalogues.Where(w => w.Status == nameof(StatusEntity.Active) && w.Id != 0)
                                         .AsEnumerable().Select(s => new SelectListItem() { Text = s.Name, Value = s.Id.ToString() }).ToList();
                     catalogueList.Insert(0, new SelectListItem { Text = "Tất cả", Value = "" });
                 }
@@ -132,14 +161,27 @@ namespace Model.Extension
                 //                      select new SelectListItem() { Value = nameof(d), Text = nameof(d).ToLower() }).ToList();
                 var selectListItems = Enum.GetValues(typeof(StatusEntity)).Cast<StatusEntity>().Select(v => new SelectListItem
                 {
-                    Text = v.ToString(),                    
+                    Text = v.ToString(),
                     Value = v.ToString()
                 }).ToList();
                 selectListItems.Insert(0, new SelectListItem { Text = "Chọn trạng thái", Value = "" });
-                return selectListItems;      
+                return selectListItems;
             }
         }
 
-
+        public static List<SelectListItem> PriceTypeList
+        {
+            get
+            {
+                List<SelectListItem> items = new List<SelectListItem>();
+                using (var db = new OnlineShopEntities())
+                {
+                    items = db.ProductPriceTypes.Where(w => w.PriceTypeId > 0)
+                                        .AsEnumerable().Select(s => new SelectListItem() { Text = s.PriceTypeName, Value = s.PriceTypeId.ToString() }).ToList();
+                    //catalogueList.Insert(0, new SelectListItem { Text = "Tất cả", Value = "" });
+                }
+                return items;
+            }
+        }
     }
 }

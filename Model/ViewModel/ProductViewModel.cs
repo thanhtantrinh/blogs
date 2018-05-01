@@ -21,8 +21,25 @@ namespace Model.ViewModel
         public string MetaTitle { set; get; }
         public DateTime CreatedDate { set; get; }
     }
+
+    public class ProductDetailModel
+    {
+        public long ProDetailId { get; set; }
+        public long ProductId { get; set; }
+        public double Size { get; set; }
+        public double Weight { get; set; }
+        public double Price { get; set; }
+        public int PriceTypeId { get; set; }
+        public string PriceTypeName { get; set; }
+
+        public ProductDetailModel()
+        {
+
+        }
+    }
+    
     public class ProductsView
-    {        
+    {
         [Required]
         public long ID { set; get; }
         //[Required, FileExtensions(Extensions = "jpg", ErrorMessage = "Specify a jpg file. (Comma-separated values)")]
@@ -42,7 +59,10 @@ namespace Model.ViewModel
         [Display(Name = "Alias")]
         public string MetaTitle { set; get; }
 
-        [Display(Name = "Giá")]        
+        /// <summary>
+        /// price of the product
+        /// </summary>
+        [Display(Name = "Giá")]
         public decimal? Price { set; get; }
 
         [Display(Name = "Giá khuyến mãi")]
@@ -50,6 +70,11 @@ namespace Model.ViewModel
 
         [Display(Name = "Đã VAT")]
         public bool? IncludedVAT { set; get; }
+
+        /// <summary>
+        /// Product detail là một field chứa thông tin về sizes, weights, prices cho từng phân loại sản phẩm
+        /// </summary>
+        //public List<ProductDetailModel> ProductDetail { get; set; }
 
         [Display(Name = "Nhóm Sản phẩm")]
         public long CategoryID { get; set; }
@@ -72,20 +97,20 @@ namespace Model.ViewModel
         public int? ViewCount { get; set; }
 
         [Display(Name = "Mô tả ngắn")]
-        public string Description { get; set; }        
+        public string Description { get; set; }
         [Display(Name = "Mô tả Sản phẩm")]
         public string Detail { get; set; }
 
-        [Display(Name= "LABEL_CREATED_BY", ResourceType = typeof(Resources))]
+        [Display(Name = "LABEL_CREATED_BY", ResourceType = typeof(Resources))]
         public long CreatedBy { get; set; }
         [Display(Name = "LABEL_CREATED_NAME", ResourceType = typeof(Resources))]
-        public string CreatedByName { get; set; }        
+        public string CreatedByName { get; set; }
         [Display(Name = "LABEL_CREATED_DATE", ResourceType = typeof(Resources))]
         public DateTime CreatedDate { set; get; }
-        
+
         [Display(Name = "LABEL_MODIFIED_DATE", ResourceType = typeof(Resources))]
         public DateTime ModifiedDate { get; set; }
-    
+
         [Display(Name = "LABEL_MODIFIED_BY", ResourceType = typeof(Resources))]
         public long ModifiedBy { get; set; }
 
@@ -94,7 +119,7 @@ namespace Model.ViewModel
 
         public string MetaKeywords { get; set; }
         public int? Warranty { get; set; }
-                
+
         public string MetaDescriptions { get; set; }
         [Display(Name = "Trạng thái")]
         public string Status { get; set; }
@@ -106,7 +131,7 @@ namespace Model.ViewModel
         public string Language { get; set; }
     }
     public class ProductFilter
-    {       
+    {
         public string SearchString { get; set; }
         public int CatalogueId { get; set; }
         /// <summary>
@@ -127,9 +152,9 @@ namespace Model.ViewModel
         public bool? IsShowHome { get; set; }
 
         public ProductFilter()
-        {           
+        {
             SearchString = "";
-            Status = new string[] { nameof(StatusEntity.Active), nameof(StatusEntity.Locked)};
+            Status = new string[] { nameof(StatusEntity.Active), nameof(StatusEntity.Locked) };
             CatalogueId = 0;
             CategoryId = 0;
         }

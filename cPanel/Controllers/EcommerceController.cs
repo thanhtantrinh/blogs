@@ -191,6 +191,7 @@ namespace cPanel.Controllers
 
         }
         #endregion
+
         #region Product manager
         [HttpGet]
         public ActionResult Products(int page = 1, int pageSize = 20, string sortby = "")
@@ -216,6 +217,7 @@ namespace cPanel.Controllers
                 Session["ProductFilter"] = new ProductFilter();
             return RedirectToAction("Products");
         }
+
         [HttpGet]
         public ActionResult ProductEdit(long Id=0)
         {
@@ -294,6 +296,7 @@ namespace cPanel.Controllers
             }
             return View(model);
         }
+
         public ActionResult ProductCreate()
         {
             ProductsView model = new ProductsView();
@@ -381,7 +384,6 @@ namespace cPanel.Controllers
             }
             return RedirectToAction("Products");
         }
-
         public ActionResult SetDeletedProduct(int Id = 0)
         {
             var actionStatus = new ActionResultHelper();
@@ -416,6 +418,8 @@ namespace cPanel.Controllers
             }
             return RedirectToAction("Products");
         }
+        
+
         #endregion
     }
 }

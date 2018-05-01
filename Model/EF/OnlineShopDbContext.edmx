@@ -24,11 +24,16 @@
           <Property Name="ManagerBy" Type="bigint" Nullable="false" />
           <Property Name="MetaDescriptions" Type="nvarchar" MaxLength="250" />
           <Property Name="MetaKeywords" Type="nvarchar" MaxLength="250" />
+          <Property Name="FtpAccount" Type="nvarchar" MaxLength="50" />
+          <Property Name="FtpUserName" Type="nvarchar" MaxLength="50" />
+          <Property Name="FtpPassword" Type="nvarchar" MaxLength="50" />
+          <Property Name="PathProductImages" Type="nvarchar" MaxLength="100" />
+          <Property Name="PathImages" Type="nvarchar" MaxLength="100" />
+          <Property Name="Status" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="CreatedBy" Type="bigint" Nullable="false" />
           <Property Name="ModifiedDate" Type="datetime" />
           <Property Name="ModifiedBy" Type="bigint" />
-          <Property Name="Status" Type="nvarchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
@@ -260,6 +265,35 @@
           <Property Name="Status" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="ShowOnHome" Type="bit" Nullable="false" />
           <Property Name="Language" Type="varchar" MaxLength="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductDetail">
+          <Key>
+            <PropertyRef Name="ProDetailId" />
+          </Key>
+          <Property Name="ProDetailId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductId" Type="bigint" Nullable="false" />
+          <Property Name="Size" Type="float" Nullable="false" />
+          <Property Name="Weight" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductPrice">
+          <Key>
+            <PropertyRef Name="PriceId" />
+          </Key>
+          <Property Name="PriceId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProdetailId" Type="bigint" Nullable="false" />
+          <Property Name="Price" Type="float" Nullable="false" />
+          <Property Name="PriceTypeId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductPriceType">
+          <Key>
+            <PropertyRef Name="PriceTypeId" />
+          </Key>
+          <Property Name="PriceTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PriceTypeName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedBy" Type="bigint" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="bigint" Nullable="false" />
+          <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Province">
           <Key>
@@ -834,6 +868,9 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
           <EntitySet Name="OrderDetail" EntityType="Self.OrderDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductCategory" EntityType="Self.ProductCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductDetail" EntityType="Self.ProductDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductPrice" EntityType="Self.ProductPrice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductPriceType" EntityType="Self.ProductPriceType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Province" EntityType="Self.Province" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Slide" EntityType="Self.Slide" Schema="dbo" store:Type="Tables" />
@@ -1179,6 +1216,9 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
             <End Role="Ward" EntitySet="Wards" />
           </AssociationSet>
           <EntitySet Name="v_WebAccount" EntityType="OnlineShopDbContext.v_WebAccount" />
+          <EntitySet Name="ProductDetails" EntityType="OnlineShopDbContext.ProductDetail" />
+          <EntitySet Name="ProductPrices" EntityType="OnlineShopDbContext.ProductPrice" />
+          <EntitySet Name="ProductPriceTypes" EntityType="OnlineShopDbContext.ProductPriceType" />
           </EntityContainer>
         <ComplexType Name="sp_Category_Search_Paging_Sorting_Result">
           <Property Type="Int64" Name="ID" Nullable="false" />
@@ -1246,6 +1286,11 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
           <Property Name="ModifiedBy" Type="Int64" />
           <Property Name="Status" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="FtpAccount" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FtpUserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FtpPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PathProductImages" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PathImages" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
@@ -2010,6 +2055,35 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
           <Property Name="ModifiedByName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="ProductDetail">
+          <Key>
+            <PropertyRef Name="ProDetailId" />
+          </Key>
+          <Property Name="ProDetailId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductId" Type="Int64" Nullable="false" />
+          <Property Name="Size" Type="Double" Nullable="false" />
+          <Property Name="Weight" Type="Double" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductPrice">
+          <Key>
+            <PropertyRef Name="PriceId" />
+          </Key>
+          <Property Name="PriceId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProdetailId" Type="Int64" Nullable="false" />
+          <Property Name="Price" Type="Double" Nullable="false" />
+          <Property Name="PriceTypeId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductPriceType">
+          <Key>
+            <PropertyRef Name="PriceTypeId" />
+          </Key>
+          <Property Name="PriceTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PriceTypeName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="Int64" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int64" Nullable="false" />
+          <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2069,6 +2143,11 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
           <EntitySetMapping Name="Catalogues">
             <EntityTypeMapping TypeName="OnlineShopDbContext.Catalogue">
               <MappingFragment StoreEntitySet="Catalogue">
+                <ScalarProperty Name="PathImages" ColumnName="PathImages" />
+                <ScalarProperty Name="PathProductImages" ColumnName="PathProductImages" />
+                <ScalarProperty Name="FtpPassword" ColumnName="FtpPassword" />
+                <ScalarProperty Name="FtpUserName" ColumnName="FtpUserName" />
+                <ScalarProperty Name="FtpAccount" ColumnName="FtpAccount" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
@@ -2719,6 +2798,38 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductDetails">
+            <EntityTypeMapping TypeName="OnlineShopDbContext.ProductDetail">
+              <MappingFragment StoreEntitySet="ProductDetail">
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="Size" ColumnName="Size" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="ProDetailId" ColumnName="ProDetailId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductPrices">
+            <EntityTypeMapping TypeName="OnlineShopDbContext.ProductPrice">
+              <MappingFragment StoreEntitySet="ProductPrice">
+                <ScalarProperty Name="PriceTypeId" ColumnName="PriceTypeId" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="ProdetailId" ColumnName="ProdetailId" />
+                <ScalarProperty Name="PriceId" ColumnName="PriceId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductPriceTypes">
+            <EntityTypeMapping TypeName="OnlineShopDbContext.ProductPriceType">
+              <MappingFragment StoreEntitySet="ProductPriceType">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="PriceTypeName" ColumnName="PriceTypeName" />
+                <ScalarProperty Name="PriceTypeId" ColumnName="PriceTypeId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

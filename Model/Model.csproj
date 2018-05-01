@@ -144,6 +144,15 @@
     <Compile Include="EF\ProductCategory.cs">
       <DependentUpon>OnlineShopDbContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="EF\ProductDetail.cs">
+      <DependentUpon>OnlineShopDbContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\ProductPrice.cs">
+      <DependentUpon>OnlineShopDbContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\ProductPriceType.cs">
+      <DependentUpon>OnlineShopDbContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="EF\Province.cs">
       <DependentUpon>OnlineShopDbContext.tt</DependentUpon>
     </Compile>

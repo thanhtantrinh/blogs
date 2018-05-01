@@ -34,5 +34,10 @@ namespace Model.EF
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public Nullable<long> ModifiedBy { get; set; }
         public string Status { get; set; }
+        public string FtpAccount { get; set; }
+        public string FtpUserName { get; set; }
+        public string FtpPassword { get; set; }
+        public string PathProductImages { get; set; }
+        public string PathImages { get; set; }
     }
 }
