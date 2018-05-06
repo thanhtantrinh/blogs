@@ -12,10 +12,10 @@ namespace Model.Dao
 {
     public class UserDao
     {
-        OnlineShopEntities db = null;
+        Entities db = null;
         public UserDao()
         {
-            db = new OnlineShopEntities();
+            db = new Entities();
         }
 
         public long Insert(User entity)

@@ -10,10 +10,10 @@ namespace Model.Dao
 {
     public class OrderDao
     {
-        OnlineShopEntities db = null;
+        Entities db = null;
         public OrderDao()
         {
-            db = new OnlineShopEntities();
+            db = new Entities();
         }
         public long Insert(Order order)
         {

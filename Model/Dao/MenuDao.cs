@@ -11,10 +11,10 @@ namespace Model.Dao
 {
     public class MenuDao
     {
-        OnlineShopEntities db = null;
+        Entities db = null;
         public MenuDao()
         {
-            db = new OnlineShopEntities();
+            db = new Entities();
         }
 
         public List<Menu> ListByGroupId(int groupId)

@@ -226,13 +226,14 @@ namespace Model
                .ForMember(v => v.Name, co => co.MapFrom(src => src.ProductName))
                .ForMember(v => v.Code, co => co.MapFrom(src => src.Code))
 
-               .ForMember(v => v.Price, co => co.MapFrom(src => src.Price))
-               .ForMember(v => v.PromotionPrice, co => co.MapFrom(src => src.PromotionPrice))
+               .ForMember(v => v.ProductPrice, co => co.MapFrom(src => src.ProductPrice))
+               //.ForMember(v => v.ProductWeight, co => co.MapFrom(src => src.ProductWeight))
+               //.ForMember(v => v.ProductSize, co => co.MapFrom(src => src.ProductSize))
                .ForMember(v => v.Quantity, co => co.MapFrom(src => src.Quantity))
                .ForMember(v => v.Warranty, co => co.MapFrom(src => src.Warranty))
                .ForMember(v => v.TopHot, co => co.MapFrom(src => src.TopHot))
                .ForMember(v => v.ViewCount, co => co.MapFrom(src => src.ViewCount))
-               .ForMember(v => v.IsDiscount, co => co.MapFrom(src => src.PromotionPrice > 0 ? true : false))
+               //.ForMember(v => v.ProductDetailId, co => co.MapFrom(src => src.ProductDetailId))
                .ForMember(v => v.IncludedVAT, co => co.MapFrom(src => src.IncludedVAT))
 
                .ForMember(v => v.MetaKeywords, co => co.MapFrom(src => src.MetaKeywords))
@@ -267,7 +268,7 @@ namespace Model
                .ForMember(v => v.MetaTitle, co => co.MapFrom(src => src.MetaTitle))
                .ForMember(v => v.Description, co => co.MapFrom(src => src.Description))
                .ForMember(v => v.Detail, co => co.MapFrom(src => src.Detail))
-               .ForMember(v => v.Price, co => co.MapFrom(src => src.Price))
+               .ForMember(v => v.Price, co => co.MapFrom(src => src.ProductPrice))
                .ForMember(v => v.PromotionPrice, co => co.MapFrom(src => src.PromotionPrice))
                .ForMember(v => v.IncludedVAT, co => co.MapFrom(src => src.IncludedVAT))
                .ForMember(v => v.Quantity, co => co.MapFrom(src => src.Quantity))
@@ -286,6 +287,25 @@ namespace Model
             });
             IMapper mapper = config.CreateMapper();
             result = mapper.Map<ProductsView, Product>(model);
+            return result;
+        }
+
+        public static ProductDetailModel ConvertViewProductDetailToProductDetailModel(v_ProductDetail model)
+        {
+            ProductDetailModel result = new ProductDetailModel();
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<v_ProductDetail, ProductDetailModel>()
+               .ForMember(v => v.ProductDetailId, co => co.MapFrom(src => src.ProductDetailId))
+               .ForMember(v => v.ProductPrice, co => co.MapFrom(src => src.ProductPrice))
+               .ForMember(v => v.ProductSize, co => co.MapFrom(src => src.ProductSize))
+               .ForMember(v => v.ProductWeight, co => co.MapFrom(src => src.ProductWeight))
+               .ForMember(v => v.PriceTypeName, co => co.MapFrom(src => src.PriceTypeName))
+               .ForMember(v => v.PriceTypeId, co => co.MapFrom(src => src.PriceTypeId))
+               ;
+            });
+            IMapper mapper = config.CreateMapper();
+            result = mapper.Map<v_ProductDetail, ProductDetailModel>(model);
             return result;
         }
     }

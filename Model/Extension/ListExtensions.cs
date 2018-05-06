@@ -53,7 +53,7 @@ namespace Model.Extension
                 }
                 else
                 {
-                    using (var db = new OnlineShopEntities())
+                    using (var db = new Entities())
                     {
                         provinceList = db.Provinces.Where(w => w.IsPublished.Value == true).OrderBy(o => o.Type)
                                             .AsEnumerable().Select(s => new SelectListItem() { Text = s.Name, Value = s.Id.ToString() }).ToList();
@@ -75,7 +75,7 @@ namespace Model.Extension
             get
             {
                 var categoryList = new List<SelectListItem>();
-                using (var db = new OnlineShopEntities())
+                using (var db = new Entities())
                 {
                     categoryList = db.Categories.Where(w => w.Status == nameof(StatusEntity.Active))
                                         .AsEnumerable().Select(s => new SelectListItem() { Text = s.Name, Value = s.ID.ToString() }).ToList();
@@ -93,7 +93,7 @@ namespace Model.Extension
             get
             {
                 var categoryList = new List<SelectListItem>();
-                using (var db = new OnlineShopEntities())
+                using (var db = new Entities())
                 {
                     categoryList = db.ProductCategories.Where(w => w.Status == nameof(StatusEntity.Active))
                                         .AsEnumerable().Select(s => new SelectListItem() { Text = s.Name, Value = s.ID.ToString() }).ToList();
@@ -111,7 +111,7 @@ namespace Model.Extension
         {
 
             var items = new List<SelectListItem>();
-            using (var db = new OnlineShopEntities())
+            using (var db = new Entities())
             {
                 var model = db.ProductCategories.Where(w => w.Status == nameof(StatusEntity.Active));
 
@@ -140,7 +140,7 @@ namespace Model.Extension
             get
             {
                 var catalogueList = new List<SelectListItem>();
-                using (var db = new OnlineShopEntities())
+                using (var db = new Entities())
                 {
                     catalogueList = db.Catalogues.Where(w => w.Status == nameof(StatusEntity.Active) && w.Id != 0)
                                         .AsEnumerable().Select(s => new SelectListItem() { Text = s.Name, Value = s.Id.ToString() }).ToList();
@@ -174,7 +174,7 @@ namespace Model.Extension
             get
             {
                 List<SelectListItem> items = new List<SelectListItem>();
-                using (var db = new OnlineShopEntities())
+                using (var db = new Entities())
                 {
                     items = db.ProductPriceTypes.Where(w => w.PriceTypeId > 0)
                                         .AsEnumerable().Select(s => new SelectListItem() { Text = s.PriceTypeName, Value = s.PriceTypeId.ToString() }).ToList();

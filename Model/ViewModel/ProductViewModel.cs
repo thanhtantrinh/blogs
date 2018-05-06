@@ -24,24 +24,35 @@ namespace Model.ViewModel
 
     public class ProductDetailModel
     {
-        public long ProDetailId { get; set; }
-        public long ProductId { get; set; }
-        public double Size { get; set; }
-        public double Weight { get; set; }
-        public double Price { get; set; }
+        public long ProductDetailId { set; get; }
+        [Display(Name = "Size")]
+        public string ProductSize { get; set; }
+        [Display(Name = "Trọng lượng")]
+        public double ProductWeight { get; set; }
+        [Display(Name = "Giá")]
+        public double ProductPrice { get; set; }
+        public long PriceId { get; set; }
         public int PriceTypeId { get; set; }
         public string PriceTypeName { get; set; }
-
         public ProductDetailModel()
         {
-
+            ProductSize = "";
+            ProductWeight = 0;
+            ProductPrice = 0;
+            PriceTypeId = 1;
+            PriceId = 0;
+            ProductDetailId = 0;
         }
     }
-    
+
+    /// <summary>
+    /// Product view to edit, create 
+    /// </summary>
     public class ProductsView
     {
         [Required]
         public long ID { set; get; }
+
         //[Required, FileExtensions(Extensions = "jpg", ErrorMessage = "Specify a jpg file. (Comma-separated values)")]
         [Display(Name = "Hình")]
         public HttpPostedFileBase Images { get; set; }
@@ -58,24 +69,18 @@ namespace Model.ViewModel
         public string Name { set; get; }
         [Display(Name = "Alias")]
         public string MetaTitle { set; get; }
-
         /// <summary>
         /// price of the product
         /// </summary>
         [Display(Name = "Giá")]
-        public decimal? Price { set; get; }
+        public decimal ProductPrice { set; get; }
 
         [Display(Name = "Giá khuyến mãi")]
         public decimal? PromotionPrice { set; get; }
 
         [Display(Name = "Đã VAT")]
         public bool? IncludedVAT { set; get; }
-
-        /// <summary>
-        /// Product detail là một field chứa thông tin về sizes, weights, prices cho từng phân loại sản phẩm
-        /// </summary>
-        //public List<ProductDetailModel> ProductDetail { get; set; }
-
+        
         [Display(Name = "Nhóm Sản phẩm")]
         public long CategoryID { get; set; }
 
@@ -129,6 +134,10 @@ namespace Model.ViewModel
 
         public bool IsDiscount { get; set; }
         public string Language { get; set; }
+
+        #region product detail
+        public List<ProductDetailModel> ProductDetail { get; set; }
+        #endregion
     }
     public class ProductFilter
     {

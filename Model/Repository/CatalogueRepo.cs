@@ -70,7 +70,7 @@ namespace Model.Repository
             IMapper mapper = config.CreateMapper();
             try
             {
-                using (var entities = new OnlineShopEntities())
+                using (var entities = new Entities())
                 {
                     var catalogue = entities.Catalogues.SingleOrDefault(s => s.Id == model.Id);
 

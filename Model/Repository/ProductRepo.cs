@@ -210,7 +210,7 @@ namespace Model.Repository
                     {
                         product.MetaTitle = StringHelper.ToUnsignString(model.Name.Trim().ToLower());
                     }
-                    product.Price = model.Price.HasValue ? product.Price : 0;
+                    product.Price = model.ProductPrice > 0 ? model.ProductPrice : 0;
                     product.PromotionPrice = model.PromotionPrice;
                     product.Quantity = model.Quantity;
                     product.Detail = model.Detail;

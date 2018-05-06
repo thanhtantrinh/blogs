@@ -13,17 +13,17 @@ namespace Model.Repository
     public class BaseRepository
     {
         public static string conn = "";
-        public static OnlineShopEntities entities;
+        public static Entities entities;
 
         public BaseRepository(string sqlConnString="")
         {
             conn = sqlConnString;
-            entities = new OnlineShopEntities();
+            entities = new Entities();
         }
 
         public BaseRepository()
         {
-            entities = new OnlineShopEntities();
+            entities = new Entities();
             conn = entities.Database.Connection.ConnectionString;
         }
 

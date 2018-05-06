@@ -82,142 +82,136 @@
     <Compile Include="Dao\SlideDao.cs" />
     <Compile Include="Dao\UserDao.cs" />
     <Compile Include="EF\Catalogue.cs">
-      <DependentUpon>OnlineShopDbContext.tt</DependentUpon>
+      <DependentUpon>DBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\Category.cs">
-      <DependentUpon>OnlineShopDbContext.tt</DependentUpon>
+      <DependentUpon>DBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\Contact.cs">
-      <DependentUpon>OnlineShopDbContext.tt</DependentUpon>
+      <DependentUpon>DBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\Content.cs">
-      <DependentUpon>OnlineShopDbContext.tt</DependentUpon>
+      <DependentUpon>DBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\ContentTag.cs">
-      <DependentUpon>OnlineShopDbContext.tt</DependentUpon>
+      <DependentUpon>DBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\Country.cs">
-      <DependentUpon>OnlineShopDbContext.tt</DependentUpon>
+      <DependentUpon>DBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\Credential.cs">
-      <DependentUpon>OnlineShopDbContext.tt</DependentUpon>
+      <DependentUpon>DBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\DBContext.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DBContext.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\DBContext.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\DBContext.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DBContext.edmx</DependentUpon>
     </Compile>
     <Compile Include="EF\District.cs">
-      <DependentUpon>OnlineShopDbContext.tt</DependentUpon>
+      <DependentUpon>DBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\Feedback.cs">
-      <DependentUpon>OnlineShopDbContext.tt</DependentUpon>
+      <DependentUpon>DBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\Language.cs">
-      <DependentUpon>OnlineShopDbContext.tt</DependentUpon>
+      <DependentUpon>DBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\Menu.cs">
-      <DependentUpon>OnlineShopDbContext.tt</DependentUpon>
+      <DependentUpon>DBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\MenuType.cs">
-      <DependentUpon>OnlineShopDbContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EF\OnlineShopDbContext.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>OnlineShopDbContext.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EF\OnlineShopDbContext.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>OnlineShopDbContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EF\OnlineShopDbContext.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>OnlineShopDbContext.edmx</DependentUpon>
+      <DependentUpon>DBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\Order.cs">
-      <DependentUpon>OnlineShopDbContext.tt</DependentUpon>
+      <DependentUpon>DBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\OrderDetail.cs">
-      <DependentUpon>OnlineShopDbContext.tt</DependentUpon>
+      <DependentUpon>DBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\Product.cs">
-      <DependentUpon>OnlineShopDbContext.tt</DependentUpon>
+      <DependentUpon>DBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\ProductCategory.cs">
-      <DependentUpon>OnlineShopDbContext.tt</DependentUpon>
+      <DependentUpon>DBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\ProductDetail.cs">
-      <DependentUpon>OnlineShopDbContext.tt</DependentUpon>
+      <DependentUpon>DBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\ProductPrice.cs">
-      <DependentUpon>OnlineShopDbContext.tt</DependentUpon>
+      <DependentUpon>DBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\ProductPriceType.cs">
-      <DependentUpon>OnlineShopDbContext.tt</DependentUpon>
+      <DependentUpon>DBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\Province.cs">
-      <DependentUpon>OnlineShopDbContext.tt</DependentUpon>
+      <DependentUpon>DBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\Role.cs">
-      <DependentUpon>OnlineShopDbContext.tt</DependentUpon>
+      <DependentUpon>DBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\Slide.cs">
-      <DependentUpon>OnlineShopDbContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EF\sp_CategoryOfProduct_Search_Paging_Sorting_Result.cs">
-      <DependentUpon>OnlineShopDbContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EF\sp_Category_Search_Paging_Sorting_Result.cs">
-      <DependentUpon>OnlineShopDbContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EF\sysdiagram.cs">
-      <DependentUpon>OnlineShopDbContext.tt</DependentUpon>
+      <DependentUpon>DBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\SystemConfig.cs">
-      <DependentUpon>OnlineShopDbContext.tt</DependentUpon>
+      <DependentUpon>DBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\Tag.cs">
-      <DependentUpon>OnlineShopDbContext.tt</DependentUpon>
+      <DependentUpon>DBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\User.cs">
-      <DependentUpon>OnlineShopDbContext.tt</DependentUpon>
+      <DependentUpon>DBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\UserGroup.cs">
-      <DependentUpon>OnlineShopDbContext.tt</DependentUpon>
+      <DependentUpon>DBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\v_CatalogueInfo.cs">
-      <DependentUpon>OnlineShopDbContext.tt</DependentUpon>
+      <DependentUpon>DBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\v_Category.cs">
-      <DependentUpon>OnlineShopDbContext.tt</DependentUpon>
+      <DependentUpon>DBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\v_CategoryOfProduct.cs">
-      <DependentUpon>OnlineShopDbContext.tt</DependentUpon>
+      <DependentUpon>DBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\v_Content.cs">
-      <DependentUpon>OnlineShopDbContext.tt</DependentUpon>
+      <DependentUpon>DBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\v_Order.cs">
-      <DependentUpon>OnlineShopDbContext.tt</DependentUpon>
+      <DependentUpon>DBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\v_OrderDetail.cs">
-      <DependentUpon>OnlineShopDbContext.tt</DependentUpon>
+      <DependentUpon>DBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\v_Product.cs">
-      <DependentUpon>OnlineShopDbContext.tt</DependentUpon>
+      <DependentUpon>DBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\v_ProductDetail.cs">
+      <DependentUpon>DBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\v_Role.cs">
-      <DependentUpon>OnlineShopDbContext.tt</DependentUpon>
+      <DependentUpon>DBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\v_SiteMap.cs">
-      <DependentUpon>OnlineShopDbContext.tt</DependentUpon>
+      <DependentUpon>DBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\v_UserGroup.cs">
-      <DependentUpon>OnlineShopDbContext.tt</DependentUpon>
+      <DependentUpon>DBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\v_WebAccount.cs">
-      <DependentUpon>OnlineShopDbContext.tt</DependentUpon>
+      <DependentUpon>DBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\Ward.cs">
-      <DependentUpon>OnlineShopDbContext.tt</DependentUpon>
+      <DependentUpon>DBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Extension\Helper.cs" />
     <Compile Include="Extension\ListExtensions.cs" />
@@ -256,12 +250,12 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <EntityDeploy Include="EF\OnlineShopDbContext.edmx">
+    <EntityDeploy Include="EF\DBContext.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>OnlineShopDbContext.Designer.cs</LastGenOutput>
+      <LastGenOutput>DBContext.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="EF\OnlineShopDbContext.edmx.diagram">
-      <DependentUpon>OnlineShopDbContext.edmx</DependentUpon>
+    <None Include="EF\DBContext.edmx.diagram">
+      <DependentUpon>DBContext.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
@@ -280,15 +274,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\PagedList.css" />
-    <Content Include="EF\OnlineShopDbContext.Context.tt">
+    <Content Include="EF\DBContext.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>OnlineShopDbContext.edmx</DependentUpon>
-      <LastGenOutput>OnlineShopDbContext.Context.cs</LastGenOutput>
+      <DependentUpon>DBContext.edmx</DependentUpon>
+      <LastGenOutput>DBContext.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="EF\OnlineShopDbContext.tt">
+    <Content Include="EF\DBContext.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>OnlineShopDbContext.edmx</DependentUpon>
-      <LastGenOutput>OnlineShopDbContext.cs</LastGenOutput>
+      <DependentUpon>DBContext.edmx</DependentUpon>
+      <LastGenOutput>DBContext.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

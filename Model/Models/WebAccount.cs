@@ -57,7 +57,7 @@ namespace Model
                 });
 
                 IMapper mapper = config.CreateMapper();
-                using (var db = new OnlineShopEntities())
+                using (var db = new Entities())
                 {
                     //DB.Query<WebAccount>
                     var result = db.v_WebAccount.Where(w => w.UserName == username && w.Password == password).FirstOrDefault();
@@ -83,7 +83,7 @@ namespace Model
             string password = null;
             try
             {
-                using (var db = new OnlineShopEntities())
+                using (var db = new Entities())
                 {
                     //DB.Query<WebAccount>
                     password = db.Users.Where(w => w.UserName == username).Select(s=>s.Password).FirstOrDefault();                    

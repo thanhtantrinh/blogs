@@ -116,7 +116,7 @@ namespace OnlineShop.Areas.Admin.Controllers
         public ActionResult Edit(long id)
         {
             var DAO = new ProductDao();
-            var model = DAO.Find(id);
+            var model = DAO.Find(id);           
             return View(model);
         }
 
@@ -129,7 +129,6 @@ namespace OnlineShop.Areas.Admin.Controllers
             actionStatus.ActionStatus = ResultSubmit.failed;
             string errorString = "";
             bool IsValid = true;
-
             if (ModelState.IsValid)
             {
                 var DAO = new ProductDao();
@@ -158,7 +157,7 @@ namespace OnlineShop.Areas.Admin.Controllers
                 }
 
                 Session["ACTION_STATUS"] = actionStatus;
-                return RedirectToAction("SALEdit", new { id = product.ID });
+                return RedirectToAction("Edit", new { id = product.ID });
             }
             else
             {

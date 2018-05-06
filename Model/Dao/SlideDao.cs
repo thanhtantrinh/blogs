@@ -9,10 +9,10 @@ namespace Model.Dao
 {
    public  class SlideDao
     {
-        OnlineShopEntities db = null;
+        Entities db = null;
         public SlideDao()
         {
-            db = new OnlineShopEntities();
+            db = new Entities();
         }
 
         public Slide FindSlideId(int id)

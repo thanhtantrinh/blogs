@@ -37,7 +37,7 @@ namespace OnlineShop.Helpers
         {
             get
             {
-                using (var db = new OnlineShopEntities())
+                using (var db = new Entities())
                 {
                     var categoryList = db.ProductCategories.Where(w => w.Status == nameof(StatusEntity.Active))
                                         .AsEnumerable().Select(s => new SelectListItem() { Text = s.Name, Value = s.ID.ToString() }).ToList();
@@ -50,7 +50,7 @@ namespace OnlineShop.Helpers
         public static List<SelectListItem> CategoryListSelected(long Id = 0)
         {
             var categoryList = new List<SelectListItem>();
-            using (var db = new OnlineShopEntities())
+            using (var db = new Entities())
             {
                 categoryList = db.Categories.Where(w => w.Status == nameof(StatusEntity.Active))
                                     .AsEnumerable().Select(s => new SelectListItem() { Text = s.Name, Value = s.ID.ToString(), Selected = s.ID == Id ? true : false }).ToList();
@@ -66,7 +66,7 @@ namespace OnlineShop.Helpers
             get
             {
                 var categoryList = new List<SelectListItem>();
-                using (var db = new OnlineShopEntities())
+                using (var db = new Entities())
                 {
                     categoryList = db.Categories.Where(w => w.Status == nameof(StatusEntity.Active))
                                         .AsEnumerable().Select(s => new SelectListItem() { Text = s.Name, Value = s.ID.ToString() }).ToList();

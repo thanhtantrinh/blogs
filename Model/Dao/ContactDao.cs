@@ -13,10 +13,10 @@ namespace Model.Dao
 {
     public class ContactDao
     {
-        OnlineShopEntities db = null;
+        Entities db = null;
         public ContactDao()
         {
-            db = new OnlineShopEntities();
+            db = new Entities();
         }
 
         public Contact GetActiveContact()

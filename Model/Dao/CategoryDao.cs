@@ -14,10 +14,10 @@ namespace Model.Dao
 {
     public class CategoryDao
     {
-        OnlineShopEntities db = null;
+        Entities db = null;
         public CategoryDao()
         {
-            db = new OnlineShopEntities();
+            db = new Entities();
         }
 
         public CategoryView GetByID(long Id = 0)

@@ -9,10 +9,10 @@ namespace Model.Dao
 {
     public class AddressDao
     {
-        OnlineShopEntities db = null;
+        Entities db = null;
         public AddressDao()
         {
-            db = new OnlineShopEntities();
+            db = new Entities();
         }
         public List<Country> getCountries()
         {

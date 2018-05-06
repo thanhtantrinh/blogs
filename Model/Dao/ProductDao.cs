@@ -15,69 +15,43 @@ namespace Model.Dao
 {
     public class ProductDao
     {
-        OnlineShopEntities db = null;        
+        Entities db = null;
         public ProductDao()
         {
-            db = new OnlineShopEntities();
-        }        
+            db = new Entities();
+        }
         public List<Product> ListNewProduct(int top)
         {
             return db.Products.OrderByDescending(x => x.CreatedDate).Take(top).ToList();
         }
-        public IEnumerable<ProductsView> ProductsPaging(string searchString="", int pageIndex=1, int pageSize=10, long catid=0, bool isShowHome = false, bool isNew = false)
+
+        public IEnumerable<v_Product> ProductsPaging(string searchString = "", int pageIndex = 1, int pageSize = 10, long catid = 0, bool isShowHome = false, bool isNew = false)
         {
-            var model = db.Products.Join(db.ProductCategories, p => p.CategoryId, pc => pc.ID, (p, pc) => new { ProductCategory = pc, Product = p });
+            var model = db.v_Product.AsQueryable();
             //search
-            if (!String.IsNullOrEmpty(searchString)&& searchString!="")
+            if (!String.IsNullOrEmpty(searchString) && searchString != "")
             {
-                model = model.Where(w => w.Product.Name.Contains(searchString));
+                model = model.Where(w => w.ProductName == searchString);
             }
-            
+
             //filter caterogy
             if (catid > 0)
             {
-               model = model.Where(w => w.Product.CategoryId == catid);
+                model = model.Where(w => w.CategoryId == catid);
             }
 
             if (isShowHome)
             {
-                model = model.Where(w => w.Product.ShowHome == true);
+                model = model.Where(w => w.ShowHome == true);
             }
 
 
             if (isNew)
             {
-                model = model.Where(w => w.Product.New == true);
+                model = model.Where(w => w.New == true);
             }
 
-            var result = model.AsEnumerable().Select(s => new ProductsView
-            {
-                ID = s.Product.Id,
-                Name = s.Product.Name,
-                Price = s.Product.Price,
-                CategoryAlias = s.ProductCategory.MetaTitle,
-                CategoryName = s.ProductCategory.Name,
-                CreatedDate = s.Product.CreatedDate,               
-                MetaTitle = s.Product.MetaTitle,
-                Status = s.Product.Status,
-                Code=s.Product.Code,
-                Description=s.Product.Description,
-                IncludedVAT=s.Product.IncludedVAT,
-                CategoryID=s.Product.CategoryId,
-                CreatedBy=s.Product.CreatedBy,
-                Detail=s.Product.Detail,
-                IsDiscount=s.Product.PromotionPrice>0?true:false,
-                Quantity=s.Product.Quantity,
-                MetaDescriptions=s.Product.MetaDescriptions,
-                PromotionPrice=s.Product.PromotionPrice,
-                MetaKeywords=s.Product.MetaKeywords,
-                MoreImages=s.Product.Image,                
-                TopHot=s.Product.TopHot,
-                ViewCount=s.Product.ViewCount,
-                Warranty=s.Product.Warranty
-            }).OrderByDescending(o => o.CreatedDate).ToPagedList(pageIndex, pageSize);
-
-            return result;
+            return model.OrderByDescending(o => o.CreatedDate).ToPagedList(pageIndex, pageSize); ;
         }
         public List<Product> ListProduct()
         {
@@ -172,70 +146,160 @@ namespace Model.Dao
         {
             return db.Products.Find(id);
         }
-        public ProductsView Find(long id)
+        public ProductsView Find(long Id, long proDetailId = 0)
         {
-            Mapper.Initialize(cfg => cfg.CreateMap<Product, ProductsView>());
-            var model = db.Products.Where(w => w.Id == id).FirstOrDefault();
-            var result = Mapper.Map<Product, ProductsView>(model);
-            return result;
+            var model = db.v_Product.Where(w => w.ProductId == Id);
+            if (proDetailId > 0)
+            {
+                model = model.Where(w => w.ProductDetailId == proDetailId);
+            }
+            var result = Helper.ConvertProductToProductView(model.FirstOrDefault());
+            var productDetails = db.v_ProductDetail.Where(w => w.ProductId == result.ID).ToList();
 
+            if (productDetails.Count > 0)
+            {
+                var config = new MapperConfiguration(cfg =>
+                {
+                    cfg.CreateMap<v_ProductDetail, ProductDetailModel>()
+                    .ForMember(v => v.ProductDetailId, co => co.MapFrom(src => src.ProductDetailId))
+                    .ForMember(v => v.ProductPrice, co => co.MapFrom(src => src.ProductPrice))
+                    .ForMember(v => v.ProductSize, co => co.MapFrom(src => src.ProductSize))
+                    .ForMember(v => v.ProductWeight, co => co.MapFrom(src => src.ProductWeight))
+                    .ForMember(v => v.PriceTypeName, co => co.MapFrom(src => src.PriceTypeName))
+                    .ForMember(v => v.PriceTypeId, co => co.MapFrom(src => src.PriceTypeId))
+                    ;
+                });
+                IMapper mapper = config.CreateMapper();
+                result.ProductDetail = mapper.Map<List<v_ProductDetail>, List<ProductDetailModel>>(productDetails);
+            }
+            else
+            {
+                result.ProductDetail = new List<ProductDetailModel>() { new ProductDetailModel() };
+            }
+            return result;
         }
+
         public bool Update(ProductsView product)
         {
-            var item = db.Products.Find(product.ID);
-            item.Name = product.Name.Trim();
-            if (!String.IsNullOrWhiteSpace(product.MetaTitle))
+            bool result = true;
+            try
             {
-                item.MetaTitle = StringHelper.ToUnsignString(product.MetaTitle.Trim().ToLower());
+                var item = db.Products.Find(product.ID);
+
+                if (item != null)
+                {
+                    item.Name = product.Name.Trim();
+                    if (!String.IsNullOrWhiteSpace(product.MetaTitle))
+                    {
+                        item.MetaTitle = StringHelper.ToUnsignString(product.MetaTitle.Trim().ToLower());
+                    }
+                    item.Price = product.ProductPrice;
+                    item.PromotionPrice = product.PromotionPrice;
+                    item.Quantity = product.Quantity;
+                    item.Detail = product.Detail;
+                    item.Description = product.Description;
+                    item.Warranty = product.Warranty;
+                    item.Status = product.Status;
+                    item.MetaDescriptions = product.MetaDescriptions;
+                    item.MetaKeywords = product.MetaKeywords;
+                    item.ModifiedBy = 2;
+                    item.ModifiedDate = DateTime.Now;
+                    item.CategoryId = product.CategoryID;
+                    item.Code = product.CategoryID.ToString() + "-" + item.Id.ToString();
+                    item.IncludedVAT = product.IncludedVAT;
+
+                    if (!String.IsNullOrWhiteSpace(product.MoreImages))
+                    {
+                        item.MoreImages = product.MoreImages;
+                    }
+
+                    if (product.Images != null && !String.IsNullOrWhiteSpace(product.Images.FileName))
+                    {
+                        item.Image = product.ID.ToString() + "_" + product.Images.FileName;
+                    }
+                    item.ShowHome = product.ShowHome;
+                    db.SaveChanges();
+
+                    //save product detail info
+                    if (product.ProductDetail.Count > 0)
+                    {
+                        foreach (var prodetail in product.ProductDetail)
+                        {
+                            if (prodetail.ProductDetailId > 0)
+                            {
+                                var productDetail = db.ProductDetails.Find(prodetail.ProductDetailId);
+
+                                if (productDetail != null)
+                                {
+                                    productDetail.ProductId = item.Id;
+                                    productDetail.Size = prodetail.ProductSize;
+                                    productDetail.Weight = prodetail.ProductWeight;
+                                    var price = db.ProductPrices.First(f => f.ProdetailId == productDetail.ProDetailId);
+                                    if (price == null)
+                                    {
+                                        price = new ProductPrice();
+                                        price.ProdetailId = productDetail.ProDetailId;
+                                        price.PriceTypeId = 1;
+                                        price.Price = prodetail.ProductPrice;
+                                        db.ProductPrices.Add(price);
+                                    }
+                                    else
+                                    {
+                                        price.ProdetailId = productDetail.ProDetailId;
+                                        price.PriceTypeId = 1;
+                                        price.Price = prodetail.ProductPrice;
+                                    }
+                                    db.SaveChanges();
+                                }
+                            }
+                            else
+                            {
+                                ProductDetail prodetailNew = new ProductDetail();
+                                prodetailNew.Size = prodetail.ProductSize;
+                                prodetailNew.Weight = prodetail.ProductWeight;
+                                prodetailNew.ProductId = product.ID;
+                                db.ProductDetails.Add(prodetailNew);
+                                db.SaveChanges();
+
+                                ProductPrice price = new ProductPrice();
+                                price.ProdetailId = prodetailNew.ProDetailId;
+                                price.PriceTypeId = 1;
+                                price.Price = prodetail.ProductPrice;
+                                db.ProductPrices.Add(price);
+                                db.SaveChanges();
+                            }
+                        }
+                    }
+                }
             }
-            item.Price = product.Price.HasValue?product.Price.Value:0;
-            item.PromotionPrice = product.PromotionPrice;
-            item.Quantity = product.Quantity;
-            item.Detail = product.Detail;
-            item.Description = product.Description;
-            item.Warranty = product.Warranty;
-            item.Status = product.Status;
-            item.MetaDescriptions = product.MetaDescriptions;
-            item.MetaKeywords = product.MetaKeywords;            
-            item.ModifiedBy = 2;
-            item.ModifiedDate = DateTime.Now;
-            item.CategoryId = product.CategoryID;
-            item.Code = product.CategoryID.ToString() + "-" + item.Id.ToString();
-            item.IncludedVAT = product.IncludedVAT;
-
-            if (!String.IsNullOrWhiteSpace(product.MoreImages))
+            catch (Exception ex)
             {
-                item.MoreImages = product.MoreImages;
-            }           
+                var msg = ex.Message;
+                return false;
+            }          
 
-            if (product.Images!=null && !String.IsNullOrWhiteSpace(product.Images.FileName))
-            {
-                item.Image = product.ID.ToString() + "_" + product.Images.FileName;
-            }
-
-            item.ShowHome = product.ShowHome;
-            if (db.SaveChanges() > 0) return true;
-            return false;
-        }        
+            return result;
+          
+        }
         public Product Add(ProductsView product)
         {
-            Mapper.Initialize(cfg => cfg.CreateMap<ProductsView,Product>());
-            var result = Mapper.Map<ProductsView,Product>(product);
+            Mapper.Initialize(cfg => cfg.CreateMap<ProductsView, Product>());
+            var result = Mapper.Map<ProductsView, Product>(product);
             result.CreatedBy = 2;
             result.CreatedDate = DateTime.Now;
             result.ModifiedBy = 2;
             result.ModifiedDate = DateTime.Now;
-            result.ViewCount = 0;            
+            result.ViewCount = 0;
             db.Products.Add(result);
             db.SaveChanges();
-            return result;            
+            return result;
         }
         public int Delete(int id)
         {
             var item = db.Products.Find(id);
             db.Products.Remove(item);
             return db.SaveChanges();
-        }    
+        }
 
     }
 }

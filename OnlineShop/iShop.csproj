@@ -2031,6 +2031,7 @@
     <Content Include="assets\vegetarian\sass\_layout.scss" />
     <Content Include="assets\vegetarian\sass\Styles.scss" />
     <Content Include="assets\vegetarian\sass\_viewcart.scss" />
+    <Content Include="Areas\Admin\Views\Products\_partialProductDetail.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

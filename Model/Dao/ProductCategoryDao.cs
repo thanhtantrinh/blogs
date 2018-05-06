@@ -13,10 +13,10 @@ namespace Model.Dao
 {
     public class ProductCategoryDao
     {
-        OnlineShopEntities db = null;
+        Entities db = null;
         public ProductCategoryDao()
         {
-            db = new OnlineShopEntities();
+            db = new Entities();
         }
         public List<ProductCategory> ListAll()
         {

@@ -9,10 +9,10 @@ namespace Model.Dao
 {
     public class OrderDetailDao
     {
-        OnlineShopEntities db = null;
+        Entities db = null;
         public OrderDetailDao()
         {
-            db = new OnlineShopEntities();
+            db = new Entities();
         }
 
     }

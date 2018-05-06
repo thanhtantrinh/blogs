@@ -16,7 +16,7 @@ namespace Model.EF
     {
         public long ProDetailId { get; set; }
         public long ProductId { get; set; }
-        public double Size { get; set; }
+        public string Size { get; set; }
         public double Weight { get; set; }
     }
 }

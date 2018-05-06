@@ -15,11 +15,11 @@ namespace Model.Dao
 {
     public class ContentDao
     {
-        OnlineShopEntities db = null;
+        Entities db = null;
         public static string USER_SESSION = "USER_SESSION";
         public ContentDao()
         {
-            db = new OnlineShopEntities();
+            db = new Entities();
         }
         public IEnumerable<v_Content> ListAllPaging(ContentFilter filter, int pageIndex = 1, int pageSize = 20, string sortby = "")
         {

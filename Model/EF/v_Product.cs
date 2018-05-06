@@ -21,8 +21,10 @@ namespace Model.EF
         public string Description { get; set; }
         public string Image { get; set; }
         public string MoreImages { get; set; }
-        public decimal Price { get; set; }
-        public Nullable<decimal> PromotionPrice { get; set; }
+        public double ProductPrice { get; set; }
+        public long ProductDetailId { get; set; }
+        public string ProductSize { get; set; }
+        public double ProductWeight { get; set; }
         public Nullable<bool> IncludedVAT { get; set; }
         public int Quantity { get; set; }
         public int CatalogueId { get; set; }

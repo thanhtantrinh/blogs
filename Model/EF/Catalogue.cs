@@ -29,15 +29,15 @@ namespace Model.EF
         public long ManagerBy { get; set; }
         public string MetaDescriptions { get; set; }
         public string MetaKeywords { get; set; }
-        public System.DateTime CreatedDate { get; set; }
-        public long CreatedBy { get; set; }
-        public Nullable<System.DateTime> ModifiedDate { get; set; }
-        public Nullable<long> ModifiedBy { get; set; }
-        public string Status { get; set; }
         public string FtpAccount { get; set; }
         public string FtpUserName { get; set; }
         public string FtpPassword { get; set; }
         public string PathProductImages { get; set; }
         public string PathImages { get; set; }
+        public string Status { get; set; }
+        public System.DateTime CreatedDate { get; set; }
+        public long CreatedBy { get; set; }
+        public Nullable<System.DateTime> ModifiedDate { get; set; }
+        public Nullable<long> ModifiedBy { get; set; }
     }
 }

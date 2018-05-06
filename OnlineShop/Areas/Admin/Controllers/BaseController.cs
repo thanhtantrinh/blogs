@@ -17,7 +17,7 @@ namespace OnlineShop.Areas.Admin.Controllers
 {
     public class BaseController : Controller
     {
-        protected OnlineShopEntities db = new OnlineShopEntities();        
+        protected Entities db = new Entities();        
         protected BaseRepository _baseRepository = new BaseRepository(SiteConfiguration.DbConnectionString);
         protected CatalogueRepo _catalogueRepo = new CatalogueRepo();
         protected ProductRepo _proRepo = new ProductRepo();
