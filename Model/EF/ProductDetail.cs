@@ -18,5 +18,6 @@ namespace Model.EF
         public long ProductId { get; set; }
         public string Size { get; set; }
         public double Weight { get; set; }
+        public string UnitOfWeight { get; set; }
     }
 }

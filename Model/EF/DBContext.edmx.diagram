@@ -46,9 +46,9 @@
         <AssociationConnector Association="DBEntities.FK_Province_Country" ManuallyRouted="false" />
         <AssociationConnector Association="DBEntities.FK_District_Province" ManuallyRouted="false" />
         <AssociationConnector Association="DBEntities.FK_Ward_District" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="DBEntities.ProductDetail" Width="1.5" PointX="5.375" PointY="13.75" />
         <EntityTypeShape EntityType="DBEntities.v_Product" Width="1.5" PointX="15.375" PointY="17.75" />
         <EntityTypeShape EntityType="DBEntities.v_ProductDetail" Width="1.5" PointX="17.375" PointY="16.75" />
+        <EntityTypeShape EntityType="DBEntities.ProductDetail" Width="1.5" PointX="5.375" PointY="13.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

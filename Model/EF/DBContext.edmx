@@ -274,6 +274,7 @@
           <Property Name="ProductId" Type="bigint" Nullable="false" />
           <Property Name="Size" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Weight" Type="float" Nullable="false" />
+          <Property Name="UnitOfWeight" Type="nvarchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <EntityType Name="ProductPrice">
           <Key>
@@ -1979,19 +1980,10 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
             <End Role="District" EntitySet="Districts" />
             <End Role="Ward" EntitySet="Wards" />
           </AssociationSet>
-          <EntitySet Name="ProductDetails" EntityType="DBEntities.ProductDetail" />
           <EntitySet Name="v_Product" EntityType="DBEntities.v_Product" />
           <EntitySet Name="v_ProductDetail" EntityType="DBEntities.v_ProductDetail" />
+          <EntitySet Name="ProductDetails" EntityType="DBEntities.ProductDetail" />
         </EntityContainer>
-        <EntityType Name="ProductDetail">
-          <Key>
-            <PropertyRef Name="ProDetailId" />
-          </Key>
-          <Property Name="ProDetailId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ProductId" Type="Int64" Nullable="false" />
-          <Property Name="Size" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Weight" Type="Double" Nullable="false" />
-        </EntityType>
         <EntityType Name="v_Product">
           <Key>
             <PropertyRef Name="ProductId" />
@@ -2060,6 +2052,16 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
           <Property Name="PriceTypeId" Type="Int32" />
           <Property Name="PriceTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PriceId" Type="Int64" />
+        </EntityType>
+        <EntityType Name="ProductDetail">
+          <Key>
+            <PropertyRef Name="ProDetailId" />
+          </Key>
+          <Property Name="ProDetailId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductId" Type="Int64" Nullable="false" />
+          <Property Name="Size" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Weight" Type="Double" Nullable="false" />
+          <Property Name="UnitOfWeight" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -2702,16 +2704,6 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ProductDetails">
-            <EntityTypeMapping TypeName="DBEntities.ProductDetail">
-              <MappingFragment StoreEntitySet="ProductDetail">
-                <ScalarProperty Name="Weight" ColumnName="Weight" />
-                <ScalarProperty Name="Size" ColumnName="Size" />
-                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
-                <ScalarProperty Name="ProDetailId" ColumnName="ProDetailId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="v_Product">
             <EntityTypeMapping TypeName="DBEntities.v_Product">
               <MappingFragment StoreEntitySet="v_Product">
@@ -2762,6 +2754,17 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
                 <ScalarProperty Name="ProductSize" ColumnName="ProductSize" />
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
                 <ScalarProperty Name="ProductDetailId" ColumnName="ProductDetailId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductDetails">
+            <EntityTypeMapping TypeName="DBEntities.ProductDetail">
+              <MappingFragment StoreEntitySet="ProductDetail">
+                <ScalarProperty Name="UnitOfWeight" ColumnName="UnitOfWeight" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="Size" ColumnName="Size" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="ProDetailId" ColumnName="ProDetailId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

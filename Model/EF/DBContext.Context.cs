@@ -61,8 +61,8 @@ namespace Model.EF
         public virtual DbSet<v_SiteMap> v_SiteMap { get; set; }
         public virtual DbSet<v_UserGroup> v_UserGroup { get; set; }
         public virtual DbSet<v_WebAccount> v_WebAccount { get; set; }
-        public virtual DbSet<ProductDetail> ProductDetails { get; set; }
         public virtual DbSet<v_Product> v_Product { get; set; }
         public virtual DbSet<v_ProductDetail> v_ProductDetail { get; set; }
+        public virtual DbSet<ProductDetail> ProductDetails { get; set; }
     }
 }

@@ -28,17 +28,17 @@
                     <div class="form-horizontal">
 
                         @if (actionStaus != null && !String.IsNullOrWhiteSpace(actionStaus.ErrorReason))
-    {
-        if (actionStaus.ActionStatus == ResultSubmit.failed)
-        {
-                    @Html.Raw(actionStaus.ErrorReason);
-}
-else
-{
-                    @Html.Raw(actionStaus.ErrorReason);
-}
-Session["ACTION_STATUS"] = null;
-}
+                        {
+                            if (actionStaus.ActionStatus == ResultSubmit.failed)
+                            {
+                                @Html.Raw(actionStaus.ErrorReason);
+                            }
+                            else
+                            {
+                                @Html.Raw(actionStaus.ErrorReason);
+                            }
+                            Session["ACTION_STATUS"] = null;
+                        }
 
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         @Html.HiddenFor(model => model.ID)
@@ -90,29 +90,23 @@ Session["ACTION_STATUS"] = null;
                             <div role="tabpanel" class="tab-pane" id="tabprices">
 
                                 @for (int i = 0; i < Model.ProductDetail.Count; i++)
-            {
-                    <div class="form-group box-prodetail" data-prodetail="">
-                        <div class="col-md-2">
-                            @Html.TextBoxFor(m => m.ProductDetail[i].ProductDetailId, new { @class = "form-control" })
-                            @*@Html.TextBoxFor(model => model.ProductDetailId, new { @class = "form-control" })*@
-                        </div>
-                        @Html.LabelFor(m => m.ProductDetail[i].ProductPrice, new { @class = "control-label col-md-1" })
-                        <div class="col-md-2">
-                            @*@Html.TextBoxFor(model => model.ProductPrice, new { @class = "form-control" })*@
-                            @*@Html.TextBox("ProductPrice[]", 0, new { @class = "form-control" })*@
-                            @Html.TextBoxFor(m => m.ProductDetail[i].ProductPrice, new { @class = "form-control" })
-                        </div>
-
-                        @Html.LabelFor(m => m.ProductDetail[i].ProductWeight, new { @class = "control-label col-md-2" })
-                        <div class="col-md-2">
-                            @*@Html.TextBox("ProductWeight[]", 0, new { @class = "form-control" })*@
-                            @Html.TextBoxFor(m => m.ProductDetail[i].ProductWeight, new { @class = "form-control" })
-                        </div>
-                        <div class="col-md-1">
-                            <button type="button" class="btn btn-default" onclick="removeProdetail()">Xóa</button>
-                        </div>
-                    </div>
-}
+                                {
+                                    <div class="form-group box-prodetail" data-prodetail="">
+                                        @Html.LabelFor(m => m.ProductDetail[i].ProductPrice, new { @class = "control-label col-md-1" })
+                                        <div class="col-md-2">
+                                            @Html.TextBoxFor(m => m.ProductDetail[i].ProductPrice, new { @class = "form-control" })
+                                        </div>
+                                        @Html.LabelFor(m => m.ProductDetail[i].ProductWeight, new { @class = "control-label col-md-2" })
+                                        <div class="col-md-2">
+                                            @Html.TextBoxFor(m => m.ProductDetail[i].ProductWeight, new { @class = "form-control" })
+                                        </div>
+                                        <div class="col-md-1">
+                                            <button type="button" class="btn btn-default" onclick="removeProdetail()">Xóa</button>
+                                        </div>
+                                    </div>
+                                    @Html.HiddenFor(m => m.ProductDetail[i].PriceId)
+                                    @Html.HiddenFor(m => m.ProductDetail[i].ProductDetailId)
+                                }
 
                                 <div class="form-group">
                                     <div class="col-md-12">

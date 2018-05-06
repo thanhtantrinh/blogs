@@ -20,27 +20,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blogs", "Blogs\Blogs.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cPanel", "cPanel\cPanel.csproj", "{5C507A26-E9A5-4713-A6A2-43CA6D479C78}"
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Static_Full_Project", "Document\Layout\Static_Full_Project\", "{41A6CA5D-A05C-4643-BC82-0337A3D2458A}"
-	ProjectSection(WebsiteProperties) = preProject
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
-		Debug.AspNetCompiler.VirtualPath = "/localhost_52903"
-		Debug.AspNetCompiler.PhysicalPath = "Document\Layout\Static_Full_Project\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_52903\"
-		Debug.AspNetCompiler.Updateable = "true"
-		Debug.AspNetCompiler.ForceOverwrite = "true"
-		Debug.AspNetCompiler.FixedNames = "false"
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/localhost_52903"
-		Release.AspNetCompiler.PhysicalPath = "Document\Layout\Static_Full_Project\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_52903\"
-		Release.AspNetCompiler.Updateable = "true"
-		Release.AspNetCompiler.ForceOverwrite = "true"
-		Release.AspNetCompiler.FixedNames = "false"
-		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "52903"
-		SlnRelativePath = "Document\Layout\Static_Full_Project\"
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestList", "TestList\TestList.csproj", "{D3DE7BAB-1036-4334-A1DC-F934A2E3A268}"
 EndProject
 Global
@@ -73,10 +52,6 @@ Global
 		{5C507A26-E9A5-4713-A6A2-43CA6D479C78}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C507A26-E9A5-4713-A6A2-43CA6D479C78}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5C507A26-E9A5-4713-A6A2-43CA6D479C78}.Release|Any CPU.Build.0 = Release|Any CPU
-		{41A6CA5D-A05C-4643-BC82-0337A3D2458A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{41A6CA5D-A05C-4643-BC82-0337A3D2458A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{41A6CA5D-A05C-4643-BC82-0337A3D2458A}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{41A6CA5D-A05C-4643-BC82-0337A3D2458A}.Release|Any CPU.Build.0 = Debug|Any CPU
 		{D3DE7BAB-1036-4334-A1DC-F934A2E3A268}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D3DE7BAB-1036-4334-A1DC-F934A2E3A268}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D3DE7BAB-1036-4334-A1DC-F934A2E3A268}.Release|Any CPU.ActiveCfg = Release|Any CPU
