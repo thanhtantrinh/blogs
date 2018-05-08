@@ -16,17 +16,17 @@ namespace OnlineShop.Areas.Admin.Controllers
 {
     public class ProductsController : Controller
     {
+        private ProductDao DAO = new ProductDao();
         // GET: Admin/Product
         public ActionResult Index(string searchString = "", long catId = 0)
-        {
-            var dao = new ProductDao();
+        {            
             var catDAO = new ProductCategoryDao();
             ViewBag.SearchString = searchString;
             ViewBag.catId = catId;
 
             ViewBag.CategoryID = new SelectList(catDAO.ListAll(), "ID", "Name", catId);
 
-            var model = dao.ProductsPaging("", 1, 10, catId);
+            var model = DAO.ProductsPaging("", 1, 10, catId);
             return View(model);
         }
 
@@ -42,9 +42,10 @@ namespace OnlineShop.Areas.Admin.Controllers
         // GET: Admin/Product/Create
         public ActionResult Create()
         {
-            var catDAO = new ProductCategoryDao();
-            SetViewBag();
-            return View();
+            var model = new ProductsView();
+            model.Status = nameof(StatusEntity.Active);
+            model.ProductDetail = new List<ProductDetailModel>() { new ProductDetailModel() };
+            return View(model);
         }
 
         // POST: Admin/Product/Create
@@ -114,8 +115,7 @@ namespace OnlineShop.Areas.Admin.Controllers
 
         [HttpGet]
         public ActionResult Edit(long id)
-        {
-            var DAO = new ProductDao();
+        {         
             var model = DAO.Find(id);           
             return View(model);
         }
@@ -209,6 +209,21 @@ namespace OnlineShop.Areas.Admin.Controllers
             {
                 return View();
             }
+        }
+
+        [HttpGet]
+        public ActionResult DeleteProductDetail(long prodetailId=0)
+        {
+            var productDetail =  DAO.GetProductDetail(prodetailId);
+            DAO.DeleteProductDeteail(prodetailId);
+            return RedirectToAction("Edit", new { id = productDetail.ProductId });
+        }
+
+        [HttpGet]
+        public ActionResult CreateProductDetail(long ProductId = 0)
+        {
+            DAO.CreateGetProductDetail(ProductId);
+            return RedirectToAction("Edit", new { id = ProductId });
         }
 
         public void SetViewBag(long? selectedId = null)

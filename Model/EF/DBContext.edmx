@@ -1433,15 +1433,6 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
           <Property Name="ShowOnHome" Type="Boolean" Nullable="false" />
           <Property Name="Language" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
-        <EntityType Name="ProductPrice">
-          <Key>
-            <PropertyRef Name="PriceId" />
-          </Key>
-          <Property Name="PriceId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ProdetailId" Type="Int64" Nullable="false" />
-          <Property Name="Price" Type="Double" Nullable="false" />
-          <Property Name="PriceTypeId" Type="Int32" Nullable="false" />
-        </EntityType>
         <EntityType Name="ProductPriceType">
           <Key>
             <PropertyRef Name="PriceTypeId" />
@@ -1940,7 +1931,6 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
           <EntitySet Name="OrderDetails" EntityType="Self.OrderDetail" />
           <EntitySet Name="Products" EntityType="Self.Product" />
           <EntitySet Name="ProductCategories" EntityType="Self.ProductCategory" />
-          <EntitySet Name="ProductPrices" EntityType="Self.ProductPrice" />
           <EntitySet Name="ProductPriceTypes" EntityType="Self.ProductPriceType" />
           <EntitySet Name="Provinces" EntityType="Self.Province" />
           <EntitySet Name="Roles" EntityType="Self.Role" />
@@ -1983,6 +1973,7 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
           <EntitySet Name="v_Product" EntityType="DBEntities.v_Product" />
           <EntitySet Name="v_ProductDetail" EntityType="DBEntities.v_ProductDetail" />
           <EntitySet Name="ProductDetails" EntityType="DBEntities.ProductDetail" />
+          <EntitySet Name="ProductPrices" EntityType="DBEntities.ProductPrice" />
         </EntityContainer>
         <EntityType Name="v_Product">
           <Key>
@@ -2062,6 +2053,15 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
           <Property Name="Size" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Weight" Type="Double" Nullable="false" />
           <Property Name="UnitOfWeight" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ProductPrice">
+          <Key>
+            <PropertyRef Name="PriceId" />
+          </Key>
+          <Property Name="PriceId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProdetailId" Type="Int64" Nullable="false" />
+          <Property Name="Price" Type="Double" Nullable="false" />
+          <Property Name="PriceTypeId" Type="Int32" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -2342,16 +2342,6 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="ShowOnHome" ColumnName="ShowOnHome" />
                 <ScalarProperty Name="Language" ColumnName="Language" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ProductPrices">
-            <EntityTypeMapping TypeName="DBEntities.ProductPrice">
-              <MappingFragment StoreEntitySet="ProductPrice">
-                <ScalarProperty Name="PriceId" ColumnName="PriceId" />
-                <ScalarProperty Name="ProdetailId" ColumnName="ProdetailId" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="PriceTypeId" ColumnName="PriceTypeId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2765,6 +2755,16 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
                 <ScalarProperty Name="Size" ColumnName="Size" />
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
                 <ScalarProperty Name="ProDetailId" ColumnName="ProDetailId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductPrices">
+            <EntityTypeMapping TypeName="DBEntities.ProductPrice">
+              <MappingFragment StoreEntitySet="ProductPrice">
+                <ScalarProperty Name="PriceTypeId" ColumnName="PriceTypeId" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="ProdetailId" ColumnName="ProdetailId" />
+                <ScalarProperty Name="PriceId" ColumnName="PriceId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

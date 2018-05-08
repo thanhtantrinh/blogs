@@ -193,6 +193,7 @@ namespace Model.Dao
                     {
                         item.MetaTitle = StringHelper.ToUnsignString(product.MetaTitle.Trim().ToLower());
                     }
+
                     item.Price = product.ProductPrice;
                     item.PromotionPrice = product.PromotionPrice;
                     item.Quantity = product.Quantity;
@@ -258,6 +259,7 @@ namespace Model.Dao
                                 prodetailNew.Size = prodetail.ProductSize;
                                 prodetailNew.Weight = prodetail.ProductWeight;
                                 prodetailNew.ProductId = product.ID;
+                                prodetailNew.UnitOfWeight = "gram";
                                 db.ProductDetails.Add(prodetailNew);
                                 db.SaveChanges();
 
@@ -292,6 +294,57 @@ namespace Model.Dao
             result.ViewCount = 0;
             db.Products.Add(result);
             db.SaveChanges();
+
+            //save product detail info
+            if (product.ProductDetail.Count > 0)
+            {
+                foreach (var prodetail in product.ProductDetail)
+                {
+                    if (prodetail.ProductDetailId > 0)
+                    {
+                        var productDetail = db.ProductDetails.Find(prodetail.ProductDetailId);
+
+                        if (productDetail != null)
+                        {
+                            productDetail.ProductId = result.Id;
+                            productDetail.Size = prodetail.ProductSize;
+                            productDetail.Weight = prodetail.ProductWeight;
+                            var price = db.ProductPrices.First(f => f.ProdetailId == productDetail.ProDetailId);
+                            if (price == null)
+                            {
+                                price = new ProductPrice();
+                                price.ProdetailId = productDetail.ProDetailId;
+                                price.PriceTypeId = 1;
+                                price.Price = prodetail.ProductPrice;
+                                db.ProductPrices.Add(price);
+                            }
+                            else
+                            {
+                                price.ProdetailId = productDetail.ProDetailId;
+                                price.PriceTypeId = 1;
+                                price.Price = prodetail.ProductPrice;
+                            }
+                            db.SaveChanges();
+                        }
+                    }
+                    else
+                    {
+                        ProductDetail prodetailNew = new ProductDetail();
+                        prodetailNew.Size = prodetail.ProductSize;
+                        prodetailNew.Weight = prodetail.ProductWeight;
+                        prodetailNew.ProductId = product.ID;
+                        db.ProductDetails.Add(prodetailNew);
+                        db.SaveChanges();
+
+                        ProductPrice price = new ProductPrice();
+                        price.ProdetailId = prodetailNew.ProDetailId;
+                        price.PriceTypeId = 1;
+                        price.Price = prodetail.ProductPrice;
+                        db.ProductPrices.Add(price);
+                        db.SaveChanges();
+                    }
+                }
+            }
             return result;
         }
         public int Delete(int id)
@@ -299,6 +352,56 @@ namespace Model.Dao
             var item = db.Products.Find(id);
             db.Products.Remove(item);
             return db.SaveChanges();
+        }
+
+        public ProductDetail GetProductDetail(long productDetailId=0)
+        {
+            return db.ProductDetails.Where(w => w.ProDetailId == productDetailId).FirstOrDefault();
+        }
+
+        public ProductDetail CreateGetProductDetail(long productId=0)
+        {
+            var productDetail = new ProductDetail();
+            try
+            {
+                if (productId > 0)
+                {
+                    productDetail.ProductId = productId;
+                    productDetail.Size = "";
+                    productDetail.Weight = 0;
+                    productDetail.UnitOfWeight ="gram";
+                    db.ProductDetails.Add(productDetail);
+                    db.SaveChanges();
+
+                    var productPrice = new ProductPrice();
+                    productPrice.ProdetailId = productDetail.ProDetailId;
+                    productPrice.PriceTypeId = 1;
+                    productPrice.Price = 0;
+                    //productPrice.
+                    db.ProductPrices.Add(productPrice);
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                
+            }
+
+            return productDetail;
+        }
+
+        public bool DeleteProductDeteail(long productDetailId = 0)
+        {
+            var productDetail = db.ProductDetails.FirstOrDefault(w => w.ProDetailId == productDetailId);
+            if (productDetail!=null)
+            {
+                var productPrice = db.ProductPrices.First(f => f.ProdetailId == productDetail.ProDetailId);
+                db.ProductPrices.Remove(productPrice);
+                db.ProductDetails.Remove(productDetail);
+                if(db.SaveChanges()>0)
+                    return true;
+            }
+            return false;
         }
 
     }

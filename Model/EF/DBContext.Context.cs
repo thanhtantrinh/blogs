@@ -41,7 +41,6 @@ namespace Model.EF
         public virtual DbSet<OrderDetail> OrderDetails { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductCategory> ProductCategories { get; set; }
-        public virtual DbSet<ProductPrice> ProductPrices { get; set; }
         public virtual DbSet<ProductPriceType> ProductPriceTypes { get; set; }
         public virtual DbSet<Province> Provinces { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
@@ -64,5 +63,6 @@ namespace Model.EF
         public virtual DbSet<v_Product> v_Product { get; set; }
         public virtual DbSet<v_ProductDetail> v_ProductDetail { get; set; }
         public virtual DbSet<ProductDetail> ProductDetails { get; set; }
+        public virtual DbSet<ProductPrice> ProductPrices { get; set; }
     }
 }

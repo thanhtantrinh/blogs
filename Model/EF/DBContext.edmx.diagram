@@ -21,7 +21,6 @@
         <EntityTypeShape EntityType="DBEntities.OrderDetail" Width="1.5" PointX="12.75" PointY="5.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DBEntities.Product" Width="1.5" PointX="8.75" PointY="12.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DBEntities.ProductCategory" Width="1.5" PointX="12.75" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBEntities.ProductPrice" Width="1.5" PointX="14.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DBEntities.ProductPriceType" Width="1.5" PointX="14.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DBEntities.Province" Width="1.5" PointX="8" PointY="1.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DBEntities.Role" Width="1.5" PointX="14.75" PointY="6.75" IsExpanded="true" />
@@ -49,6 +48,7 @@
         <EntityTypeShape EntityType="DBEntities.v_Product" Width="1.5" PointX="15.375" PointY="17.75" />
         <EntityTypeShape EntityType="DBEntities.v_ProductDetail" Width="1.5" PointX="17.375" PointY="16.75" />
         <EntityTypeShape EntityType="DBEntities.ProductDetail" Width="1.5" PointX="5.375" PointY="13.75" />
+        <EntityTypeShape EntityType="DBEntities.ProductPrice" Width="1.5" PointX="7.375" PointY="19.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
