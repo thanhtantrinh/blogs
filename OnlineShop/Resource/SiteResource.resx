@@ -161,4 +161,20 @@
     <value>~/Images/{0}</value>
     <comment>URL Src</comment>
   </data>
+  <data name="SRC_IMAGES_PRODUCT_LARGE" xml:space="preserve">
+    <value>~/Images/Products/large/{0}</value>
+    <comment>URL Src</comment>
+  </data>
+  <data name="SRC_IMAGES_PRODUCT_MEDIUM" xml:space="preserve">
+    <value>~/Images/Products/medium/{0}</value>
+    <comment>URL Src</comment>
+  </data>
+  <data name="SRC_IMAGES_PRODUCT_MIN" xml:space="preserve">
+    <value>~/Images/Products/min/{0}</value>
+    <comment>URL Src</comment>
+  </data>
+  <data name="SRC_IMAGES_PRODUCT_SMALL" xml:space="preserve">
+    <value>~/Images/Products/small/{0}</value>
+    <comment>URL Src</comment>
+  </data>
 </root>

@@ -12,6 +12,7 @@ namespace Model.Extension
 {
     public class ListExtensions
     {
+
         /// <summary>
         /// Get 10 years nearly
         /// </summary>
@@ -38,7 +39,9 @@ namespace Model.Extension
         }
 
 
-
+        /// <summary>
+        /// Get Provinces
+        /// </summary>
         public static List<SelectListItem> ProvinceList
         {
             get
@@ -68,7 +71,7 @@ namespace Model.Extension
         }
 
         /// <summary>
-        /// Get all Category 
+        /// Get Categories
         /// </summary>
         public static List<SelectListItem> CategoryList
         {
@@ -103,7 +106,29 @@ namespace Model.Extension
                 return categoryList;
             }
         }
+        /// <summary>
+        /// Get all Category 
+        /// </summary>
+        public static List<SelectListItem> ProductCategoriesByCatalogueId(long catalogueId = 0)
+        {
 
+            var categoryList = new List<SelectListItem>();
+
+            using (var db = new Entities())
+            {
+                var model = db.ProductCategories.Where(w => w.Status == nameof(StatusEntity.Active)).AsQueryable();
+                if (catalogueId > 0)
+                {
+                    model = model.Where(w => w.CatalogueId == catalogueId);
+                }
+                categoryList = model.AsEnumerable().Select(s => new SelectListItem() { Text = s.Name, Value = s.ID.ToString() }).ToList();
+                categoryList.Insert(0, new SelectListItem { Text = "Nhóm Root", Value = "0" });
+
+            }
+
+            return categoryList;
+
+        }
         /// <summary>
         /// Get all Category 
         /// </summary>
@@ -119,6 +144,7 @@ namespace Model.Extension
                 {
                     model = model.Where(w => w.CatalogueId == catalogueId);
                 }
+
                 items = model.AsEnumerable().Select(s => new SelectListItem()
                 {
                     Text = s.Name,

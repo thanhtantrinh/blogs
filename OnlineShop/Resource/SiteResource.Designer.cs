@@ -185,5 +185,41 @@ namespace OnlineShop.Resource {
                 return ResourceManager.GetString("SRC_IMAGES_DIR", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ~/Images/Products/large/{0}.
+        /// </summary>
+        internal static string SRC_IMAGES_PRODUCT_LARGE {
+            get {
+                return ResourceManager.GetString("SRC_IMAGES_PRODUCT_LARGE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ~/Images/Products/medium/{0}.
+        /// </summary>
+        internal static string SRC_IMAGES_PRODUCT_MEDIUM {
+            get {
+                return ResourceManager.GetString("SRC_IMAGES_PRODUCT_MEDIUM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ~/Images/Products/min/{0}.
+        /// </summary>
+        internal static string SRC_IMAGES_PRODUCT_MIN {
+            get {
+                return ResourceManager.GetString("SRC_IMAGES_PRODUCT_MIN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ~/Images/Products/small/{0}.
+        /// </summary>
+        internal static string SRC_IMAGES_PRODUCT_SMALL {
+            get {
+                return ResourceManager.GetString("SRC_IMAGES_PRODUCT_SMALL", resourceCulture);
+            }
+        }
     }
 }

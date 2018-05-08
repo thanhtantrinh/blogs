@@ -1,5 +1,5 @@
-﻿@using OnlineShop.Helpers
-@using Model.ViewModel
+﻿@using Model.ViewModel
+@using Common
 @using Model.EF
 @using PagedList.Mvc
 @model PagedList.IPagedList<v_Category>
@@ -72,7 +72,7 @@
                                                 <td align="center" width="5%" style="min-width:95px">
                                                     <div class="btn-group btn-group-xs" role="group" aria-label="...">
                                                         <button type="button" class="btn btn-default">
-                                                            <i class="fa fa-check-circle @(item.Status? "text-primary" : "text-muted" )"></i>
+                                                            <i class="fa fa-check-circle @(item.Status==nameof(StatusEntity.Active)? "text-primary" : "text-muted" )"></i>
                                                         </button>
                                                         &nbsp;
                                                         <a class="btn btn-default" href="@Url.Action("Edit",new { id=item.ID })"><i class="fa fa-pencil fa-fw"></i></a>

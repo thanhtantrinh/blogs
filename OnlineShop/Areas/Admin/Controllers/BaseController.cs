@@ -21,7 +21,7 @@ namespace OnlineShop.Areas.Admin.Controllers
         protected BaseRepository _baseRepository = new BaseRepository(SiteConfiguration.DbConnectionString);
         protected CatalogueRepo _catalogueRepo = new CatalogueRepo();
         protected ProductRepo _proRepo = new ProductRepo();
-        protected ProductCategoryRepo _proCategory = new ProductCategoryRepo();
+        protected ProductCategoryRepo _proCategoryRepo = new ProductCategoryRepo();
 
         public CustomIdentity CurrentUser;
 

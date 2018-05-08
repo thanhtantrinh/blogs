@@ -45,9 +45,9 @@
 
                         <ul class="nav nav-tabs" role="tablist">
                             <li role="presentation" class="active"><a href="#tabproduct" aria-controls="tabproduct" role="tab" data-toggle="tab">Sản phẩm</a></li>
-                            @*<li role="presentation"><a href="#tabprices" aria-controls="tabprices" role="tab" data-toggle="tab">Giá và Trọng lượng</a></li>*@
-                            <li role="presentation"><a href="#tabimages" aria-controls="tabimages" role="tab" data-toggle="tab">Hình ảnh</a></li>
+                            @*<li role="presentation"><a href="#tabprices" aria-controls="tabprices" role="tab" data-toggle="tab">Giá và Trọng lượng</a></li>*@                           
                             <li role="presentation"><a href="#tabdetail" aria-controls="tabdetail" role="tab" data-toggle="tab">Mô tả</a></li>
+                            <li role="presentation"><a href="#tabimages" aria-controls="tabimages" role="tab" data-toggle="tab">Hình ảnh</a></li>
                         </ul>
                         <!-- Tab panes -->
                         <br />
@@ -118,10 +118,12 @@
                             <div role="tabpanel" class="tab-pane" id="tabimages">
 
                                 <div class="form-group">
-                                    @Html.LabelFor(model => model.Images, new { @class = "control-label col-md-3" })
+                                    @*@Html.LabelFor(model => model.Images, new { @class = "control-label col-md-3" })*@
+                                    <div class="col-md-3">
+                                        <img src="@Url.ImageProductSmall(Model.Image)" alt="Alternate Text" />
+                                    </div>
                                     <div class="col-md-9">
-                                        @*@Html.TextBoxFor(model => model.Images, new { htmlAttributes = new { @class = "form-control" }, id = "txtImage" })*@
-
+                                        @*@Html.TextBoxFor(model => model.Images, new { htmlAttributes = new { @class = "form-control" }, id = "txtImage" })*@                                        
                                         <div class="input-group">
                                             <div class="input-group-btn group">
                                                 <a class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title=""><i class="fa fa-eye"></i></a>
@@ -136,30 +138,7 @@
                             </div>
 
                             <div role="tabpanel" class="tab-pane" id="tabdetail">
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.Status, new { @class = "form-control-label col-md-4" })
-                                    <div class="col-md-8">
-
-                                        <label class="radio-inline" for="inline-radio1">
-                                            @*<input type="radio" id="inline-radio1" name="inline-radios" value="option1">One*@
-                                            @Html.RadioButtonFor(m => m.Status, nameof(StatusEntity.Active), new { @class = "radio-inline" })
-                                            @nameof(StatusEntity.Active)
-                                        </label>
-                                        &nbsp;
-                                        <label class="radio-inline" for="inline-radio2">
-                                            @Html.RadioButtonFor(m => m.Status, nameof(StatusEntity.Locked), new { @class = "radio-inline" })
-                                            @nameof(StatusEntity.Locked)
-                                        </label>
-                                        &nbsp;
-                                        <label class="radio-inline" for="inline-radio3">
-
-                                            @Html.RadioButtonFor(m => m.Status, nameof(StatusEntity.Deleted), new { @class = "radio-inline" })
-                                            @nameof(StatusEntity.Deleted)
-                                        </label>
-
-                                        @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
+         
                                 <div class="form-group">
                                     @*@Html.LabelFor(model => model.Detail, new { @class = "control-label col-md-12" })*@
                                     <div class="col-md-12">
@@ -191,16 +170,43 @@
                     <div class="form-horizontal">
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Status, new { @class = "control-label col-md-4" })
+                            @Html.LabelFor(model => model.Status, new { @class = "form-control-label col-md-4" })
                             <div class="col-md-8">
-                                @Html.TextBoxFor(model => model.Status, new { @class = "form-control" })
+
+                                <label class="radio-inline" for="inline-radio1">
+                                    @*<input type="radio" id="inline-radio1" name="inline-radios" value="option1">One*@
+                                    @Html.RadioButtonFor(m => m.Status, nameof(StatusEntity.Active), new { @class = "radio-inline" })
+                                    @nameof(StatusEntity.Active)
+                                </label>
+                                &nbsp;
+                                <label class="radio-inline" for="inline-radio2">
+                                    @Html.RadioButtonFor(m => m.Status, nameof(StatusEntity.Locked), new { @class = "radio-inline" })
+                                    @nameof(StatusEntity.Locked)
+                                </label>
+                                &nbsp;
+                                <label class="radio-inline" for="inline-radio3">
+
+                                    @Html.RadioButtonFor(m => m.Status, nameof(StatusEntity.Deleted), new { @class = "radio-inline" })
+                                    @nameof(StatusEntity.Deleted)
+                                </label>
+
+                                @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
                         <div class="form-group">
                             @Html.LabelFor(model => model.ShowHome, new { @class = "control-label col-md-4" })
                             <div class="col-md-8">
-                                @Html.TextBoxFor(model => model.ShowHome, new { @class = "form-control" })
+                                <label class="radio-inline" for="inline-radio1">
+                                    @*<input type="radio" id="inline-radio1" name="inline-radios" value="option1">One*@
+                                    @Html.RadioButtonFor(m => m.ShowHome, true, new { @class = "radio-inline" })
+                                    Có
+                                </label>
+                                &nbsp;
+                                <label class="radio-inline" for="inline-radio2">
+                                    @Html.RadioButtonFor(m => m.ShowHome, false, new { @class = "radio-inline" })
+                                    Không
+                                </label>
                             </div>
                         </div>
 

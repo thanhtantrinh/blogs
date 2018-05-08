@@ -11,25 +11,37 @@ using System.Web.Script.Serialization;
 using Common;
 using OnlineShop.Helpers;
 using OnlineShop.Resource;
+using StaticResources;
 
 namespace OnlineShop.Areas.Admin.Controllers
 {
-    public class ProductsController : Controller
+    public class ProductsController : BaseController
     {
         private ProductDao DAO = new ProductDao();
         // GET: Admin/Product
-        public ActionResult Index(string searchString = "", long catId = 0)
-        {            
-            var catDAO = new ProductCategoryDao();
-            ViewBag.SearchString = searchString;
-            ViewBag.catId = catId;
-
-            ViewBag.CategoryID = new SelectList(catDAO.ListAll(), "ID", "Name", catId);
-
-            var model = DAO.ProductsPaging("", 1, 10, catId);
+        public ActionResult Index(int page = 1, int pageSize = 20, string sortby = "")
+        {
+            ProductFilter filter = (ProductFilter)Session["ProductFilter"];
+            if (filter == null)
+            {
+                filter = new ProductFilter();
+                Session["ProductFilter"] = filter;
+            }
+            var model = _proRepo.GetProductPaging(filter, page, pageSize, sortby);
+            ViewBag.PageNumber = page;
+            ViewBag.Title = "Danh sách nhóm sản phẩm";
             return View(model);
         }
-
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Index(ProductFilter filter)
+        {
+            if (filter != null)
+                Session["ProductFilter"] = filter;
+            else
+                Session["ProductFilter"] = new ProductFilter();
+            return RedirectToAction("Index");
+        }
         // GET: Admin/Product/Details/5
         public ActionResult Details(int id)
         {
@@ -114,10 +126,14 @@ namespace OnlineShop.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public ActionResult Edit(long id)
-        {         
-            var model = DAO.Find(id);           
-            return View(model);
+        public ActionResult Edit(long id=0)
+        {
+            if (id > 0)
+            {
+                var model = DAO.Find(id);
+                return View(model);
+            }
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
@@ -185,40 +201,7 @@ namespace OnlineShop.Areas.Admin.Controllers
             return RedirectToAction("Edit", new { id = product.ID });
 
         }
-
-        // GET: Admin/Product/Delete/5
-        public ActionResult Delete(int id)
-        {
-            var DAO = new ProductDao();
-            DAO.Delete(id);
-            return RedirectToAction("Index");
-        }
-
-        // POST: Admin/Product/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-                var DAO = new ProductDao();
-                DAO.Delete(id);
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        [HttpGet]
-        public ActionResult DeleteProductDetail(long prodetailId=0)
-        {
-            var productDetail =  DAO.GetProductDetail(prodetailId);
-            DAO.DeleteProductDeteail(prodetailId);
-            return RedirectToAction("Edit", new { id = productDetail.ProductId });
-        }
-
+                        
         [HttpGet]
         public ActionResult CreateProductDetail(long ProductId = 0)
         {
@@ -230,6 +213,74 @@ namespace OnlineShop.Areas.Admin.Controllers
         {
             var dao = new ProductCategoryDao();
             ViewBag.CategoryID = new SelectList(dao.ListAll(), "ID", "Name", selectedId);
+        }
+        public ActionResult SetLockProduct(int Id = 0)
+        {
+            var actionStatus = new ActionResultHelper();
+            actionStatus.ActionStatus = ResultSubmit.failed;
+            string message = "";
+            bool IsValid = true;
+            ProductsView model = _proRepo.GetProductById(Id, out message);
+            if (model != null)
+            {
+                model.Status = nameof(StatusEntity.Locked);
+                model = _proRepo.Edit(model, out message);
+
+                if (model != null && String.IsNullOrWhiteSpace(message))
+                {
+                    actionStatus.ErrorReason = String.Format(SiteResource.HTML_ALERT_SUCCESS, Resources.MSG_THE_PRODUCT_HAS_UPDATED_SUCCESSFULLLY);
+                    actionStatus.ActionStatus = ResultSubmit.success;
+                    Session["ACTION_STATUS"] = actionStatus;
+                    return RedirectToAction("Index");
+                }
+            }
+            else
+            {
+                IsValid = false;
+                actionStatus.ErrorStrings.Add(Resources.MSG_THE_PRODUCT_HAS_NOT_FOUND);
+                goto actionError;
+            }
+            actionError:
+            if (!IsValid)
+            {
+                actionStatus.ErrorReason = String.Format(SiteResource.HTML_ALERT_ERROR, actionStatus.ShowErrorStrings());
+                Session["ACTION_STATUS"] = actionStatus;
+            }
+            return RedirectToAction("Index");
+        }
+        public ActionResult SetDeletedProduct(int Id = 0)
+        {
+            var actionStatus = new ActionResultHelper();
+            actionStatus.ActionStatus = ResultSubmit.failed;
+            string message = "";
+            bool IsValid = true;
+            ProductsView model = _proRepo.GetProductById(Id, out message);
+            if (model != null && Id > 0)
+            {
+                model.Status = nameof(StatusEntity.Deleted);
+                model = _proRepo.Edit(model, out message);
+                if (model != null && String.IsNullOrWhiteSpace(message))
+                {
+                    actionStatus.ErrorReason = String.Format(SiteResource.HTML_ALERT_SUCCESS, Resources.MSG_THE_PRODUCT_HAS_UPDATED_SUCCESSFULLLY);
+                    actionStatus.ActionStatus = ResultSubmit.success;
+                    Session["ACTION_STATUS"] = actionStatus;
+                    return RedirectToAction("Index");
+                }
+            }
+            else
+            {
+                IsValid = false;
+                actionStatus.ErrorStrings.Add(Resources.MSG_THE_PRODUCT_HAS_NOT_FOUND);
+                goto actionError;
+            }
+
+            actionError:
+            if (!IsValid)
+            {
+                actionStatus.ErrorReason = String.Format(SiteResource.HTML_ALERT_ERROR, actionStatus.ShowErrorStrings());
+                Session["ACTION_STATUS"] = actionStatus;
+            }
+            return RedirectToAction("Index");
         }
     }
 }

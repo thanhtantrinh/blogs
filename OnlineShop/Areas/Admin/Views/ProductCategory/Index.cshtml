@@ -1,16 +1,15 @@
-﻿@using Model.Models
+﻿@using Model.EF
 @using Model.ViewModel
-@model List<ProductCategoryView>
+@using Common
+@using PagedList.Mvc
+@model PagedList.IPagedList<v_CategoryOfProduct>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_Layouts.cshtml";
-    PagingModel pagingModel = new PagingModel(ViewBag.currentPage, ViewBag.TotalItem);
 }
-
 @section header{
     Nhóm Sản phẩm
 }
-
 <div class="row">
     <div class="col-lg-12">
         <div class="panel panel-default">
@@ -62,18 +61,18 @@
                                                     <td class="text-center" width="5%" style="min-width:95px">
                                                         <div class="btn-group btn-group-xs" role="group" aria-label="...">
                                                             <button type="button" class="btn btn-default">
-                                                                <i class="fa fa-check-circle @(item.Status != null && item.Status.Value == true ? "text-primary" : "text-muted" )"></i>
+                                                                <i class="fa fa-check-circle @(item.Status==nameof(StatusEntity.Active) ? "text-primary" : "text-muted" )"></i>
                                                             </button>
                                                             <a class="btn btn-default" href="@Url.Action("Edit", new { ID = item.ID })"><i class="fa fa-pencil fa-fw"></i></a>
                                                             <a class="btn btn-default" href="@Url.Action("Delete", new { ID = item.ID })"><i class="fa fa-trash"></i></a>
                                                         </div>
                                                     <td>
-                                                        <a href="@Url.Action("Edit", new { ID = item.ID })">@item.Name</a>
+                                                        <a href="@Url.Action("Edit", new { ID = item.ID })">@item.CategoryName</a>
                                                         <br />
                                                         <small>(Alias: @item.MetaTitle)</small>
                                                     </td>
                                                     <td style="min-width:150px"><small>@item.ParentName</small></td>
-                                                    <td>@item.CreatedDate.Value.ToString("dd-MM-yyyy")</td>
+                                                    <td>@item.CreatedDate.ToShortDateString()</td>
                                                 </tr>
                                             }
                                         }
@@ -92,8 +91,7 @@
 
                         <div class="row">
                             <div class="col-sm-12">
-                                    @Html.Partial("_HtmlPaging", pagingModel)
-                                    @*@Html.pa(Model, page => Url.Action("Index", new { page, @catid = @ViewBag.catId }))*@                                
+                                @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))                                
                             </div>
                         </div>
                     </div>

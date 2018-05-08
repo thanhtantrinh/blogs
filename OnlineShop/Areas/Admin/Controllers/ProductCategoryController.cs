@@ -21,31 +21,26 @@ namespace OnlineShop.Areas.Admin.Controllers
         {
             //var dao = new ProductCategoryDao();      
             //var model = dao.ListAllPaging(searchString, page, pageSize, catId);
-            ProductCategoryFilter filter = new ProductCategoryFilter();
-            int totalitem = 0;
-            int limitItem = 0;
-
-            Tuple<List<ProductCategoryView>, int> result = _proCategory.getCategories(filter, page??1, pageSize, sortBy);
-            if (result.Item2 > 0)
+            ProductCategoryFilter filter = (ProductCategoryFilter)Session["ProductCategoryFilter"];
+            if (filter == null)
             {
-                totalitem = result.Item2;
+                filter = new ProductCategoryFilter();
+                Session["ProductCategoryFilter"] = filter;
             }
-            ViewBag.TotalItem = totalitem;
-            ViewBag.currentPage = page ?? 1;
-            ViewBag.limit = limitItem;
+            filter.CatalogueId = SiteConfiguration.CatalogueId;
+            var result = _proCategoryRepo.GetCategoriesPaging(filter, page??1, pageSize, sortBy);
             ViewBag.Filter = filter;
-
-            return View(result.Item1);
+            return View(result);
         }
 
         [HttpPost]
         public ActionResult Index(ProductCategoryFilter filter, string searchBy = "")
         {
-            var actionStatus = new ActionResultHelper();
-            actionStatus.ActionStatus = ResultSubmit.failed;
-            //string errorString = "";
-            //bool IsValid = true;
-
+            if (filter != null)
+                Session["ProductCategoryFilter"] = filter;
+            else
+                Session["ProductCategoryFilter"] = new ProductCategoryFilter();
+            
             return RedirectToAction("Index");
         }
 
