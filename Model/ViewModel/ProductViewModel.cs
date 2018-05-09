@@ -69,6 +69,8 @@ namespace Model.ViewModel
         public string Name { set; get; }
         [Display(Name = "Alias")]
         public string MetaTitle { set; get; }
+
+        public long ProductDetailId { set; get; }
         /// <summary>
         /// price of the product
         /// </summary>

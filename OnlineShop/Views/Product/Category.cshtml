@@ -1,6 +1,8 @@
 ﻿@using Model.ViewModel
+@using Model.EF
 @using System.Globalization;
-@model IEnumerable<ProductsView>
+@using PagedList.Mvc
+@model PagedList.IPagedList<v_Product>
 @{
 
     Layout = "~/Views/Shared/_LayoutVegetarian.cshtml";
@@ -13,6 +15,9 @@
         {
             @Html.Partial("_blockProductItem", item);
         }
+        <div class="clear">
+            @Html.PagedListPager(Model, page => Url.Action("Category", new { page }))
+        </div>
     }
     else
     {

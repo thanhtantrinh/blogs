@@ -1,9 +1,9 @@
-﻿@model Model.EF.Product
+﻿
+@using Model.ViewModel
+@model ProductsView
 @{
     ViewBag.Title = Model.Name;
     Layout = "~/Views/Shared/_LayoutVegetarian.cshtml";
-    var category = (Model.EF.ProductCategory)ViewBag.Category;
-    var relatedProducts = (List<Model.EF.Product>)ViewBag.RelatedProducts;
 }
 
 <div class="product-model">
@@ -11,26 +11,32 @@
         @using (Html.BeginForm("AddItem", "Cart", FormMethod.Post, new { @class = "ProductDetail", role = "form" }))
     {
         @Html.AntiForgeryToken()
-        @Html.HiddenFor(x => x.Id)
-        @Html.HiddenFor(x => x.Id)
+        @Html.HiddenFor(x => x.ID)
+        @Html.HiddenFor(x => x.ProductDetailId)
+
         <div class="main_content_top main_content_top_cus1">
 
             <div class="simpleLens-gallery-container main_col_left main_col_left_cus1">
-                <img id="ViewImg" class="img-responsive" src="@Url.Content("~/Images/Products/medium/" + Model.Image)" alt="">
+                <img id="ViewImg" class="img-responsive" src="@Url.ImageProductLarge(Model.Image)" alt="">
             </div>
 
             <div class="main_col_right main_col_right_cus1">
                 <br />
                 <h2 class="main_right_title">@Model.Name</h2>
+
                 <div class="product-detail">
                     <ul class="list-inline">
-                        <li data-price="" data-prodetail="">200kg</li>
+                        <li data-price="" data-prodetail="">
+
+
+                        </li>
+
                         <li data-price="" data-prodetail="">500kg</li>
                     </ul>
                 </div>
                 <div class="gia_thanhtien gia_thanhtien_cus1">
                     @*Giá:*@
-                    <span class="price glo-tgiagoc"> @(Model.Price > 0 ? Model.Price.ToString("N0") + " VNĐ" : "Liên hệ") </span>
+                    <span class="price glo-tgiagoc"> @(Model.ProductPrice > 0 ? Model.ProductPrice.ToString("N0") + " VNĐ" : "Liên hệ") </span>
                 </div>
                 <div class="product-shortdesc">
                     @Html.Raw(Model.Description)
@@ -40,7 +46,7 @@
                         <div class="buttontext left" onclick="ADD_num_quantity('-')">-</div>
                         <input id="input-quantity" name="quantity" value="1" class="intext left" type="number" maxlength="2">
                         <div class="buttontext left" onclick="ADD_num_quantity('+')">+</div>
-                        @*<div class="left icon_body icon_body_love_cus1"><a href="@Url.Content("~/Images/Products/large/" + Model.Image)" class="lightbox"><i class="fa fa-search-plus"></i></a></div>*@
+
                     </div>
                 </div>
                 <div class="product-bottom">

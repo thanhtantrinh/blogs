@@ -1,10 +1,8 @@
-﻿@using Model.ViewModel
+﻿@using Model.EF
 @using System.Globalization;
-@model ProductsView
-@{
-    int width_block = 150;
-    int height_block = 150;
-    string link = Url.Action(Model.MetaTitle + "-" + Model.ID, Model.CategoryAlias + "-" + Model.CategoryID);
+@model v_Product
+@{   
+    string link = Url.Action("Detail", "Product", new { ProductDetailId=Model.ProductDetailId, id=Model.ProductId});
     NumberFormatInfo vnd = new CultureInfo("vi-VN", false).NumberFormat;
 }
 <div class="col-md-4 col-sm-6 col-xs-6 col-min-12">
@@ -13,8 +11,8 @@
             <div class="grid-arrival">
 
                 <div class="grid-img">
-                    <a class="product_img_link" href="@link" title="@Html.Raw(Model.Name)">
-                        <img class="replace-2x img-responsive" src="@Url.Content("~/Images/Products/medium/"+ Model.MoreImages) " alt="@Html.Raw(Model.Name)" />
+                    <a class="product_img_link" href="@link" title="@Html.Raw(Model.ProductName)">
+                        <img class="replace-2x img-responsive" src="@Url.ImageProductMedium(Model.Image) " alt="@Model.ProductName" />
                     </a>
                     <span class="new-box">
                         <span class="new-label product-label"></span>
@@ -23,42 +21,16 @@
             </div>
 
             <div class="women">
-
-
                 <div class="gr_price">
-                    <h6><a href="@link">@Model.Name.Substring(0, Math.Min(Model.Name.Length, 45))</a></h6>
+                    <h6><a href="@link">@Model.ProductName.Substring(0, Math.Min(Model.ProductName.Length, 45))</a></h6>
                     <span class="hide gia_km"></span>
                     <span class="item_price gia_ban">
-                        @if (!Model.IsDiscount)
-                        {
-                            <span class="price">
-                                @Model.Price.Value.ToString("N0") VND
-                            </span>
-                        }
-
-                        @if (Model.IsDiscount)
-                        {
-                            <span class="price">
-                                @Model.PromotionPrice.Value.ToString("N0") VND
-                            </span>
-                            <br />
-                            <s class="old-price">
-                                @{
-                                    var saveoff = Model.Price.Value - Model.PromotionPrice.Value;
-                                }
-                                @saveoff.ToString("N0") VND
-                            </s>
-
-                                    }
+                        <span class="price">
+                            @Model.ProductPrice.ToString("N0") VND
+                        </span>  
                     </span>
                 </div>
-
-
-
-
             </div>
-
         </div>
-
     </div>
 </div>

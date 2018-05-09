@@ -4,10 +4,12 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Model.Dao;
-
+using Model.ViewModel;
+using OnlineShop.Helpers;
+using Common;
 namespace OnlineShop.Controllers
 {
-    public class ProductController : Controller
+    public class ProductController : BaseController
     {
         // GET: Product
         public ActionResult Index()
@@ -31,27 +33,17 @@ namespace OnlineShop.Controllers
             },JsonRequestBehavior.AllowGet);
         }
         [Route("danh-muc-san-pham")]
-        public ActionResult Category(long cateId=0, int page = 1, int pageSize = 10)
+        public ActionResult Category(int cateId=0, int page = 1, int pageSize = 20)
         {
             var category = new CategoryDao().ViewDetail(cateId);
             ViewBag.Category = category;
-            int totalRecord = 0;
-            var model = new ProductDao().ProductsPaging("", 1, pageSize, cateId, true, true);
+            //var model = new ProductDao().ProductsPaging("", 1, pageSize, cateId);
+            ProductFilter filter = new ProductFilter();
+            filter.CategoryId = cateId;
+            filter.CatalogueId = SiteConfiguration.CatalogueId;
+            filter.Status = new string[] { nameof(StatusEntity.Active) };
 
-            ViewBag.Total = totalRecord;
-            ViewBag.Page = page;
-            int maxPage = 20;
-            int totalPage = 0;
-
-            totalPage = (int)Math.Ceiling((double)(totalRecord / pageSize));
-            ViewBag.TotalPage = totalPage;
-            ViewBag.MaxPage = maxPage;
-            ViewBag.First = 1;
-            ViewBag.Last = totalPage;
-            ViewBag.Next = page + 1;
-            ViewBag.Prev = page - 1;
-            ViewBag.Title = category.Name;
-
+            var model = _productRepo.GetProductPaging(filter, page, pageSize);
             return View(model);
         }
         public ActionResult Search(string keyword, int page = 1, int pageSize = 1)
@@ -77,11 +69,9 @@ namespace OnlineShop.Controllers
         }
 
         //[OutputCache(CacheProfile = "Cache1DayForProduct")]
-        public ActionResult Detail(long id)
+        public ActionResult Detail(long id, long ProductDetailId=0)
         {
-            var product = new ProductDao().ViewDetail(id);
-            ViewBag.Category = new ProductCategoryDao().ViewDetail(product.CategoryId);
-            ViewBag.RelatedProducts = new ProductDao().ListRelatedProducts(id);
+            var product = new ProductDao().Find(id, ProductDetailId);
             return View(product);
         }
 

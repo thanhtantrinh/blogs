@@ -22,12 +22,12 @@ namespace OnlineShop
                 namespaces: new[] { "OnlineShop.Controllers" }
             );
 
-            routes.MapRoute(
-                name: "Product Detail",
-                url: "{category}-{cateId}/{metatitle}-{id}",
-                defaults: new { controller = "Product", action = "Detail", catId = UrlParameter.Optional, id = UrlParameter.Optional },
-                namespaces: new[] { "OnlineShop.Controllers" }
-            );
+            //routes.MapRoute(
+            //    name: "Product Detail",
+            //    url: "{category}-{cateId}/{metatitle}-{id}",
+            //    defaults: new { controller = "Product", action = "Detail", catId = UrlParameter.Optional, id = UrlParameter.Optional },
+            //    namespaces: new[] { "OnlineShop.Controllers" }
+            //);
 
             routes.MapRoute(
                 name: "Tags",
