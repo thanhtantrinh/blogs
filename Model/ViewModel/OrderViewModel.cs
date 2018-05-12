@@ -28,6 +28,7 @@ namespace Model.ViewModel
     {
         public long OrderId { get; set; }
         public long ProductId { get; set; }        
+        public long ProductDetailId { get; set; }
         public string ProductName { get; set; }
         public decimal Price { get; set; }
         public int Quantity { get; set; }

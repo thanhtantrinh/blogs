@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Model.Repository;
+using OnlineShop.Helpers;
 
 namespace OnlineShop.Controllers
 {
@@ -16,6 +17,7 @@ namespace OnlineShop.Controllers
     {
         public ContentDao _contentDAO = new ContentDao();
         public CategoryDao _categoryDAO = new CategoryDao();
+        //public BaseRepository baseRepository = new BaseRepository();
         public OrderRepo _orderRepo = new OrderRepo();
         public ProductRepo _productRepo = new ProductRepo();
 

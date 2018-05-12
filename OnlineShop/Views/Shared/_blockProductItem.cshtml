@@ -1,15 +1,14 @@
 ﻿@using Model.EF
 @using System.Globalization;
 @model v_Product
-@{   
-    string link = Url.Action("Detail", "Product", new { ProductDetailId=Model.ProductDetailId, id=Model.ProductId});
+@{
+    string link = Url.Action("Detail", "Product", new { ProductDetailId = Model.ProductDetailId, id = Model.ProductId });
     NumberFormatInfo vnd = new CultureInfo("vi-VN", false).NumberFormat;
 }
 <div class="col-md-4 col-sm-6 col-xs-6 col-min-12">
     <div class="arrival-grid simpleCart_shelfItem wow bounceInLeft animated glo-trang-thai-sp">
         <div class="grid-arr">
             <div class="grid-arrival">
-
                 <div class="grid-img">
                     <a class="product_img_link" href="@link" title="@Html.Raw(Model.ProductName)">
                         <img class="replace-2x img-responsive" src="@Url.ImageProductMedium(Model.Image) " alt="@Model.ProductName" />
@@ -19,16 +18,26 @@
                     </span>
                 </div>
             </div>
-
             <div class="women">
                 <div class="gr_price">
                     <h6><a href="@link">@Model.ProductName.Substring(0, Math.Min(Model.ProductName.Length, 45))</a></h6>
                     <span class="hide gia_km"></span>
-                    <span class="item_price gia_ban">
-                        <span class="price">
-                            @Model.ProductPrice.ToString("N0") VND
-                        </span>  
-                    </span>
+                    @if (Model.ProductPrice > 0)
+                    {
+                        <span class="item_price gia_ban">
+                            <span class="price">
+                                @Model.ProductPrice.ToString("N0") VND
+                            </span>
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="item_price gia_ban">
+                            <span class="price">
+                                Liên hệ
+                            </span>
+                        </span>
+                    }
                 </div>
             </div>
         </div>

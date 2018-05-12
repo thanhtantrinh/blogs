@@ -35,11 +35,12 @@ namespace Model.Dao
             result.CreateDate = order.CreatedDate;
             result.ID = order.ID;
             result.Status = order.Status;
-            result.Items = db.v_OrderDetail.Where(w => w.OrderId == orderId)
+            result.Items = db.v_OrderDetail.Where(w => w.OrderID == orderId)
                 .Select(s => new OrderItem() {
-                    OrderId = s.OrderId,
+                    OrderId = s.OrderID,
                     Price = s.Price,
                     ProductId = s.ProductID,
+                    ProductDetailId = s.ProductDetailId,
                     Quantity = s.Quantity,
                     ProductName = s.ProductName,
                     ProductImage =s.ProductImage }).ToList();

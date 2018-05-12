@@ -24,7 +24,12 @@ namespace Model.Repository
         public BaseRepository()
         {
             entities = new Entities();
-            conn = entities.Database.Connection.ConnectionString;
+            var dbuser = ConfigurationManager.AppSettings["dbuser"] ?? "sa";
+            var dbpass = ConfigurationManager.AppSettings["dbpass"] ?? "123456789";
+            var dbserver = ConfigurationManager.AppSettings["dbserver"] ?? "TANTRINH\\SQLEXPRESS";
+            var dbcatalog = ConfigurationManager.AppSettings["dbcatalog"] ?? ""; // name database
+            var conn = "data source={0};initial catalog={1};user id={2};password={3}; Pooling=True";
+            conn = String.Format(conn, dbserver, dbcatalog, dbuser, dbpass);
         }
 
     }

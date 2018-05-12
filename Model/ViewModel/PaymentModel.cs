@@ -24,6 +24,7 @@ namespace Model.ViewModel
     public class CartItem
     {
         public long ProductId { get; set; }
+        public long ProductDetailId { get; set; }
         public string ProductName { set; get; }
         public string ProductAlias { set; get; }
         public string ProductImage { set; get; }
@@ -72,17 +73,18 @@ namespace Model.ViewModel
         [Required(ErrorMessage = "Mời nhập địa chỉ mail")]
         public string Email { get; set; }
         [Display(Name = "Tỉnh thành")]
-        [Required(ErrorMessage = "Mời nhập địa chỉ mail")]
+        [Required(ErrorMessage = "Mời chọn tỉnh thành")]
         public int ProvinceId { get; set; }
         [Display(Name = "Quận Huyện")]
-        [Required(ErrorMessage = "Mời nhập địa chỉ mail")]
+        [Required(ErrorMessage = "Mời chọn quận huyện")]
         public int DistrictId { get; set; }
         [Display(Name = "Xã, phường")]
-        [Required(ErrorMessage = "Mời nhập địa chỉ mail")]
+        //[Required(ErrorMessage = "Mời nhập xã phường")]
         public int WardId { get; set; }
         [Display(Name = "Địa chỉ")]
         [Required(ErrorMessage = "Mời nhập địa chỉ của bạn")]
         public string Address { get; set; }
+
         [Display(Name = "Ghi chú thêm")]
         public string Note { get; set; }
     }

@@ -17,10 +17,18 @@ namespace Model.Repository
 {
     public class OrderRepo : BaseRepository
     {
+        private string _conn;
+
         public OrderRepo() : base()
         {
-
+            _conn = conn;   
         }
+
+        public OrderRepo(string strConn)
+        {
+            _conn = strConn;
+        }
+
         public OrderModel GetOrderById(long OrderId, out string message)
         {
             OrderModel result = new OrderModel();
@@ -78,22 +86,21 @@ namespace Model.Repository
                 if (model != null && model.Items.Count > 0)
                 {
                     var dt = new DataTable();
-
                     dt.Columns.Add("ProductId", typeof(long));
-                    dt.Columns.Add("OrderId", typeof(string));
+                    dt.Columns.Add("ProductDetailId", typeof(long));
+                    dt.Columns.Add("OrderId", typeof(long));
                     dt.Columns.Add("ProductName", typeof(string));
-                    dt.Columns.Add("Quantity", typeof(string));
-                    dt.Columns.Add("Price", typeof(string));
+                    dt.Columns.Add("Quantity", typeof(int));
+                    dt.Columns.Add("Price", typeof(decimal));
 
                     foreach (var item in model.Items)
                     {
-                        dt.Rows.Add(item.ProductId, 0, item.ProductName, item.Quantity, item.Price);
+                        dt.Rows.Add(item.ProductId, item.ProductDetailId, 0, item.ProductName, item.Quantity, item.Price);
                     }
 
                     using (var db = new SqlConnection(conn))
                     {
                         var parameters = new DynamicParameters();
-
                         parameters.Add("@UserID", model.CreatedBy);
                         parameters.Add("@ShipName", model.FullName);
                         parameters.Add("@ShipMobile", model.Phone);
@@ -101,13 +108,10 @@ namespace Model.Repository
                         parameters.Add("@ShipEmail", model.Email);
                         parameters.Add("@ShipStatus", nameof(eOrderStatusUI.Pending));
                         parameters.Add("@Notes", model.Notes);
-                        parameters.Add("@OrderItems", dt.AsTableValuedParameter("dbo.UDT_OrderItem"));
-                        parameters.Add("@OrderNumber", DbType.Int64, direction: ParameterDirection.Output);
-                        var taskInsert = db.ExecuteAsync("sp_OrderCreate", parameters, commandType: CommandType.StoredProcedure);
-                        Task.WhenAll(taskInsert);
-
-                        orderNumber = parameters.Get<long>("@OrderNumber");
-
+                        parameters.Add("@OrderItems", dt.AsTableValuedParameter("dbo.UDT_CartItem"));
+                        parameters.Add("@OrderNumber", DbType.Int32, direction: ParameterDirection.Output);
+                        db.Query("sp_OrderCreate", parameters, commandType: CommandType.StoredProcedure);
+                        orderNumber = parameters.Get<int>("@OrderNumber");
                     }
                     if (orderNumber > 0)
                     {

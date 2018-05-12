@@ -12,16 +12,11 @@ namespace Model.EF
     using System;
     using System.Collections.Generic;
     
-    public partial class v_OrderDetail
+    public partial class v_DistrictProvince
     {
-        public long ProductID { get; set; }
-        public long ProductDetailId { get; set; }
-        public long OrderID { get; set; }
-        public int Quantity { get; set; }
-        public decimal Price { get; set; }
-        public string ProductName { get; set; }
-        public string ProductAlias { get; set; }
-        public string Status { get; set; }
-        public string ProductImage { get; set; }
+        public int DistrictId { get; set; }
+        public string DistrictName { get; set; }
+        public string ProvinceName { get; set; }
+        public string DistrictType { get; set; }
     }
 }

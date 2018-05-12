@@ -14,8 +14,10 @@ namespace Model.EF
     
     public partial class OrderDetail
     {
+        public long OrderDetailId { get; set; }
         public long ProductID { get; set; }
         public long OrderID { get; set; }
+        public long ProductDetailId { get; set; }
         public string ProductName { get; set; }
         public decimal Price { get; set; }
         public int Quantity { get; set; }

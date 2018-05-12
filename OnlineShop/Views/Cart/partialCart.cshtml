@@ -29,13 +29,13 @@
 
                         <tr class="cartItem">
                             <td width="80"><img src="@Url.Content("~/Images/Products/min/" + item.ProductImage)" width="80" /></td>               
-                            <td align="right">
+                            <td align="left">
                                 <a href="@link" title="@item.ProductName">@item.ProductName</a>
                             </td>
                             <td align="center"><input type="number" name="quantity[]" class="Qty" data-id="@item.ProductId" value="@item.Quantity" /></td>
                             <td align="right">@item.Price.ToString("N0")</td>
                             <td align="right">@((item.Price * item.Quantity).ToString("N0"))</td>
-                            <td align="center"><a href="#" data-id="@item.ProductId" class="btn-delete"><i class="fa fa-trash"></i> </a></td>
+                            <td align="center"><a href="@Url.Action("Delete","Cart" ,new { Id=item.ProductId,ProductDetailId=item.ProductDetailId })" data-id="@item.ProductId" class="btn-delete"><i class="fa fa-trash"></i> </a></td>
                         </tr>
                     }              
                     <tr>

@@ -5,17 +5,11 @@
 @{
     ViewBag.Title = "Thanh toán";
     Layout = "~/Views/Shared/_LayoutVegetarian.cshtml";
-    decimal subtotal = 0;
-    if (Model.CartItems != null && Model.CartItems.Count() > 0)
-    {
-        subtotal = Model.CartItems.Sum(s => s.Price * s.Quantity);
-    }
 }
 <div id="cart_items" class="content">
 
-    @if (Model.CartItems != null)
-    {
-        using (Html.BeginForm("Payment", "Cart", FormMethod.Post, new { @class = "form-horizontal" }))
+
+        @using (Html.BeginForm("Payment", "Cart", FormMethod.Post, new { @class = "form-horizontal" }))
         {
             <div class="section group">
                 @Html.AntiForgeryToken()
@@ -24,46 +18,46 @@
                         <div class="col-sm-6 clearfix">
                             <div class="bill-to">
                                 <div class="form-group">
-                                    @Html.LabelFor(m => m.ShippingDetail.Fullname)
+                                    @Html.LabelFor(m => m.ShippingDetail.Fullname)*
                                     @Html.TextBoxFor(m => m.ShippingDetail.Fullname, new { @class = "form-control", placeholder = "Nhập họ và tên" })
                                     @Html.ValidationMessageFor(model => model.ShippingDetail.Fullname, "", new { @class = "text-danger" })
                                 </div>
 
                                 <div class="form-group">
-                                    @Html.LabelFor(m => m.ShippingDetail.Phone)
+                                    @Html.LabelFor(m => m.ShippingDetail.Phone)*
                                     @Html.TextBoxFor(m => m.ShippingDetail.Phone, new { @class = "form-control", placeholder = "Nhập Điện thoại" })
                                     @Html.ValidationMessageFor(model => model.ShippingDetail.Phone, "", new { @class = "text-danger" })
                                 </div>
 
                                 <div class="form-group">
-                                    @Html.LabelFor(m => m.ShippingDetail.Email)
-                                    @Html.TextBoxFor(m => m.ShippingDetail.Email, new { @class = "form-control", placeholder = "Nhập Điện thoại" })
+                                    @Html.LabelFor(m => m.ShippingDetail.Email)*
+                                    @Html.TextBoxFor(m => m.ShippingDetail.Email, new { @class = "form-control", placeholder = "Nhập Email" })
                                     @Html.ValidationMessageFor(model => model.ShippingDetail.Email, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-5 col-lg-offset-1">
                             <div class="form-group">
-                                @Html.LabelFor(m => m.ShippingDetail.ProvinceId)
+                                @Html.LabelFor(m => m.ShippingDetail.ProvinceId)*
                                 @Html.DropDownListFor(model => model.ShippingDetail.ProvinceId, ListExtensions.ProvinceList, "-- Tỉnh thành --", new { @class = "form-control ", id = "provinces", onchange = "buildDistricts();" })
                                 @Html.ValidationMessageFor(model => model.ShippingDetail.ProvinceId, "", new { @class = "text-danger" })
                             </div>
                             <div class="form-group">
-                                @Html.LabelFor(m => m.ShippingDetail.DistrictId)
-                                <select class="form-control" id="ddlDistricts">
-                                    <option>-- Quận / Huyện  --</option>
+                                @Html.LabelFor(m => m.ShippingDetail.DistrictId)*
+                                <select class="form-control" id="ddlDistricts" name="ShippingDetail.DistrictId">
+                                    <option value="0">-- Quận / Huyện  --</option>
                                 </select>
                                 @Html.ValidationMessageFor(model => model.ShippingDetail.DistrictId, "", new { @class = "text-danger" })
                             </div>
+                            @*<div class="form-group">
+                                    @Html.LabelFor(m => m.ShippingDetail.WardId)
+                                    <select class="form-control" id="ddlWard">
+                                        <option>Chọn Phường xã</option>
+                                    </select>
+                                    @Html.ValidationMessageFor(model => model.ShippingDetail.WardId, "", new { @class = "text-danger" })
+                                </div>*@
                             <div class="form-group">
-                                @Html.LabelFor(m => m.ShippingDetail.WardId)
-                                <select class="form-control" id="ddlWard">
-                                    <option>Chọn Phường xã</option>
-                                </select>
-                                @Html.ValidationMessageFor(model => model.ShippingDetail.WardId, "", new { @class = "text-danger" })
-                            </div>
-                            <div class="form-group">
-                                @Html.LabelFor(m => m.ShippingDetail.Address)
+                                @Html.LabelFor(m => m.ShippingDetail.Address)*
                                 @Html.TextBoxFor(m => m.ShippingDetail.Address, new { @class = "form-control", placeholder = "Nhập Địa chỉ" })
                                 @Html.ValidationMessageFor(model => model.ShippingDetail.Address, "", new { @class = "text-danger" })
                             </div>
@@ -80,93 +74,9 @@
                 </div>
 
             </div>
-            <div class="clearfix"></div>
-            <div class="table-responsive cart_info">
-                @if (Model.CartItems != null)
-                {
-                    <table class="table table-condensed" width="100%">
-                        <thead>
-                            <tr class="cart_menu">
-                                <td class="image" colspan="2" align="center">Sản phẩm</td>
-                                <td class="price" align="center">Giá</td>
-                                <td class="quantity" align="center">Số lượng</td>
-                                <td width="150" class="total" colspan="2" align="center">Tổng</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if (Model.CartItems.Count > 0)
-                            {
-                                foreach (var item in Model.CartItems)
-                                {
-                                    string link = Url.Action("Detail", "Product", new { id = item.ProductId, metatitle = item.ProductAlias });
-                                    <tr>
-                                        <td class="cart_product" align="center">
-                                            <a href="@link" title="@item.ProductName"><img src="@Url.Content("~/Images/Products/min/" + item.ProductImage)" alt="@item.ProductName"></a>
-                                        </td>
-                                        <td class="cart_description" align="left">
-                                            <a href="@link" title="@item.ProductName">@item.ProductName</a>
-                                        </td>
-                                        <td class="cart_price" align="right">
-                                            @item.Price.ToString("N0") VNĐ
-                                        </td>
-                                        <td align="center">
-                                            @item.Quantity
-                                        </td>
-                                        <td class="cart_total" align="right" colspan="1">
-                                            <p class="cart_total_price">@((item.Price * item.Quantity).ToString("N0")) VNĐ</p>
-                                        </td>
-                                    </tr>
-                                }
-                                <tr>
-                                    <td colspan="3">&nbsp;</td>
-                                    <td colspan="2" align="right">
-                                        <br />
+            <div class="clearfix"></div>         
 
-                                        <table class="table table-condensed total-result" width="250" style="width:280px;">
-                                            <tr>
-                                                <td>Tiền hàng</td>
-                                                <td align="right">@subtotal.ToString("N0") VNĐ</td>
-                                            </tr>
-                                            <tr class="shipping-cost">
-                                                <td>Tiền vận chuyển</td>
-                                                <td align="right">0 VNĐ</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Tổng</td>
-                                                <td align="right"><span>@subtotal.ToString("N0") VNĐ</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="2" align="right">
-                                                    <br />
-
-                                                    <button class="btn btn-primary" type="submit">Thanh toán</button>
-                                                    <a class="btn btn-primary" href="@Url.Action("Index", "Home")">Tiếp tục mua hàng</a>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                            }
-                            else
-                            {
-                                <tr>
-                                    <td class="" colspan="5">
-                                        <p>
-                                            Không có sản phẩm nào trong giỏ hàng của bạn
-                                        </p>
-                                    </td>
-                                </tr>
-                            }
-
-
-                        </tbody>
-                    </table>
-                }
-                else
-                {
-                    <p>Bạn cần thêm sản phẩm vào giỏ hàng.</p>
-                }
-            </div>
+            {Html.RenderAction("PartialViewCartCheckOut", "Cart");}
 
         }
 
@@ -192,5 +102,5 @@
         }
             </script>
         }
-    }
+    
 </div>

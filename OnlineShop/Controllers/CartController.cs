@@ -58,12 +58,12 @@ namespace OnlineShop.Controllers
         //    });
         //}
 
-        public ActionResult Delete(CartModel cart, long Id = 0)
+        public ActionResult Delete(CartModel cart, long Id = 0, long ProductDetailId = 0)
         {
-            if (cart.CartItems.Count > 0 && Id > 0)
+            if (cart.CartItems.Count > 0 && Id > 0 && ProductDetailId>0)
             {
                 List<CartItem> Items = cart.CartItems;
-                CartItem ItemDelete = Items.Where(w => w.ProductId == Id).FirstOrDefault();
+                CartItem ItemDelete = Items.Where(w => w.ProductId == Id && w.ProductDetailId== ProductDetailId).FirstOrDefault();
                 //int position = Items.IndexOf(ItemDelete);
                 Items.Remove(ItemDelete);
                 cart.CartItems = Items;
@@ -108,10 +108,10 @@ namespace OnlineShop.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddItem(CartModel cart, long ID, int quantity = 1)
+        public ActionResult AddItem(CartModel cart, long ID, int quantity = 1, long ProductDetailId = 0)
         {
-            var product = new ProductDao().ViewDetail(ID);
-            if (cart.CartItems.Exists(x => x.ProductId == ID))
+            var product = new ProductDao().Find(ID, ProductDetailId);
+            if (cart.CartItems.Exists(x => x.ProductId == ID && x.ProductDetailId== ProductDetailId))
             {
                 foreach (var item in cart.CartItems)
                 {
@@ -125,23 +125,42 @@ namespace OnlineShop.Controllers
             else
             {
                 var item = new CartItem();
-                item.ProductId = product.Id;
-                item.ProductName = product.Name;
+                item.ProductId = product.ID;
+                var productdetail = product.ProductDetail.FirstOrDefault(w => w.ProductDetailId == ProductDetailId);
+                string strWeight = "";
+                if (productdetail != null)
+                {
+                    var productWeight = productdetail.ProductWeight;
+                    if (productWeight >= 1000)
+                    {
+                        strWeight = (productWeight / 1000).ToString() + " Kg";
+                    }
+                    else
+                    {
+                        strWeight = productWeight.ToString() + " G";
+                    }
+                }
+                item.ProductName = String.Format(product.Name+" {0}", strWeight);
                 item.ProductAlias = product.MetaTitle;
                 item.ProductImage = product.Image;
                 item.Quantity = quantity;
-                item.Price = product.Price;
+                item.Price = product.ProductPrice;
+                item.ProductDetailId = ProductDetailId;
                 cart.CartItems.Add(item);
             }
-            return RedirectToAction("Detail", "Product", new { ID = ID });
+            return RedirectToAction("Detail", "Product", new { ID = ID, ProductDetailId= ProductDetailId });
         }
 
         [HttpGet]
         public ActionResult Payment(CartModel cart)
         {
-            CheckoutModel model = new CheckoutModel();
-            model.CartItems = cart.CartItems;
-            return View(model);
+            if (cart != null)
+            {
+                CheckoutModel model = new CheckoutModel();
+                //model.CartItems = cart.CartItems;
+                return View(model);
+            }
+            return RedirectToAction("Index","Home");
         }
 
 
@@ -161,6 +180,7 @@ namespace OnlineShop.Controllers
                     orderModel = _orderRepo.CreateOrder(orderModel, out message);
                     if (String.IsNullOrWhiteSpace(message)&& orderModel != null)
                     {
+                        cart.CartItems.RemoveAll(r=>r.ProductId>0);
                         return RedirectToAction("OrderConfirmation", new { ordernumber = orderModel.OrderId, send = true });
                     }                        
                 }
@@ -187,6 +207,7 @@ namespace OnlineShop.Controllers
                     var task = MailHelper.SendMailAsync(model.Email, model.FullName, SiteConfiguration.EmailSite, SiteConfiguration.SiteName, "Thông tin xác nhận đơn hàng từ " + SiteConfiguration.SiteName, content, null, bcc);
 
                     await Task.WhenAll(task);
+                    return RedirectToAction("OrderConfirmation", new { ordernumber = ordernumber });
                 }
 
                 return View(model);
@@ -223,6 +244,12 @@ namespace OnlineShop.Controllers
                 throw;
             }
 
+        }
+
+
+         public ActionResult PartialViewCartCheckOut(CartModel cart)
+        {
+            return View("_PartialViewCartCheckOut", cart.CartItems);
         }
     }
 }

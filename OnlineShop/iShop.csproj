@@ -1878,6 +1878,7 @@
     <Content Include="Images\ImageStore\Products\medium\printed-chiffon-dress.jpg" />
     <Content Include="Images\ImageStore\Products\min\printed-chiffon-dress.jpg" />
     <Content Include="Images\ImageStore\Products\small\printed-chiffon-dress.jpg" />
+    <Content Include="Images\mail_header.jpg" />
     <Content Include="Images\Products\large\13_BO VIEN TT 180G.jpg" />
     <Content Include="Images\Products\large\13_page3-img1.jpg" />
     <Content Include="Images\Products\large\14_CAT XAO TT.jpg" />
@@ -1902,6 +1903,7 @@
     <Content Include="Images\Products\large\31_page3-img7.jpg" />
     <Content Include="Images\Products\large\32_thumb_350.jpg" />
     <Content Include="Images\Products\large\33_n-c-khoang-p1-last.jpg" />
+    <Content Include="Images\Products\large\35_CA THU TT.jpg" />
     <Content Include="Images\Products\large\35_tra-g-o-l-t-94.jpg" />
     <Content Include="Images\Products\large\36_mon-bo-la-lot-mayonnaise.jpg" />
     <Content Include="Images\Products\large\49_CHA LUA TT.jpg" />
@@ -1932,6 +1934,7 @@
     <Content Include="Images\Products\medium\31_page3-img7.jpg" />
     <Content Include="Images\Products\medium\32_thumb_350.jpg" />
     <Content Include="Images\Products\medium\33_n-c-khoang-p1-last.jpg" />
+    <Content Include="Images\Products\medium\35_CA THU TT.jpg" />
     <Content Include="Images\Products\medium\35_tra-g-o-l-t-94.jpg" />
     <Content Include="Images\Products\medium\36_mon-bo-la-lot-mayonnaise.jpg" />
     <Content Include="Images\Products\medium\49_CHA LUA TT.jpg" />
@@ -1961,6 +1964,7 @@
     <Content Include="Images\Products\min\31_page3-img7.jpg" />
     <Content Include="Images\Products\min\32_thumb_350.jpg" />
     <Content Include="Images\Products\min\33_n-c-khoang-p1-last.jpg" />
+    <Content Include="Images\Products\min\35_CA THU TT.jpg" />
     <Content Include="Images\Products\min\35_tra-g-o-l-t-94.jpg" />
     <Content Include="Images\Products\min\36_mon-bo-la-lot-mayonnaise.jpg" />
     <Content Include="Images\Products\min\49_CHA LUA TT.jpg" />
@@ -1990,6 +1994,7 @@
     <Content Include="Images\Products\small\31_page3-img7.jpg" />
     <Content Include="Images\Products\small\32_thumb_350.jpg" />
     <Content Include="Images\Products\small\33_n-c-khoang-p1-last.jpg" />
+    <Content Include="Images\Products\small\35_CA THU TT.jpg" />
     <Content Include="Images\Products\small\35_tra-g-o-l-t-94.jpg" />
     <Content Include="Images\Products\small\36_mon-bo-la-lot-mayonnaise.jpg" />
     <Content Include="Images\Products\small\49_CHA LUA TT.jpg" />
@@ -2033,6 +2038,7 @@
     <Content Include="assets\vegetarian\sass\_viewcart.scss" />
     <Content Include="Areas\Admin\Views\Products\_partialProductDetail.cshtml" />
     <Content Include="Areas\Admin\Views\Products\_ProductFilter.cshtml" />
+    <Content Include="assets\vegetarian\sass\_products.scss" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -2691,6 +2697,7 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Cart\OrderConfirmation.cshtml" />
     <Content Include="Views\Shared\_LayoutVegetarian.cshtml" />
+    <Content Include="Views\Cart\_PartialViewCartCheckOut.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

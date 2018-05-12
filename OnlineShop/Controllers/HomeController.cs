@@ -18,11 +18,11 @@ namespace OnlineShop.Controllers
         // GET: Home
         public ActionResult Index()
         {  
-            var productDao = new ProductDao();
-            var contentDao = new ContentDao();
-            ViewBag.NewProducts = productDao.ListNewProduct(4);
-            ViewBag.ListFeatureProducts = productDao.ListFeatureProduct(4);
-            ViewBag.ListNewsEvent = contentDao.ListNewsEvent(4);
+            //var productDao = new ProductDao();
+            //var contentDao = new ContentDao();
+            //ViewBag.NewProducts = productDao.ListNewProduct(4);
+            //ViewBag.ListFeatureProducts = productDao.ListFeatureProduct(4);
+            //ViewBag.ListNewsEvent = contentDao.ListNewsEvent(4);
             return View();
         }
 

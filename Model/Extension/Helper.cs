@@ -116,12 +116,24 @@ namespace Model
             IMapper mapper = config.CreateMapper();
             result = mapper.Map<CheckoutModel, OrderModel>(checkOut);
             //Manel
-            result.Address = checkOut.ShippingDetail.Address;
+            var district = new v_DistrictProvince();
+
+            if (checkOut.ShippingDetail.DistrictId >0 )
+            {
+                district = entities.v_DistrictProvince.FirstOrDefault(w => w.DistrictId == checkOut.ShippingDetail.DistrictId);
+                result.Address = String.Format("{0}, {1} {2}, {3}", checkOut.ShippingDetail.Address, district.DistrictType, district.DistrictName, district.ProvinceName);
+            }
+            else
+            {
+                result.Address = checkOut.ShippingDetail.Address;
+            }
+                      
             result.Email = checkOut.ShippingDetail.Email;
             result.FullName = checkOut.ShippingDetail.Fullname;
             result.Phone = checkOut.ShippingDetail.Phone;
             result.Notes = checkOut.ShippingDetail.Note;
-            result.Items = ConvertCartItemsToOrderItems(checkOut.CartItems);
+
+            //result.Items = ConvertCartItemsToOrderItems(checkOut.CartItems);
             return result;
         }
         /// <summary>
@@ -136,6 +148,7 @@ namespace Model
             {
                 cfg.CreateMap<CartItem, OrderItem>()
                 .ForMember(o => o.ProductId, co => co.MapFrom(src => src.ProductId))
+                .ForMember(o => o.ProductDetailId, co => co.MapFrom(src => src.ProductDetailId))
                 .ForMember(o => o.ProductName, co => co.MapFrom(src => src.ProductName))
                 .ForMember(o => o.ProductImage, co => co.MapFrom(src => src.ProductImage))
                 .ForMember(o => o.Price, co => co.MapFrom(src => src.Price))

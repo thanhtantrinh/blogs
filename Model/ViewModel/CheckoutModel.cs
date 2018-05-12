@@ -8,7 +8,7 @@ namespace Model.ViewModel
 {
     public class CheckoutModel
     {
-        public List<CartItem> CartItems { get; set; }
+        //public List<CartItem> CartItems { get; set; }
         public Shipping ShippingDetail { get; set; }
         public Payment PaymentDetail { get; set; }
 
@@ -16,7 +16,7 @@ namespace Model.ViewModel
         {
             ShippingDetail = new Shipping();
             PaymentDetail = new Payment();
-            CartItems = new List<CartItem>();
+           // CartItems = new List<CartItem>();
         }
 
     }

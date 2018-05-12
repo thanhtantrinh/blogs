@@ -19,8 +19,8 @@ namespace Model.EF
         public string ProductSize { get; set; }
         public double ProductWeight { get; set; }
         public double ProductPrice { get; set; }
+        public Nullable<long> PriceId { get; set; }
         public Nullable<int> PriceTypeId { get; set; }
         public string PriceTypeName { get; set; }
-        public Nullable<long> PriceId { get; set; }
     }
 }
