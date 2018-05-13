@@ -12,6 +12,7 @@ using System.Data.SqlClient;
 using System.Data;
 using Dapper.Tvp;
 using StaticResources;
+using PagedList;
 
 namespace Model.Repository
 {
@@ -27,6 +28,44 @@ namespace Model.Repository
         public OrderRepo(string strConn)
         {
             _conn = strConn;
+        }
+
+        public IEnumerable<v_Order> GetOrderPaging(OrderFilter filter, int pageIndex = 1, int pageSize = 20, string sortby = "")
+        {
+            IQueryable<v_Order> model = entities.v_Order;
+            try
+            {
+                if (!string.IsNullOrEmpty(filter.SearchString))
+                {
+                    string searchString = filter.SearchString.Trim();
+                    //model = model.Where(x => x.CategoryName.Contains(searchString));
+                }
+
+                if (filter.CatalogueId > 0)
+                    model = model.Where(x => x.CatalogueId == filter.CatalogueId);
+
+                if (filter.Status.Count() > 0)
+                {
+                    model = model.Where(w => filter.Status.Contains(w.Status));
+                }
+
+                if (!String.IsNullOrWhiteSpace(sortby))
+                {                  
+                    model = model.OrderByDescending(x => x.CreatedDate);
+                }
+                else
+                {
+                    model = model.OrderByDescending(x => x.CreatedDate);
+                }
+            }
+            catch (Exception ex)
+            {
+                string subject = "Error " + SiteSetting.SiteName + " at GetOrders at OrderRepo at Model.Repository";
+                string message = StringHelper.Parameters2ErrorString(ex, conn);
+                MailHelper.SendMail(SiteSetting.EmailAdmin, subject, message);
+            }
+
+            return model.ToPagedList(pageIndex, pageSize);
         }
 
         public OrderModel GetOrderById(long OrderId, out string message)
@@ -102,6 +141,7 @@ namespace Model.Repository
                     {
                         var parameters = new DynamicParameters();
                         parameters.Add("@UserID", model.CreatedBy);
+                        parameters.Add("@CatalogueId", model.CatalogueId);
                         parameters.Add("@ShipName", model.FullName);
                         parameters.Add("@ShipMobile", model.Phone);
                         parameters.Add("@ShipAddress", model.Address);
@@ -113,6 +153,7 @@ namespace Model.Repository
                         db.Query("sp_OrderCreate", parameters, commandType: CommandType.StoredProcedure);
                         orderNumber = parameters.Get<int>("@OrderNumber");
                     }
+
                     if (orderNumber > 0)
                     {
                         return GetOrderById(orderNumber, out message);
@@ -134,6 +175,34 @@ namespace Model.Repository
                 MailHelper.SendMail(SiteSetting.EmailAdmin, subject, message);
             }
             return null;
+        }
+
+        public bool UpdateStatusOrder(long orderNumber, string orderStatus="Pendding")
+        {
+            try
+            {
+                if (orderNumber>0)
+                {
+                    var order = entities.Orders.Find(orderNumber);
+                    if (order != null)
+                    {
+                        order.Status = orderStatus;
+                        if (entities.SaveChanges() > 0)
+                        {
+                            return true;
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                string subject = "Error " + SiteSetting.SiteName + " at UpdateStatusOrder at OrderRepo at Model.Repository";
+                string message = StringHelper.Parameters2ErrorString(ex, orderStatus);
+                MailHelper.SendMail(SiteSetting.EmailAdmin, subject, message);
+            }
+
+            return false;
         }
     }
 }

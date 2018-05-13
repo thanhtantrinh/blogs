@@ -22,6 +22,7 @@ namespace OnlineShop.Areas.Admin.Controllers
         protected CatalogueRepo _catalogueRepo = new CatalogueRepo();
         protected ProductRepo _proRepo = new ProductRepo();
         protected ProductCategoryRepo _proCategoryRepo = new ProductCategoryRepo();
+    
 
         public CustomIdentity CurrentUser;
 

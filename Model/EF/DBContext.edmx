@@ -188,6 +188,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CatalogueId" Type="int" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="CustomerID" Type="bigint" Nullable="false" />
           <Property Name="ShipName" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -588,11 +589,12 @@ warning 6002: The table/view 'tant4482_db.dbo.v_Order' does not have a primary k
         <EntityType Name="v_Order">
           <Key>
             <PropertyRef Name="OrderId" />
+            <PropertyRef Name="CatalogueId" />
             <PropertyRef Name="FullName" />
             <PropertyRef Name="Phone" />
             <PropertyRef Name="Address" />
             <PropertyRef Name="Email" />
-            <PropertyRef Name="Status" />
+            <PropertyRef Name="OrderStatus" />
             <PropertyRef Name="Note" />
             <PropertyRef Name="CreatedDate" />
             <PropertyRef Name="CreatedBy" />
@@ -600,13 +602,15 @@ warning 6002: The table/view 'tant4482_db.dbo.v_Order' does not have a primary k
             <PropertyRef Name="ModifiedBy" />
             <PropertyRef Name="ModifiedByName" />
             <PropertyRef Name="ModifiedDate" />
+            <PropertyRef Name="Status" />
           </Key>
           <Property Name="OrderId" Type="bigint" Nullable="false" />
+          <Property Name="CatalogueId" Type="int" Nullable="false" />
           <Property Name="FullName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Phone" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Address" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Status" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="OrderStatus" Type="nvarchar" MaxLength="12" Nullable="false" />
           <Property Name="Note" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="CreatedBy" Type="bigint" Nullable="false" />
@@ -614,6 +618,7 @@ warning 6002: The table/view 'tant4482_db.dbo.v_Order' does not have a primary k
           <Property Name="ModifiedBy" Type="bigint" Nullable="false" />
           <Property Name="ModifiedByName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'tant4482_db.dbo.v_OrderDetail' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -1025,18 +1030,20 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
           <EntitySet Name="v_Order" EntityType="Self.v_Order" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [v_Order].[OrderId] AS [OrderId], 
+    [v_Order].[CatalogueId] AS [CatalogueId], 
     [v_Order].[FullName] AS [FullName], 
     [v_Order].[Phone] AS [Phone], 
     [v_Order].[Address] AS [Address], 
     [v_Order].[Email] AS [Email], 
-    [v_Order].[Status] AS [Status], 
+    [v_Order].[OrderStatus] AS [OrderStatus], 
     [v_Order].[Note] AS [Note], 
     [v_Order].[CreatedDate] AS [CreatedDate], 
     [v_Order].[CreatedBy] AS [CreatedBy], 
     [v_Order].[CreatedByName] AS [CreatedByName], 
     [v_Order].[ModifiedBy] AS [ModifiedBy], 
     [v_Order].[ModifiedByName] AS [ModifiedByName], 
-    [v_Order].[ModifiedDate] AS [ModifiedDate]
+    [v_Order].[ModifiedDate] AS [ModifiedDate], 
+    [v_Order].[Status] AS [Status]
     FROM [dbo].[v_Order] AS [v_Order]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="v_OrderDetail" EntityType="Self.v_OrderDetail" store:Type="Views" store:Schema="dbo">
@@ -1225,7 +1232,6 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
           <EntitySet Name="v_CategoryOfProduct" EntityType="DBEntities.v_CategoryOfProduct" />
           <EntitySet Name="v_Content" EntityType="DBEntities.v_Content" />
           <EntitySet Name="v_DistrictProvince" EntityType="DBEntities.v_DistrictProvince" />
-          <EntitySet Name="v_Order" EntityType="DBEntities.v_Order" />
           <EntitySet Name="v_OrderDetail" EntityType="DBEntities.v_OrderDetail" />
           <EntitySet Name="v_Product" EntityType="DBEntities.v_Product" />
           <EntitySet Name="v_ProductDetail" EntityType="DBEntities.v_ProductDetail" />
@@ -1253,6 +1259,7 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
             <End Role="District" EntitySet="Districts" />
             <End Role="Ward" EntitySet="Wards" />
           </AssociationSet>
+          <EntitySet Name="v_Order" EntityType="DBEntities.v_Order" />
         </EntityContainer>
         <EntityType Name="Catalogue">
           <Key>
@@ -1452,6 +1459,7 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
           <Property Name="Note" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModifiedBy" Type="Int64" Nullable="false" />
+          <Property Name="CatalogueId" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="OrderDetail">
           <Key>
@@ -1830,36 +1838,6 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
           <Property Name="ProvinceName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="DistrictType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="v_Order">
-          <Key>
-            <PropertyRef Name="OrderId" />
-            <PropertyRef Name="FullName" />
-            <PropertyRef Name="Phone" />
-            <PropertyRef Name="Address" />
-            <PropertyRef Name="Email" />
-            <PropertyRef Name="Status" />
-            <PropertyRef Name="Note" />
-            <PropertyRef Name="CreatedDate" />
-            <PropertyRef Name="CreatedBy" />
-            <PropertyRef Name="CreatedByName" />
-            <PropertyRef Name="ModifiedBy" />
-            <PropertyRef Name="ModifiedByName" />
-            <PropertyRef Name="ModifiedDate" />
-          </Key>
-          <Property Name="OrderId" Type="Int64" Nullable="false" />
-          <Property Name="FullName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Phone" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Address" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Note" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CreatedBy" Type="Int64" Nullable="false" />
-          <Property Name="CreatedByName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ModifiedBy" Type="Int64" Nullable="false" />
-          <Property Name="ModifiedByName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
-        </EntityType>
         <EntityType Name="v_OrderDetail">
           <Key>
             <PropertyRef Name="ProductID" />
@@ -2103,6 +2081,40 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="v_Order">
+          <Key>
+            <PropertyRef Name="OrderId" />
+            <PropertyRef Name="CatalogueId" />
+            <PropertyRef Name="FullName" />
+            <PropertyRef Name="Phone" />
+            <PropertyRef Name="Address" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="OrderStatus" />
+            <PropertyRef Name="Note" />
+            <PropertyRef Name="CreatedDate" />
+            <PropertyRef Name="CreatedBy" />
+            <PropertyRef Name="CreatedByName" />
+            <PropertyRef Name="ModifiedBy" />
+            <PropertyRef Name="ModifiedByName" />
+            <PropertyRef Name="ModifiedDate" />
+            <PropertyRef Name="Status" />
+          </Key>
+          <Property Name="OrderId" Type="Int64" Nullable="false" />
+          <Property Name="CatalogueId" Type="Int32" Nullable="false" />
+          <Property Name="FullName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OrderStatus" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Name="Note" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="Int64" Nullable="false" />
+          <Property Name="CreatedByName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedBy" Type="Int64" Nullable="false" />
+          <Property Name="ModifiedByName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2302,6 +2314,7 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="DBEntities.Order">
               <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="CatalogueId" ColumnName="CatalogueId" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
                 <ScalarProperty Name="Note" ColumnName="Note" />
@@ -2660,25 +2673,6 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="v_Order">
-            <EntityTypeMapping TypeName="DBEntities.v_Order">
-              <MappingFragment StoreEntitySet="v_Order">
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="ModifiedByName" ColumnName="ModifiedByName" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="CreatedByName" ColumnName="CreatedByName" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="Note" ColumnName="Note" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="FullName" ColumnName="FullName" />
-                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="v_OrderDetail">
             <EntityTypeMapping TypeName="DBEntities.v_OrderDetail">
               <MappingFragment StoreEntitySet="v_OrderDetail">
@@ -2818,6 +2812,27 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="v_Order">
+            <EntityTypeMapping TypeName="DBEntities.v_Order">
+              <MappingFragment StoreEntitySet="v_Order">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedByName" ColumnName="ModifiedByName" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedByName" ColumnName="CreatedByName" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="CatalogueId" ColumnName="CatalogueId" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -1857,6 +1857,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\ico-mail.jpg" />
     <Content Include="Content\Images\logo.png" />
+    <Content Include="Content\Site.css" />
     <Content Include="Data\images\banner\banner4.jpg" />
     <Content Include="Data\images\banner\banner6.jpg" />
     <Content Include="Data\images\printed-chiffon-dress.jpg" />
@@ -2040,6 +2041,10 @@
     <Content Include="Areas\Admin\Views\Products\_partialProductDetail.cshtml" />
     <Content Include="Areas\Admin\Views\Products\_ProductFilter.cshtml" />
     <Content Include="assets\vegetarian\sass\_products.scss" />
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\Order\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Order\_OrderFilter.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -2704,7 +2709,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Base\" />
-    <Folder Include="Areas\Admin\Views\Order\" />
     <Folder Include="assets\admin\pages\" />
     <Folder Include="assets\vegetarian\css\" />
     <Folder Include="assets\vegetarian\images\" />

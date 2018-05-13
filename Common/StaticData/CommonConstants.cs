@@ -37,5 +37,15 @@ namespace Common
         //public static string CacheKeyProvince = "CacheProvince";
     
     }
+    /// <summary>
+    /// Name of Filter to save in session
+    /// </summary>
+    public static class SessionName
+    {
+        public const string OrderFilter = "SessionOrderFilter";
+        public const string ProductFilter = "SessionProductFilter";
+        public const string ActionStatusLog = "ACTION_STATUS";
+    }
 
+    
 }

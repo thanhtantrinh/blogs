@@ -15,11 +15,12 @@ namespace Model.EF
     public partial class v_Order
     {
         public long OrderId { get; set; }
+        public int CatalogueId { get; set; }
         public string FullName { get; set; }
         public string Phone { get; set; }
         public string Address { get; set; }
         public string Email { get; set; }
-        public string Status { get; set; }
+        public string OrderStatus { get; set; }
         public string Note { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public long CreatedBy { get; set; }
@@ -27,5 +28,6 @@ namespace Model.EF
         public long ModifiedBy { get; set; }
         public string ModifiedByName { get; set; }
         public System.DateTime ModifiedDate { get; set; }
+        public string Status { get; set; }
     }
 }

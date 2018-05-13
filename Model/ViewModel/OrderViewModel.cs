@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Common;
 namespace Model.ViewModel
 {
     public class OrderViewModel
@@ -21,6 +21,19 @@ namespace Model.ViewModel
         public OrderViewModel()
         {
             Items = new List<OrderItem>();
+        }
+
+        public string OrderStatus
+        {
+            get
+            {
+                if (this.Status == nameof(eOrderStatusUI.Cancelled))
+                    return "Đã hủy";
+                else if (this.Status == nameof(eOrderStatusUI.Completed))
+                    return "Đã giao";
+                else
+                    return "Đang chờ";
+            }
         }
     }
     

@@ -183,8 +183,6 @@ namespace Model.Extension
         {
             get
             {
-                //var selectListItems = (from StatusEntity d in Enum.GetValues(typeof(StatusEntity))
-                //                      select new SelectListItem() { Value = nameof(d), Text = nameof(d).ToLower() }).ToList();
                 var selectListItems = Enum.GetValues(typeof(StatusEntity)).Cast<StatusEntity>().Select(v => new SelectListItem
                 {
                     Text = v.ToString(),
@@ -194,7 +192,23 @@ namespace Model.Extension
                 return selectListItems;
             }
         }
+        /// <summary>
+        /// get status of order
+        /// </summary>
+        public static List<SelectListItem> StatusOrderList
+        {
+            get
+            {
+                var selectListItems = Enum.GetValues(typeof(eOrderStatusUI)).Cast<eOrderStatusUI>().Select(v => new SelectListItem
+                {
+                    Text = v==eOrderStatusUI.Completed?"Đã giao hàng":v==eOrderStatusUI.Cancelled?"Đã Hủy":"Đang chờ",
+                    Value = v.ToString()
+                }).ToList();
 
+                selectListItems.Insert(0, new SelectListItem { Text = "Chọn trạng thái", Value = "" });
+                return selectListItems;
+            }
+        }
         public static List<SelectListItem> PriceTypeList
         {
             get

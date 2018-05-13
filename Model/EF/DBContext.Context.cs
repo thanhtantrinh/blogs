@@ -57,7 +57,6 @@ namespace Model.EF
         public virtual DbSet<v_CategoryOfProduct> v_CategoryOfProduct { get; set; }
         public virtual DbSet<v_Content> v_Content { get; set; }
         public virtual DbSet<v_DistrictProvince> v_DistrictProvince { get; set; }
-        public virtual DbSet<v_Order> v_Order { get; set; }
         public virtual DbSet<v_OrderDetail> v_OrderDetail { get; set; }
         public virtual DbSet<v_Product> v_Product { get; set; }
         public virtual DbSet<v_ProductDetail> v_ProductDetail { get; set; }
@@ -65,5 +64,6 @@ namespace Model.EF
         public virtual DbSet<v_SiteMap> v_SiteMap { get; set; }
         public virtual DbSet<v_UserGroup> v_UserGroup { get; set; }
         public virtual DbSet<v_WebAccount> v_WebAccount { get; set; }
+        public virtual DbSet<v_Order> v_Order { get; set; }
     }
 }

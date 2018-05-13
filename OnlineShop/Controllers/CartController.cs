@@ -176,7 +176,7 @@ namespace OnlineShop.Controllers
                     OrderModel orderModel = Helper.ConvertCheckOutModelToOrder(checkout);
                     orderModel.Items = Helper.ConvertCartItemsToOrderItems(cart.CartItems);
                     orderModel.CreatedBy = 0;
-
+                    orderModel.CatalogueId = SiteConfiguration.CatalogueId;
                     orderModel = _orderRepo.CreateOrder(orderModel, out message);
                     if (String.IsNullOrWhiteSpace(message)&& orderModel != null)
                     {

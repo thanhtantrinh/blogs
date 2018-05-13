@@ -25,5 +25,6 @@ namespace Model.EF
         public string Note { get; set; }
         public System.DateTime ModifiedDate { get; set; }
         public long ModifiedBy { get; set; }
+        public int CatalogueId { get; set; }
     }
 }
