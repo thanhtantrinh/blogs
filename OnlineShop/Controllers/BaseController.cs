@@ -20,6 +20,7 @@ namespace OnlineShop.Controllers
         //public BaseRepository baseRepository = new BaseRepository();
         public OrderRepo _orderRepo = new OrderRepo();
         public ProductRepo _productRepo = new ProductRepo();
+        public ProductCategoryRepo _proCatRepo = new ProductCategoryRepo();
 
         ////initilizing culture on controller initialization
         //protected override void Initialize(System.Web.Routing.RequestContext requestContext)

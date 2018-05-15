@@ -25,6 +25,7 @@ namespace Model.ViewModel
         public string Status { get; set; }
         public int Level { get; set; }
         public int Order { get; set; }
+
     }
 
     public class SiteMapItem

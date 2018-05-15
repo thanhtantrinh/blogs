@@ -90,7 +90,8 @@ namespace OnlineShop.Controllers
 
         public ActionResult _MenuCatProduct()
         {
-            var model = new MenuDao().GetMenuProducts(SiteConfiguration.CatalogueId);
+            //var model = new MenuDao().GetMenuProducts(SiteConfiguration.CatalogueId);
+            var model = _proCatRepo.GetMenuCategoryProduct(SiteConfiguration.CatalogueId);
             return PartialView(model);
         }
 

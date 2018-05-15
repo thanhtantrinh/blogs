@@ -21,9 +21,9 @@ namespace OnlineShop.Areas.Admin.Controllers
         protected BaseRepository _baseRepository = new BaseRepository(SiteConfiguration.DbConnectionString);
         protected CatalogueRepo _catalogueRepo = new CatalogueRepo();
         protected ProductRepo _proRepo = new ProductRepo();
-        protected ProductCategoryRepo _proCategoryRepo = new ProductCategoryRepo();
-    
+        protected ProductCategoryRepo _proCatRepo = new ProductCategoryRepo();
 
+        public string currentCulture = "vi";
         public CustomIdentity CurrentUser;
 
         //initilizing culture on controller initialization
@@ -48,6 +48,7 @@ namespace OnlineShop.Areas.Admin.Controllers
                 Thread.CurrentThread.CurrentCulture = new CultureInfo("vi");
                 Thread.CurrentThread.CurrentUICulture = new CultureInfo("vi");
             }
+            currentCulture = Session[CommonConstants.CurrentCulture].ToString();
         }
 
         // changing culture
@@ -55,8 +56,8 @@ namespace OnlineShop.Areas.Admin.Controllers
         {
             Thread.CurrentThread.CurrentCulture = new CultureInfo(ddlCulture);
             Thread.CurrentThread.CurrentUICulture = new CultureInfo(ddlCulture);
-
             Session[CommonConstants.CurrentCulture] = ddlCulture;
+
             return Redirect(returnUrl);
         }
 

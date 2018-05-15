@@ -4,7 +4,10 @@ using Model.Dao;
 using Model.EF;
 using Model.Repository;
 using Model.ViewModel;
+using OnlineShop.Filters;
 using OnlineShop.Helpers;
+using OnlineShop.Resource;
+using StaticResources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,11 +16,12 @@ using System.Web.Mvc;
 
 namespace OnlineShop.Areas.Admin.Controllers
 {
+    [AuthLog(Roles = UserRoles.Admin)]
     public class ProductCategoryController : BaseController
     {
         
         // GET: Admin/ProductCategory
-        public ActionResult Index(int? page, int pageSize = 10, string sortBy="")
+        public ActionResult Index(int? page, int pageSize = 20, string sortBy="")
         {
             //var dao = new ProductCategoryDao();      
             //var model = dao.ListAllPaging(searchString, page, pageSize, catId);
@@ -28,7 +32,7 @@ namespace OnlineShop.Areas.Admin.Controllers
                 Session["ProductCategoryFilter"] = filter;
             }
             filter.CatalogueId = SiteConfiguration.CatalogueId;
-            var result = _proCategoryRepo.GetCategoriesPaging(filter, page??1, pageSize, sortBy);
+            var result = _proCatRepo.GetCategoriesPaging(filter, page??1, pageSize, sortBy);
             ViewBag.Filter = filter;
             return View(result);
         }
@@ -50,29 +54,71 @@ namespace OnlineShop.Areas.Admin.Controllers
             return View();
         }
 
-        // GET: Admin/ProductCategory/Create
+        [HttpGet]
         public ActionResult Create()
         {
-            this.SetViewBag();
-            return View();
+            var model = new ProductCategoryView();
+            model.CreatedByName = CurrentUser.Name;
+            model.CreatedDate = DateTime.Now;
+            model.ModifiedByName = CurrentUser.Name;
+            model.ModifiedDate = DateTime.Now;
+            model.Status = nameof(StatusEntity.Active);
+            return View(model);
         }
-        // POST: Admin/ProductCategory/Create
+
         [HttpPost]
-        public ActionResult Create(ProductCategoryView model)
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(ProductCategoryView model, string saveclose, string savenew)
         {
-            try
+            var actionStatus = new ActionResultHelper();
+            actionStatus.ActionStatus = ResultSubmit.failed;
+            string message = "";
+            bool IsValid = true;
+
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
-                var dao = new ProductCategoryDao();
-                Mapper.Initialize(cfg => cfg.CreateMap<ProductCategoryView, ProductCategory>());
-                var data = Mapper.Map<ProductCategoryView, ProductCategory>(model);
-                var result = dao.Insert(data);
-                return RedirectToAction("Index");
+                model.Language = currentCulture.ToString();
+                model.CreatedBy = CurrentUser.UserID;
+                model.ModifiedBy = CurrentUser.UserID;
+                model.CatalogueId = SiteConfiguration.CatalogueId;
+                ProductCategoryView remodel = _proCatRepo.Create(model, out message);
+
+                if (remodel != null && String.IsNullOrEmpty(message))
+                {
+                    actionStatus.ActionStatus = ResultSubmit.success;
+                    actionStatus.ErrorReason = String.Format(SiteResource.HTML_ALERT_SUCCESS, Resources.MSG_THE_PRODUCT_CATEGORY_HAS_CREATED_SUCCESSFULLLY);
+                    Session[SessionName.ActionStatusLog] = actionStatus;
+
+                    if (!String.IsNullOrEmpty(saveclose))
+                        return RedirectToAction("Index");
+                    else if (!String.IsNullOrWhiteSpace(savenew))
+                        return RedirectToAction("Create");
+                    else
+                        return RedirectToAction("Edit", new { Id = remodel.ID });
+                }
+                else
+                {
+                    actionStatus.ErrorReason = String.Format(SiteResource.HTML_ALERT_ERROR, Resources.MSG_THE_PRODUCT_CATEGORY_HAS_CREATED_UNSUCCESSFULLLY);
+                    Session[SessionName.ActionStatusLog] = actionStatus;
+                    return RedirectToAction("Index");
+                }
             }
-            catch
+            else
             {
-                return View();
+                IsValid = false;
+                goto actionError;
             }
+
+            actionError:
+            if (!IsValid)
+            {
+                actionStatus.ErrorReason = String.Format(SiteResource.HTML_ALERT_ERROR, Resources.MSG_ERROR_ENTER_DATA_FOR_FORM + actionStatus.ShowErrorStrings());
+                Session["ACTION_STATUS"] = actionStatus;
+            }
+
+            ViewBag.Title = Resources.MSG_THE_PRODUCT_CATEGORY_HAS_CREATED_UNSUCCESSFULLLY;
+            ViewBag.Action = "Create";
+            return View("Edit", model);
         }
 
         // GET: Admin/ProductCategory/Edit/5

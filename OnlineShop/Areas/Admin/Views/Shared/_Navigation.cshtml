@@ -67,10 +67,10 @@
                     <a href="#"><i class="fa fa-user fa-fw"></i> Hệ thống<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="/Admin/UserGroup/Index">Nhóm người dùng</a>
+                            <a href="@Url.Action("Index", "UserGroup")">Nhóm người dùng</a>
                         </li>
                         <li>
-                            <a href="/Admin/User/Index">User</a>
+                            <a href="@Url.Action("Index", "User")">User</a>
                         </li>
                     </ul>
                     <!-- /.nav-second-level -->
@@ -79,10 +79,10 @@
                     <a href="#"><i class="fa fa-comment fa-fw"></i> Tin tức<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="/Admin/Category/Index">Danh mục</a>
+                            <a href="@Url.Action("Index", "Category")">Danh mục</a>
                         </li>
                         <li>
-                            <a href="/Admin/Content/Index">Tin tức</a>
+                            <a href="@Url.Action("Index", "Content")">Tin tức</a>
                         </li>
                     </ul>
                     <!-- /.nav-second-level -->
@@ -100,7 +100,7 @@
                     <!-- /.nav-second-level -->
                 </li>
                 <li>
-                    <a href="@Url.Action("Index", "Order")"><i class="fa fa-dashboard fa-fw"></i> Quản lý đơn hàng</a>
+                    <a href="@Url.Action("Index", "Order")"><i class="fa fa-shopping-cart"></i> Quản lý đơn hàng</a>
                 </li>
                 <li>
                     <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Quản lý chung<span class="fa arrow"></span></a>
@@ -108,15 +108,16 @@
                         <li>
                             <a href="@Url.Action("SiteConfig", "Home")">Cấu hình Website</a>
                         </li>
-                        <li>
-                            <a href="/Admin/Menu">Menu</a>
-                        </li>
-                        <li>
-                            <a href="/Admin/Slide/Index">Slide</a>
-                        </li>
-                        @*<li>
-                    <a href="/Admin/Footer/Index">Phản hồi</a>
-                </li>*@
+                        @*
+                <li>
+                    <a href="/Admin/Menu">Menu</a>
+                </li>
+                <li>
+                    <a href="/Admin/Slide/Index">Slide</a>
+                </li>
+               <li>
+            <a href="/Admin/Footer/Index">Phản hồi</a>
+        </li>*@
                     </ul>
                     <!-- /.nav-second-level -->
                 </li>

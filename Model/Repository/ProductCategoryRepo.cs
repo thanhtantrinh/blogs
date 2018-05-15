@@ -195,5 +195,29 @@ namespace Model.Repository
             return result;
         }
 
+        public List<MenuItem> GetMenuCategoryProduct(long CatalogueId)
+        {
+            var result = new List<MenuItem>();        
+            try
+            {
+                using (var cont = new SqlConnection(conn))
+                {
+                    var parameters = new DynamicParameters();
+                    if (CatalogueId > 1)
+                        parameters.Add("@CatalogueId", CatalogueId);
+
+                    string query = "select * from v_MenuCategoryProduct Where CatalogueId=@CatalogueId";
+
+                    result = cont.Query<MenuItem>(query, parameters).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                string subject = "Error " + SiteSetting.SiteName + " at getProducts at ProductRepo at Model.Repository";
+                string message = StringHelper.Parameters2ErrorString(ex, conn);
+                MailHelper.SendMail(SiteSetting.EmailAdmin, subject, message);
+            }
+            return result;
+        }
     }
 }

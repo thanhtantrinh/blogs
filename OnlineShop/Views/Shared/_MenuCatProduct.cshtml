@@ -1,13 +1,83 @@
-﻿@model List<Model.ViewModel.MenuView>
+﻿@model List<Model.ViewModel.MenuItem>
+
+@{
+    var menu = Model;
+}
 
 <div class="panel panel-primary">
     <div class="panel-heading">DANH MỤC SẢN PHẨM</div>
-    @*<div class="panel-body">
-        </div>*@
-    <div class="list-group">
-        @foreach (var item in Model)
+    @*<div class="list-group">
+        @foreach (var item in menu)
         {
-            <a href="@Url.Action("Category","Product", new { metatitle = item.Alias, cateId=item.ID })" class="list-group-item">@item.Title</a>
+            if (item.Level == 0)
+            {
+                <a href="@Url.Action("Category","Product", new { metatitle = item.Alias, cateId=item.Id })" class="list-group-item menu-parent">@item.Name</a>
+
+                var childMenus = menu.Where(w => w.ParentId == item.Id).ToList();
+
+                if (childMenus.Count > 0)
+                {
+                    foreach (var childMenu in childMenus)
+                    {
+                        <a href="@Url.Action("Category","Product", new { metatitle = childMenu.Alias, cateId=childMenu.Id })" class="list-group-item menu-child">&nbsp;&nbsp;&nbsp; @childMenu.Name</a>
+                    }
+
+                }
+            }
         }
-    </div>
+    </div>*@
+    <nav id="column_left" class="list-group">
+        <ul class="nav nav-list">
+            @foreach (var item in menu)
+            {
+                if (item.Level == 0)
+                {
+                    var childMenus = menu.Where(w => w.ParentId == item.Id).ToList();
+
+                    if (childMenus.Count > 0)
+                    {
+                        <li>
+                            <a class="accordion-heading" data-toggle="collapse" data-target="#submenu-@item.Id">
+                                <span class="nav-header-primary">@item.Name <span class="pull-right"><b class="caret"></b></span></span>
+                            </a>
+                            <ul class="nav nav-list collapse" id="submenu-@item.Id">
+                                @foreach (var childMenu in childMenus)
+    {
+                                <li>
+                                    <a href="@Url.Action("Category","Product", new { metatitle = childMenu.Alias, cateId=childMenu.Id })" class="list-group-item menu-child">&nbsp;&nbsp;&nbsp; @childMenu.Name</a>
+                                </li>
+                                }
+                            </ul>
+                        </li>
+                    }
+                    else
+                    {
+                        <li>
+                            <a href="@Url.Action("Category","Product", new { metatitle = item.Alias, cateId=item.Id })" class="list-group-item menu-parent">@item.Name</a>
+                        </li>
+
+                    }
+                }
+            }
+
+            @*<li><a>Dashboard</a></li>
+            <li>
+                <a class="accordion-heading" data-toggle="collapse" data-target="#submenu1">
+                    <span class="nav-header-primary">Menu Link <span class="pull-right"><b class="caret"></b></span></span>
+                </a>
+                <ul class="nav nav-list collapse" id="submenu1">
+                    <li>
+                        <a class="accordion-heading" data-toggle="collapse" data-target="#submenu2">Sub Menu Link <span class="pull-right"><b class="caret"></b></span></a>
+                        <ul class="nav nav-list collapse" id="submenu2">
+                            <li><a href="#" title="Title">Sub Sub Menu Link</a></li>
+                            <li><a href="#" title="Title">Sub Sub Menu Link</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+            </li>*@
+
+        </ul>
+
+    </nav>
 </div>
