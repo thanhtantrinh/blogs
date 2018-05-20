@@ -10,14 +10,12 @@
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="row">
-
             <div class="col-sm-3">
                 <label>Nhóm danh mục</label>
                 <div class="input-group">
                     @Html.DropDownListFor(m => m.CategoryId, ModelExtension.ListExtensions.ProductCategoriesByCatalogueId(SiteConfiguration.CatalogueId), new { @class = "form-control select1-single", id = "select2-2", onchange = "this.form.submit();" })
                 </div>
             </div>
-
             <div class="col-sm-3">
                 <label>Nhóm trạng thái</label>
                 <div class="input-group">
@@ -45,8 +43,7 @@
                         <a class="btn btn-primary" data-toggle="tooltip" data-placement="top" href="@Url.Action("Create", "Products")" title="Thêm sản phẩm nhóm">
                             <i class="fa fa-plus-circle"></i>
                         </a>
-                    </div>
-                  
+                    </div>                  
                 </div>
             </div>
         </div>
