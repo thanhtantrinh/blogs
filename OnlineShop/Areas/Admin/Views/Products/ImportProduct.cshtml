@@ -1,0 +1,36 @@
+﻿@using Model.ViewModel
+@using Model.EF
+@using System.Globalization;
+@using Common
+@using ModelExtentions = Model.Extension
+@using OnlineShop.Helpers
+
+@model List<ProductsView>
+@{
+    ViewBag.Title = "Danh sách sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_Layouts.cshtml";
+}
+<ul class="list-group">
+    @if (Model.Count > 0)
+    {
+        foreach (var item in Model)
+        {
+            <li class="list-group-item">
+                <ul class="list-inline">
+                    <li>
+                        @item.Name
+                    </li>
+                    <li>
+                        Gia: @item.ProductDetail.First().ProductPrice
+                    </li>
+                    <li>
+                        Trong Luong: @item.ProductDetail.First().ProductWeight
+                    </li>
+                </ul>
+
+            </li>
+        }
+
+    }
+
+</ul>
