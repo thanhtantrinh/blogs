@@ -37,6 +37,7 @@ namespace OnlineShop.Controllers
         {
             var category = new CategoryDao().ViewDetail(cateId);
             ViewBag.Category = category;
+            ViewBag.Title = category.Name;
             //var model = new ProductDao().ProductsPaging("", 1, pageSize, cateId);
             ProductFilter filter = new ProductFilter();
             filter.CategoryId = cateId;

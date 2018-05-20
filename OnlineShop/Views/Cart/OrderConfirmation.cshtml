@@ -4,7 +4,6 @@
 @model OrderViewModel
 @{
     Layout = null;
-
     if (Model != null && Model.Items.Count() > 0)
     {
         var order = Model.Items;
@@ -12,12 +11,12 @@
         var urlHelper = new UrlHelper(Html.ViewContext.RequestContext);
         var baseurl = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority);
         var mailto = "mailto:" + SiteConfiguration.EmailSite + "?subject=" + SiteConfiguration.SiteName + "Đơn hàng số" + Model.ID;
-
+        List<OrderItem> orderItems = Model.Items.Where(w => w.isProduct == true).ToList();
         <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
         <html>
         <head>
             <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-            <title>@(Model.ID>0 ? "Đơn hàng của bạn" : Model.ID.ToString()) - #@Model.ID</title>
+            <title>@(Model.ID > 0 ? "Đơn hàng của bạn" : Model.ID.ToString()) - #@Model.ID</title>
             <style type="text/css">
                 a:hover {
                     text-decoration: none !important;
@@ -30,18 +29,18 @@
                     <td align="center">
                         <table cellspacing="0" border="0" cellpadding="0" width="600" bgcolor="#FFFFFF">
                             @*<tr>
-                                <td>                                    
-                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                        <tr>
-                                            <td valign="middle" align="center" height="45">
-                                                <p style="font-size: 12px; line-height: 24px; font-family: Arial, 'Times New Roman', serif; color: #b0a08b; margin: 0px;">
-                                                    Is this email not displaying correctly? <a style="color: #1caed5; text-decoration: none; font-size:12px;" href="@Url.AbsoluteAction("ViewOrder", "Site", new {ordernumber=Model.ID, email = Model.Email})">Try the web version.</a>
-                                                </p>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>*@
+                                    <td>
+                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                            <tr>
+                                                <td valign="middle" align="center" height="45">
+                                                    <p style="font-size: 12px; line-height: 24px; font-family: Arial, 'Times New Roman', serif; color: #b0a08b; margin: 0px;">
+                                                        Is this email not displaying correctly? <a style="color: #1caed5; text-decoration: none; font-size:12px;" href="@Url.AbsoluteAction("ViewOrder", "Site", new {ordernumber=Model.ID, email = Model.Email})">Try the web version.</a>
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>*@
                             <tr>
                                 <td>
                                     <!--header-->
@@ -79,18 +78,15 @@
                                                         <td valign="top" align="left">
                                                             @if (String.IsNullOrWhiteSpace(Model.FullName))
                                                             {
-                                                                hiText = "Kính chào quý khách, ";
+                                                                hiText = "Chào quý khách, ";
                                                             }
                                                             else
                                                             {
-                                                                hiText = String.Format("Kính chào quý khách {0}, ", Model.FullName);
+                                                                hiText = String.Format("Chào {0}, ", Model.FullName);
                                                             }
                                                             <h1 style="font-size: 16px; font-weight: normal; color: #555555; font-family: Arial, Helvetica, sans-serif; margin-bottom: 20px;">
                                                                 @Html.Raw(hiText)
                                                             </h1>
-                                                            @*<p style="font-size: 14px; font-family: Arial, Helvetica, sans-serif; color: #333333; ">
-                                                                Đơn hàng đã sẵn sàng để giao đến quý khách @Model.FullName !
-                                                            </p>*@                                                       
                                                             <p style="font-size: 14px; font-family: Arial, Helvetica, sans-serif; color: #333333; ">
                                                                 @SiteConfiguration.SiteName đã nhận đơn hàng @Model.ID ! Chúng tôi sẽ xác nhận đơn hàng trong thời gian sớm nhất
                                                             </p>
@@ -110,7 +106,7 @@
                                                             <table width="270" style="border-collapse: collapse; background-color: #ffffff; border:1px solid #e5e5e5;" cellpadding="5">
                                                                 <tr>
                                                                     <td valign="middle" align="left" height="25" style="font-size: 14px; font-family: arial; color: #444; font-weight: bold;">
-                                                                        &nbsp;&nbsp;THÔNG TIN ĐƠN HÀNG 
+                                                                        &nbsp;&nbsp;THÔNG TIN ĐƠN HÀNG
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
@@ -118,8 +114,8 @@
                                                                         <div style="margin-left:8px;">
                                                                             Mã đơn hàng #: @Model.ID <br />
                                                                             Ngày Order: @Model.CreateDate.ToString("dd/MM/yyyy hh:mm tt") <br />
-                                                                            Phương thức thanh toán: <strong>Thanh toán khi nhận hàng</strong><br />                                                                        
-                                                                            Trạng thái: <strong>@Model.OrderStatus</strong>                                                                        
+                                                                            Phương thức thanh toán: <strong>Thanh toán khi nhận hàng</strong><br />
+                                                                            Trạng thái: <strong>@Model.OrderStatus</strong>
                                                                         </div>
                                                                     </td>
                                                                 </tr>
@@ -160,7 +156,7 @@
                                                         <td align="center" valign="top">
                                                             <table cellspacing="0" border="0" cellpadding="5" width="560" style="background-color: #ffffff; border:1px solid #e5e5e5;">
                                                                 <tr id="table-header">
-                                                                    <th width="280" height="30" colspan="2" align="left" style="font-size: 13px; font-family: arial; font-weight:bold; color:#333;">&nbsp;&nbsp;Sản phẩm</th>                                                                    
+                                                                    <th width="280" height="30" colspan="2" align="left" style="font-size: 13px; font-family: arial; font-weight:bold; color:#333;">&nbsp;&nbsp;Sản phẩm</th>
                                                                     <th width="100" height="30" align="center" style="font-size: 13px; font-family: arial; font-weight:bold; color:#333;">Số lượng</th>
                                                                     <th width="100" height="30" align="center" style="font-size: 13px; font-family: arial; font-weight:bold; color:#333;">Đơn giá</th>
                                                                     <th width="100" height="30" align="right" style="font-size: 13px; font-family: arial; font-weight:bold; color:#333;">Tạm tính&nbsp;&nbsp;</th>
@@ -168,39 +164,57 @@
                                                                 <tr>
                                                                     <td colspan="6" height="5" style="border-top:1px solid #e5e5e5;"></td>
                                                                 </tr>
-                                                                @foreach (var item in Model.Items)
+                                                                @foreach (var item in orderItems)
                                                                 {
                                                                     var linetotal = item.Quantity * item.Price;
                                                                     <tr>
                                                                         <td align="center" valign="top">
                                                                             @{
-                                                                                string imageName = "nullimage.jpg";                                                                                
-                                                                                if (!String.IsNullOrWhiteSpace(item.ProductImage))
-                                                                                {
-                                                                                    imageName = item.ProductImage;
-                                                                                }
-                                                                                string urlImage = Url.Content("~/Content/images/Products/" + imageName);
+                                                                                string urlImage = Url.ImageProductMin(item.ProductImage);
                                                                                 if (!System.IO.File.Exists(Path.Combine(Server.MapPath(urlImage))))
                                                                                 {
-                                                                                    urlImage = Url.Image("comingsoonx60.jpg", true);
+                                                                                    urlImage = Url.ImageProductMin("Coming-Soon.jpg");
                                                                                 }
                                                                             }
                                                                             <img src="@(baseurl + urlImage)" alt="" width="60" class="imgProduct" style="border:1px solid #cccccc" />
                                                                         </td>
-                                                                        <td valign="top" style="font-size: 12px; font-weight:bold; line-height: 16px;font-family: Arial, Helvetica, sans-serif; color: #606060; margin: 0px;">@item.ProductName</td>                                                                        
+                                                                        <td valign="top" style="font-size: 12px; font-weight:bold; line-height: 16px;font-family: Arial, Helvetica, sans-serif; color: #606060; margin: 0px;">@item.ProductName</td>
                                                                         <td valign="top" style="text-align: center;font-size: 12px; line-height: 16px; font-family: Arial, Helvetica, sans-serif; color: #606060; margin: 0px;">@item.Quantity</td>
                                                                         <td valign="top" style="text-align: right;font-size: 12px; line-height: 16px; font-family: Arial, Helvetica, sans-serif; color: #606060; margin: 0px;">@String.Format("{0:N0}", (item.Price))</td>
                                                                         <td valign="top" style="text-align: right;font-size: 12px; line-height: 16px; font-family: Arial, Helvetica, sans-serif; color: #606060; margin: 0px;">@String.Format("{0:N0}", linetotal)&nbsp;&nbsp;</td>
-                                                                    </tr>        
-                                                                }                                                                     
+                                                                    </tr>
+                                                                }
                                                                 <tr>
                                                                     <td colspan="5" height="1" align="center">
                                                                         <hr style="border: 0; border-bottom: 1px solid #e5e5e5; width:99%; margin:0;" />
                                                                     </td>
-                                                                </tr>                                                           
+                                                                </tr>
                                                                 <tr>
-                                                                    <td height="40" colspan="3" valign="top" align="right" style="font-size: 16px; font-weight:bold; text-align: right; font-family: Arial; color: #1b1b1b;">Tổng đơn hàng:</td>                                                                    
-                                                                    <td height="40" colspan="2" valign="top" style="font-weight:bold; font-size: 16px; text-align: right; font-family: Arial, Helvetica, sans-serif; color: #1b1b1b;">@String.Format("{0:N0}", Model.Items.Sum(S=>S.Quantity*S.Price)) VNĐ&nbsp;&nbsp;</td>
+                                                                    <td height="40" colspan="3" valign="top" align="right" style="font-size: 16px; font-weight:bold; text-align: right; font-family: Arial; color: #1b1b1b;">
+                                                                        Phí vận chuyển
+                                                                    </td>
+                                                                    <td height="40" colspan="2" valign="top" style="font-size: 16px; text-align: right; font-family: Arial, Helvetica, sans-serif; color: #1b1b1b;">
+                                                                        @{
+                                                                            var freightOrder = Model.Items.FirstOrDefault(f => f.isProduct == false);
+                                                                            var subTotal = Model.Items.Where(w => w.isProduct == true).Sum(S => S.Quantity * S.Price);
+                                                                        }
+                                                                        @if (freightOrder.Price == 0 && subTotal >= SiteConfiguration.SubTotalFreeFreight)
+                                                                        {
+                                                                            <span>Miễn phí <sup>*</sup></span>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <span>Liên hệ</span>
+                                                                        }
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td height="40" colspan="3" valign="top" align="right" style="font-size: 16px; font-weight:bold; text-align: right; font-family: Arial; color: #1b1b1b;">
+                                                                        Tổng đơn hàng tạm tính:
+                                                                    </td>
+                                                                    <td height="40" colspan="2" valign="top" style="font-weight:bold; font-size: 16px; text-align: right; font-family: Arial, Helvetica, sans-serif; color: #1b1b1b;">
+                                                                        @String.Format("{0:N0}", subTotal) VNĐ&nbsp;&nbsp;
+                                                                    </td>
                                                                 </tr>
                                                             </table>
                                                         </td>
@@ -208,7 +222,7 @@
                                                 </table>
                                                 <!--Items selected end-->
                                             </td>
-                                        </tr>                                     
+                                        </tr>
                                         <tr>
                                             <td height="20"></td>
                                         </tr>
@@ -230,8 +244,8 @@
                                                     <tr>
                                                         <td align="center" valign="top">
                                                             <table width="520" style="border-collapse: collapse;" cellpadding="0">
-                                                                <tr>                                                                   
-                                                                    <td  valign="middle" align="center" style="font-size: 12px; font-weight: bold; font-family: arial; color: #ffffff; text-decoration: none; ">                                                                                                                                               
+                                                                <tr>
+                                                                    <td valign="middle" align="center" style="font-size: 12px; font-weight: bold; font-family: arial; color: #ffffff; text-decoration: none; ">
                                                                         @SiteConfiguration.Phones <br />
                                                                         @SiteConfiguration.Address <br />
                                                                         <a style="font-size: 12px; font-weight: bold; font-family: arial; color: #ffffff; text-decoration: none; display: block;" href="@mailto">@SiteConfiguration.EmailSite</a>
@@ -262,11 +276,11 @@
             </table>
         </body>
     </html>
-    }
-    else
-    {
-        <center>
-            <h2 style="padding: 20px">Sorry! This order is not found!</h2>
-        </center>
-    }
+}
+else
+{
+    <center>
+        <h2 style="padding: 20px">Sorry! This order is not found!</h2>
+    </center>
+}
 }

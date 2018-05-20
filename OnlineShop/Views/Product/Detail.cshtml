@@ -16,7 +16,15 @@
             <div class="main_content_top main_content_top_cus1">
 
                 <div class="simpleLens-gallery-container main_col_left main_col_left_cus1">
-                    <img id="ViewImg" class="img-responsive" src="@Url.ImageProductLarge(Model.Image)" alt="">
+                    @{
+                        // setup image thumbnail
+                        string imagename = Url.ImageProductLarge(Model.Image);
+                        if (!System.IO.File.Exists(Path.Combine(Server.MapPath(imagename))))
+                        {
+                            imagename = Url.ImageProductLarge("coming-soon.jpg");
+                        }
+                    }
+                    <img id="ViewImg" class="img-responsive" src="@imagename" alt="">
                 </div>
 
                 <div class="main_col_right main_col_right_cus1">

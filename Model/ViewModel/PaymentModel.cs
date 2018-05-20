@@ -12,17 +12,60 @@ namespace Model.ViewModel
     {
         public List<CartItem> CartItems { get; set; }
         public Shipping ShippingDetail { get; set; }
-        public Payment PaymentDetail { get; set; }        
+        public Payment PaymentDetail { get; set; }
 
         public CartModel()
         {
             ShippingDetail = new Shipping();
             PaymentDetail = new Payment();
             CartItems = new List<CartItem>();
+
+        }
+        public void ClearCart()
+        {
+            CartItems.RemoveAll(r => r.isProduct == true);
+            CartItems.RemoveAll(r => r.isProduct == false);
+        }
+        public void DoPromotion()
+        {
+            if (CartItems.Count > 0)
+            {
+                var subtotal = CartItems.Where(w => w.isProduct == true).Sum(s => s.Price * s.Quantity);
+                var itemFreight = CartItems.FirstOrDefault(f => f.isProduct == false);
+                if (itemFreight != null)
+                {
+                    CartItems.Remove(itemFreight);
+                }
+                #region frieght
+                if (subtotal < 200000)
+                {
+                    var frieght = new CartItem();
+                    frieght.isProduct = false;
+                    frieght.Price = 0;
+                    frieght.ProductName = "Phí vận chuyển";
+                    frieght.ProductCode = "FRIEGHTCODE";
+                    frieght.Quantity = 1;
+                    CartItems.Add(frieght);
+                }
+                else
+                {
+                    var frieght = new CartItem();
+                    frieght.isProduct = false;
+                    frieght.Price = 0;
+                    frieght.ProductName = "Phí vận chuyển";
+                    frieght.ProductCode = "FREEFRIEGHT";
+                    frieght.Quantity = 1;
+                    CartItems.Add(frieght);
+                }
+                #endregion
+
+            }
         }
     }
+
     public class CartItem
     {
+        public string ProductCode { get; set; }
         public long ProductId { get; set; }
         public long ProductDetailId { get; set; }
         public string ProductName { set; get; }
@@ -31,10 +74,11 @@ namespace Model.ViewModel
         public decimal Price { get; set; }
         public int Quantity { set; get; }
         public bool isProduct { get; set; }
+
         public CartItem()
         {
             isProduct = true;
-            Quantity = 1;            
+            Quantity = 1;
         }
     }
 

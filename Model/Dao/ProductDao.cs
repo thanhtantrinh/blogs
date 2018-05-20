@@ -283,6 +283,11 @@ namespace Model.Dao
             return result;
           
         }
+        /// <summary>
+        /// Create a product new
+        /// </summary>
+        /// <param name="product"></param>
+        /// <returns></returns>
         public Product Add(ProductsView product)
         {
             Mapper.Initialize(cfg => cfg.CreateMap<ProductsView, Product>());
@@ -292,11 +297,11 @@ namespace Model.Dao
             result.ModifiedBy = 2;
             result.ModifiedDate = DateTime.Now;
             result.ViewCount = 0;
-            db.Products.Add(result);
+            result = db.Products.Add(result);
             db.SaveChanges();
 
             //save product detail info
-            if (product.ProductDetail.Count > 0)
+            if (product.ProductDetail.Count > 0 && result.Id>0)
             {
                 foreach (var prodetail in product.ProductDetail)
                 {
@@ -309,6 +314,7 @@ namespace Model.Dao
                             productDetail.ProductId = result.Id;
                             productDetail.Size = prodetail.ProductSize;
                             productDetail.Weight = prodetail.ProductWeight;
+                            productDetail.UnitOfWeight = prodetail.UnitOfWeight;
                             var price = db.ProductPrices.First(f => f.ProdetailId == productDetail.ProDetailId);
                             if (price == null)
                             {
@@ -332,7 +338,8 @@ namespace Model.Dao
                         ProductDetail prodetailNew = new ProductDetail();
                         prodetailNew.Size = prodetail.ProductSize;
                         prodetailNew.Weight = prodetail.ProductWeight;
-                        prodetailNew.ProductId = product.ID;
+                        prodetailNew.ProductId = result.Id;
+                        prodetailNew.UnitOfWeight = prodetail.UnitOfWeight;
                         db.ProductDetails.Add(prodetailNew);
                         db.SaveChanges();
 
