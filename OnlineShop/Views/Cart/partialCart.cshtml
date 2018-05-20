@@ -1,68 +1,96 @@
 ﻿@using Model.ViewModel
+@using OnlineShop.Helpers
 @model List<CartItem>
-@{ 
+@{
     decimal subtotal = 0;
+    var cartItems = new List<CartItem>();
     if (Model != null && Model.Count() > 0)
     {
-        subtotal = Model.Sum(s => s.Price * s.Quantity);
+        cartItems = Model.Where(w => w.isProduct == true).ToList();
+        subtotal = Model.Where(w => w.isProduct == true).Sum(s => s.Price * s.Quantity);
     }
 }
 @if (Model.Count > 0)
 {
     using (Html.BeginForm("Update", "Cart", FormMethod.Post, new { @class = "viewcart-box", role = "form" }))
     {
-            @Html.AntiForgeryToken()
-            <table class="CartDetail table">
-                <thead>
-                    <tr>
-                        <td align="center" colspan="2">Sản Phẩm</td>                                                
-                        <td align="center">Số lượng</td>
-                        <td align="center">Đơn giá</td>
-                        <td align="center">Thành tiền</td>
-                        <td width="50"></td>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        string link = Url.Action("Detail", "Product", new { id = item.ProductId, metatitle = item.ProductAlias });
+        @Html.AntiForgeryToken()
+        <div class="payment-info text-warning">
+            @SiteConfiguration.PaymentMethodInfo
+        </div>
+        <table class="CartDetail table">
+            <thead>
+                <tr>
+                    <td align="center" colspan="2">Sản Phẩm</td>
+                    <td align="center">Số lượng</td>
+                    <td align="center">Đơn giá</td>
+                    <td align="center">Thành tiền</td>
+                    <td width="50"></td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in cartItems)
+                {
+                    string link = Url.Action("Detail", "Product", new { id = item.ProductId, metatitle = item.ProductAlias });
 
-                        <tr class="cartItem">
-                            <td width="80"><img src="@Url.Content("~/Images/Products/min/" + item.ProductImage)" width="80" /></td>               
-                            <td align="left">
-                                <a href="@link" title="@item.ProductName">@item.ProductName</a>
-                            </td>
-                            <td align="center"><input type="number" name="quantity[]" class="Qty" data-id="@item.ProductId" value="@item.Quantity" /></td>
-                            <td align="right">@item.Price.ToString("N0")</td>
-                            <td align="right">@((item.Price * item.Quantity).ToString("N0"))</td>
-                            <td align="center"><a href="@Url.Action("Delete","Cart" ,new { Id=item.ProductId,ProductDetailId=item.ProductDetailId })" data-id="@item.ProductId" class="btn-delete"><i class="fa fa-trash"></i> </a></td>
-                        </tr>
-                    }              
-                    <tr>
-                        <td colspan="6" align="right" class="">
-                            <table class="table table-condensed total-result" width="250" style="width:280px;">
-                                <tr>
-                                    <td>Tiền hàng</td>
-                                    <td align="right">@subtotal.ToString("N0") VNĐ</td>
-                                </tr>
-                                <tr class="shipping-cost">
-                                    <td>Tiền vận chuyển</td>
-                                    <td align="right">0 VNĐ</td>
-                                </tr>
-                                <tr>
-                                    <td>Tổng</td>
-                                    <td align="right"><span>@subtotal.ToString("N0") VNĐ</span></td>
-                                </tr>                             
-                            </table>
-                        </td>                       
+                    <tr class="cartItem">
+                        <td width="80">
+                            @{
+                                // setup image thumbnail
+                                string imagename = Url.ImageProductMin(item.ProductImage);
+                                if (!System.IO.File.Exists(Path.Combine(Server.MapPath(imagename))))
+                                {
+                                    imagename = Url.ImageProductMin("coming-soon.jpg");
+                                }
+                            }
+                            <img src="@imagename" width="80" alt="@item.ProductName" />
+                        </td>
+                        <td align="left">
+                            <a href="@link" title="@item.ProductName">@item.ProductName</a>
+                        </td>
+                        <td align="center"><input type="number" name="quantity[]" class="Qty" data-id="@item.ProductId" value="@item.Quantity" /></td>
+                        <td align="right">@item.Price.ToString("N0")</td>
+                        <td align="right">@((item.Price * item.Quantity).ToString("N0"))</td>
+                        <td align="center"><a href="@Url.Action("Delete","Cart" ,new { Id=item.ProductId,ProductDetailId=item.ProductDetailId })" data-id="@item.ProductId" class="btn-delete"><i class="fa fa-trash"></i> </a></td>
                     </tr>
-                </tbody>
-            </table>
-            <div class="text-right">
-                <button id="btnUpdate" class="btn" type="submit">Cập nhật giỏ hàng</button>
-                <a href="@Url.Action("Payment","Cart")" id="btnPayment" class="btn btn-danger">Thanh toán</a>
-            </div>
-        }
+                }
+                <tr>
+                    <td colspan="6" align="right" class="">
+                        <table class="table table-condensed total-result" width="250" style="width:280px;">
+                            <tr>
+                                <td>Tiền hàng</td>
+                                <td align="right">@subtotal.ToString("N0") VNĐ</td>
+                            </tr>
+                            <tr class="shipping-cost">
+                                <td>Tiền vận chuyển</td>
+                                <td align="right">
+                                    @{
+                                        var freightOrder = Model.FirstOrDefault(f => f.isProduct == false);
+                                    }
+                                    @if (freightOrder != null && freightOrder.Price == 0 && subtotal>=SiteConfiguration.SubTotalFreeFreight)
+                                    {
+                                        <span>Miễn phí <sup>*</sup></span>
+                                    }
+                                    else
+                                    {
+                                        <span>Liên hệ</span>
+                                    }
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Tổng đơn hàng tạm tính</td>
+                                <td align="right"><span>@subtotal.ToString("N0") VNĐ</span></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="text-right">
+            <button id="btnUpdate" class="btn" type="submit">Cập nhật giỏ hàng</button>
+            <a href="@Url.Action("Payment","Cart")" id="btnPayment" class="btn btn-danger">Thanh toán</a>
+        </div>
+    }
 }
 else
 {

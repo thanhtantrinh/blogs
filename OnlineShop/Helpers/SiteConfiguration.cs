@@ -27,6 +27,8 @@ namespace OnlineShop.Helpers
         public static string Twitter { get; set; }
         public static string GooglePlus { get; set; }
 
+        public static string PaymentMethodInfo { get; set; }
+        public static decimal SubTotalFreeFreight { get; set; }
         public static string DbConnectionString { get; set; }
         //public static SqlConnection DbConnection { get; set; }
 
@@ -65,6 +67,8 @@ namespace OnlineShop.Helpers
                 Address = !String.IsNullOrWhiteSpace(catalogueView.Address) ? catalogueView.Address : "";
                 Phones = !String.IsNullOrWhiteSpace(catalogueView.Phones) ? catalogueView.Phones : "";
                 CatalogueId = catalogueView.Id;
+                PaymentMethodInfo = "Giao hàng miễn phí cho đơn hàng trên 200.000 vnđ và trong bán kính 3 km. Tính phí với đơn hàng nhỏ hơn 200.000 vnđ hay bán kính lớn hơn 3km";
+                SubTotalFreeFreight = 200000M;
                 //social netword
                 Facebook = !String.IsNullOrWhiteSpace(catalogueView.Facebook) ? catalogueView.Facebook : "";
                 Twitter = !String.IsNullOrWhiteSpace(catalogueView.Twitter) ? catalogueView.Twitter : "";

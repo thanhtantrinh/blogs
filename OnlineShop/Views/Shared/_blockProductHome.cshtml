@@ -20,7 +20,15 @@
                             <figure>
                                 <a href="@link" class="new-gri">
                                     <div class="grid-img">
-                                        <img src="@Url.Content("~/Images/Products/medium/" + item.Image) " class="img-responsive" alt="" height="223">
+                                        @{
+                                            // setup image thumbnail
+                                            string imagename = Url.ImageProductMedium(item.Image);
+                                            if (!System.IO.File.Exists(Path.Combine(Server.MapPath(imagename))))
+                                            {
+                                                imagename = Url.ImageProductMedium("coming-soon.jpg");
+                                            }
+                                        }
+                                        <img src="@imagename" class="img-responsive" alt="" height="223">
                                     </div>
                                 </a>
                             </figure>

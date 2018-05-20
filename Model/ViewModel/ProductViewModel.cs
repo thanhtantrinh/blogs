@@ -34,6 +34,7 @@ namespace Model.ViewModel
         public long PriceId { get; set; }
         public int PriceTypeId { get; set; }
         public string PriceTypeName { get; set; }
+        public string UnitOfWeight { get; set; }
         public ProductDetailModel()
         {
             ProductSize = "";
@@ -42,6 +43,7 @@ namespace Model.ViewModel
             PriceTypeId = 1;
             PriceId = 0;
             ProductDetailId = 0;
+            UnitOfWeight = "gram";
         }
     }
 

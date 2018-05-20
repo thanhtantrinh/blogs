@@ -237,7 +237,7 @@ namespace Model.Dao
 
         public ProductCategory ViewDetail(long id)
         {
-            return db.ProductCategories.Find(id);
+            return db.ProductCategories.FirstOrDefault(w=>w.ID==id);
         }
         public bool Delete(int id)
         {

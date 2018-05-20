@@ -1,12 +1,15 @@
 ﻿@using Model.ViewModel
+@using OnlineShop.Helpers
 @model List<CartItem>
-    @{ 
-        decimal subtotal = 0;
-        if (Model != null && Model.Count() > 0)
-        {
-            subtotal = Model.Sum(s => s.Price * s.Quantity);
-        }
+@{
+    decimal subtotal = 0;
+    var cartItems = new List<CartItem>();
+    if (Model != null && Model.Count() > 0)
+    {
+        cartItems = Model.Where(w => w.isProduct == true).ToList();
+        subtotal = Model.Where(w => w.isProduct == true).Sum(s => s.Price * s.Quantity);
     }
+}
 
 <div class="table-responsive cart_info">
 
@@ -22,14 +25,24 @@
                 </tr>
             </thead>
             <tbody>
-                @if (Model.Count > 0)
+                @if (cartItems.Count > 0)
                 {
-                    foreach (var item in Model)
+                    foreach (var item in cartItems)
                     {
                         string link = Url.Action("Detail", "Product", new { id = item.ProductId, metatitle = item.ProductAlias });
                         <tr>
                             <td class="cart_product" align="center">
-                                <a href="@link" title="@item.ProductName"><img src="@Url.Content("~/Images/Products/min/" + item.ProductImage)" alt="@item.ProductName"></a>
+                                <a href="@link" title="@item.ProductName">
+                                    @{
+                                        // setup image thumbnail
+                                        string imagename = Url.ImageProductMin(item.ProductImage);
+                                        if (!System.IO.File.Exists(Path.Combine(Server.MapPath(imagename))))
+                                        {
+                                            imagename = Url.ImageProductMin("coming-soon.jpg");
+                                        }
+                                    }
+                                    <img src="@imagename" alt="@item.ProductName" width="80">
+                                </a>
                             </td>
                             <td class="cart_description" align="left">
                                 <a href="@link" title="@item.ProductName">@item.ProductName</a>
@@ -57,10 +70,24 @@
                                 </tr>
                                 <tr class="shipping-cost">
                                     <td>Tiền vận chuyển</td>
-                                    <td align="right">0 VNĐ</td>
+                                    <td align="right">
+                                        @{ 
+                                            var freightOrder = Model.FirstOrDefault(f => f.isProduct == false);
+                                            
+                                        }
+                                        @if (freightOrder !=null && freightOrder.Price == 0 && subtotal>=SiteConfiguration.SubTotalFreeFreight)
+                                        {
+                                            <span>Miễn phí <sub>*</sub></span>
+                                        }
+                                        else
+                                        {
+                                            <span>Liên hệ</span>
+                                        }
+
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td>Tổng</td>
+                                    <td>Tổng đơn hàng tạm tính</td>
                                     <td align="right"><span>@subtotal.ToString("N0") VNĐ</span></td>
                                 </tr>
                                 <tr>

@@ -68,6 +68,7 @@ namespace OnlineShop.Controllers
                 Items.Remove(ItemDelete);
                 cart.CartItems = Items;
             }
+            cart.DoPromotion();
             return RedirectToAction("Index");
         }
 
@@ -93,7 +94,7 @@ namespace OnlineShop.Controllers
             if (cart.CartItems.Count > 0)
             {
                 int step = 0;
-                List<CartItem> Items = cart.CartItems;
+                List<CartItem> Items = cart.CartItems.Where(w=>w.isProduct==true).ToList();
                 foreach (var item in Items)
                 {
                     if (quantity[step] > 0)
@@ -104,6 +105,7 @@ namespace OnlineShop.Controllers
                 }
                 cart.CartItems = Items;
             }
+            cart.DoPromotion();
             return RedirectToAction("Index");
         }
 
@@ -148,6 +150,7 @@ namespace OnlineShop.Controllers
                 item.ProductDetailId = ProductDetailId;
                 cart.CartItems.Add(item);
             }
+            cart.DoPromotion();
             return RedirectToAction("Detail", "Product", new { ID = ID, ProductDetailId= ProductDetailId });
         }
 
@@ -180,7 +183,7 @@ namespace OnlineShop.Controllers
                     orderModel = _orderRepo.CreateOrder(orderModel, out message);
                     if (String.IsNullOrWhiteSpace(message)&& orderModel != null)
                     {
-                        cart.CartItems.RemoveAll(r=>r.ProductId>0);
+                        cart.ClearCart();
                         return RedirectToAction("OrderConfirmation", new { ordernumber = orderModel.OrderId, send = true });
                     }                        
                 }

@@ -154,11 +154,11 @@
     <value>Thông tin cấu hình website được cập nhật thành công</value>
   </data>
   <data name="SRC_CONTENT_IMAGE_DIR" xml:space="preserve">
-    <value>~/Content/Images/{0}</value>
+    <value>Content/Images/{0}</value>
     <comment>URL Src</comment>
   </data>
   <data name="SRC_IMAGES_DIR" xml:space="preserve">
-    <value>~/Images/{0}</value>
+    <value>Images/{0}</value>
     <comment>URL Src</comment>
   </data>
   <data name="SRC_IMAGES_PRODUCT_LARGE" xml:space="preserve">

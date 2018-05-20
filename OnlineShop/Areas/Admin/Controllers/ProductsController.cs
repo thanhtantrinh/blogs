@@ -74,7 +74,7 @@ namespace OnlineShop.Areas.Admin.Controllers
             {
                 var DAO = new ProductDao();
                 var result = DAO.Add(product);
-                if (result.Id>0)
+                if (result.Id > 0)
                 {
                     if (product.Images != null && !String.IsNullOrWhiteSpace(product.Images.FileName))
                     {
@@ -126,7 +126,7 @@ namespace OnlineShop.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public ActionResult Edit(long id=0)
+        public ActionResult Edit(long id = 0)
         {
             if (id > 0)
             {
@@ -201,7 +201,7 @@ namespace OnlineShop.Areas.Admin.Controllers
             return RedirectToAction("Edit", new { id = product.ID });
 
         }
-                        
+
         [HttpGet]
         public ActionResult CreateProductDetail(long ProductId = 0)
         {
@@ -280,6 +280,73 @@ namespace OnlineShop.Areas.Admin.Controllers
                 actionStatus.ErrorReason = String.Format(SiteResource.HTML_ALERT_ERROR, actionStatus.ShowErrorStrings());
                 Session["ACTION_STATUS"] = actionStatus;
             }
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult ImportProduct()
+        {
+            List<ProductsView> products = new List<ProductsView>();
+            try
+            {
+                //Read the contents of CSV file.
+                string filePath = string.Empty;
+                string path = Server.MapPath("~/App_Data/");
+
+                filePath = path + Path.GetFileName("data-sql.csv");
+
+                string csvData = System.IO.File.ReadAllText(filePath);
+                var DAO = new ProductDao();
+                
+                //Execute a loop over the rows.
+                foreach (string row in csvData.Split('\n'))
+                {
+                    if (!string.IsNullOrEmpty(row))
+                    {
+                        string productName = row.Split(',')[0];
+                        double price = Convert.ToInt64(row.Split(',')[1]);
+                        double weight = Convert.ToInt32(row.Split(',')[3]);
+
+                        var proDetails = new List<ProductDetailModel>();
+                        proDetails.Add(new ProductDetailModel() { ProductPrice = price, ProductWeight = weight, PriceTypeId = 1 });
+
+                        products.Add(new ProductsView
+                        {
+                            Name = productName,
+                            MetaTitle = StringHelper.ToUnsignString(productName.Trim().ToLower()),
+                            ProductDetail = proDetails,
+                            CategoryID = Convert.ToInt32(row.Split(',')[2]),
+                            CatalogueId = SiteConfiguration.CatalogueId,
+                            Language = Session[CommonConstants.CurrentCulture].ToString(),
+                            Description = "",
+                            Detail = "",
+                            Status = nameof(StatusEntity.Active),
+                            CreatedBy = 2,
+                            CreatedDate = DateTime.Now,
+                            ModifiedBy = 2,
+                            ModifiedDate = DateTime.Now,
+                            ViewCount = 0,
+
+                        });
+                    }
+                }
+
+                bool isTesing = false;
+                if (products.Count>0 && !isTesing)
+                {
+                    foreach (var item in products)
+                    {
+                        var result = DAO.Add(item);
+                    }
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                string msg = ex.Message;                
+            }
+            
+            //return View(products);
+
             return RedirectToAction("Index");
         }
     }

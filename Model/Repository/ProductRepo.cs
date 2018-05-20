@@ -120,7 +120,16 @@ namespace Model.Repository
 
                 if (filter.CategoryId > 0)
                 {
-                    model = model.Where(x => x.CategoryId == filter.CategoryId);
+                    //category have be parent catagory
+                    var parentCategory = entities.ProductCategories.Where(w => w.ParentID == filter.CategoryId).Select(s=>s.ID).ToList();
+                    if (parentCategory.Count>0)
+                    {
+                        model = model.Where(x => parentCategory.Contains(x.CategoryId));
+                    }
+                    else
+                    {
+                        model = model.Where(x => x.CategoryId == filter.CategoryId);
+                    }             
                 }
 
                 if (filter.Status.Count()>0)
