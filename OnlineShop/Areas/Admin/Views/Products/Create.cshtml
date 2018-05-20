@@ -1,5 +1,6 @@
 ﻿@using OnlineShop.Helpers
 @using Common
+@using ModelExtentions = Model.Extension
 @model Model.ViewModel.ProductsView
 @{
     ViewBag.Title = "Edit";
@@ -35,21 +36,21 @@
                         <div class="form-horizontal">
                             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                             @if (actionStaus != null && !String.IsNullOrWhiteSpace(actionStaus.ErrorReason))
-    {
-                        <div class="row">
-                            <div class="col-sm-12">
-                                @if (actionStaus.ActionStatus == ResultSubmit.failed)
-        {
-                        @Html.Raw(actionStaus.ErrorReason);
-}
-else
-{
-                        @Html.Raw(actionStaus.ErrorReason);
-}
-                            </div>
-                        </div>
-Session["ACTION_STATUS"] = null;
-}
+                            {
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        @if (actionStaus.ActionStatus == ResultSubmit.failed)
+                                        {
+                                            @Html.Raw(actionStaus.ErrorReason);
+                                        }
+                                        else
+                                        {
+                                            @Html.Raw(actionStaus.ErrorReason);
+                                        }
+                                    </div>
+                                </div>
+                                Session["ACTION_STATUS"] = null;
+                            }
                             <ul class="nav nav-tabs" role="tablist">
                                 <li role="presentation" class="active"><a href="#tabproduct" aria-controls="tabproduct" role="tab" data-toggle="tab">Sản phẩm</a></li>
                                 <li role="presentation"><a href="#tabimages" aria-controls="tabimages" role="tab" data-toggle="tab">Hình ảnh</a></li>
@@ -79,7 +80,7 @@ Session["ACTION_STATUS"] = null;
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.CategoryID, htmlAttributes: new { @class = "control-label col-md-2" })
                                         <div class="col-md-10">
-                                            @Html.DropDownListFor(model => model.CategoryID, ListExtensions.CategoryList, new { @class = "form-control " })
+                                            @Html.DropDownListFor(model => model.CategoryID, ModelExtentions.ListExtensions.CategoriesByCatalogueId(SiteConfiguration.CatalogueId), new { @class = "form-control " })
                                             @Html.ValidationMessageFor(model => model.CategoryID, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
@@ -93,30 +94,30 @@ Session["ACTION_STATUS"] = null;
                                     </div>
 
                                     @for (int i = 0; i < Model.ProductDetail.Count; i++)
-            {
-                        <div class="form-group box-prodetail" data-prodetail="">
+                                    {
+                                        <div class="form-group box-prodetail" data-prodetail="">
 
-                            @Html.LabelFor(m => m.ProductDetail[i].ProductPrice, new { @class = "control-label col-md-3" })
-                            <div class="col-md-2">
-                                @Html.TextBoxFor(m => m.ProductDetail[i].ProductPrice, new { @class = "form-control" })
-                            </div>
-                            @Html.LabelFor(m => m.ProductDetail[i].ProductWeight, new { @class = "control-label col-md-2" })
-                            <div class="col-md-2">
-                                @Html.TextBoxFor(m => m.ProductDetail[i].ProductWeight, new { @class = "form-control" })
-                            </div>
-                            <div class="col-md-1">
-                                <a href="@Url.Action("DeleteProductDetail", new {prodetailId= Model.ProductDetail[i].ProductDetailId })" class="btn btn-default">Xóa</a>
-                            </div>
-                        </div>
-                        @Html.HiddenFor(m => m.ProductDetail[i].PriceId)
-                        @Html.HiddenFor(m => m.ProductDetail[i].ProductDetailId)
-}
+                                            @Html.LabelFor(m => m.ProductDetail[i].ProductPrice, new { @class = "control-label col-md-3" })
+                                            <div class="col-md-2">
+                                                @Html.TextBoxFor(m => m.ProductDetail[i].ProductPrice, new { @class = "form-control" })
+                                            </div>
+                                            @Html.LabelFor(m => m.ProductDetail[i].ProductWeight, new { @class = "control-label col-md-2" })
+                                            <div class="col-md-2">
+                                                @Html.TextBoxFor(m => m.ProductDetail[i].ProductWeight, new { @class = "form-control" })
+                                            </div>
+                                            <div class="col-md-1">
+                                                <a href="@Url.Action("DeleteProductDetail", new {prodetailId= Model.ProductDetail[i].ProductDetailId })" class="btn btn-default">Xóa</a>
+                                            </div>
+                                        </div>
+                                        @Html.HiddenFor(m => m.ProductDetail[i].PriceId)
+                                        @Html.HiddenFor(m => m.ProductDetail[i].ProductDetailId)
+                                    }
 
                                     @*<div class="form-group">
-                    <div class="col-md-offset-3 col-md-6">
-                        <a href="@Url.Action("CreateProductDetail",new {ProductId= Model.ID})" class="btn btn-default btn-sm">Thêm Trọng lượng và giá</a>
-                    </div>
-                </div>*@
+                                            <div class="col-md-offset-3 col-md-6">
+                                                <a href="@Url.Action("CreateProductDetail",new {ProductId= Model.ID})" class="btn btn-default btn-sm">Thêm Trọng lượng và giá</a>
+                                            </div>
+                                        </div>*@
 
                                 </div>
                                 <div role="tabpanel" class="tab-pane" id="tabimages">

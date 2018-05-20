@@ -128,7 +128,7 @@
                                 <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">
                                     @if (Model != null && Model.Count > 0)
                                     {
-                                        @Html.PagedListPager(Model, page => Url.Action("CategoryList", new { page }))
+                                        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
                                     }
                                 </div>
                             </div>

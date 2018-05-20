@@ -45,7 +45,7 @@
 
                         <ul class="nav nav-tabs" role="tablist">
                             <li role="presentation" class="active"><a href="#tabproduct" aria-controls="tabproduct" role="tab" data-toggle="tab">Sản phẩm</a></li>
-                            @*<li role="presentation"><a href="#tabprices" aria-controls="tabprices" role="tab" data-toggle="tab">Giá và Trọng lượng</a></li>*@                           
+                            @*<li role="presentation"><a href="#tabprices" aria-controls="tabprices" role="tab" data-toggle="tab">Giá và Trọng lượng</a></li>*@
                             <li role="presentation"><a href="#tabdetail" aria-controls="tabdetail" role="tab" data-toggle="tab">Mô tả</a></li>
                             <li role="presentation"><a href="#tabimages" aria-controls="tabimages" role="tab" data-toggle="tab">Hình ảnh</a></li>
                         </ul>
@@ -88,22 +88,22 @@
 
                                 @for (int i = 0; i < Model.ProductDetail.Count; i++)
                                 {
-                                                            <div class="form-group box-prodetail" data-prodetail="">
+                                    <div class="form-group box-prodetail" data-prodetail="">
 
-                                                                @Html.LabelFor(m => m.ProductDetail[i].ProductPrice, new { @class = "control-label col-md-3" })
-                                                                <div class="col-md-2">
-                                                                    @Html.TextBoxFor(m => m.ProductDetail[i].ProductPrice, new { @class = "form-control" })
-                                                                </div>
-                                                                @Html.LabelFor(m => m.ProductDetail[i].ProductWeight, new { @class = "control-label col-md-2" })
-                                                                <div class="col-md-2">
-                                                                    @Html.TextBoxFor(m => m.ProductDetail[i].ProductWeight, new { @class = "form-control" })
-                                                                </div>
-                                                                <div class="col-md-1">
-                                                                    <a href="@Url.Action("DeleteProductDetail", new {prodetailId= Model.ProductDetail[i].ProductDetailId })" class="btn btn-default">Xóa</a>
-                                                                </div>
-                                                            </div>
-                                                            @Html.HiddenFor(m => m.ProductDetail[i].PriceId)
-                                                            @Html.HiddenFor(m => m.ProductDetail[i].ProductDetailId)
+                                        @Html.LabelFor(m => m.ProductDetail[i].ProductPrice, new { @class = "control-label col-md-3" })
+                                        <div class="col-md-2">
+                                            @Html.TextBoxFor(m => m.ProductDetail[i].ProductPrice, new { @class = "form-control" })
+                                        </div>
+                                        @Html.LabelFor(m => m.ProductDetail[i].ProductWeight, new { @class = "control-label col-md-2" })
+                                        <div class="col-md-2">
+                                            @Html.TextBoxFor(m => m.ProductDetail[i].ProductWeight, new { @class = "form-control" })
+                                        </div>
+                                        <div class="col-md-1">
+                                            <a href="@Url.Action("DeleteProductDetail", new {prodetailId= Model.ProductDetail[i].ProductDetailId })" class="btn btn-default">Xóa</a>
+                                        </div>
+                                    </div>
+                                    @Html.HiddenFor(m => m.ProductDetail[i].PriceId)
+                                    @Html.HiddenFor(m => m.ProductDetail[i].ProductDetailId)
                                 }
 
                                 <div class="form-group">
@@ -123,7 +123,7 @@
                                         <img src="@Url.ImageProductSmall(Model.Image)" alt="Alternate Text" />
                                     </div>
                                     <div class="col-md-9">
-                                        @*@Html.TextBoxFor(model => model.Images, new { htmlAttributes = new { @class = "form-control" }, id = "txtImage" })*@                                        
+                                        @*@Html.TextBoxFor(model => model.Images, new { htmlAttributes = new { @class = "form-control" }, id = "txtImage" })*@
                                         <div class="input-group">
                                             <div class="input-group-btn group">
                                                 <a class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title=""><i class="fa fa-eye"></i></a>
@@ -138,7 +138,7 @@
                             </div>
 
                             <div role="tabpanel" class="tab-pane" id="tabdetail">
-         
+
                                 <div class="form-group">
                                     @*@Html.LabelFor(model => model.Detail, new { @class = "control-label col-md-12" })*@
                                     <div class="col-md-12">

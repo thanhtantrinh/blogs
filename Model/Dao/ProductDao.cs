@@ -193,7 +193,7 @@ namespace Model.Dao
                     {
                         item.MetaTitle = StringHelper.ToUnsignString(product.MetaTitle.Trim().ToLower());
                     }
-
+                    item.CatalogueId = product.CatalogueId;
                     item.Price = product.ProductPrice;
                     item.PromotionPrice = product.PromotionPrice;
                     item.Quantity = product.Quantity;
@@ -203,7 +203,7 @@ namespace Model.Dao
                     item.Status = product.Status;
                     item.MetaDescriptions = product.MetaDescriptions;
                     item.MetaKeywords = product.MetaKeywords;
-                    item.ModifiedBy = 2;
+                    item.ModifiedBy = product.ModifiedBy;
                     item.ModifiedDate = DateTime.Now;
                     item.CategoryId = product.CategoryID;
                     item.Code = product.CategoryID.ToString() + "-" + item.Id.ToString();
@@ -297,6 +297,8 @@ namespace Model.Dao
             result.ModifiedBy = 2;
             result.ModifiedDate = DateTime.Now;
             result.ViewCount = 0;
+            result.CategoryId = product.CategoryID;
+            result.CatalogueId = product.CatalogueId;
             result = db.Products.Add(result);
             db.SaveChanges();
 

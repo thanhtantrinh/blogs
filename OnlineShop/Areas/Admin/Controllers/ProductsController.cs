@@ -73,6 +73,7 @@ namespace OnlineShop.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 var DAO = new ProductDao();
+                product.CatalogueId = SiteConfiguration.CatalogueId;
                 var result = DAO.Add(product);
                 if (result.Id > 0)
                 {
@@ -158,6 +159,10 @@ namespace OnlineShop.Areas.Admin.Controllers
                     ImageHelper.CreateThumbnail(80, 80, path, Server.MapPath("~/Images/Products/min/"));
                     ImageHelper.CreateThumbnail(500, 500, path, Server.MapPath("~/Images/Products/medium/"));
                 }
+                product.CatalogueId = SiteConfiguration.CatalogueId;
+                product.ModifiedBy = CurrentUser.UserID;
+                //product.ModifiedDate = DateTime.Now;
+
                 var result = DAO.Update(product);
                 if (result)
                 {
@@ -292,7 +297,7 @@ namespace OnlineShop.Areas.Admin.Controllers
                 string filePath = string.Empty;
                 string path = Server.MapPath("~/App_Data/");
 
-                filePath = path + Path.GetFileName("data-sql.csv");
+                filePath = path + Path.GetFileName("thuc-pham-chay-truyen-thong.csv");
 
                 string csvData = System.IO.File.ReadAllText(filePath);
                 var DAO = new ProductDao();
