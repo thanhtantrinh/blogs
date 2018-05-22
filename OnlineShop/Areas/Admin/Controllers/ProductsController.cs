@@ -42,14 +42,6 @@ namespace OnlineShop.Areas.Admin.Controllers
                 Session["ProductFilter"] = new ProductFilter();
             return RedirectToAction("Index");
         }
-        // GET: Admin/Product/Details/5
-        public ActionResult Details(int id)
-        {
-            var DAO = new ProductDao();
-            var model = DAO.Find(id);
-
-            return View(model);
-        }
 
         // GET: Admin/Product/Create
         public ActionResult Create()
@@ -69,7 +61,6 @@ namespace OnlineShop.Areas.Admin.Controllers
             actionStatus.ActionStatus = ResultSubmit.failed;
             string errorString = "";
             bool IsValid = true;
-
             if (ModelState.IsValid)
             {
                 var DAO = new ProductDao();
@@ -129,18 +120,45 @@ namespace OnlineShop.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult Edit(long id = 0)
         {
+            var actionStatus = new ActionResultHelper();
+            actionStatus.ActionStatus = ResultSubmit.failed;
+            bool IsValid = true;   
+            string message = String.Empty;
+            ProductsView model = new ProductsView();
             if (id > 0)
             {
-                var model = DAO.Find(id);
-                return View(model);
+                model = DAO.Find(id);
+                if (model==null)
+                {
+                    IsValid = false;
+                    actionStatus.ErrorStrings.Add(Resources.MSG_THE_PRODUCT_HAS_NOT_FOUND);
+                    goto actionError;
+                }
+                else
+                {
+                    ViewBag.Title = String.Format(Resources.LABEL_UPDATE, model.Name);
+                    return View(model);
+                }
             }
-            return RedirectToAction("Index");
+            else
+            {
+                IsValid = false;
+                actionStatus.ErrorStrings.Add(Resources.MSG_THE_PRODUCT_HAS_NOT_FOUND);
+                goto actionError;
+            }
+            actionError:
+            if (!IsValid)
+            {
+                actionStatus.ErrorReason = String.Format(SiteResource.HTML_ALERT_ERROR, actionStatus.ShowErrorStrings());
+                Session[SessionName.ActionStatusLog] = actionStatus;
+            }
+            return View(model);
         }
 
         [HttpPost]
         [ValidateInput(false)]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(ProductsView product)
+        public ActionResult Edit(ProductsView product, string saveclose, string savenew)
         {
             var actionStatus = new ActionResultHelper();
             actionStatus.ActionStatus = ResultSubmit.failed;
@@ -169,7 +187,15 @@ namespace OnlineShop.Areas.Admin.Controllers
                     actionStatus.ErrorReason = String.Format(SiteResource.HTML_ALERT_SUCCESS, SiteResource.MSG_THE_PRODUCT_HAS_BEEN_UPDATED);
                     actionStatus.ActionStatus = ResultSubmit.success;
                     Session["ACTION_STATUS"] = actionStatus;
-                    return RedirectToAction("Index");
+
+                    if (!String.IsNullOrEmpty(saveclose))
+                        return RedirectToAction("Index");
+                    else if (!String.IsNullOrWhiteSpace(savenew))
+                        return RedirectToAction("Create");
+                    else
+                        return RedirectToAction("Edit", new { Id = product.ID });
+
+                    //return RedirectToAction("Index");
                 }
                 else
                 {
@@ -210,10 +236,53 @@ namespace OnlineShop.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult CreateProductDetail(long ProductId = 0)
         {
-            DAO.CreateGetProductDetail(ProductId);
-            return RedirectToAction("Edit", new { id = ProductId });
+            var actionStatus = new ActionResultHelper();
+            actionStatus.ActionStatus = ResultSubmit.failed;
+            bool IsValid = true;
+            if (ProductId > 0)
+            {
+                DAO.CreateGetProductDetail(ProductId);
+                return RedirectToAction("Edit", new { id = ProductId });
+            }
+            else
+            {
+                IsValid = false;
+                actionStatus.ErrorStrings.Add(Resources.MSG_THE_PRODUCT_HAS_NOT_FOUND);
+                goto actionError;
+            }
+            actionError:
+            if (!IsValid)
+            {
+                actionStatus.ErrorReason = String.Format(SiteResource.HTML_ALERT_ERROR, actionStatus.ShowErrorStrings());
+                Session[SessionName.ActionStatusLog] = actionStatus;
+            }
+            return RedirectToAction("Index");
         }
-
+        [HttpGet]
+        public ActionResult DeleteProductDetail(long ProductId = 0)
+        {
+            var actionStatus = new ActionResultHelper();
+            actionStatus.ActionStatus = ResultSubmit.failed;
+            bool IsValid = true;
+            if (ProductId > 0)
+            {
+                DAO.DeleteProductDeteail(ProductId);
+                return RedirectToAction("Edit", new { id = ProductId });
+            }
+            else
+            {
+                IsValid = false;
+                actionStatus.ErrorStrings.Add(Resources.MSG_THE_PRODUCT_HAS_NOT_FOUND);
+                goto actionError;
+            }
+            actionError:
+            if (!IsValid)
+            {
+                actionStatus.ErrorReason = String.Format(SiteResource.HTML_ALERT_ERROR, actionStatus.ShowErrorStrings());
+                Session[SessionName.ActionStatusLog] = actionStatus;
+            }
+            return RedirectToAction("Index");
+        }
         public void SetViewBag(long? selectedId = null)
         {
             var dao = new ProductCategoryDao();

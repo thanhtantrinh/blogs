@@ -122,7 +122,7 @@
                                 </div>
                                 <div role="tabpanel" class="tab-pane" id="tabimages">
                                     <div class="form-group">
-                                        @Html.LabelFor(model => model.Images, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        @Html.LabelFor(model => model.Images, new { @class = "control-label col-md-2" })
                                         <div class="col-md-10">
                                             @*@Html.EditorFor(model => model.Images, new { htmlAttributes = new { @class = "form-control" }, id = "txtImage" })*@
                                             @Html.ValidationMessageFor(model => model.Images, "", new { @class = "text-danger" })
@@ -132,7 +132,9 @@
                                                     <a class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title=""><i class="fa fa-eye"></i></a>
                                                 </div>
 
-                                                @Html.TextBoxFor(model => model.Images, new { @class = "form-control", @id = "txtImage" })
+                                                @*@Html.TextBoxFor(model => model.Images, new { @class = "form-control", @id = "txtImage" })*@
+                                                @Html.TextBoxFor(model => model.Images, new { @class = "form-control", @id = "txtImage", type = "file" })
+
                                                 <div class="input-group-btn">
                                                     <a id="btnSelectImage" class="btn btn-default" href="#"><i class="fa fa-image"></i> Chọn</a>
                                                     <a id="btnRemoveImage" class="btn btn-default" href="#" data-toggle="tooltip" data-placement="top" title="Clear"><i class="fa fa-remove"></i></a>
@@ -148,7 +150,7 @@
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.Detail, htmlAttributes: new { @class = "control-label col-md-2" })
                                         <div class="col-md-10">
-                                            @Html.TextAreaFor(model => model.Detail, new { htmlAttributes = new { @class = "form-control" }, id = "txtContent" })
+                                            @Html.TextAreaFor(model => model.Detail, new { @class = "form-control", id = "txtContent" } )
                                             @Html.ValidationMessageFor(model => model.Detail, "", new { @class = "text-danger" })
                                         </div>
                                     </div>

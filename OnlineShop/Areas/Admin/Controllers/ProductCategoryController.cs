@@ -19,9 +19,9 @@ namespace OnlineShop.Areas.Admin.Controllers
     [AuthLog(Roles = UserRoles.Admin)]
     public class ProductCategoryController : BaseController
     {
-        
+
         // GET: Admin/ProductCategory
-        public ActionResult Index(int? page, int pageSize = 20, string sortBy="")
+        public ActionResult Index(int? page, int pageSize = 20, string sortBy = "")
         {
             //var dao = new ProductCategoryDao();      
             //var model = dao.ListAllPaging(searchString, page, pageSize, catId);
@@ -32,7 +32,7 @@ namespace OnlineShop.Areas.Admin.Controllers
                 Session["ProductCategoryFilter"] = filter;
             }
             filter.CatalogueId = SiteConfiguration.CatalogueId;
-            var result = _proCatRepo.GetCategoriesPaging(filter, page??1, pageSize, sortBy);
+            var result = _proCatRepo.GetCategoriesPaging(filter, page ?? 1, pageSize, sortBy);
             ViewBag.Filter = filter;
             return View(result);
         }
@@ -44,7 +44,7 @@ namespace OnlineShop.Areas.Admin.Controllers
                 Session["ProductCategoryFilter"] = filter;
             else
                 Session["ProductCategoryFilter"] = new ProductCategoryFilter();
-            
+
             return RedirectToAction("Index");
         }
 
@@ -113,7 +113,7 @@ namespace OnlineShop.Areas.Admin.Controllers
             if (!IsValid)
             {
                 actionStatus.ErrorReason = String.Format(SiteResource.HTML_ALERT_ERROR, Resources.MSG_ERROR_ENTER_DATA_FOR_FORM + actionStatus.ShowErrorStrings());
-                Session["ACTION_STATUS"] = actionStatus;
+                Session[SessionName.ActionStatusLog] = actionStatus;
             }
 
             ViewBag.Title = Resources.MSG_THE_PRODUCT_CATEGORY_HAS_CREATED_UNSUCCESSFULLLY;
@@ -122,31 +122,98 @@ namespace OnlineShop.Areas.Admin.Controllers
         }
 
         // GET: Admin/ProductCategory/Edit/5
+        [HttpGet]
         public ActionResult Edit(long id)
         {
+            var actionStatus = new ActionResultHelper();
+            actionStatus.ActionStatus = ResultSubmit.failed;
+            bool IsValid = true;          
             var dao = new ProductCategoryDao();
-            var model = dao.Find(id);
-            this.SetViewBag();
+            ProductCategoryView model = new ProductCategoryView();
+            if (id > 0)
+            {                      
+                model = dao.Find(id);
+                if (model == null)
+                {
+                    IsValid = false;
+                    actionStatus.ErrorStrings.Add(Resources.MSG_THE_PRODUCT_CATEGORY_HAS_NOT_FOUND);
+                    goto actionError;
+                }
+                else
+                {
+                    ViewBag.Title = String.Format(Resources.LABEL_UPDATE, model.Name);
+                    return View(model);
+                }
+            }
+            else
+            {
+                IsValid = false;
+                actionStatus.ErrorStrings.Add(Resources.MSG_THE_PRODUCT_CATEGORY_HAS_NOT_FOUND);
+                goto actionError;
+            }
+            actionError:
+            if (!IsValid)
+            {
+                actionStatus.ErrorReason = String.Format(SiteResource.HTML_ALERT_ERROR, actionStatus.ShowErrorStrings());
+                Session[SessionName.ActionStatusLog] = actionStatus;
+            }
+            
             return View(model);
         }
 
         // POST: Admin/ProductCategory/Edit/5
         [HttpPost]
-        public ActionResult Edit(ProductCategoryView model)
+        public ActionResult Edit(ProductCategoryView model, string saveclose, string savenew)
         {
-            try
+
+            var actionStatus = new ActionResultHelper();
+            actionStatus.ActionStatus = ResultSubmit.failed;
+            string message = String.Empty;
+            bool IsValid = true;
+
+            // TODO: Add update logic here
+            if (ModelState.IsValid)
             {
-                // TODO: Add update logic here
+                model.Language = currentCulture.ToString();
+                model.ModifiedBy = CurrentUser.UserID;
+                model.CatalogueId = SiteConfiguration.CatalogueId;
+                var result = _proCatRepo.Edit(model, out message);
                 var dao = new ProductCategoryDao();
                 Mapper.Initialize(cfg => cfg.CreateMap<ProductCategoryView, ProductCategory>());
                 var data = Mapper.Map<ProductCategoryView, ProductCategory>(model);
-                dao.Update(data);
-                return RedirectToAction("Index");
+                if (result!=null&& String.IsNullOrEmpty(message))
+                {
+                    actionStatus.ActionStatus = ResultSubmit.success;
+                    actionStatus.ErrorReason = String.Format(SiteResource.HTML_ALERT_SUCCESS, Resources.MSG_THE_PRODUCT_CATEGORY_HAS_UPDATED_SUCCESSFULLLY);
+                    Session[SessionName.ActionStatusLog] = actionStatus;
+                    if (!String.IsNullOrEmpty(saveclose))
+                        return RedirectToAction("Index");
+                    else if (!String.IsNullOrWhiteSpace(savenew))
+                        return RedirectToAction("Create");
+                    else
+                        return RedirectToAction("Edit", new { Id = model.ID });
+                }
+                else
+                {
+                    actionStatus.ErrorReason = String.Format(SiteResource.HTML_ALERT_ERROR, Resources.MSG_THE_PRODUCT_CATEGORY_HAS_UPDATED_UNSUCCESSFULLLY);
+                    Session[SessionName.ActionStatusLog] = actionStatus;
+                    return RedirectToAction("Index");
+                }
             }
-            catch(Exception ex)
+            else
             {
-                return View();
+                IsValid = false;
+                goto actionError;
             }
+
+            actionError:
+            if (!IsValid)
+            {
+                actionStatus.ErrorReason = String.Format(SiteResource.HTML_ALERT_ERROR, Resources.MSG_ERROR_ENTER_DATA_FOR_FORM + actionStatus.ShowErrorStrings());
+                Session[SessionName.ActionStatusLog] = actionStatus;
+            }
+
+            return View(model);
         }
 
         // GET: Admin/ProductCategory/Delete/5

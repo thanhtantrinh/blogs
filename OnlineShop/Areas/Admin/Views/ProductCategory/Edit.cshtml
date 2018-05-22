@@ -87,7 +87,12 @@
 
                             <div class="form-group">
                                 <div class="col-md-offset-2 col-md-10">
-                                    <input type="submit" value="Save" class="btn btn-default" />
+                                    <div class="input-group-btn">
+                                        <input type="submit" value="Lưu lại" class="btn btn-default" name="save" />
+                                        <input type="submit" value="Lưu và Đóng" class="btn btn-primary" name="saveclose" />
+                                        <input type="submit" value="Lưu và Tạo mới" class="btn btn-primary" name="savenew" />
+                                        <a class="btn btn-warning" onclick="window.location.reload();">Reset</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>

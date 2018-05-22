@@ -120,7 +120,15 @@
                                 <div class="form-group">
                                     @*@Html.LabelFor(model => model.Images, new { @class = "control-label col-md-3" })*@
                                     <div class="col-md-3">
-                                        <img src="@Url.ImageProductSmall(Model.Image)" alt="Alternate Text" />
+                                        @{
+                                            // setup image thumbnail
+                                            string imagename = Url.ImageProductMin(Model.Image);
+                                            if (!System.IO.File.Exists(Path.Combine(Server.MapPath(imagename))))
+                                            {
+                                                imagename = Url.ImageProductMin("coming-soon.jpg");
+                                            }
+                                        }
+                                        <img src="@imagename" alt="@Model.Name" />
                                     </div>
                                     <div class="col-md-9">
                                         @*@Html.TextBoxFor(model => model.Images, new { htmlAttributes = new { @class = "form-control" }, id = "txtImage" })*@
@@ -150,8 +158,13 @@
                             <br />
                             <div class="form-group">
                                 <div class="col-md-offset-3 col-md-6">
-                                    <button type="submit" class="btn btn-default">Cập nhật</button>
-                                    <a class="btn btn-warning" onclick="window.location.reload();">Reset</a>
+                                    <div class="input-group-btn">
+                                        <input type="submit" value="Lưu lại" class="btn btn-default" name="save" />
+                                        <input type="submit" value="Lưu và Đóng" class="btn btn-primary" name="saveclose" />
+                                        <input type="submit" value="Lưu và Tạo mới" class="btn btn-primary" name="savenew" />
+                                        <a class="btn btn-warning" onclick="window.location.reload();">Reset</a>
+                                    </div>
+                                  
                                 </div>
                             </div>
                         </div>

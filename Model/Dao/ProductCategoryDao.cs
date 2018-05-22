@@ -59,8 +59,6 @@ namespace Model.Dao
         {
             var result = new ProductCategoryView();
 
-
-
             ProductCategory productCategory = db.ProductCategories
                 .Where(f => f.ID == id)
                 .FirstOrDefault();
@@ -103,6 +101,8 @@ namespace Model.Dao
             category.MetaDescriptions = item.MetaDescriptions;
             category.MetaKeywords = item.MetaKeywords;
             category.ModifiedDate = DateTime.Now;
+            category.ModifiedBy = item.ModifiedBy;
+
             if (db.SaveChanges()>0)
             {
                 return true;
