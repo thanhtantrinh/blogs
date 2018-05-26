@@ -1254,6 +1254,7 @@
     <Content Include="assets\client\js\script.js" />
     <Content Include="assets\client\js\slides.min.jquery.js" />
     <Content Include="assets\client\js\startstop-slider.js" />
+    <Content Include="assets\vegetarian\css\Styles.css" />
     <Content Include="assets\vegetarian\fonts\font-awesome\fontawesome-webfont.svg" />
     <Content Include="assets\vegetarian\images\aec93e547a579409cd46.jpg" />
     <Content Include="assets\vegetarian\images\banner-bk1.jpg" />
@@ -2000,7 +2001,6 @@
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Base\" />
     <Folder Include="assets\admin\pages\" />
-    <Folder Include="assets\vegetarian\css\" />
     <Folder Include="Data\files\" />
     <Folder Include="Data\flash\" />
     <Folder Include="Data\images\ada\" />
