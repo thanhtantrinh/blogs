@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = Model.Name;
     Layout = "~/Views/Shared/_LayoutVegetarian.cshtml";
+    
 }
 
 <div class="product-model">
@@ -12,6 +13,7 @@
             @Html.AntiForgeryToken()
             @Html.HiddenFor(x => x.ID)
             @Html.HiddenFor(x => x.ProductDetailId)
+
 
             <div class="main_content_top main_content_top_cus1">
 

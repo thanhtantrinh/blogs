@@ -13,6 +13,20 @@
         @foreach (var item in Model)
         {
             string link = Url.Action("Detail", "Product", new { ProductDetailId = item.ProductDetailId, id = item.ProductId });
+            string productName = String.Empty;
+            if (item.ProductWeight >= 1000)
+            {
+                productName = String.Format("{0} {1} {2}", item.ProductName, (item.ProductWeight / 1000), "Kg");
+            }
+            else if (item.ProductWeight < 1000 && item.ProductWeight > 100)
+            {
+                productName = String.Format("{0} {1} {2}", item.ProductName, item.ProductWeight, "Gram");                
+            }
+            else
+            {
+                productName = item.ProductName;
+            }
+
             <div class="col-md-3 col-sm-4 col-xs-6 col-min-12">
                 <div class="arrival-grid simpleCart_shelfItem bounceInLeft productOfYou">
                     <div class="grid-arr">
@@ -28,14 +42,18 @@
                                                 imagename = Url.ImageProductMedium("coming-soon.jpg");
                                             }
                                         }
-                                        <img src="@imagename" class="img-responsive" alt="" height="223">
+                                        <img src="@imagename" class="img-responsive" alt="@productName" height="223">
                                     </div>
                                 </a>
                             </figure>
                         </div>
                         <div class="women">
                             <div class="gr_price">
-                                <h6><a href="@link">@item.ProductName</a></h6>
+                                <h6>
+                                    <a href="@link" title="@productName">
+                                        @productName
+                                    </a>
+                                </h6>
                                 <span class="hide gia_km"></span>
                                 @if (item.ProductPrice > 0)
                                 {
@@ -51,7 +69,7 @@
                     </div>
                 </div>
             </div>
-        }
+          }
         <div class="clearfix"></div>
     </div>
 }

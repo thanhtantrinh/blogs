@@ -52,7 +52,8 @@
                                     <thead>
                                         <tr>
                                             <th width="35">#</th>
-                                            <th width="120">Action</th>
+                                            <th width="90">Action</th>
+                                            <th width="84">Hình Ảnh</th>
                                             <th>Tên sản phẩm</th>
                                             <th>Nhóm sản phẩm</th>                                        
                                             <th width="110" align="center">Trạng thái</th>
@@ -77,6 +78,17 @@
                                                             <a class="btn btn-default" href="@Url.Action("Edit", new { ID = item.ProductId })"><i class="fa fa-pencil fa-fw"></i></a>
                                                             <a class="btn btn-default" href="@Url.Action("SetDeletedProduct", new { ID = item.ProductId })"><i class="fa fa-trash"></i></a>
                                                         </div>
+                                                    </td>
+                                                    <td>
+                                                        @{
+                                                            // setup image thumbnail
+                                                            string imagename = Url.ImageProductMin(item.Image);
+                                                            if (!System.IO.File.Exists(Path.Combine(Server.MapPath(imagename))))
+                                                            {
+                                                                imagename = Url.ImageProductMin("coming-soon.jpg");
+                                                            }
+                                                        }
+                                                        <img src="@imagename" alt="" />
                                                     </td>
                                                     <td>
                                                         <a href="@Url.Action("Edit",new { Id=item.ProductId})">
@@ -113,7 +125,7 @@
                                         else
                                         {
                                             <tr>
-                                                <td colspan="8">
+                                                <td colspan="9">
                                                     Không tìm thấy thông tin
                                                 </td>
                                             </tr>

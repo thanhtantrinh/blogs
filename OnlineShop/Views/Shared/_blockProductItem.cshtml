@@ -4,6 +4,19 @@
 @{
     string link = Url.Action("Detail", "Product", new { ProductDetailId = Model.ProductDetailId, id = Model.ProductId });
     NumberFormatInfo vnd = new CultureInfo("vi-VN", false).NumberFormat;
+    string productName = String.Empty;
+    if (Model.ProductWeight >= 1000)
+    {
+        productName = String.Format("{0} {1} {2}", Model.ProductName, (Model.ProductWeight / 1000), "Kg");
+    }
+    else if (Model.ProductWeight < 1000 && Model.ProductWeight > 100)
+    {
+        productName = String.Format("{0} {1} {2}", Model.ProductName, Model.ProductWeight, "Gram");
+    }
+    else
+    {
+        productName = Model.ProductName;
+    }
 }
 <div class="col-md-4 col-sm-6 col-xs-6 col-min-12">
     <div class="arrival-grid simpleCart_shelfItem wow bounceInLeft animated glo-trang-thai-sp">
@@ -20,7 +33,7 @@
             </div>
             <div class="women">
                 <div class="gr_price">
-                    <h6><a href="@link">@Model.ProductName.Substring(0, Math.Min(Model.ProductName.Length, 45))</a></h6>
+                    <h6><a href="@link">@productName</a></h6>
                     <span class="hide gia_km"></span>
                     @if (Model.ProductPrice > 0)
                     {

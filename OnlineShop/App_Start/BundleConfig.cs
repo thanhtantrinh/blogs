@@ -26,8 +26,8 @@ namespace OnlineShop
                       ));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                  "~/bower_components/bootstrap/dist/js/bootstrap.js"))
-                  ;
+                  "~/bower_components/bootstrap/dist/js/bootstrap.js"
+                  ));
 
             bundles.Add(new StyleBundle("~/assets/ishop/css").Include(
                       "~/assets/ishop/css/Styles.css",

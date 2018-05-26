@@ -14,6 +14,19 @@
         @foreach (var item in Model)
         {
             string link = Url.Action("Detail", "Product", new { ProductDetailId = item.ProductDetailId, id = item.ProductId });
+            string productName = String.Empty;
+            if (item.ProductWeight >= 1000)
+            {
+                productName = String.Format("{0} {1} {2}", item.ProductName, (item.ProductWeight / 1000), "Kg");
+            }
+            else if (item.ProductWeight < 1000 && item.ProductWeight > 100)
+            {
+                productName = String.Format("{0} {1} {2}", item.ProductName, item.ProductWeight, "Gram");
+            }
+            else
+            {
+                productName = item.ProductName;
+            }
             <div class="col-md-3 col-sm-4 col-xs-6 col-min-12">
                 <div class="arrival-grid simpleCart_shelfItem bounceInLeft ">
                     <div class="grid-arr">
@@ -28,7 +41,7 @@
                         </div>
                         <div class="women">
                             <div class="gr_price">
-                                <h6><a href="@link">@item.ProductName</a></h6>
+                                <h6><a href="@link">@productName</a></h6>
                                 <span class="hide gia_km"></span>
                                 @if (item.ProductPrice > 0)
                                 {

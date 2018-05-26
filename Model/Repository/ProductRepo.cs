@@ -99,8 +99,8 @@ namespace Model.Repository
                 string message = StringHelper.Parameters2ErrorString(ex, conn);
                 MailHelper.SendMail(SiteSetting.EmailAdmin, subject, message);
             }
-            //return model.Take(Limit).ToList();
-            return model.ToList();
+            return model.Take(Limit).ToList();
+            //return model.ToList();
         }
 
 
