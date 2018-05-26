@@ -11,7 +11,7 @@ using OnlineShop.Filters;
 
 namespace OnlineShop.Areas.Admin.Controllers
 {
-   
+    [AuthLog(Roles = UserRoles.Admin)]
     public class UserController : BaseController
     {
         // GET: Admin/User

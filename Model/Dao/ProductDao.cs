@@ -216,7 +216,7 @@ namespace Model.Dao
 
                     if (product.Images != null && !String.IsNullOrWhiteSpace(product.Images.FileName))
                     {
-                        item.Image = product.ID.ToString() + "_" + product.Images.FileName;
+                        item.Image = product.MetaTitle + "_" + product.Images.FileName;
                     }
                     item.ShowHome = product.ShowHome;
                     db.SaveChanges();
@@ -292,15 +292,21 @@ namespace Model.Dao
         {
             Mapper.Initialize(cfg => cfg.CreateMap<ProductsView, Product>());
             var result = Mapper.Map<ProductsView, Product>(product);
-            result.CreatedBy = 2;
+            result.CreatedBy = product.CreatedBy;
             result.CreatedDate = DateTime.Now;
-            result.ModifiedBy = 2;
+            result.ModifiedBy = product.CreatedBy;
             result.ModifiedDate = DateTime.Now;
             result.ViewCount = 0;
             result.CategoryId = product.CategoryID;
             result.CatalogueId = product.CatalogueId;
+            //result.Image = product.Images;
+            if (product.Images != null && !String.IsNullOrWhiteSpace(product.Images.FileName))
+            {
+                result.Image = product.MetaTitle + "_" + product.Images.FileName;
+            }
             result = db.Products.Add(result);
             db.SaveChanges();
+
 
             //save product detail info
             if (product.ProductDetail.Count > 0 && result.Id>0)

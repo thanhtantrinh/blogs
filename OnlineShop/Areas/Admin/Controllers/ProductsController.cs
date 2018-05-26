@@ -12,9 +12,11 @@ using Common;
 using OnlineShop.Helpers;
 using OnlineShop.Resource;
 using StaticResources;
+using OnlineShop.Filters;
 
 namespace OnlineShop.Areas.Admin.Controllers
 {
+    [AuthLog(Roles = UserRoles.Admin)]
     public class ProductsController : BaseController
     {
         private ProductDao DAO = new ProductDao();
@@ -55,7 +57,7 @@ namespace OnlineShop.Areas.Admin.Controllers
         // POST: Admin/Product/Create
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult Create(ProductsView product)
+        public ActionResult Create(ProductsView product, string saveclose, string savenew)
         {
             var actionStatus = new ActionResultHelper();
             actionStatus.ActionStatus = ResultSubmit.failed;
@@ -65,31 +67,41 @@ namespace OnlineShop.Areas.Admin.Controllers
             {
                 var DAO = new ProductDao();
                 product.CatalogueId = SiteConfiguration.CatalogueId;
-                var result = DAO.Add(product);
-                if (result.Id > 0)
+                //product.CatalogueId = SiteConfiguration.CatalogueId;
+                product.CreatedBy = CurrentUser.UserID;               
+
+                if (product.Images != null && !String.IsNullOrWhiteSpace(product.Images.FileName))
                 {
-                    if (product.Images != null && !String.IsNullOrWhiteSpace(product.Images.FileName))
-                    {
-                        string path = Path.Combine(Server.MapPath("~/Images/Products/large"), Path.GetFileName(result.Id.ToString() + "_" + product.Images.FileName));
-                        product.Images.SaveAs(path);
-                        //resize cho vao tung thu muc
-                        ImageHelper.CreateThumbnail(150, 150, path, Server.MapPath("~/Images/Products/small/"));
-                        ImageHelper.CreateThumbnail(80, 80, path, Server.MapPath("~/Images/Products/min/"));
-                        ImageHelper.CreateThumbnail(500, 500, path, Server.MapPath("~/Images/Products/medium/"));
-                    }
+                    string path = Path.Combine(Server.MapPath("~/Images/Products/large"), Path.GetFileName(product.MetaTitle + "_" + product.Images.FileName));
+                    product.Images.SaveAs(path);
+                    //resize cho vao tung thu muc
+                    ImageHelper.CreateThumbnail(150, 150, path, Server.MapPath("~/Images/Products/small/"));
+                    ImageHelper.CreateThumbnail(80, 80, path, Server.MapPath("~/Images/Products/min/"));
+                    ImageHelper.CreateThumbnail(500, 500, path, Server.MapPath("~/Images/Products/medium/"));
+                }
+
+                var result = DAO.Add(product);
+
+                if (result!=null && result.Id>0)
+                {
                     actionStatus.ErrorReason = String.Format(SiteResource.HTML_ALERT_SUCCESS, SiteResource.MSG_THE_PRODUCT_HAS_BEEN_CREATED);
                     actionStatus.ActionStatus = ResultSubmit.success;
-                    Session["ACTION_STATUS"] = actionStatus;
-                    return RedirectToAction("Index");
+                    //Session[SessionName.ActionStatusLog] = actionStatus;
+                    //return RedirectToAction("Index");
+                    Session[SessionName.ActionStatusLog] = actionStatus;
+                    if (!String.IsNullOrEmpty(saveclose))
+                        return RedirectToAction("Index");
+                    else if (!String.IsNullOrWhiteSpace(savenew))
+                        return RedirectToAction("Create");
+                    else
+                        return RedirectToAction("Edit", new { Id = result.Id });
                 }
                 else
                 {
-                    actionStatus.ActionStatus = ResultSubmit.failed;
-                    actionStatus.ErrorReason = String.Format(SiteResource.HTML_ALERT_ERROR, SiteResource.MSG_THE_PRODUCT_HAS_NOT_BEEN_CREATED);
+                    actionStatus.ErrorStrings.Add(SiteResource.MSG_THE_PRODUCT_HAS_NOT_BEEN_CREATED);
+                    goto actionError;
                 }
 
-                Session["ACTION_STATUS"] = actionStatus;
-                return RedirectToAction("Index");
             }
             else
             {
@@ -122,17 +134,18 @@ namespace OnlineShop.Areas.Admin.Controllers
         {
             var actionStatus = new ActionResultHelper();
             actionStatus.ActionStatus = ResultSubmit.failed;
-            bool IsValid = true;   
+            bool IsValid = true;
             string message = String.Empty;
             ProductsView model = new ProductsView();
             if (id > 0)
             {
                 model = DAO.Find(id);
-                if (model==null)
+                if (model == null)
                 {
                     IsValid = false;
                     actionStatus.ErrorStrings.Add(Resources.MSG_THE_PRODUCT_HAS_NOT_FOUND);
                     goto actionError;
+                    //return RedirectToAction("Index");
                 }
                 else
                 {
@@ -152,7 +165,7 @@ namespace OnlineShop.Areas.Admin.Controllers
                 actionStatus.ErrorReason = String.Format(SiteResource.HTML_ALERT_ERROR, actionStatus.ShowErrorStrings());
                 Session[SessionName.ActionStatusLog] = actionStatus;
             }
-            return View(model);
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
@@ -170,7 +183,7 @@ namespace OnlineShop.Areas.Admin.Controllers
 
                 if (product.Images != null && !String.IsNullOrWhiteSpace(product.Images.FileName))
                 {
-                    string path = Path.Combine(Server.MapPath("~/Images/Products/large"), Path.GetFileName(product.ID.ToString() + "_" + product.Images.FileName));
+                    string path = Path.Combine(Server.MapPath("~/Images/Products/large"), Path.GetFileName(product.MetaTitle + "_" + product.Images.FileName));
                     product.Images.SaveAs(path);
                     //resize cho vao tung thu muc
                     ImageHelper.CreateThumbnail(150, 150, path, Server.MapPath("~/Images/Products/small/"));
@@ -180,14 +193,12 @@ namespace OnlineShop.Areas.Admin.Controllers
                 product.CatalogueId = SiteConfiguration.CatalogueId;
                 product.ModifiedBy = CurrentUser.UserID;
                 //product.ModifiedDate = DateTime.Now;
-
                 var result = DAO.Update(product);
                 if (result)
                 {
                     actionStatus.ErrorReason = String.Format(SiteResource.HTML_ALERT_SUCCESS, SiteResource.MSG_THE_PRODUCT_HAS_BEEN_UPDATED);
                     actionStatus.ActionStatus = ResultSubmit.success;
-                    Session["ACTION_STATUS"] = actionStatus;
-
+                    Session[SessionName.ActionStatusLog] = actionStatus;
                     if (!String.IsNullOrEmpty(saveclose))
                         return RedirectToAction("Index");
                     else if (!String.IsNullOrWhiteSpace(savenew))
@@ -202,8 +213,7 @@ namespace OnlineShop.Areas.Admin.Controllers
                     actionStatus.ActionStatus = ResultSubmit.failed;
                     actionStatus.ErrorReason = String.Format(SiteResource.HTML_ALERT_ERROR, SiteResource.MSG_THE_PRODUCT_HAS_NOT_UPDATED);
                 }
-
-                Session["ACTION_STATUS"] = actionStatus;
+                Session[SessionName.ActionStatusLog] = actionStatus;
                 return RedirectToAction("Edit", new { id = product.ID });
             }
             else
@@ -227,7 +237,7 @@ namespace OnlineShop.Areas.Admin.Controllers
             if (!IsValid)
             {
                 actionStatus.ErrorReason = String.Format(SiteResource.HTML_ALERT_WARNING, SiteResource.MSG_ERROR_ENTER_DATA_FOR_FORM + errorString);
-                Session["ACTION_STATUS"] = actionStatus;
+                Session[SessionName.ActionStatusLog] = actionStatus;
             }
             return RedirectToAction("Edit", new { id = product.ID });
 
@@ -259,14 +269,16 @@ namespace OnlineShop.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
         [HttpGet]
-        public ActionResult DeleteProductDetail(long ProductId = 0)
+        public ActionResult DeleteProductDetail(long ProductId = 0,long productDetailId=0)
         {
             var actionStatus = new ActionResultHelper();
             actionStatus.ActionStatus = ResultSubmit.failed;
             bool IsValid = true;
-            if (ProductId > 0)
+            if (ProductId > 0 && productDetailId>0)
             {
-                DAO.DeleteProductDeteail(ProductId);
+                DAO.DeleteProductDeteail(productDetailId);
+                actionStatus.ActionStatus = ResultSubmit.success;
+                actionStatus.Message = String.Format(SiteResource.HTML_ALERT_SUCCESS, SiteResource.MSG_THE_PRODUCT_WEIGHT_PRICE_HAS_BEEN_REMOVED);
                 return RedirectToAction("Edit", new { id = ProductId });
             }
             else
@@ -370,7 +382,7 @@ namespace OnlineShop.Areas.Admin.Controllers
 
                 string csvData = System.IO.File.ReadAllText(filePath);
                 var DAO = new ProductDao();
-                
+
                 //Execute a loop over the rows.
                 foreach (string row in csvData.Split('\n'))
                 {
@@ -405,20 +417,20 @@ namespace OnlineShop.Areas.Admin.Controllers
                 }
 
                 bool isTesing = false;
-                if (products.Count>0 && !isTesing)
+                if (products.Count > 0 && !isTesing)
                 {
                     foreach (var item in products)
                     {
                         var result = DAO.Add(item);
                     }
                 }
-                
+
             }
             catch (Exception ex)
             {
-                string msg = ex.Message;                
+                string msg = ex.Message;
             }
-            
+
             //return View(products);
 
             return RedirectToAction("Index");

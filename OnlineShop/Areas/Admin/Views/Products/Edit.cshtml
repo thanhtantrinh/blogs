@@ -5,7 +5,7 @@
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Areas/Admin/Views/Shared/_Layouts.cshtml";
-    var actionStaus = (ActionResultHelper)Session["ACTION_STATUS"];
+    var actionStaus = (ActionResultHelper)Session[SessionName.ActionStatusLog];
 }
 
 @section jsFooter{
@@ -35,9 +35,9 @@
                             }
                             else
                             {
-                                @Html.Raw(actionStaus.ErrorReason);
+                                @Html.Raw(actionStaus.Message);
                             }
-                            Session["ACTION_STATUS"] = null;
+                            Session[SessionName.ActionStatusLog] = null;
                         }
 
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -99,7 +99,7 @@
                                             @Html.TextBoxFor(m => m.ProductDetail[i].ProductWeight, new { @class = "form-control" })
                                         </div>
                                         <div class="col-md-1">
-                                            <a href="@Url.Action("DeleteProductDetail", new {prodetailId= Model.ProductDetail[i].ProductDetailId })" class="btn btn-default">Xóa</a>
+                                            <a href="@Url.Action("DeleteProductDetail", new {ProductId = Model.ID, productDetailId= Model.ProductDetail[i].ProductDetailId })" class="btn btn-default">Xóa</a>
                                         </div>
                                     </div>
                                     @Html.HiddenFor(m => m.ProductDetail[i].PriceId)

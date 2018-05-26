@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace OnlineShop.Areas.Admin.Controllers
 {
+    [Filters.AuthLog(Roles = UserRoles.Admin)]
     public class OrderController : BaseController
     {
         protected OrderRepo _orderRepo = new OrderRepo();

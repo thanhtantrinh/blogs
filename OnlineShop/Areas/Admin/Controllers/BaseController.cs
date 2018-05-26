@@ -12,9 +12,11 @@ using OnlineShop.Helpers;
 using OnlineShop.Identity;
 using Common;
 using OnlineShop.Models;
+using OnlineShop.Filters;
 
 namespace OnlineShop.Areas.Admin.Controllers
 {
+    [AuthLog(Roles = UserRoles.Admin)]
     public class BaseController : Controller
     {
         protected Entities db = new Entities();        
@@ -57,7 +59,6 @@ namespace OnlineShop.Areas.Admin.Controllers
             Thread.CurrentThread.CurrentCulture = new CultureInfo(ddlCulture);
             Thread.CurrentThread.CurrentUICulture = new CultureInfo(ddlCulture);
             Session[CommonConstants.CurrentCulture] = ddlCulture;
-
             return Redirect(returnUrl);
         }
 

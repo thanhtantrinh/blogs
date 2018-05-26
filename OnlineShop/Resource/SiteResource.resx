@@ -150,6 +150,9 @@
   <data name="MSG_THE_PRODUCT_HAS_NOT_UPDATED" xml:space="preserve">
     <value>Sản phẩm không cập nhật thành công</value>
   </data>
+  <data name="MSG_THE_PRODUCT_WEIGHT_PRICE_HAS_BEEN_REMOVED" xml:space="preserve">
+    <value>Thông tin giá và trọng lượng sản phẩm được xóa</value>
+  </data>
   <data name="MSG_THE_SITE_CONFIGUARATION_HAS_BEEN_UPDATED_SUCCESSFULLY" xml:space="preserve">
     <value>Thông tin cấu hình website được cập nhật thành công</value>
   </data>

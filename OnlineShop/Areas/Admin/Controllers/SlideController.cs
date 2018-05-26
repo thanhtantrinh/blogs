@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Common;
 using Model.Dao;
 using Model.EF;
+using OnlineShop.Filters;
 
 namespace OnlineShop.Areas.Admin.Controllers
 {
+    [AuthLog(Roles = UserRoles.Admin)]
     public class SlideController : Controller
     {
         SlideDao dao = new SlideDao();

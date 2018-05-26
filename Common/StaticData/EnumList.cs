@@ -89,6 +89,7 @@ namespace Common
     public class ActionResultHelper
     {
         public ResultSubmit ActionStatus { get; set; }
+        public string Message { get; set; }
         public string ErrorReason { get; set; }
         public List<string> ErrorStrings { get; set; }
         public ActionResultHelper()

@@ -160,6 +160,15 @@ namespace OnlineShop.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Thông tin giá và trọng lượng sản phẩm được xóa.
+        /// </summary>
+        internal static string MSG_THE_PRODUCT_WEIGHT_PRICE_HAS_BEEN_REMOVED {
+            get {
+                return ResourceManager.GetString("MSG_THE_PRODUCT_WEIGHT_PRICE_HAS_BEEN_REMOVED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Thông tin cấu hình website được cập nhật thành công.
         /// </summary>
         internal static string MSG_THE_SITE_CONFIGUARATION_HAS_BEEN_UPDATED_SUCCESSFULLY {

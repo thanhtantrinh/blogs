@@ -70,6 +70,7 @@ namespace Model.ViewModel
         [Display(Name = "Tên Sản phẩm")]
         public string Name { set; get; }
         [Display(Name = "Alias")]
+        [Required]
         public string MetaTitle { set; get; }
 
         public long ProductDetailId { set; get; }

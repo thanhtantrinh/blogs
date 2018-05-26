@@ -9,20 +9,20 @@
 }
 @section jsFooter{
     <script>
-        $('#btnSelectImage').on('click', function (e) {
-            e.preventDefault();
-            var finder = new CKFinder();
-            finder.selectActionFunction = function (url) {
-                $('#txtImage').val(url);
-            };
-            finder.popup();
-        })
+        //$('#btnSelectImage').on('click', function (e) {
+        //    e.preventDefault();
+        //    var finder = new CKFinder();
+        //    finder.selectActionFunction = function (url) {
+        //        $('#txtImage').val(url);
+        //    };
+        //    finder.popup();
+        //})
         var editor = CKEDITOR.replace('txtContent', {
             customConfig: '/assets/admin/js/plugins/ckeditor/config.js',
         });
     </script>
 }
-@using (Html.BeginForm("Create", "Products", FormMethod.Post, new { @class = "myclass", role = "form" }))
+@using (Html.BeginForm("Create", "Products", FormMethod.Post, new { @class = "myclass", role = "form", enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     <div class="row">
@@ -106,7 +106,7 @@
                                                 @Html.TextBoxFor(m => m.ProductDetail[i].ProductWeight, new { @class = "form-control" })
                                             </div>
                                             <div class="col-md-1">
-                                                <a href="@Url.Action("DeleteProductDetail", new {prodetailId= Model.ProductDetail[i].ProductDetailId })" class="btn btn-default">Xóa</a>
+                                                @*<a href="@Url.Action("DeleteProductDetail", new {prodetailId= Model.ProductDetail[i].ProductDetailId })" class="btn btn-default">Xóa</a>*@
                                             </div>
                                         </div>
                                         @Html.HiddenFor(m => m.ProductDetail[i].PriceId)
@@ -124,21 +124,13 @@
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.Images, new { @class = "control-label col-md-2" })
                                         <div class="col-md-10">
-                                            @*@Html.EditorFor(model => model.Images, new { htmlAttributes = new { @class = "form-control" }, id = "txtImage" })*@
-                                            @Html.ValidationMessageFor(model => model.Images, "", new { @class = "text-danger" })
-
+                                       
                                             <div class="input-group">
                                                 <div class="input-group-btn group">
                                                     <a class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title=""><i class="fa fa-eye"></i></a>
                                                 </div>
-
-                                                @*@Html.TextBoxFor(model => model.Images, new { @class = "form-control", @id = "txtImage" })*@
                                                 @Html.TextBoxFor(model => model.Images, new { @class = "form-control", @id = "txtImage", type = "file" })
 
-                                                <div class="input-group-btn">
-                                                    <a id="btnSelectImage" class="btn btn-default" href="#"><i class="fa fa-image"></i> Chọn</a>
-                                                    <a id="btnRemoveImage" class="btn btn-default" href="#" data-toggle="tooltip" data-placement="top" title="Clear"><i class="fa fa-remove"></i></a>
-                                                </div>
 
                                             </div>
                                             @Html.ValidationMessageFor(model => model.Images, "", new { @class = "text-danger" })
@@ -148,7 +140,7 @@
 
                                 <div role="tabpanel" class="tab-pane" id="tabdetail">
                                     <div class="form-group">
-                                        @Html.LabelFor(model => model.Detail, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        @Html.LabelFor(model => model.Detail, new { @class = "control-label col-md-2" })
                                         <div class="col-md-10">
                                             @Html.TextAreaFor(model => model.Detail, new { @class = "form-control", id = "txtContent" } )
                                             @Html.ValidationMessageFor(model => model.Detail, "", new { @class = "text-danger" })
