@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using Model.EF;
 using Common;
 using System.Runtime.Caching;
+using Model.Repository;
 
 namespace Model.Extension
 {
@@ -113,19 +114,41 @@ namespace Model.Extension
         {
 
             var categoryList = new List<SelectListItem>();
-
-            using (var db = new Entities())
+            //using (var db = new Entities())
+            //{
+            //    var model = db.ProductCategories.Where(w => w.Status == nameof(StatusEntity.Active)).AsQueryable();
+            //    if (catalogueId > 0)
+            //    {
+            //        model = model.Where(w => w.CatalogueId == catalogueId);
+            //    } 
+            //    categoryList = model.AsEnumerable().Select(s => new SelectListItem() { Text = s.Name, Value = s.ID.ToString() }).ToList();
+            //    categoryList.Insert(0, new SelectListItem { Text = "Nhóm Root", Value = "0" });
+            //}
+            var proCatRepo = new ProductCategoryRepo();
+            var menu = proCatRepo.GetMenuCategoryProduct(catalogueId).ToList();
+            var menuTemp = new List<ViewModel.MenuItem>();
+            menuTemp = menu.Where(w => w.Level == 0).OrderBy(o=>o.Order).ToList();
+            var menuChirld = menu.Where(w => w.Level != 0).OrderByDescending(o => o.Order).ToList();
+            foreach (var item in menuChirld)
             {
-                var model = db.ProductCategories.Where(w => w.Status == nameof(StatusEntity.Active)).AsQueryable();
-                if (catalogueId > 0)
+                var menuParent = menuTemp.Where(w => w.Id == item.ParentId).FirstOrDefault();
+                if (menuParent != null)
                 {
-                    model = model.Where(w => w.CatalogueId == catalogueId);
+                    var positon = menuTemp.IndexOf(menuParent);
+                    item.Name = "--" + item.Name;
+                    if (menuTemp.Count > positon)
+                    {
+                        menuTemp.Insert(positon + 1, item);
+                    }
+                    else
+                    {
+                        menuTemp.Insert(positon, item);
+                    }
                 }
-                categoryList = model.AsEnumerable().Select(s => new SelectListItem() { Text = s.Name, Value = s.ID.ToString() }).ToList();
-                categoryList.Insert(0, new SelectListItem { Text = "Nhóm Root", Value = "0" });
-
             }
 
+            categoryList = menuTemp.AsEnumerable().Select(s => new SelectListItem() { Text = s.Name, Value = s.Id.ToString() }).ToList();
+            categoryList.Insert(0, new SelectListItem { Text = "Nhóm Root", Value = "0" });
             return categoryList;
 
         }
@@ -201,7 +224,7 @@ namespace Model.Extension
             {
                 var selectListItems = Enum.GetValues(typeof(eOrderStatusUI)).Cast<eOrderStatusUI>().Select(v => new SelectListItem
                 {
-                    Text = v==eOrderStatusUI.Completed?"Đã giao hàng":v==eOrderStatusUI.Cancelled?"Đã Hủy":"Đang chờ",
+                    Text = v == eOrderStatusUI.Completed ? "Đã giao hàng" : v == eOrderStatusUI.Cancelled ? "Đã Hủy" : "Đang chờ",
                     Value = v.ToString()
                 }).ToList();
 

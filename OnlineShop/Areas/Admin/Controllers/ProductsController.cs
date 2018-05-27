@@ -128,7 +128,6 @@ namespace OnlineShop.Areas.Admin.Controllers
             }
             return RedirectToAction("Index");
         }
-
         [HttpGet]
         public ActionResult Edit(long id = 0)
         {
@@ -167,7 +166,6 @@ namespace OnlineShop.Areas.Admin.Controllers
             }
             return RedirectToAction("Index");
         }
-
         [HttpPost]
         [ValidateInput(false)]
         [ValidateAntiForgeryToken]
@@ -242,7 +240,6 @@ namespace OnlineShop.Areas.Admin.Controllers
             return RedirectToAction("Edit", new { id = product.ID });
 
         }
-
         [HttpGet]
         public ActionResult CreateProductDetail(long ProductId = 0)
         {
@@ -368,7 +365,6 @@ namespace OnlineShop.Areas.Admin.Controllers
             }
             return RedirectToAction("Index");
         }
-
         public ActionResult ImportProduct()
         {
             List<ProductsView> products = new List<ProductsView>();

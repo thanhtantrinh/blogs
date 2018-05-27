@@ -322,4 +322,7 @@
   <data name="MSG_THE_PRODUCT_HAS_CREATED_UNSUCCESSFULL" xml:space="preserve">
     <value>Sản phẩm được tạo không thành công</value>
   </data>
+  <data name="MSG_THE_USER_HAS_NOT_FOUND" xml:space="preserve">
+    <value>Tài khoản người dùng không tìm thấy</value>
+  </data>
 </root>

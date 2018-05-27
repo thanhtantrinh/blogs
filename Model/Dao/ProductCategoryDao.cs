@@ -59,16 +59,52 @@ namespace Model.Dao
         {
             var result = new ProductCategoryView();
 
-            ProductCategory productCategory = db.ProductCategories
-                .Where(f => f.ID == id)
-                .FirstOrDefault();
+            v_CategoryOfProduct productCategory = db.v_CategoryOfProduct
+                .FirstOrDefault(f => f.ID == id);
+                //.FirstOrDefault();
+
+
 
             var config = new MapperConfiguration(cfg => {
-                cfg.CreateMap<ProductCategory, ProductCategoryView>();
+                cfg.CreateMap<v_CategoryOfProduct, ProductCategoryView>()
+                .ForMember(o=>o.CatalogueId,i=>i.MapFrom(src=>src.CatalogueId))
+                .ForMember(o=>o.CatalogueName,i=>i.MapFrom(src=>src.CatalogueName))
+
+                .ForMember(o=>o.ID,i=>i.MapFrom(src=>src.ID))
+                .ForMember(o=>o.Name, i=>i.MapFrom(src=>src.CategoryName))
+                .ForMember(o=>o.MetaTitle, i=>i.MapFrom(src=>src.MetaTitle))
+
+                .ForMember(o=>o.ParentID, i=>i.MapFrom(src=>src.ParentId))
+                .ForMember(o=>o.ParentName, i=>i.MapFrom(src=>src.ParentName))
+
+                .ForMember(o=>o.SeoTitle, i=>i.MapFrom(src=>src.Title))
+                .ForMember(o=>o.MetaKeywords, i=>i.MapFrom(src=>src.MetaKeywords))
+                .ForMember(o=>o.MetaDescriptions, i=>i.MapFrom(src=>src.MetaDescriptions))
+
+                .ForMember(o=>o.ShowOnHome, i=>i.MapFrom(src=>src.ShowOnHome))
+                .ForMember(o=>o.Status, i=>i.MapFrom(src=>src.Status))
+                .ForMember(o=>o.DisplayOrder, i=>i.MapFrom(src=>src.Orders))
+
+
+                .ForMember(o=>o.CreatedBy,i=>i.MapFrom(src=>src.CreatedBy))
+                .ForMember(o=>o.CreatedDate,i=>i.MapFrom(src=>src.CreatedDate))
+                .ForMember(o=>o.CreatedByName,i=>i.MapFrom(src=>src.CreatedByName))
+                .ForMember(o=>o.ModifiedBy,i=>i.MapFrom(src=>src.ModifiedBy))
+                .ForMember(o=>o.ModifiedByName, i=>i.MapFrom(src=>src.ModifiedByName))
+                .ForMember(o=>o.ModifiedDate, i=>i.MapFrom(src=>src.ModifiedDate))
+                ;
             });
+
             IMapper mapper = config.CreateMapper();
 
-            result= mapper.Map<ProductCategory, ProductCategoryView>(productCategory);
+            if (productCategory!=null)
+            {
+                result = mapper.Map<v_CategoryOfProduct, ProductCategoryView>(productCategory);
+            }
+            else
+            {
+                result = null;
+            }           
 
             return result;
         }        

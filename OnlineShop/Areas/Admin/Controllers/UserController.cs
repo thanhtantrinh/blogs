@@ -8,6 +8,8 @@ using Model.Dao;
 using PagedList;
 using Common;
 using OnlineShop.Filters;
+using OnlineShop.Resource;
+using StaticResources;
 
 namespace OnlineShop.Areas.Admin.Controllers
 {
@@ -33,10 +35,40 @@ namespace OnlineShop.Areas.Admin.Controllers
         }
 
         [AuthLog(Roles = UserRoles.Admin)]
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int id=0)
         {
-            var user = new UserDao().ViewDetail(id);
-            return View(user);
+            var actionStatus = new ActionResultHelper();
+            actionStatus.ActionStatus = ResultSubmit.failed;
+            bool IsValid = true;
+            string message = String.Empty;
+
+            if (id>0)
+            {
+                var user = new UserDao().ViewDetail(id);
+                if (user != null)
+                    return View(user);
+                else
+                {
+                    IsValid = false;
+                    actionStatus.ErrorStrings.Add(Resources.MSG_THE_USER_HAS_NOT_FOUND);
+                    goto actionError;
+                }
+                   
+            }
+            else
+            {
+                IsValid = false;
+                actionStatus.ErrorStrings.Add(Resources.MSG_THE_USER_HAS_NOT_FOUND);
+                goto actionError;
+            }
+            actionError:
+            if (!IsValid)
+            {
+                actionStatus.ErrorReason = String.Format(SiteResource.HTML_ALERT_ERROR, actionStatus.ShowErrorStrings());
+                Session[SessionName.ActionStatusLog] = actionStatus;
+            }
+            return RedirectToAction("Index");
+
         }
 
         [HttpPost]
@@ -75,8 +107,7 @@ namespace OnlineShop.Areas.Admin.Controllers
                     var encryptedMd5Pas = Encryptor.MD5Hash(user.Password);
                     user.Password = encryptedMd5Pas;
                 }
-
-
+                
                 var result = dao.Update(user);
                 if (result)
                 {

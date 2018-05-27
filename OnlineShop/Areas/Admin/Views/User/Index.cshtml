@@ -1,5 +1,7 @@
-﻿@model PagedList.IPagedList<Model.EF.User>
-@using PagedList.Mvc;
+﻿@using PagedList.Mvc
+@using Common
+@model PagedList.IPagedList<Model.EF.User>
+
 @{
     ViewBag.Title = "Quản lý người dùng";
     Layout = "~/Areas/Admin/Views/Shared/_Layouts.cshtml";
@@ -9,8 +11,8 @@
 }
 
 @section jsFooter{
-<script src="/assets/admin/js/controller/userController.js"></script>
- }
+    <script src="/assets/admin/js/controller/userController.js"></script>
+}
 <div class="row">
 
     <div class="col-lg-12">
@@ -31,7 +33,7 @@
                             </div>
                             <div class="col-md-4">
                                 <button type="submit" class="btn btn-success">Tìm kiếm</button>
-                                <a  class="btn btn-primary" href="/Admin/User/Create">Thêm mới</a>
+                                <a class="btn btn-primary" href="/Admin/User/Create">Thêm mới</a>
                             </div>
                         </div>
                     </div>
@@ -57,16 +59,23 @@
                                     <td>@item.UserName</td>
                                     <td>@item.Name</td>
                                     <td>@item.Email</td>
-                                    <td><a href="#" class="btn-active" data-id="@item.ID">@Html.Raw(item.Status ? "<strong>Kích hoạt</strong>" : "Khoá")</a></td>
+                                    <td>
+                                        <a href="#" class="btn-active" data-id="@item.ID">
+                                            @Html.Raw(item.Status == nameof(StatusEntity.Active) ? "<strong>Kích hoạt</strong>" : "Khoá")
+                                            
+                                            @*<span class="fa fa-check-circle @(item.Status==nameof(StatusEntity.Active) ? "text-primary" : "text-muted" )"></span>*@
+
+                                        </a>
+                                    </td>
                                     <td>
                                         <a href="/Admin/User/Edit/@item.ID">Sửa</a>
                                         |
                                         @Ajax.ActionLink("Xoá", "Delete", new { @id = item.ID }, new AjaxOptions
-                                   {
-                                       Confirm = "Bạn có muốn xoá bản ghi này?",
-                                       OnComplete = "$('#row_" + @item.ID + "').remove()",
-                                       HttpMethod = "Delete"
-                                   })
+                                        {
+                                            Confirm = "Bạn có muốn xoá bản ghi này?",
+                                            OnComplete = "$('#row_" + @item.ID + "').remove()",
+                                            HttpMethod = "Delete"
+                                        })
                                     </td>
                                 </tr>
                             }

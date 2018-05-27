@@ -178,7 +178,7 @@ namespace OnlineShop.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Content/Images/{0}.
+        ///   Looks up a localized string similar to ~/Content/Images/{0}.
         /// </summary>
         internal static string SRC_CONTENT_IMAGE_DIR {
             get {
@@ -187,7 +187,7 @@ namespace OnlineShop.Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Images/{0}.
+        ///   Looks up a localized string similar to ~/Images/{0}.
         /// </summary>
         internal static string SRC_IMAGES_DIR {
             get {

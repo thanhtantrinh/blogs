@@ -538,6 +538,15 @@ namespace StaticResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tài khoản người dùng không tìm thấy.
+        /// </summary>
+        public static string MSG_THE_USER_HAS_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("MSG_THE_USER_HAS_NOT_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Thêm thông tin hỗ trợ không thành công.
         /// </summary>
         public static string SYSTEM_ERROR_ADDING_FEEDBACK_HAS_BEEN_FINISHED {

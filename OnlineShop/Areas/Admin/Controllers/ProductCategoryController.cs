@@ -86,7 +86,7 @@ namespace OnlineShop.Areas.Admin.Controllers
                 if (remodel != null && String.IsNullOrEmpty(message))
                 {
                     actionStatus.ActionStatus = ResultSubmit.success;
-                    actionStatus.ErrorReason = String.Format(SiteResource.HTML_ALERT_SUCCESS, Resources.MSG_THE_PRODUCT_CATEGORY_HAS_CREATED_SUCCESSFULLLY);
+                    actionStatus.Message = String.Format(SiteResource.HTML_ALERT_SUCCESS, Resources.MSG_THE_PRODUCT_CATEGORY_HAS_CREATED_SUCCESSFULLLY);
                     Session[SessionName.ActionStatusLog] = actionStatus;
 
                     if (!String.IsNullOrEmpty(saveclose))
@@ -123,7 +123,7 @@ namespace OnlineShop.Areas.Admin.Controllers
 
         // GET: Admin/ProductCategory/Edit/5
         [HttpGet]
-        public ActionResult Edit(long id)
+        public ActionResult Edit(long id=0)
         {
             var actionStatus = new ActionResultHelper();
             actionStatus.ActionStatus = ResultSubmit.failed;
@@ -131,7 +131,7 @@ namespace OnlineShop.Areas.Admin.Controllers
             var dao = new ProductCategoryDao();
             ProductCategoryView model = new ProductCategoryView();
             if (id > 0)
-            {                      
+            {
                 model = dao.Find(id);
                 if (model == null)
                 {
@@ -158,7 +158,7 @@ namespace OnlineShop.Areas.Admin.Controllers
                 Session[SessionName.ActionStatusLog] = actionStatus;
             }
             
-            return View(model);
+            return RedirectToAction("Index");
         }
 
         // POST: Admin/ProductCategory/Edit/5
@@ -184,7 +184,7 @@ namespace OnlineShop.Areas.Admin.Controllers
                 if (result!=null&& String.IsNullOrEmpty(message))
                 {
                     actionStatus.ActionStatus = ResultSubmit.success;
-                    actionStatus.ErrorReason = String.Format(SiteResource.HTML_ALERT_SUCCESS, Resources.MSG_THE_PRODUCT_CATEGORY_HAS_UPDATED_SUCCESSFULLLY);
+                    actionStatus.Message = String.Format(SiteResource.HTML_ALERT_SUCCESS, Resources.MSG_THE_PRODUCT_CATEGORY_HAS_UPDATED_SUCCESSFULLLY);
                     Session[SessionName.ActionStatusLog] = actionStatus;
                     if (!String.IsNullOrEmpty(saveclose))
                         return RedirectToAction("Index");
