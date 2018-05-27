@@ -48,7 +48,6 @@ namespace Model.EF
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<Slide> Slides { get; set; }
         public virtual DbSet<Tag> Tags { get; set; }
-        public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserGroup> UserGroups { get; set; }
         public virtual DbSet<Ward> Wards { get; set; }
         public virtual DbSet<SystemConfig> SystemConfigs { get; set; }
@@ -65,5 +64,6 @@ namespace Model.EF
         public virtual DbSet<v_UserGroup> v_UserGroup { get; set; }
         public virtual DbSet<v_WebAccount> v_WebAccount { get; set; }
         public virtual DbSet<v_Order> v_Order { get; set; }
+        public virtual DbSet<User> Users { get; set; }
     }
 }

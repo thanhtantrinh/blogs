@@ -210,26 +210,19 @@ namespace Model.Dao
                 model = model.Where(x => x.Name.Contains(searchString));
             }
 
+            if (filter.CatalogueId > 0)
+            {
+                model = model.Where(w => w.CatalogueId == filter.CatalogueId);
+            }
+
             if (filter.ParentID > 0)
             {
                 model = model.Where(w => w.ParentID == filter.ParentID);
             }
 
-            if (!String.IsNullOrWhiteSpace(filter.Status))
+            if (filter.Status.Count() > 0)
             {
-                switch (filter.Status.Trim())
-                {
-                    case nameof(StatusEntity.Active):
-                        model = model.Where(w => w.Status == nameof(StatusEntity.Active));
-                        break;
-                    case nameof(StatusEntity.Locked):
-                        model = model.Where(w => w.Status == nameof(StatusEntity.Locked));
-                        break;
-                    case nameof(StatusEntity.Deleted):                    
-                    default:
-                        model = model.Where(w => w.Status != nameof(StatusEntity.Deleted));
-                        break;
-                }
+                model = model.Where(w => filter.Status.Contains(w.Status));
             }
 
             return model.OrderByDescending(x => x.CreatedDate).ToPagedList(page, pageSize);

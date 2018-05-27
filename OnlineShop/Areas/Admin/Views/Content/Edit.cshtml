@@ -5,7 +5,7 @@
 @model ContentViewModel
 @{
     Layout = "~/Areas/Admin/Views/Shared/_Layouts.cshtml";
-    var actionStaus = (ActionResultHelper)Session["ACTION_STATUS"];
+    var actionStaus = (ActionResultHelper)Session[SessionName.ActionStatusLog];
     string formAction = String.IsNullOrWhiteSpace(ViewBag.Action) ? "Edit" : ViewBag.Action.ToString();
 }
 
@@ -40,9 +40,9 @@
                             }
                             else
                             {
-                                @Html.Raw(actionStaus.ErrorReason);
+                                @Html.Raw(actionStaus.Message);
                             }
-                            Session["ACTION_STATUS"] = null;
+                            Session[SessionName.ActionStatusLog] = null;
                         }
 
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -68,7 +68,7 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.CategoryID, new { @class = "control-label col-md-3" })
                             <div class="col-md-9">
-                                @Html.DropDownListFor(model => model.CategoryID, ListExtensions.CategoryList, new { @class = "form-control " })
+                                @Html.DropDownListFor(model => model.CategoryID, ListExtensions.CategoryListByCatalogueId(SiteConfiguration.CatalogueId), new { @class = "form-control " })
                                 @Html.ValidationMessageFor(model => model.CategoryID, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -85,7 +85,7 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.Detail, new { @class = "control-label col-md-3" })
                             <div class="col-md-9">
-                                @Html.TextBoxFor(model => model.Detail, new { htmlAttributes = new { @class = "form-control" }, id = "txtContent" })
+                                @Html.TextAreaFor(model => model.Detail, new { @class = "form-control" , id = "txtContent" })
                                 @Html.ValidationMessageFor(model => model.Detail, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -115,10 +115,22 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.Status, new { @class = "control-label col-md-4" })
                             <div class="col-md-8">
-                                <label class="radio-inline">
-                                    @Html.RadioButtonFor(m => m.Status, true) Xuất bản
+                                <label class="radio-inline" for="inline-radio1">
+                                    @*<input type="radio" id="inline-radio1" name="inline-radios" value="option1">One*@
+                                    @Html.RadioButtonFor(m => m.Status, nameof(StatusEntity.Active), new { @class = "radio-inline" })
+                                    Xuất bản
                                 </label>
-                                <label class="radio-inline">@Html.RadioButtonFor(m => m.Status, false) Không Xuất bản</label>
+                                &nbsp;
+                                <label class="radio-inline" for="inline-radio2">
+                                    @Html.RadioButtonFor(m => m.Status, nameof(StatusEntity.Locked), new { @class = "radio-inline" })
+                                    Chờ
+                                </label>
+                                @*&nbsp;
+        <label class="radio-inline" for="inline-radio3">
+            @Html.RadioButtonFor(m => m.Status, nameof(StatusEntity.Deleted), new { @class = "radio-inline" })
+            Xóa
+        </label>*@
+
                                 @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
                             </div>
                         </div>

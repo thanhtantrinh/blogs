@@ -23,12 +23,17 @@ namespace Model.Dao
         }
         public IEnumerable<v_Content> ListAllPaging(ContentFilter filter, int pageIndex = 1, int pageSize = 20, string sortby = "")
         {
-            var model = db.v_Content.AsEnumerable();
+            var model = db.v_Content.AsQueryable();
 
             if (!string.IsNullOrEmpty(filter.SearchString))
             {
                 string searchString = filter.SearchString.Trim();
                 model = model.Where(x => x.Name.Contains(searchString));
+            }
+
+            if (filter.CatalogueId>0)
+            {
+                model = model.Where(w => w.CatalogueId == filter.CatalogueId);
             }
 
             if (filter.CategoryID > 0)
@@ -92,19 +97,22 @@ namespace Model.Dao
         public ContentViewModel GetByID(long Id = 0)
         {
             var model = new ContentViewModel();
-            var config = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<v_Content, ContentViewModel>();
-            });
-            IMapper mapper = config.CreateMapper();
+
             try
             {
                 if (Id > 0)
                 {
                     using (db)
                     {
+                        var config = new MapperConfiguration(cfg =>
+                        {
+                            cfg.CreateMap<v_Content, ContentViewModel>()
+                            .ForMember(o => o.Detail, i => i.MapFrom(src => src.Detail))
+                            ;
+                        });
+                        IMapper mapper = config.CreateMapper();
                         var result = db.v_Content.FirstOrDefault(w => w.ID == Id);
-                        model = mapper.Map<ContentViewModel>(result);
+                        model = mapper.Map<v_Content, ContentViewModel>(result);
                     }
                 }
                 else
@@ -203,6 +211,8 @@ namespace Model.Dao
                 if (content != null)
                 {
                     content.CategoryID = model.CategoryID;
+                    content.CatalogueId = model.CatalogueId;
+                    
                     content.Name = model.Name.Trim();
                     content.Description = Regex.Replace(model.Description.Trim(), @"<[^>]*>", String.Empty);
                     content.Detail = model.Detail;

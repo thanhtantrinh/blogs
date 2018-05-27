@@ -7,6 +7,7 @@ using Model.EF;
 using PagedList;
 using System.Configuration;
 using Common;
+using Model.ViewModel;
 
 namespace Model.Dao
 {
@@ -20,6 +21,8 @@ namespace Model.Dao
 
         public long Insert(User entity)
         {
+            entity.CreatedDate = DateTime.Now;
+            entity.ModifiedDate = DateTime.Now;
             db.Users.Add(entity);
             db.SaveChanges();
             return entity.ID;
@@ -64,12 +67,18 @@ namespace Model.Dao
 
         }
 
-        public IEnumerable<User> ListAllPaging(string searchString, int page, int pageSize)
+        public IEnumerable<v_WebAccount> ListAllPaging(AccountFilter filter, int page, int pageSize=20)
         {
-            IQueryable<User> model = db.Users;
-            if (!string.IsNullOrEmpty(searchString))
+            IQueryable<v_WebAccount> model = db.v_WebAccount;
+
+            if (filter.CatalogueId>0)
             {
-                model = model.Where(x => x.UserName.Contains(searchString) || x.Name.Contains(searchString));
+                model = model.Where(w => w.CatalogueId == filter.CatalogueId);
+            }
+
+            if (!string.IsNullOrEmpty(filter.SearchString))
+            {
+                model = model.Where(x => x.UserName.Contains(filter.SearchString) || x.Name.Contains(filter.SearchString));
             }
 
             return model.OrderByDescending(x => x.CreatedDate).ToPagedList(page, pageSize);

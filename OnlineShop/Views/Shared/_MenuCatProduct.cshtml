@@ -6,33 +6,13 @@
 
 <div class="panel panel-primary">
     <div class="panel-heading">DANH MỤC SẢN PHẨM</div>
-    @*<div class="list-group">
-        @foreach (var item in menu)
-        {
-            if (item.Level == 0)
-            {
-                <a href="@Url.Action("Category","Product", new { metatitle = item.Alias, cateId=item.Id })" class="list-group-item menu-parent">@item.Name</a>
-
-                var childMenus = menu.Where(w => w.ParentId == item.Id).ToList();
-
-                if (childMenus.Count > 0)
-                {
-                    foreach (var childMenu in childMenus)
-                    {
-                        <a href="@Url.Action("Category","Product", new { metatitle = childMenu.Alias, cateId=childMenu.Id })" class="list-group-item menu-child">&nbsp;&nbsp;&nbsp; @childMenu.Name</a>
-                    }
-
-                }
-            }
-        }
-    </div>*@
     <nav id="column_left" class="list-group">
         <ul class="nav nav-list">
             @foreach (var item in menu)
             {
                 if (item.Level == 0)
                 {
-                    var childMenus = menu.Where(w => w.ParentId == item.Id).ToList();
+                    var childMenus = menu.Where(w => w.ParentId == item.Id).OrderBy(o => o.Order).ToList();
 
                     if (childMenus.Count > 0)
                     {

@@ -22,6 +22,7 @@ namespace Model.EF
         }
     
         public long ID { get; set; }
+        public int CatalogueId { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
         public int GroupID { get; set; }

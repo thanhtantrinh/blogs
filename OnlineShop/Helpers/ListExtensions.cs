@@ -77,13 +77,28 @@ namespace OnlineShop.Helpers
             }
         }
 
+        public static List<SelectListItem> CategoryListByCatalogueId(int catalogueId=0)
+        {
+           
+                var categoryList = new List<SelectListItem>();
+                using (var db = new Entities())
+                {
+                    categoryList = db.Categories.Where(w => w.Status == nameof(StatusEntity.Active) && w.CatalogueId==catalogueId)
+                                        .AsEnumerable().Select(s => new SelectListItem() { Text = s.Name, Value = s.ID.ToString() }).ToList();
+//                    categoryList.Insert(0, new SelectListItem { Text = "Chọn nhóm bài viết", Value = "" });
+                    categoryList.Insert(0, new SelectListItem { Text = "Nhóm Root", Value = "0" });
+                }
+                return categoryList;
+            
+        }
+
         public static List<SelectListItem> StatusList
         {
             get
             {
                 return new List<SelectListItem>() {
                     new SelectListItem() { Text = "Tất cả trạng thái", Value = "" },
-                    new SelectListItem() { Text = "Hoạt động", Value = "1" },
+                    new SelectListItem() { Text = "Hoạt động", Value = "" },
                     new SelectListItem() { Text = "Không hoạt động", Value = "0" }
                 };
             }

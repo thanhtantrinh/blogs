@@ -30,7 +30,7 @@ namespace OnlineShop.Areas.Admin.Controllers
                 filter = new CategoryFilter();
                 Session["CategoryFilter"] = filter;
             }
-
+            filter.CatalogueId = SiteConfiguration.CatalogueId;
             var model = _categoryDao.ListAllPaging(filter, page, pageSize);
 
             

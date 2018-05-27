@@ -367,11 +367,12 @@ warning 6002: The table/view 'tant4482_db.dbo.SystemConfig' does not have a prim
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CatalogueId" Type="int" Nullable="false" />
           <Property Name="UserName" Type="varchar" MaxLength="50" />
           <Property Name="Password" Type="varchar" MaxLength="32" />
           <Property Name="GroupID" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
-          <Property Name="Address" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar" MaxLength="150" />
           <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Phone" Type="nvarchar" MaxLength="50" />
           <Property Name="ProvinceID" Type="int" />
@@ -786,6 +787,7 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
         <EntityType Name="v_WebAccount">
           <Key>
             <PropertyRef Name="UserId" />
+            <PropertyRef Name="CatalogueId" />
             <PropertyRef Name="GroupID" />
             <PropertyRef Name="Email" />
             <PropertyRef Name="CreatedDate" />
@@ -795,12 +797,13 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
             <PropertyRef Name="Status" />
           </Key>
           <Property Name="UserId" Type="bigint" Nullable="false" />
+          <Property Name="CatalogueId" Type="int" Nullable="false" />
           <Property Name="UserName" Type="varchar" MaxLength="50" />
           <Property Name="Password" Type="varchar" MaxLength="32" />
           <Property Name="GroupID" Type="int" Nullable="false" />
           <Property Name="GroupName" Type="nvarchar" MaxLength="50" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
-          <Property Name="Address" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar" MaxLength="150" />
           <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Phone" Type="nvarchar" MaxLength="50" />
           <Property Name="WardID" Type="int" />
@@ -1151,6 +1154,7 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
           <EntitySet Name="v_WebAccount" EntityType="Self.v_WebAccount" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [v_WebAccount].[UserId] AS [UserId], 
+    [v_WebAccount].[CatalogueId] AS [CatalogueId], 
     [v_WebAccount].[UserName] AS [UserName], 
     [v_WebAccount].[Password] AS [Password], 
     [v_WebAccount].[GroupID] AS [GroupID], 
@@ -1223,7 +1227,6 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
           <EntitySet Name="Roles" EntityType="DBEntities.Role" />
           <EntitySet Name="Slides" EntityType="DBEntities.Slide" />
           <EntitySet Name="Tags" EntityType="DBEntities.Tag" />
-          <EntitySet Name="Users" EntityType="DBEntities.User" />
           <EntitySet Name="UserGroups" EntityType="DBEntities.UserGroup" />
           <EntitySet Name="Wards" EntityType="DBEntities.Ward" />
           <EntitySet Name="SystemConfigs" EntityType="DBEntities.SystemConfig" />
@@ -1239,14 +1242,6 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
           <EntitySet Name="v_SiteMap" EntityType="DBEntities.v_SiteMap" />
           <EntitySet Name="v_UserGroup" EntityType="DBEntities.v_UserGroup" />
           <EntitySet Name="v_WebAccount" EntityType="DBEntities.v_WebAccount" />
-          <AssociationSet Name="FK_Category_UserCreated" Association="DBEntities.FK_Category_UserCreated">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Category" EntitySet="Categories" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Category_UserModified" Association="DBEntities.FK_Category_UserModified">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Category" EntitySet="Categories" />
-          </AssociationSet>
           <AssociationSet Name="FK_Province_Country" Association="DBEntities.FK_Province_Country">
             <End Role="Country" EntitySet="Countries" />
             <End Role="Province" EntitySet="Provinces" />
@@ -1260,6 +1255,15 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
             <End Role="Ward" EntitySet="Wards" />
           </AssociationSet>
           <EntitySet Name="v_Order" EntityType="DBEntities.v_Order" />
+          <EntitySet Name="Users" EntityType="DBEntities.User" />
+          <AssociationSet Name="FK_Category_UserCreated" Association="DBEntities.FK_Category_UserCreated">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Category" EntitySet="Categories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Category_UserModified" Association="DBEntities.FK_Category_UserModified">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Category" EntitySet="Categories" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Catalogue">
           <Key>
@@ -1314,7 +1318,7 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
           <Property Name="Language" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="User" Relationship="DBEntities.FK_Category_UserCreated" FromRole="Category" ToRole="User" />
           <NavigationProperty Name="User1" Relationship="DBEntities.FK_Category_UserModified" FromRole="Category" ToRole="User" />
-        </EntityType>
+          </EntityType>
         <EntityType Name="Contact">
           <Key>
             <PropertyRef Name="ID" />
@@ -1611,29 +1615,6 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
           <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="User">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Password" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="GroupID" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ProvinceID" Type="Int32" />
-          <Property Name="DistrictID" Type="Int32" />
-          <Property Name="WardID" Type="Int32" />
-          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CreatedBy" Type="Int64" Nullable="false" />
-          <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ModifiedBy" Type="Int64" Nullable="false" />
-          <Property Name="Status" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Categories" Relationship="DBEntities.FK_Category_UserCreated" FromRole="User" ToRole="Category" />
-          <NavigationProperty Name="Categories1" Relationship="DBEntities.FK_Category_UserModified" FromRole="User" ToRole="Category" />
         </EntityType>
         <EntityType Name="UserGroup">
           <Key>
@@ -1997,6 +1978,7 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
             <PropertyRef Name="ModifiedDate" />
             <PropertyRef Name="ModifiedBy" />
             <PropertyRef Name="Status" />
+            <PropertyRef Name="CatalogueId" />
           </Key>
           <Property Name="UserId" Type="Int64" Nullable="false" />
           <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -2004,7 +1986,7 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
           <Property Name="GroupID" Type="Int32" Nullable="false" />
           <Property Name="GroupName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="WardID" Type="Int32" />
@@ -2020,31 +2002,8 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
           <Property Name="ModifiedBy" Type="Int64" Nullable="false" />
           <Property Name="ModifiedByName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="CatalogueId" Type="Int32" Nullable="false" />
         </EntityType>
-        <Association Name="FK_Category_UserCreated">
-          <End Type="DBEntities.User" Role="User" Multiplicity="1" />
-          <End Type="DBEntities.Category" Role="Category" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Category">
-              <PropertyRef Name="CreatedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Category_UserModified">
-          <End Type="DBEntities.User" Role="User" Multiplicity="1" />
-          <End Type="DBEntities.Category" Role="Category" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Category">
-              <PropertyRef Name="ModifiedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Province_Country">
           <End Type="DBEntities.Country" Role="Country" Multiplicity="1" />
           <End Type="DBEntities.Province" Role="Province" Multiplicity="*" />
@@ -2115,6 +2074,54 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
           <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CatalogueId" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="GroupID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProvinceID" Type="Int32" />
+          <Property Name="DistrictID" Type="Int32" />
+          <Property Name="WardID" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="Int64" Nullable="false" />
+          <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int64" Nullable="false" />
+          <Property Name="Status" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Categories" Relationship="DBEntities.FK_Category_UserCreated" FromRole="User" ToRole="Category" />
+          <NavigationProperty Name="Categories1" Relationship="DBEntities.FK_Category_UserModified" FromRole="User" ToRole="Category" />
+        </EntityType>
+        <Association Name="FK_Category_UserCreated">
+          <End Type="DBEntities.User" Role="User" Multiplicity="1" />
+          <End Type="DBEntities.Category" Role="Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Category">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Category_UserModified">
+          <End Type="DBEntities.User" Role="User" Multiplicity="1" />
+          <End Type="DBEntities.Category" Role="Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Category">
+              <PropertyRef Name="ModifiedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2488,28 +2495,6 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="DBEntities.User">
-              <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="WardID" ColumnName="WardID" />
-                <ScalarProperty Name="DistrictID" ColumnName="DistrictID" />
-                <ScalarProperty Name="ProvinceID" ColumnName="ProvinceID" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="GroupID" ColumnName="GroupID" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="UserGroups">
             <EntityTypeMapping TypeName="DBEntities.UserGroup">
               <MappingFragment StoreEntitySet="UserGroup">
@@ -2790,6 +2775,7 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
           <EntitySetMapping Name="v_WebAccount">
             <EntityTypeMapping TypeName="DBEntities.v_WebAccount">
               <MappingFragment StoreEntitySet="v_WebAccount">
+                <ScalarProperty Name="CatalogueId" ColumnName="CatalogueId" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="ModifiedByName" ColumnName="ModifiedByName" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
@@ -2833,6 +2819,29 @@ warning 6002: The table/view 'tant4482_db.dbo.v_WebAccount' does not have a prim
                 <ScalarProperty Name="FullName" ColumnName="FullName" />
                 <ScalarProperty Name="CatalogueId" ColumnName="CatalogueId" />
                 <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="DBEntities.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="WardID" ColumnName="WardID" />
+                <ScalarProperty Name="DistrictID" ColumnName="DistrictID" />
+                <ScalarProperty Name="ProvinceID" ColumnName="ProvinceID" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="CatalogueId" ColumnName="CatalogueId" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

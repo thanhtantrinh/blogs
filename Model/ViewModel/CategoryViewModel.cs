@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Common;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -77,12 +78,12 @@ namespace Model.ViewModel
         public long ParentID { get; set; }
         public int CatalogueId { get; set; }
         public string SearchString { get; set; }
-        public string Status { get; set; }
+        public string[] Status { get; set; }
 
         public CategoryFilter()
         {
             SearchString = "";
-            Status = "";
+            Status = new string[] { nameof(StatusEntity.Active), nameof(StatusEntity.Locked) }; 
             ParentID = 0;
             CatalogueId = 0;
         }

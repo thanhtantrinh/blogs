@@ -74,7 +74,6 @@ namespace Model.Repository
         public IEnumerable<v_WebAccount> GetUserPaging(int pageNumber = 1, int pageSize = 20, string SortBy = "")
         {
             IQueryable<v_WebAccount> model = entities.v_WebAccount;
-
             try
             {
                 if (!String.IsNullOrWhiteSpace(SortBy))

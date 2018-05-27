@@ -3,25 +3,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Model.EF;
-using Model.Dao;
 using PagedList;
-using Common;
-using OnlineShop.Filters;
-using OnlineShop.Resource;
-using StaticResources;
+
 
 namespace OnlineShop.Areas.Admin.Controllers
 {
+    using Common;
+    using OnlineShop.Filters;
+    using OnlineShop.Resource;
+    using StaticResources;
+    using Model.EF;
+    using Model.Dao;
+    using Model.ViewModel;
+    using OnlineShop.Helpers;
+
     [AuthLog(Roles = UserRoles.Admin)]
     public class UserController : BaseController
     {
         // GET: Admin/User
         //[HasCredential(RoleID = "VIEW_USER")]
-        public ActionResult Index(string searchString, int page = 1, int pageSize = 10)
+        public ActionResult Index(string searchString, int page = 1, int pageSize = 20)
         {
             var dao = new UserDao();
-            var model = dao.ListAllPaging(searchString, page, pageSize);
+            AccountFilter filter = new AccountFilter();
+            filter.CatalogueId = SiteConfiguration.CatalogueId;
+            filter.SearchString = searchString;
+
+            var model = dao.ListAllPaging(filter, page, pageSize);
 
             ViewBag.SearchString = searchString;
 
@@ -31,6 +39,8 @@ namespace OnlineShop.Areas.Admin.Controllers
         [AuthLog(Roles = UserRoles.Admin)]
         public ActionResult Create()
         {
+            var model = new User();
+            model.Status = nameof(StatusEntity.Active);
             return View();
         }
 
@@ -72,16 +82,18 @@ namespace OnlineShop.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        [HasCredential(RoleID = "ADD_USER")]
+        //[HasCredential(RoleID = "ADD_USER")]
+        [AuthLog(Roles = UserRoles.Admin)]
         public ActionResult Create(User user)
         {
             if (ModelState.IsValid)
             {
                 var dao = new UserDao();
-
                 var encryptedMd5Pas = Encryptor.MD5Hash(user.Password);
                 user.Password = encryptedMd5Pas;
-
+                user.CatalogueId = SiteConfiguration.CatalogueId;
+                user.CreatedBy = CurrentUser.ID;
+                user.ModifiedBy = CurrentUser.ID;
                 long id = dao.Insert(user);
                 if (id > 0)
                 {
@@ -96,7 +108,8 @@ namespace OnlineShop.Areas.Admin.Controllers
             return View("Index");
         }
         [HttpPost]
-        [HasCredential(RoleID = "EDIT_USER")]
+        //[HasCredential(RoleID = "EDIT_USER")]
+        [AuthLog(Roles = UserRoles.Admin)]
         public ActionResult Edit(User user)
         {
             if (ModelState.IsValid)
@@ -106,9 +119,12 @@ namespace OnlineShop.Areas.Admin.Controllers
                 {
                     var encryptedMd5Pas = Encryptor.MD5Hash(user.Password);
                     user.Password = encryptedMd5Pas;
-                }
-                
+                }                
+                user.ModifiedBy = CurrentUser.ID;
+                user.CatalogueId = SiteConfiguration.CatalogueId;
+
                 var result = dao.Update(user);
+
                 if (result)
                 {
                     SetAlert("Sửa user thành công", "success");

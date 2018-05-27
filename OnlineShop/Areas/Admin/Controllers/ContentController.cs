@@ -29,7 +29,7 @@ namespace OnlineShop.Areas.Admin.Controllers
                 filter = new ContentFilter();
                 Session["ContentFilter"] = filter;
             }
-            
+            filter.CatalogueId = SiteConfiguration.CatalogueId;
             var model = dao.ListAllPaging(filter, page, pageSize);
             
             return View(model);
@@ -75,16 +75,16 @@ namespace OnlineShop.Areas.Admin.Controllers
                 model.CreatedBy = CurrentUser.UserID;
                 model.ModifiedBy = CurrentUser.UserID;
 
-                var culture = Session[CommonConstants.CurrentCulture];
-                model.Language = culture.ToString();
-
+                //var culture = Session[CommonConstants.CurrentCulture];
+                model.Language = currentCulture.ToString();
+                model.CatalogueId = SiteConfiguration.CatalogueId;
                 remodel = dao.Create(model, out message);
 
                 if (remodel != null && String.IsNullOrEmpty(message))
                 {
                     actionStatus.ActionStatus = ResultSubmit.success;
                     actionStatus.ErrorReason = String.Format(SiteResource.HTML_ALERT_SUCCESS, Resources.MSG_THE_CONTENT_HAS_CREATED_SUCCESSFULLY);
-                    Session["ACTION_STATUS"] = actionStatus;
+                    Session[SessionName.ActionStatusLog] = actionStatus;
 
                     if (!String.IsNullOrEmpty(saveclose))
                     {
@@ -96,7 +96,8 @@ namespace OnlineShop.Areas.Admin.Controllers
                     }
                 }
                 else
-                {                    
+                {
+                    IsValid = false;
                     errorString = Resources.MSG_THE_CONTENT_HAS_CREATED_UNSUCCESSFULLY;
                     goto actionError;
                 }
@@ -111,7 +112,7 @@ namespace OnlineShop.Areas.Admin.Controllers
             if (!IsValid)
             {
                 actionStatus.ErrorReason = String.Format(SiteResource.HTML_ALERT_ERROR, Resources.MSG_ERROR_ENTER_DATA_FOR_FORM + errorString);
-                Session["ACTION_STATUS"] = actionStatus;
+                Session[SessionName.ActionStatusLog] = actionStatus;
             }
             ViewBag.Title = Resources.LABEL_CREATE_NEW_CONTENT;
             return View("Edit", model);
@@ -142,7 +143,7 @@ namespace OnlineShop.Areas.Admin.Controllers
             if (!IsValid)
             {
                 actionStatus.ErrorReason = String.Format(SiteResource.HTML_ALERT_ERROR, errorString);
-                Session["ACTION_STATUS"] = actionStatus;
+                Session[SessionName.ActionStatusLog] = actionStatus;
             }
             return RedirectToAction("Index");
             
@@ -163,14 +164,15 @@ namespace OnlineShop.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 model.ModifiedBy = CurrentUser.UserID;
+                model.CatalogueId = SiteConfiguration.CatalogueId;
+                model.Language = currentCulture.ToString();                
                 remodel = dao.Update(model, out message);
 
                 if (remodel != null && String.IsNullOrEmpty(message))
                 {
                     actionStatus.ActionStatus = ResultSubmit.success;
-                    actionStatus.ErrorReason = String.Format(SiteResource.HTML_ALERT_SUCCESS, Resources.MSG_THE_CONTENT_HAS_UPDATED_SUCCESSFULLY);
-                    Session["ACTION_STATUS"] = actionStatus;
-
+                    actionStatus.Message = String.Format(SiteResource.HTML_ALERT_SUCCESS, Resources.MSG_THE_CONTENT_HAS_UPDATED_SUCCESSFULLY);
+                    Session[SessionName.ActionStatusLog] = actionStatus;
                     if (!String.IsNullOrEmpty(saveclose))
                     {
                         return RedirectToAction("Index");
@@ -178,12 +180,12 @@ namespace OnlineShop.Areas.Admin.Controllers
                     else
                     {
                         return RedirectToAction("Edit",new { id= remodel.ID});
-                    }
-                    
+                    }                    
                 }
                 else
                 {
                     //ModelState.AddModelError("", Resources.InsertCategoryFailed);
+                    IsValid = false;
                     errorString = Resources.MSG_THE_CONTENT_HAS_UPDATED_UNSUCCESSFULLY;
                     goto actionError;
                 }
@@ -198,7 +200,7 @@ namespace OnlineShop.Areas.Admin.Controllers
             if (!IsValid)
             {
                 actionStatus.ErrorReason = String.Format(SiteResource.HTML_ALERT_ERROR, Resources.MSG_ERROR_ENTER_DATA_FOR_FORM + errorString);
-                Session["ACTION_STATUS"] = actionStatus;
+                Session[SessionName.ActionStatusLog] = actionStatus;
             }
             ViewBag.Title = String.Format(Resources.LABEL_UPDATE, model.Name);
             return View("Edit", model);

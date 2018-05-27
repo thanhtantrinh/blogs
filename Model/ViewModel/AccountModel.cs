@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -30,7 +31,18 @@ namespace Model.ViewModel
         public DateTime ModifiedDate { get; set; }
         public string ModifiedByName { get; set; }
         public long ModifiedBy { get; set; }
+    }
+    public class AccountFilter
+    {               
+        public string SearchString { get; set; }
+        public int CatalogueId { get; set; }        
+        public string[] Status { get; set; }
 
-
+        public AccountFilter()
+        {
+            SearchString = "";
+            Status = new string[] { nameof(StatusEntity.Active), nameof(StatusEntity.Locked) };
+            CatalogueId = 0;            
+        }
     }
 }

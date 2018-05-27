@@ -1,6 +1,6 @@
 ﻿@using OnlineShop.Helpers
 @using Model.ViewModel
-
+@using Common
 @model CategoryView
 @{    
     Layout = "~/Areas/Admin/Views/Shared/_Layouts.cshtml";
@@ -82,7 +82,7 @@
                             <div class="form-group">
                                 @Html.LabelFor(model => model.ParentID, new { @class = "control-label col-md-2" })
                                 <div class="col-md-10">                                    
-                                    @Html.DropDownListFor(model => model.ParentID, ListExtensions.CategoryList, new { @class = "form-control" })
+                                    @Html.DropDownListFor(model => model.ParentID, ListExtensions.CategoryListByCatalogueId(SiteConfiguration.CatalogueId), new { @class = "form-control" })
                                     @Html.ValidationMessageFor(model => model.ParentID, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -107,7 +107,16 @@
                                 @Html.LabelFor(model => model.Status, new { @class = "control-label col-md-2" })
                                 <div class="col-md-10">
                                     <div class="checkbox">
-                                        @Html.EditorFor(model => model.Status)
+                                        <label class="radio-inline" for="inline-radio1">
+                                            @*<input type="radio" id="inline-radio1" name="inline-radios" value="option1">One*@
+                                            @Html.RadioButtonFor(m => m.Status, nameof(StatusEntity.Active), new { @class = "radio-inline" })
+                                            Xuất bản
+                                        </label>
+                                        &nbsp;
+                                        <label class="radio-inline" for="inline-radio2">
+                                            @Html.RadioButtonFor(m => m.Status, nameof(StatusEntity.Locked), new { @class = "radio-inline" })
+                                            Chờ
+                                        </label>                                 
                                         @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
                                     </div>
                                 </div>

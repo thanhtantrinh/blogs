@@ -28,7 +28,6 @@
         <EntityTypeShape EntityType="DBEntities.Role" Width="1.5" PointX="14.75" PointY="6.75" />
         <EntityTypeShape EntityType="DBEntities.Slide" Width="1.5" PointX="14.75" PointY="10.75" />
         <EntityTypeShape EntityType="DBEntities.Tag" Width="1.5" PointX="10.75" PointY="14.75" />
-        <EntityTypeShape EntityType="DBEntities.User" Width="1.5" PointX="0.75" PointY="1.125" />
         <EntityTypeShape EntityType="DBEntities.UserGroup" Width="1.5" PointX="12.75" PointY="14.75" />
         <EntityTypeShape EntityType="DBEntities.Ward" Width="1.5" PointX="12.5" PointY="2" />
         <EntityTypeShape EntityType="DBEntities.SystemConfig" Width="1.5" PointX="14.75" PointY="14.75" />
@@ -44,12 +43,13 @@
         <EntityTypeShape EntityType="DBEntities.v_SiteMap" Width="1.5" PointX="12.75" PointY="18.75" />
         <EntityTypeShape EntityType="DBEntities.v_UserGroup" Width="1.5" PointX="18.75" PointY="13.75" />
         <EntityTypeShape EntityType="DBEntities.v_WebAccount" Width="1.5" PointX="18.75" PointY="17.75" />
-        <AssociationConnector Association="DBEntities.FK_Category_UserCreated" />
-        <AssociationConnector Association="DBEntities.FK_Category_UserModified" />
         <AssociationConnector Association="DBEntities.FK_Province_Country" />
         <AssociationConnector Association="DBEntities.FK_District_Province" />
         <AssociationConnector Association="DBEntities.FK_Ward_District" />
         <EntityTypeShape EntityType="DBEntities.v_Order" Width="1.5" PointX="7.375" PointY="19.75" />
+        <EntityTypeShape EntityType="DBEntities.User" Width="1.5" PointX="0.75" PointY="1" />
+        <AssociationConnector Association="DBEntities.FK_Category_UserCreated" />
+        <AssociationConnector Association="DBEntities.FK_Category_UserModified" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -129,6 +129,7 @@ namespace Model.Extension
             var menuTemp = new List<ViewModel.MenuItem>();
             menuTemp = menu.Where(w => w.Level == 0).OrderBy(o=>o.Order).ToList();
             var menuChirld = menu.Where(w => w.Level != 0).OrderByDescending(o => o.Order).ToList();
+
             foreach (var item in menuChirld)
             {
                 var menuParent = menuTemp.Where(w => w.Id == item.ParentId).FirstOrDefault();
@@ -161,7 +162,7 @@ namespace Model.Extension
             var items = new List<SelectListItem>();
             using (var db = new Entities())
             {
-                var model = db.ProductCategories.Where(w => w.Status == nameof(StatusEntity.Active));
+                var model = db.Categories.Where(w => w.Status == nameof(StatusEntity.Active));
 
                 if (catalogueId > 0)
                 {

@@ -118,7 +118,7 @@ namespace OnlineShop.Areas.Admin.Controllers
         {
             FormsAuthentication.SignOut();
             Session.Clear();
-            return RedirectToAction("Login", "Account");
+            return RedirectToAction("Login", "Admin");
         }
 
         // GET: Admin/Home

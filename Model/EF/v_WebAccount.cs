@@ -36,5 +36,6 @@ namespace Model.EF
         public long ModifiedBy { get; set; }
         public string ModifiedByName { get; set; }
         public string Status { get; set; }
+        public int CatalogueId { get; set; }
     }
 }

@@ -181,13 +181,7 @@
                                 <label class="radio-inline" for="inline-radio2">
                                     @Html.RadioButtonFor(m => m.Status, nameof(StatusEntity.Locked), new { @class = "radio-inline" })
                                     @nameof(StatusEntity.Locked)
-                                </label>
-                                &nbsp;
-                                <label class="radio-inline" for="inline-radio3">
-
-                                    @Html.RadioButtonFor(m => m.Status, nameof(StatusEntity.Deleted), new { @class = "radio-inline" })
-                                    @nameof(StatusEntity.Deleted)
-                                </label>
+                                </label>                        
 
                                 @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
                             </div>

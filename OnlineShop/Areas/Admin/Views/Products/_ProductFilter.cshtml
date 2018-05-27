@@ -21,7 +21,7 @@
                 <div class="input-group">
                     @*@Html.DropDownListFor(m => m.Status, ListExtensions.StatusEntityList, new { @class = "form-control select2-single", id = "select2-1", onchange = "this.form.submit();" })*@
                     @{
-                        var statusList = ModelExtension.ListExtensions.StatusEntityList;
+                        var statusList = ModelExtension.ListExtensions.StatusEntityList.Where(w => w.Value != "Deleted").ToList();
                         statusList.RemoveAt(0);
                         foreach (var item in statusList)
                         {
