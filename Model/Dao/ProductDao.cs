@@ -208,6 +208,8 @@ namespace Model.Dao
                     item.CategoryId = product.CategoryID;
                     item.Code = product.CategoryID.ToString() + "-" + item.Id.ToString();
                     item.IncludedVAT = product.IncludedVAT;
+                    item.SortValue = product.SortValue;
+                    item.New = product.New;
 
                     if (!String.IsNullOrWhiteSpace(product.MoreImages))
                     {
@@ -299,6 +301,8 @@ namespace Model.Dao
             result.ViewCount = 0;
             result.CategoryId = product.CategoryID;
             result.CatalogueId = product.CatalogueId;
+            result.SortValue = product.SortValue;
+            result.New = product.New;
             //result.Image = product.Images;
             if (product.Images != null && !String.IsNullOrWhiteSpace(product.Images.FileName))
             {

@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Common
+﻿namespace Common
 {
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+
     public static class UserRoles
     {
         public const string Admin = "admin";
@@ -22,14 +19,17 @@ namespace Common
         /// <summary>
         /// Entity have not been activated
         /// </summary>
+        [Display(Name = "Hoạt động")]
         Active = 1,
         /// <summary>
         /// Entity has been deleted 
         /// </summary>
+        [Display(Name = "Xóa")]
         Deleted = 2,
         /// <summary>
         /// Locked out
         /// </summary>
+        [Display(Name = "Chờ")]
         Locked = 3,
     }
     public enum StatusLogin
@@ -81,8 +81,11 @@ namespace Common
     }
     public enum eOrderStatusUI
     {
+        [Display(Name = "Đã giao hàng")]
         Completed,
+        [Display(Name = "Đang chờ")]
         Pending,
+        [Display(Name = "Đã Hủy")]
         Cancelled
     }
 

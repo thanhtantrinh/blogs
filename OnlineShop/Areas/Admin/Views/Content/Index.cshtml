@@ -4,14 +4,12 @@
 @using PagedList.Mvc
 @using Common
 
-
 @model PagedList.IPagedList<v_Content>
-
 @{
     ViewBag.Title = "Quản lý tin tức";
     Layout = "~/Areas/Admin/Views/Shared/_Layouts.cshtml";
     ContentFilter filter = (ContentFilter)Session["ContentFilter"];
-    ActionResultHelper actionStaus = (ActionResultHelper)Session[SessionName.ActionStatusLog];
+    ActionResultHelper actionStatus = (ActionResultHelper)Session[SessionName.ActionStatusLog];
 }
 @section header{
     Danh sách bài viết
@@ -31,15 +29,15 @@
 
                     @{Html.RenderPartial("_ContentFilter", filter);}
 
-                    @if (actionStaus != null)
+                    @if (actionStatus != null)
                     {
-                        if (actionStaus.ActionStatus == ResultSubmit.failed)
+                        if (actionStatus.ActionStatus == ResultSubmit.failed)
                         {
-                            @Html.Raw(actionStaus.ErrorReason);
+                            @Html.Raw(actionStatus.ErrorReason);
                         }
                         else
                         {
-                            @Html.Raw(actionStaus.Message);
+                            @Html.Raw(actionStatus.Message);
                         }
                         Session[SessionName.ActionStatusLog] = null;
                     }

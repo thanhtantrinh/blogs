@@ -1,67 +1,11 @@
-﻿@*<section id="header-main">
-    
-        <div class="row">
-            <div id="logosite" class="col-md-9">
-                <a href="@Request.Url.GetLeftPart(UriPartial.Authority)">
-                    <img alt="bptchemicals.com" src="~/assets/ishop/images/logo.png" />
-                </a>
-            </div>
-            <div class="col-md-3">
-                @{ Html.RenderAction("ViewCart", "Cart");}
-            </div>
-        </div>
-
-        <div id="blockNav" class="row">
-            <div class="col-md-12 headerMenu">           
-                <div class="main-menu">
-                    @{Html.RenderAction("MainMenu", "Home"); }
-                </div>
-            </div>
-        </div>    
-</section>*@
-
+﻿
 <div class="header-top">
     <div class="top-menu">
         @{Html.RenderAction("MainMenu", "Home"); }
-
-
         <!-- script for menu -->
-        <div class="dv-mnmb mobile menu_mobile">
-            <a class="a_home" href="@Url.Action("Index","Home")">trang chủ</a>
-            <div id="dl-menu" class="dl-menuwrapper">
-                <button class="dl-trigger cur "></button>
-                <div class="clear"></div>
-                <ul class="dl-menu">
-                    <!--  -->
-                    <li class=" active"><a class="" href="http://demonongnghiep.web30s.vn"><span>TRANG CHỦ</span></a></li>
-                    <li class=""><a class="" href="http://demonongnghiep.web30s.vn/Gioi-thieu-336957"><span>Giới thiệu</span></a></li>
-                    <li class=" "><a class="" href="http://demonongnghiep.web30s.vn/San-pham"><span>Sản phẩm</span></a><ul class="dl-submenu  "><li class="dl-back"><a href="#">Back</a></li><li><a href="http://demonongnghiep.web30s.vn/Nhom-trai-cay-336912">» Nhóm trái cây</a></li><li><a href="http://demonongnghiep.web30s.vn/Nhom-cu-qua-336913">» Nhóm củ, quả</a></li><li><a href="http://demonongnghiep.web30s.vn/Nhom-cai-bap-rau-la-336914">» Nhóm cải bắp, rau lá</a></li><li><a href="http://demonongnghiep.web30s.vn/Nhom-rau-tao-mui-336915">» Nhóm rau tạo mùi</a></li></ul></li>
-                    <li class=" "><a class="" href="http://demonongnghiep.web30s.vn/Tin-tuc"><span>Tin tức</span></a><ul class="dl-submenu  "><li class="dl-back"><a href="#">Back</a></li><li><a href="http://demonongnghiep.web30s.vn/Tin-nong-nghiep-336930">» Tin nông nghiệp</a></li><li><a href="http://demonongnghiep.web30s.vn/Kien-thuc-nong-nghiep-336931">» Kiến thức nông nghiệp</a></li><li><a href="http://demonongnghiep.web30s.vn/Chuyen-nha-nong-336932">» Chuyện nhà nông</a></li></ul></li>
-                    <li class=""><a class="" href="http://demonongnghiep.web30s.vn/Dich-vu-337151"><span>Dịch vụ</span></a></li>
-                    <li class=""><a class="" href="http://demonongnghiep.web30s.vn/Tuyen-dung-336960"><span>Tuyển dụng</span></a></li>
-                    <li class=""><a class="" href="http://demonongnghiep.web30s.vn/Lien-he-336958"><span>Liên hệ</span></a></li>					          <!--  -->
-                </ul>
-            </div>
-            <div class="clear"></div>
-        </div>
-
         <!--  -->
-
         <div class="clearfix"> </div>
         <!--  -->
-        <script src="/menu_mb/modernizr.custom.js"></script>
-        <script src="/menu_mb/jquery.dlmenu.js"></script>
-        <script>
-                            $(document).ready(function () {
-                                $('#dl-menu').dlmenu();
-                            });
-                            $(document).ready(function () {
-                                $('body').click(function (e) {
-                                    $('#dl-menu').dlmenu('closeMenu');
-                                });
-                            });
-        </script>
-
     </div>
     <div class="clearfix"></div>
 </div>

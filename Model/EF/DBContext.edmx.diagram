@@ -20,7 +20,6 @@
         <EntityTypeShape EntityType="DBEntities.Order" Width="1.5" PointX="2.75" PointY="12.75" />
         <EntityTypeShape EntityType="DBEntities.OrderDetail" Width="1.5" PointX="12.75" PointY="5.75" />
         <EntityTypeShape EntityType="DBEntities.Product" Width="1.5" PointX="8.75" PointY="12.75" />
-        <EntityTypeShape EntityType="DBEntities.ProductCategory" Width="1.5" PointX="12.75" PointY="9.75" />
         <EntityTypeShape EntityType="DBEntities.ProductDetail" Width="1.5" PointX="4.75" PointY="13.75" />
         <EntityTypeShape EntityType="DBEntities.ProductPrice" Width="1.5" PointX="14.75" PointY="0.75" />
         <EntityTypeShape EntityType="DBEntities.ProductPriceType" Width="1.5" PointX="14.75" PointY="3.75" />
@@ -37,7 +36,6 @@
         <EntityTypeShape EntityType="DBEntities.v_Content" Width="1.5" PointX="4.75" PointY="16.75" />
         <EntityTypeShape EntityType="DBEntities.v_DistrictProvince" Width="1.5" PointX="16.75" PointY="7.75" />
         <EntityTypeShape EntityType="DBEntities.v_OrderDetail" Width="1.5" PointX="16.75" PointY="15.75" />
-        <EntityTypeShape EntityType="DBEntities.v_Product" Width="1.5" PointX="18.75" PointY="0.75" />
         <EntityTypeShape EntityType="DBEntities.v_ProductDetail" Width="1.5" PointX="18.75" PointY="9.75" />
         <EntityTypeShape EntityType="DBEntities.v_Role" Width="1.5" PointX="10.75" PointY="18.75" />
         <EntityTypeShape EntityType="DBEntities.v_SiteMap" Width="1.5" PointX="12.75" PointY="18.75" />
@@ -50,6 +48,8 @@
         <EntityTypeShape EntityType="DBEntities.User" Width="1.5" PointX="0.75" PointY="1" />
         <AssociationConnector Association="DBEntities.FK_Category_UserCreated" />
         <AssociationConnector Association="DBEntities.FK_Category_UserModified" />
+        <EntityTypeShape EntityType="DBEntities.ProductCategory" Width="1.5" PointX="19.375" PointY="0.75" />
+        <EntityTypeShape EntityType="DBEntities.v_Product" Width="1.5" PointX="15.375" PointY="19.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -59,7 +59,7 @@
                             <div class="form-group">
                                 @Html.LabelFor(model => model.ParentID, new { @class = "control-label col-md-3" })
                                 <div class="col-md-9">
-                                    @Html.DropDownListFor(model => model.ParentID, ModelExtentions.ListExtensions.CategoriesByCatalogueId(SiteConfiguration.CatalogueId), "Nhóm Root", new { @class = "form-control " })
+                                    @Html.DropDownListFor(model => model.ParentID, ModelExtentions.ListExtensions.ProductCategoriesByCatalogueId(SiteConfiguration.CatalogueId), "Nhóm Root", new { @class = "form-control " })
                                     @Html.ValidationMessageFor(model => model.ParentID, "", new { @class = "text-danger" })
                                 </div>
                             </div>

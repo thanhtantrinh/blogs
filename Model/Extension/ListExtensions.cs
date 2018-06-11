@@ -8,6 +8,7 @@ using Model.EF;
 using Common;
 using System.Runtime.Caching;
 using Model.Repository;
+using System.ComponentModel.DataAnnotations;
 
 namespace Model.Extension
 {
@@ -112,18 +113,7 @@ namespace Model.Extension
         /// </summary>
         public static List<SelectListItem> ProductCategoriesByCatalogueId(long catalogueId = 0)
         {
-
             var categoryList = new List<SelectListItem>();
-            //using (var db = new Entities())
-            //{
-            //    var model = db.ProductCategories.Where(w => w.Status == nameof(StatusEntity.Active)).AsQueryable();
-            //    if (catalogueId > 0)
-            //    {
-            //        model = model.Where(w => w.CatalogueId == catalogueId);
-            //    } 
-            //    categoryList = model.AsEnumerable().Select(s => new SelectListItem() { Text = s.Name, Value = s.ID.ToString() }).ToList();
-            //    categoryList.Insert(0, new SelectListItem { Text = "Nhóm Root", Value = "0" });
-            //}
             var proCatRepo = new ProductCategoryRepo();
             var menu = proCatRepo.GetMenuCategoryProduct(catalogueId).ToList();
             var menuTemp = new List<ViewModel.MenuItem>();
@@ -209,7 +199,7 @@ namespace Model.Extension
             {
                 var selectListItems = Enum.GetValues(typeof(StatusEntity)).Cast<StatusEntity>().Select(v => new SelectListItem
                 {
-                    Text = v.ToString(),
+                    Text = v.GetAttribute<DisplayAttribute>().Name,
                     Value = v.ToString()
                 }).ToList();
                 selectListItems.Insert(0, new SelectListItem { Text = "Chọn trạng thái", Value = "" });
@@ -225,7 +215,7 @@ namespace Model.Extension
             {
                 var selectListItems = Enum.GetValues(typeof(eOrderStatusUI)).Cast<eOrderStatusUI>().Select(v => new SelectListItem
                 {
-                    Text = v == eOrderStatusUI.Completed ? "Đã giao hàng" : v == eOrderStatusUI.Cancelled ? "Đã Hủy" : "Đang chờ",
+                    Text = v.GetAttribute<DisplayAttribute>().Name,
                     Value = v.ToString()
                 }).ToList();
 

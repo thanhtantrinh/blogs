@@ -25,11 +25,11 @@
         @{ Html.RenderAction("_Header", "Home");}       
         
         @if (!String.IsNullOrWhiteSpace(controllerName) && controllerName != "Contact")
-        {
+       {
             <div class="panel">
                 @{ Html.RenderAction("_Sliders", "Home"); }
             </div>
-         }
+        }
 
         <div class="row">
             @RenderSection("slide", required: false)

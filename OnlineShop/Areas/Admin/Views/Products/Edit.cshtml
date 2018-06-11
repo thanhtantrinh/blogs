@@ -1,11 +1,13 @@
 ﻿@using OnlineShop.Helpers
 @using Common
+@using System.ComponentModel.DataAnnotations
 @using ModelExtentions = Model.Extension
+
 @model Model.ViewModel.ProductsView
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Areas/Admin/Views/Shared/_Layouts.cshtml";
-    var actionStaus = (ActionResultHelper)Session[SessionName.ActionStatusLog];
+    var actionStaus = (ActionResultHelper)Session["ACTION_STATUS"];
 }
 
 @section jsFooter{
@@ -27,25 +29,30 @@
                 <div class="panel-body">
                     <div class="form-horizontal">
 
-                        @if (actionStaus != null && !String.IsNullOrWhiteSpace(actionStaus.ErrorReason))
+                        @if (actionStaus != null)
                         {
-                            if (actionStaus.ActionStatus == ResultSubmit.failed)
-                            {
-                                @Html.Raw(actionStaus.ErrorReason);
-                            }
-                            else
-                            {
-                                @Html.Raw(actionStaus.Message);
-                            }
-                            Session[SessionName.ActionStatusLog] = null;
-                        }
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    @{
+                                        if (actionStaus.ActionStatus == ResultSubmit.failed)
+                                        {
+                                            @Html.Raw(actionStaus.ErrorReason);
+                                        }
+                                        else
+                                        {
+                                            @Html.Raw(actionStaus.ErrorReason);
+                                        }
+                                        Session["ACTION_STATUS"] = null;
+                                    }
+                                </div>
+                            </div>
+                                        } 
 
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         @Html.HiddenFor(model => model.ID)
 
                         <ul class="nav nav-tabs" role="tablist">
-                            <li role="presentation" class="active"><a href="#tabproduct" aria-controls="tabproduct" role="tab" data-toggle="tab">Sản phẩm</a></li>
-                            @*<li role="presentation"><a href="#tabprices" aria-controls="tabprices" role="tab" data-toggle="tab">Giá và Trọng lượng</a></li>*@
+                            <li role="presentation" class="active"><a href="#tabproduct" aria-controls="tabproduct" role="tab" data-toggle="tab">Sản phẩm</a></li>                            
                             <li role="presentation"><a href="#tabdetail" aria-controls="tabdetail" role="tab" data-toggle="tab">Mô tả</a></li>
                             <li role="presentation"><a href="#tabimages" aria-controls="tabimages" role="tab" data-toggle="tab">Hình ảnh</a></li>
                         </ul>
@@ -53,7 +60,6 @@
                         <br />
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane active" id="tabproduct">
-
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.Name, new { @class = "control-label col-md-3" })
                                     <div class="col-md-9">
@@ -73,11 +79,10 @@
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.CategoryID, new { @class = "control-label col-md-3" })
                                     <div class="col-md-9">
-                                        @Html.DropDownListFor(model => model.CategoryID, ModelExtentions.ListExtensions.CategoriesByCatalogueId(SiteConfiguration.CatalogueId), new { @class = "form-control " })
+                                        @Html.DropDownListFor(model => model.CategoryID, ModelExtentions.ListExtensions.ProductCategoriesByCatalogueId(SiteConfiguration.CatalogueId), new { @class = "form-control " })
                                         @Html.ValidationMessageFor(model => model.CategoryID, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
-
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.Description, new { @class = "control-label col-md-3" })
                                     <div class="col-md-9">
@@ -85,7 +90,6 @@
                                         @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
-
                                 @for (int i = 0; i < Model.ProductDetail.Count; i++)
                                 {
                                     <div class="form-group box-prodetail" data-prodetail="">
@@ -111,12 +115,10 @@
                                         <a href="@Url.Action("CreateProductDetail",new {ProductId= Model.ID})" class="btn btn-default btn-sm">Thêm Trọng lượng và giá</a>
                                     </div>
                                 </div>
-
                             </div>
 
 
                             <div role="tabpanel" class="tab-pane" id="tabimages">
-
                                 <div class="form-group">
                                     @*@Html.LabelFor(model => model.Images, new { @class = "control-label col-md-3" })*@
                                     <div class="col-md-3">
@@ -142,13 +144,10 @@
                                         @Html.ValidationMessageFor(model => model.Images, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
-
                             </div>
 
                             <div role="tabpanel" class="tab-pane" id="tabdetail">
-
-                                <div class="form-group">
-                                    @*@Html.LabelFor(model => model.Detail, new { @class = "control-label col-md-12" })*@
+                                <div class="form-group">                                    
                                     <div class="col-md-12">
                                         @Html.TextAreaFor(model => model.Detail, new { @class = "form-control", id = "txtContent" })
                                         @Html.ValidationMessageFor(model => model.Detail, "", new { @class = "text-danger" })
@@ -189,12 +188,12 @@
                                 <label class="radio-inline" for="inline-radio1">
                                     @*<input type="radio" id="inline-radio1" name="inline-radios" value="option1">One*@
                                     @Html.RadioButtonFor(m => m.Status, nameof(StatusEntity.Active), new { @class = "radio-inline" })
-                                    @nameof(StatusEntity.Active)
+                                    @StatusEntity.Active.GetDisplayName()
                                 </label>
                                 &nbsp;
                                 <label class="radio-inline" for="inline-radio2">
                                     @Html.RadioButtonFor(m => m.Status, nameof(StatusEntity.Locked), new { @class = "radio-inline" })
-                                    @nameof(StatusEntity.Locked)
+                                    @StatusEntity.Locked.GetDisplayName()
                                 </label>
                                 @*&nbsp;
                                 <label class="radio-inline" for="inline-radio3">
@@ -220,6 +219,46 @@
                                     @Html.RadioButtonFor(m => m.ShowHome, false, new { @class = "radio-inline" })
                                     Không
                                 </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.New, new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                <label class="radio-inline" for="inline-radio1">
+                                    @*<input type="radio" id="inline-radio1" name="inline-radios" value="option1">One*@
+                                    @Html.RadioButtonFor(m => m.New, true, new { @class = "radio-inline" })
+                                    Có
+                                </label>
+                                &nbsp;
+                                <label class="radio-inline" for="inline-radio2">
+                                    @Html.RadioButtonFor(m => m.New, false, new { @class = "radio-inline" })
+                                    Không
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Quantity, new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                <label class="radio-inline" for="inline-radio1">
+                                    @*<input type="radio" id="inline-radio1" name="inline-radios" value="option1">One*@
+                                    @Html.RadioButtonFor(m => m.Quantity, true, new { @class = "radio-inline" })
+                                    Còn hàng
+                                </label>
+                                &nbsp;
+                                <label class="radio-inline" for="inline-radio2">
+                                    @Html.RadioButtonFor(m => m.Quantity, false, new { @class = "radio-inline" })
+                                    Hết hàng
+                                </label>
+                            </div>
+                        </div>
+
+                        
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.SortValue, new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(m=>m.SortValue, new { @class = "form-control", Type="Number" })
                             </div>
                         </div>
 

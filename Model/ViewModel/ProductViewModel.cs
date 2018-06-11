@@ -100,7 +100,7 @@ namespace Model.ViewModel
         public string CatalogueName { get; set; }
 
         [Display(Name = "Còn hàng")]
-        public int Quantity { get; set; }
+        public bool Quantity { get; set; }
 
         public DateTime? TopHot { get; set; }
 
@@ -129,13 +129,18 @@ namespace Model.ViewModel
 
         public string MetaKeywords { get; set; }
         public int? Warranty { get; set; }
+        [Display(Name = "Vị trí")]
+        public int SortValue { get; set; }
 
         public string MetaDescriptions { get; set; }
         [Display(Name = "Trạng thái")]
         public string Status { get; set; }
 
         [Display(Name = "Trên trang chủ")]
-        public bool? ShowHome { get; set; }
+        public bool ShowHome { get; set; }
+
+        [Display(Name = "Sản phẩm mới")]
+        public bool New { get; set; }
 
         public bool IsDiscount { get; set; }
         public string Language { get; set; }

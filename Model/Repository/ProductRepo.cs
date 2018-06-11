@@ -112,7 +112,7 @@ namespace Model.Repository
                 if (!string.IsNullOrEmpty(filter.SearchString))
                 {
                     string searchString = filter.SearchString.Trim();
-                    model = model.Where(x => x.CategoryName.Contains(searchString));
+                    model = model.Where(x => x.ProductName.Contains(searchString));
                 }
 
                 if (filter.CatalogueId > 0)

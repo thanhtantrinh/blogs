@@ -26,7 +26,7 @@ namespace Model.EF
         public string ProductSize { get; set; }
         public double ProductWeight { get; set; }
         public Nullable<bool> IncludedVAT { get; set; }
-        public int Quantity { get; set; }
+        public bool Quantity { get; set; }
         public int CatalogueId { get; set; }
         public string CatalogueName { get; set; }
         public long CategoryId { get; set; }
@@ -45,7 +45,8 @@ namespace Model.EF
         public string Status { get; set; }
         public Nullable<System.DateTime> TopHot { get; set; }
         public Nullable<int> ViewCount { get; set; }
-        public Nullable<bool> ShowHome { get; set; }
-        public Nullable<bool> New { get; set; }
+        public bool ShowHome { get; set; }
+        public bool New { get; set; }
+        public int SortValue { get; set; }
     }
 }

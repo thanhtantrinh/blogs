@@ -162,6 +162,7 @@ namespace OnlineShop.Controllers
             filter.CatalogueId = SiteConfiguration.CatalogueId;
             filter.IsNew = true;
             filter.Status = new string[] { nameof(StatusEntity.Active) };
+            
             List<v_Product> model = _productRepo.GetProducts(filter, "", 8);                        
             return PartialView(model);
         }

@@ -1264,8 +1264,15 @@
     <Content Include="assets\vegetarian\images\fcfb9bc3dfc0319e68d1.jpg" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\comingsoonx150.jpg" />
+    <Content Include="Content\Images\comingsoonx500.jpg" />
+    <Content Include="Content\Images\comingsoonx60.jpg" />
     <Content Include="Content\Images\ico-mail.jpg" />
     <Content Include="Content\Images\logo.png" />
+    <Content Include="Content\Images\rao-cu-huu-co-18.jpg" />
+    <Content Include="Content\Images\rao-cu-qua-da-lat-20.jpg" />
+    <Content Include="Content\Images\thuc-pham-chay-duong-sinh-17.jpg" />
+    <Content Include="Content\Images\thuc-pham-chay-truyen-thong-16.jpg" />
     <Content Include="Content\Site.css" />
     <Content Include="Data\images\banner\banner4.jpg" />
     <Content Include="Data\images\banner\banner6.jpg" />
@@ -1338,11 +1345,13 @@
     <Content Include="Areas\Admin\Views\Order\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Order\_OrderFilter.cshtml" />
     <Content Include="Areas\Admin\Views\Products\ImportProduct.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductCategory\_ProductCategoryFilter.cshtml" />
     <None Include="Properties\PublishProfiles\Live_Thucphamhoaca.pubxml" />
     <None Include="Properties\PublishProfiles\Local_Thucphamchayhoaca.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jquery.dlmenu.js" />
     <Content Include="Scripts\jquery.smartmenus.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
@@ -1352,6 +1361,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\modernizr.custom.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\validator.js" />

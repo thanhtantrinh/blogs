@@ -83,7 +83,7 @@ namespace OnlineShop.Areas.Admin.Controllers
                 if (remodel != null && String.IsNullOrEmpty(message))
                 {
                     actionStatus.ActionStatus = ResultSubmit.success;
-                    actionStatus.ErrorReason = String.Format(SiteResource.HTML_ALERT_SUCCESS, Resources.MSG_THE_CONTENT_HAS_CREATED_SUCCESSFULLY);
+                    actionStatus.Message = String.Format(SiteResource.HTML_ALERT_SUCCESS, Resources.MSG_THE_CONTENT_HAS_CREATED_SUCCESSFULLY);
                     Session[SessionName.ActionStatusLog] = actionStatus;
 
                     if (!String.IsNullOrEmpty(saveclose))

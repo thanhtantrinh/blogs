@@ -64,8 +64,9 @@ body {
 .logo {
     border-top: 4px solid#fff;
     border-bottom: 4px solid#fff;
-    margin: 40px 0px 80px;
+    margin: 40px 0px 25px;
     display: inline-block;
+    /*background:url("../images/logo.png") no-repeat center bottom;*/
 }
 
 .logo a {
@@ -213,12 +214,12 @@ a {
 }
 
 .header-grid:hover img {
-    transform: rotateY(360deg);
+    /*transform: rotateY(360deg);
     transition: .5s all;
     -webkit-transition: .5s all;
     -moz-transition: .5s all;
     -o-transition: .5s all;
-    -ms-transition: .5s all;
+    -ms-transition: .5s all;*/
 }
 
 .about-section {
@@ -701,7 +702,18 @@ a.button2 {
     text-indent: 100%;
     background: url("../images/to-top2.png") no-repeat 0px 0px;
 }
+.SubPage {
 
+    .logo {
+        a {
+            font-size: 50px;
+
+            @media (max-width: $screen-xs-max) {
+                font-size: 23px;
+            }
+        }
+    }
+}
 .header.head-top {
     min-height: 450px;
 }
@@ -1554,13 +1566,28 @@ a.b-home:hover {
     }
 
     .logo {
-        margin: 85px auto 0;
         border-top: 2px solid#fff;
         border-bottom: 2px solid#fff;
+
+        @media (max-width: $screen-xs-max) {
+            margin: 50px auto 0;
+        }
+
+        a {
+            font-size: 30px;
+
+            @media (max-width: $screen-xs-max) {
+                font-size: 23px;
+            }
+        }
     }
 
-    .logo a {
-        font-size: 30px;
+    .logo-img {
+        img {
+            @media (max-width: $screen-xs-max) {
+                width: 110px;
+            }
+        }
     }
 
     .header-grid img {
@@ -1708,9 +1735,17 @@ a.b-home:hover {
 }
 
 @media only screen and (max-width:480px) {
-    .logo {
-        margin: 50px auto 0;
+
+    .block-slider {
+        padding: 20px 0;
+
+        .logo {
+            margin: 10px auto 20px;
+        }
     }
+
+
+
 
     .about-section img {
         margin-bottom: 7px;
@@ -2396,9 +2431,13 @@ a.b-home:hover {
     color: #1ac57a;
 }
 
-.simpleCart_shelfItem .grid-img img {
-    border-radius: 2px;
-    height: 320px;
+.simpleCart_shelfItem .grid-img {
+    text-align: center;
+
+    img {
+        border-radius: 2px;
+        height: 320px;
+    }
 }
 
 .simpleCart_shelfItem .women .max-asp {
@@ -4190,9 +4229,9 @@ a.global_subnote_fa:hover {
         position: relative;
     }
 
-    div.logo {
+    /*div.logo {
         height: 70px !important
-    }
+    }*/
 
     .dl-menuwrapper button {
         right: 10px;
@@ -4248,7 +4287,6 @@ a.global_subnote_fa:hover {
     }
 
     & > li > a {
-        
         font-size: 14px;
         padding-left: 13px !important;
         border-bottom: 1px solid #cccccc;

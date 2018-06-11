@@ -28,11 +28,11 @@ namespace Model.ViewModel
             get
             {
                 if (this.Status == nameof(eOrderStatusUI.Cancelled))
-                    return "Đã hủy";
+                    return eOrderStatusUI.Cancelled.GetDisplayName();
                 else if (this.Status == nameof(eOrderStatusUI.Completed))
-                    return "Đã giao";
+                    return eOrderStatusUI.Completed.GetDisplayName();
                 else
-                    return "Đang chờ";
+                    return eOrderStatusUI.Pending.GetDisplayName();
             }
         }
     }

@@ -4,41 +4,25 @@
     var slides = (List<Model.EF.Slide>)ViewBag.Slides;
     var dot = 0;
     var counter = 0;
+    string controllerName = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();
+    string classWidth = String.Empty;
+    string classSubPage = String.Empty;
+    if (!String.IsNullOrWhiteSpace(controllerName) && controllerName == "Home")
+    {
+        classWidth = "width=150";
+    }
+    else
+    {
+        classWidth = "width=100";
+    }
 }
 
 <div class="logo wow bounceIn animated animated" data-wow-delay="0.4s" style="visibility: visible; animation-delay: 0.4s; animation-name: bounceIn;">
     <a href="@Url.Action("Index","Home")">@SiteConfiguration.SiteName</a>
 </div>
 
+<div class="logo-img">
+    <a href="@Url.Action("Index","Home")"><img src="@Url.Content("~/Content/images/logo.png")" alt="" @classWidth /></a>
+</div>
 
-@*<section id="slider" class="slider box-slideshow">
-    <div class="row">
-         <div class="col-md-3">
-             @Html.Action("_MenuCatProduct", "Home")
-         </div>
-        <div class="col-md-9">
-            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-            
-                <ol class="carousel-indicators">
-                    @foreach (var item in Model)
-                    {
-                        <li data-target="#carousel-example-generic" data-slide-to="@dot" class="@(dot==0?"active":"")"></li>
-                        dot++;
-                    }
-                </ol>
-              
-                <div class="carousel-inner" role="listbox">
-                    @foreach (var item in Model)
-                    {
-                        <div class="item @(counter==0?"active":"") text-center" >
-                            <img src="@item.Image" />
-                        </div>
-                        counter++;
-                    }
-
-                </div>      
-            </div>
-        </div>
-    </div>
-</section>*@
 

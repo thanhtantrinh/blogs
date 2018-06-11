@@ -1,5 +1,5 @@
 ﻿@model List<Model.EF.Menu>
-@{ 
+@{
     var baseurl = Request.Url.GetLeftPart(UriPartial.Authority) + Url.Content("~");
     int step = 1;
     int total = Model.Count();
@@ -7,62 +7,35 @@
 <div class="menu menu_desktop">
     <ul>
         <li class=" active"><a class="" href="@baseurl"><span>Trang Chủ</span></a></li>
-
         @foreach (var item in Model)
-        {         
+        {
             <li class="item-@item.ID @(step==total?"last":"") "><a class="" href="@baseurl@item.Link" target="@item.Target"><span>@item.Text</span></a></li>
             step++;
         }
-
-        
-
-        @*<li class=" "><a class="" href="http://demonongnghiep.web30s.vn/San-pham"><span>Sản phẩm</span></a><ul class="dl-submenu  "><li><a href="http://demonongnghiep.web30s.vn/Nhom-trai-cay-336912">» Nhóm trái cây</a></li><li><a href="http://demonongnghiep.web30s.vn/Nhom-cu-qua-336913">» Nhóm củ, quả</a></li><li><a href="http://demonongnghiep.web30s.vn/Nhom-cai-bap-rau-la-336914">» Nhóm cải bắp, rau lá</a></li><li><a href="http://demonongnghiep.web30s.vn/Nhom-rau-tao-mui-336915">» Nhóm rau tạo mùi</a></li></ul></li>
-        <li class=" "><a class="" href="http://demonongnghiep.web30s.vn/Tin-tuc"><span>Tin tức</span></a><ul class="dl-submenu  "><li><a href="http://demonongnghiep.web30s.vn/Tin-nong-nghiep-336930">» Tin nông nghiệp</a></li><li><a href="http://demonongnghiep.web30s.vn/Kien-thuc-nong-nghiep-336931">» Kiến thức nông nghiệp</a></li><li><a href="http://demonongnghiep.web30s.vn/Chuyen-nha-nong-336932">» Chuyện nhà nông</a></li></ul></li>
-        <li class=""><a class="" href="http://demonongnghiep.web30s.vn/Dich-vu-337151"><span>Dịch vụ</span></a></li>
-        <li class=""><a class="" href="http://demonongnghiep.web30s.vn/Tuyen-dung-336960"><span>Tuyển dụng</span></a></li>
-        <li class=""><a class="" href="http://demonongnghiep.web30s.vn/Lien-he-336958"><span>Liên hệ</span></a></li>*@
     </ul>
 </div>
 
-@*<div class="navbar navbar-ishop" role="navigation">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>        
-    </div>
-    <div class="navbar-collapse collapse">
-        <!-- Left nav -->
-        <ul class="nav navbar-nav">
-            <li class="item-0">
-                <a href="@baseurl" title="">Trang chủ</a>
-            </li>
+<div class="dv-mnmb mobile menu_mobile">
+    <a class="a_home" href="@Url.Action("Index","Home")">trang chủ</a>
+    <div id="dl-menu" class="dl-menuwrapper">
+        <button class="dl-trigger cur "></button>
+        <div class="clear"></div>
+        <ul class="dl-menu">
+            @*
+                <!--  -->
+                <li class=" active"><a class="" href="#"><span>TRANG CHỦ</span></a></li>
+                <li class=""><a class="" href="#"><span>Giới thiệu</span></a></li>
+                <li class=""><a class="" href="#"><span>Dịch vụ</span></a></li>
+                <li class=""><a class="" href="#"><span>Tuyển dụng</span></a></li>
+                <li class=""><a class="" href="#"><span>Liên hệ</span></a></li>
+                        <!--  -->
+            *@
             @foreach (var item in Model)
             {
-                <li class="item-@item.ID">
-                    <a href="@baseurl@item.Link" target="@item.Target">@item.Text</a>
-                </li>
-            }           
+                <li class="item-@item.ID @(step==total?"last":"") "><a class="" href="@baseurl@item.Link" target="@item.Target"><span>@item.Text</span></a></li>
+                step++;
+            }
         </ul>
-        <!-- Right nav -->        
-            <form id="searchbox" method="get" action="#" class="navbar-form navbar-right">
-                <div class="input-group">
-                    <input type="hidden" name="controller" value="search">
-                    <input type="hidden" name="orderby" value="position">
-                    <input type="hidden" name="orderway" value="desc">
-                    <input class="search_query form-control ac_input" type="text" id="search_query_top" name="search_query" placeholder="Search" value="" autocomplete="off">
-                    <span class="input-group-btn">
-                        <button type="submit" name="submit_search" class="btn button">
-                            <span class="button-search fa fa-search">
-                                <span class="hidden">Search</span>
-                            </span>
-                        </button>
-                    </span>
-                </div>
-            </form>
-        
-
-    </div><!--/.nav-collapse -->
-</div>*@
+    </div>
+    <div class="clear"></div>
+</div>

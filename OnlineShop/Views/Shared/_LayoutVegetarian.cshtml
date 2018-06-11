@@ -8,6 +8,10 @@
     {
         ViewBag.ClassPage = ViewBag.ClassPage + " HomePage";
     }
+    else
+    {
+        ViewBag.ClassPage = ViewBag.ClassPage + " SubPage";
+    }
 }
 <!DOCTYPE html>
 <html lang="vi">
@@ -32,9 +36,9 @@
             <div class="col-md-12">
                 @{ Html.RenderAction("_Header", "Home");}
             </div>
-            @if (!String.IsNullOrWhiteSpace(controllerName) && controllerName != "Contact")
+            @if (!String.IsNullOrWhiteSpace(controllerName) @*&& controllerName != "Contact"*@)
             {
-                <div class="">
+                <div class="block-slider">
                     @{ Html.RenderAction("_Sliders", "Home"); }
                 </div>
             }
@@ -46,7 +50,6 @@
     <article>
         <section class="content gallery pad1" style="padding:0">
             <div class="midle_main_idclass fix1200_cus1">
-
                 @if (!String.IsNullOrWhiteSpace(controllerName) && (controllerName == "Contact" || controllerName == "Home"))
                 {
                     <div class="">
@@ -59,7 +62,7 @@
                         <div class="container">
                             <div class="row">
 
-                                <div class="col-md-9 col-sm-8 col-xs-12 col-min-12 dv-ndung-sptt nobostrap">
+                                <div class="col-md-9 col-sm-8 col-xs-12 col-min-12 dv-ndung-sptt "> @*nobostrap*@
                                     <h2 class="type text-center bre_sptintuc">@ViewBag.Title</h2>
                                     @RenderBody()
                                 </div>
@@ -90,6 +93,20 @@
     @Scripts.Render("~/bundles/bootstrap")    
     @RenderSection("scripts", required: false)
     @RenderSection("scriptsFooter", required: false)
+
+    <script src="~/Scripts/modernizr.custom.js"></script>
+    <script src="~/Scripts/jquery.dlmenu.js"></script>
+    <script>
+            $(document).ready(function () {
+                $('#dl-menu').dlmenu();
+            });
+            $(document).ready(function () {
+                $('body').click(function (e) {
+                    $('#dl-menu').dlmenu('closeMenu');
+                });
+            });
+    </script>
+
     @*add facebook*@
     @*<script>
             window.fbAsyncInit = function () {

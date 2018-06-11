@@ -95,7 +95,7 @@ namespace Model.Repository
 
                 if (filter.ParentId > 0)
                 {
-                    model = model.Where(x => x.CatalogueId == filter.ParentId);
+                    model = model.Where(x => x.ParentId == filter.ParentId);
                 }
 
                 if (filter.Status.Count()>0)

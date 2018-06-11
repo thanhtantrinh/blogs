@@ -39,7 +39,14 @@ namespace OnlineShop.Areas.Admin.Controllers
         public ActionResult Index(ProductFilter filter)
         {
             if (filter != null)
+            {
+                if (!String.IsNullOrWhiteSpace(filter.SearchString))
+                {
+                    filter.SearchString = filter.SearchString.Trim();
+                }
+
                 Session["ProductFilter"] = filter;
+            }   
             else
                 Session["ProductFilter"] = new ProductFilter();
             return RedirectToAction("Index");
