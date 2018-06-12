@@ -15,6 +15,7 @@ namespace Model.EF
     public partial class v_WebAccount
     {
         public long UserId { get; set; }
+        public int CatalogueId { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
         public int GroupID { get; set; }
@@ -36,6 +37,5 @@ namespace Model.EF
         public long ModifiedBy { get; set; }
         public string ModifiedByName { get; set; }
         public string Status { get; set; }
-        public int CatalogueId { get; set; }
     }
 }

@@ -88,7 +88,10 @@
                                                                 @Html.Raw(hiText)
                                                             </h1>
                                                             <p style="font-size: 14px; font-family: Arial, Helvetica, sans-serif; color: #333333; ">
-                                                                @SiteConfiguration.SiteName đã nhận đơn hàng @Model.ID ! Chúng tôi sẽ xác nhận đơn hàng trong thời gian sớm nhất
+                                                                @SiteConfiguration.SiteName đã nhận đơn hàng! Chúng tôi sẽ xác nhận đơn hàng trong thời gian sớm nhất
+                                                            </p>        
+                                                            <p style="font-size: 13px; font-family: Arial, Helvetica, sans-serif; color: #333333; ">
+                                                                Chú ý: @SiteConfiguration.PaymentMethodInfo
                                                             </p>
                                                             <br />
                                                         </td>
@@ -111,11 +114,12 @@
                                                                 </tr>
                                                                 <tr>
                                                                     <td height="120" valign="top" style="font-size: 12px; font-family: arial; color: #606060; line-height:22px; border-top:1px solid #e5e5e5;">
-                                                                        <div style="margin-left:8px;">
-                                                                            Mã đơn hàng #: @Model.ID <br />
+                                                                        <div style="margin-left:8px;">                                                                           
+                                                                            Số đơn hàng: @Model.CreateDate.ToString("yyyyMMdd")@String.Format("0{0}", @Model.ID) <br />
                                                                             Ngày Order: @Model.CreateDate.ToString("dd/MM/yyyy hh:mm tt") <br />
-                                                                            Phương thức thanh toán: <strong>Thanh toán khi nhận hàng</strong><br />
-                                                                            Trạng thái: <strong>@Model.OrderStatus</strong>
+                                                                            Thanh toán: <strong>Thanh toán khi nhận hàng</strong><br />
+                                                                            Trạng thái: <strong>@Model.OrderStatus</strong><br />
+                                                                            Mã: @Model.OrderNumber
                                                                         </div>
                                                                     </td>
                                                                 </tr>

@@ -20,6 +20,7 @@
         <EntityTypeShape EntityType="DBEntities.Order" Width="1.5" PointX="2.75" PointY="12.75" />
         <EntityTypeShape EntityType="DBEntities.OrderDetail" Width="1.5" PointX="12.75" PointY="5.75" />
         <EntityTypeShape EntityType="DBEntities.Product" Width="1.5" PointX="8.75" PointY="12.75" />
+        <EntityTypeShape EntityType="DBEntities.ProductCategory" Width="1.5" PointX="12.75" PointY="9.75" />
         <EntityTypeShape EntityType="DBEntities.ProductDetail" Width="1.5" PointX="4.75" PointY="13.75" />
         <EntityTypeShape EntityType="DBEntities.ProductPrice" Width="1.5" PointX="14.75" PointY="0.75" />
         <EntityTypeShape EntityType="DBEntities.ProductPriceType" Width="1.5" PointX="14.75" PointY="3.75" />
@@ -27,29 +28,28 @@
         <EntityTypeShape EntityType="DBEntities.Role" Width="1.5" PointX="14.75" PointY="6.75" />
         <EntityTypeShape EntityType="DBEntities.Slide" Width="1.5" PointX="14.75" PointY="10.75" />
         <EntityTypeShape EntityType="DBEntities.Tag" Width="1.5" PointX="10.75" PointY="14.75" />
+        <EntityTypeShape EntityType="DBEntities.User" Width="1.5" PointX="0.75" PointY="1" />
         <EntityTypeShape EntityType="DBEntities.UserGroup" Width="1.5" PointX="12.75" PointY="14.75" />
         <EntityTypeShape EntityType="DBEntities.Ward" Width="1.5" PointX="12.5" PointY="2" />
         <EntityTypeShape EntityType="DBEntities.SystemConfig" Width="1.5" PointX="14.75" PointY="14.75" />
         <EntityTypeShape EntityType="DBEntities.v_CatalogueInfo" Width="1.5" PointX="16.75" PointY="0.75" />
-        <EntityTypeShape EntityType="DBEntities.v_Category" Width="1.5" PointX="0.75" PointY="16.75" />
-        <EntityTypeShape EntityType="DBEntities.v_CategoryOfProduct" Width="1.5" PointX="2.75" PointY="16.75" />
-        <EntityTypeShape EntityType="DBEntities.v_Content" Width="1.5" PointX="4.75" PointY="16.75" />
-        <EntityTypeShape EntityType="DBEntities.v_DistrictProvince" Width="1.5" PointX="16.75" PointY="7.75" />
-        <EntityTypeShape EntityType="DBEntities.v_OrderDetail" Width="1.5" PointX="16.75" PointY="15.75" />
-        <EntityTypeShape EntityType="DBEntities.v_ProductDetail" Width="1.5" PointX="18.75" PointY="9.75" />
-        <EntityTypeShape EntityType="DBEntities.v_Role" Width="1.5" PointX="10.75" PointY="18.75" />
-        <EntityTypeShape EntityType="DBEntities.v_SiteMap" Width="1.5" PointX="12.75" PointY="18.75" />
-        <EntityTypeShape EntityType="DBEntities.v_UserGroup" Width="1.5" PointX="18.75" PointY="13.75" />
-        <EntityTypeShape EntityType="DBEntities.v_WebAccount" Width="1.5" PointX="18.75" PointY="17.75" />
+        <EntityTypeShape EntityType="DBEntities.v_Category" Width="1.5" PointX="4.75" PointY="16.75" />
+        <EntityTypeShape EntityType="DBEntities.v_CategoryOfProduct" Width="1.5" PointX="16.75" PointY="7.75" />
+        <EntityTypeShape EntityType="DBEntities.v_Content" Width="1.5" PointX="16.75" PointY="13.75" />
+        <EntityTypeShape EntityType="DBEntities.v_DistrictProvince" Width="1.5" PointX="0.75" PointY="17.75" />
+        <EntityTypeShape EntityType="DBEntities.v_Order" Width="1.5" PointX="18.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DBEntities.v_OrderDetail" Width="1.5" PointX="18.75" PointY="5.75" />
+        <EntityTypeShape EntityType="DBEntities.v_Product" Width="1.5" PointX="18.75" PointY="9.75" />
+        <EntityTypeShape EntityType="DBEntities.v_ProductDetail" Width="1.5" PointX="10.75" PointY="18.75" />
+        <EntityTypeShape EntityType="DBEntities.v_Role" Width="1.5" PointX="12.75" PointY="18.75" />
+        <EntityTypeShape EntityType="DBEntities.v_SiteMap" Width="1.5" PointX="18.75" PointY="18.75" />
+        <EntityTypeShape EntityType="DBEntities.v_UserGroup" Width="1.5" PointX="6.75" PointY="19.75" />
+        <EntityTypeShape EntityType="DBEntities.v_WebAccount" Width="1.5" PointX="20.75" PointY="0.75" />
+        <AssociationConnector Association="DBEntities.FK_Category_UserCreated" />
+        <AssociationConnector Association="DBEntities.FK_Category_UserModified" />
         <AssociationConnector Association="DBEntities.FK_Province_Country" />
         <AssociationConnector Association="DBEntities.FK_District_Province" />
         <AssociationConnector Association="DBEntities.FK_Ward_District" />
-        <EntityTypeShape EntityType="DBEntities.v_Order" Width="1.5" PointX="7.375" PointY="19.75" />
-        <EntityTypeShape EntityType="DBEntities.User" Width="1.5" PointX="0.75" PointY="1" />
-        <AssociationConnector Association="DBEntities.FK_Category_UserCreated" />
-        <AssociationConnector Association="DBEntities.FK_Category_UserModified" />
-        <EntityTypeShape EntityType="DBEntities.ProductCategory" Width="1.5" PointX="19.375" PointY="0.75" />
-        <EntityTypeShape EntityType="DBEntities.v_Product" Width="1.5" PointX="15.375" PointY="19.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

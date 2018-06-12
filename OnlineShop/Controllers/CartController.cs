@@ -165,8 +165,7 @@ namespace OnlineShop.Controllers
             }
             return RedirectToAction("Index","Home");
         }
-
-
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Payment(CartModel cart, CheckoutModel checkout)
@@ -184,7 +183,7 @@ namespace OnlineShop.Controllers
                     if (String.IsNullOrWhiteSpace(message)&& orderModel != null)
                     {
                         cart.ClearCart();
-                        return RedirectToAction("OrderConfirmation", new { ordernumber = orderModel.OrderId, send = true });
+                        return RedirectToAction("OrderConfirmation", new { ordernumber = orderModel.OrderNumber, send = true });
                     }                        
                 }
                 else
@@ -195,28 +194,43 @@ namespace OnlineShop.Controllers
             return View(checkout);
         }
 
-        public async Task<ActionResult> OrderConfirmation(long ordernumber = 0, bool send = false)
+        public async Task<ActionResult> OrderConfirmation(Guid ordernumber, bool send = false)
         {
-            if (ordernumber > 0)
+            try
             {
-                var orderDao = new OrderDao();
-                OrderViewModel model = orderDao.getOrderById(ordernumber);
-
-                if (model != null && send)
+                if (ordernumber != Guid.Empty)
                 {
-                    string content = RenderRazorViewToString("OrderConfirmation", model);
-                    //MailHelper.SendMail(model.Email, "Thông tin xát nhận đơn hàng từ " + SiteConfiguration.SiteName, content);
-                    var bcc = new string[] { SiteConfiguration.EmailAdmin, "thanhtantrinh@hotmail.com" };
-                    var task = MailHelper.SendMailAsync(model.Email, model.FullName, SiteConfiguration.EmailSite, SiteConfiguration.SiteName, "Thông tin xác nhận đơn hàng từ " + SiteConfiguration.SiteName, content, null, bcc);
-
-                    await Task.WhenAll(task);
-                    return RedirectToAction("OrderConfirmation", new { ordernumber = ordernumber });
+                    var orderDao = new OrderDao();
+                    //OrderViewModel model = orderDao.getOrderById(ordernumber);
+                    OrderViewModel model = orderDao.getOrderByGuId(ordernumber);
+                    if (model != null && send)
+                    {
+                        string content = RenderRazorViewToString("OrderConfirmation", model);
+                        //MailHelper.SendMail(model.Email, "Thông tin xát nhận đơn hàng từ " + SiteConfiguration.SiteName, content);
+                        var bcc = new string[] { SiteConfiguration.EmailAdmin, "thanhtantrinh@hotmail.com" };
+                        var task = MailHelper.SendMailAsync(model.Email, model.FullName, SiteConfiguration.EmailSite, SiteConfiguration.SiteName, "Thông tin xác nhận đơn hàng từ " + SiteConfiguration.SiteName, content, null, bcc);
+                        await Task.WhenAll(task);
+                        return RedirectToAction("OrderConfirmation", new { ordernumber = ordernumber });
+                    }
+                    else if (model != null)
+                    {
+                        return View(model);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
-
-                return View(model);
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
             }
-            else
+            catch (Exception ex)
             {
+                string content = "Không tìm thấy đơn hàng số "+ordernumber.ToString();
+                string subject = "Không tìm thấy đơn " + SiteConfiguration.SiteName;
+                await MailHelper.SendMailAsync(SiteConfiguration.EmailSite, SiteConfiguration.SiteName, SiteConfiguration.EmailSite, SiteConfiguration.SiteName, subject, content,null,null);
                 return RedirectToAction("Index", "Home");
             }
 
@@ -248,8 +262,7 @@ namespace OnlineShop.Controllers
             }
 
         }
-
-
+        
          public ActionResult PartialViewCartCheckOut(CartModel cart)
         {
             return View("_PartialViewCartCheckOut", cart.CartItems);

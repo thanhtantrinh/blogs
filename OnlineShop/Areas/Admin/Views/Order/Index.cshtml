@@ -76,14 +76,11 @@
                                                     </a>
                                                     <a class="btn btn-default" href="@Url.Action("SetPendingOrder", new { orderId = item.OrderId })" title="Đang chờ"><i class="fa fa-pause"></i></a>
                                                     <a class="btn btn-default" href="@Url.Action("SetCancelledOrder", new { orderId = item.OrderId })"><i class="fa fa-trash text-danger"></i></a>
-                                                    <a class="btn btn-default" href="~/Cart/OrderConfirmation?ordernumber=@item.OrderId" target="_blank"><i class="fa fa-eye text-info"></i></a>
-
-
-
+                                                    <a class="btn btn-default" href="~/Cart/OrderConfirmation?ordernumber=@item.OrderNumber" target="_blank"><i class="fa fa-eye text-info"></i></a>
                                                 </div>
                                             </td>
                                             <td>
-                                                <a href="@Url.Action("Edit", new { Id = item.OrderId})">
+                                                <a href="~/Cart/OrderConfirmation?ordernumber=@item.OrderNumber">
                                                     @item.OrderId
                                                 </a>
                                             </td>

@@ -10,6 +10,7 @@ namespace Model.ViewModel
     public class OrderModel
     {
         public long OrderId { get; set; }
+        public Guid OrderNumber { get; set; }
         public int CatalogueId { get; set; }
         public string FullName { get; set; }
         public string Phone { get; set; }

@@ -8,6 +8,7 @@ namespace Model.ViewModel
 {
     public class OrderViewModel
     {
+        public Guid OrderNumber { get; set; }
         public long ID { get; set; }
         public string FullName { get; set; }
         public long UserId { get; set; }

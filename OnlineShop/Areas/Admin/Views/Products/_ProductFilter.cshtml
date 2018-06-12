@@ -20,7 +20,7 @@
                             @Html.DropDownListFor(m => m.CategoryId, ModelExtension.ListExtensions.ProductCategoriesByCatalogueId(SiteConfiguration.CatalogueId), new { @class = "form-control select1-single", id = "select2-2", onchange = "this.form.submit();" })
                         </div>
                         <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                        <a class="btn btn-primary" data-toggle="tooltip" data-placement="top" href="@Url.Action("Create", "Products")" title="Thêm sản phẩm nhóm">
+                        <a class="btn btn-primary" data-toggle="tooltip" data-placement="top" href="@Url.Action("Create", "Products")" title="Thêm sản phẩm">
                             <i class="fa fa-plus-circle"></i>
                         </a>
                     </div>

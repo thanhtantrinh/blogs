@@ -15,6 +15,7 @@ namespace Model.EF
     public partial class v_Order
     {
         public long OrderId { get; set; }
+        public System.Guid OrderNumber { get; set; }
         public int CatalogueId { get; set; }
         public string FullName { get; set; }
         public string Phone { get; set; }

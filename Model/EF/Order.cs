@@ -15,6 +15,8 @@ namespace Model.EF
     public partial class Order
     {
         public long ID { get; set; }
+        public System.Guid OrderNumber { get; set; }
+        public int CatalogueId { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public long CustomerID { get; set; }
         public string ShipName { get; set; }
@@ -25,6 +27,5 @@ namespace Model.EF
         public string Note { get; set; }
         public System.DateTime ModifiedDate { get; set; }
         public long ModifiedBy { get; set; }
-        public int CatalogueId { get; set; }
     }
 }

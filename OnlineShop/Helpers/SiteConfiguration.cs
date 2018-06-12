@@ -43,7 +43,8 @@ namespace OnlineShop.Helpers
             Name = "N/A";
             SiteName = "Website đang phát triển";
             SiteUrl = "http://loacalhost";
-            EmailAdmin = EmailSite = "thanhtan.hello@gmail.com";
+            EmailAdmin = "thanhtan.hello@gmail.com";
+            EmailSite = "thucphamchayhoaca79@gmail.com";
             ManagerBy = "Deverloper";
             Facebook = "";
             Twitter = "";
