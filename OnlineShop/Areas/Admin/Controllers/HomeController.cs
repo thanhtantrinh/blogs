@@ -127,8 +127,7 @@ namespace OnlineShop.Areas.Admin.Controllers
             //return View();
             return RedirectToAction("Index", "Order");
         }
-
-
+        
         [HttpGet]
         public ActionResult SiteConfig()
         {
