@@ -136,6 +136,7 @@
 
                             </tbody>
                         </table>
+
                         @if (Model != null && Model.Count > 0)
                         {
                             @Html.PagedListPager(Model, page => Url.Action("CategoryList", new { page }))

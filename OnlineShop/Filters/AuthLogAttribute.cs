@@ -42,15 +42,11 @@ namespace OnlineShop.Filters
                 // var result = new ViewResult { ViewName = View };
                 var vr = new ViewResult();
                 vr.ViewName = View;
-
                 ViewDataDictionary dict = new ViewDataDictionary();
                 dict.Add("Message", "Sorry you are not Authorized to Perform this Action");
                 dict.Add("ReturnUrl", filterContext.HttpContext.Request.RawUrl);
-
                 vr.ViewData = dict;
-
                 var result = vr;
-
                 filterContext.Result = result;
             }
 

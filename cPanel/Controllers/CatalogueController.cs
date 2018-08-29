@@ -127,8 +127,7 @@ namespace cPanel.Controllers
 
             if (ModelState.IsValid)
             {
-                model.ModifiedById = CurrentUser.ID;                
-
+                model.ModifiedById = CurrentUser.ID;
                 remodel = _catalogueRepo.UpdateCatalogue(model, out message);              
                 if (remodel!=null && String.IsNullOrWhiteSpace(message))
                 {
