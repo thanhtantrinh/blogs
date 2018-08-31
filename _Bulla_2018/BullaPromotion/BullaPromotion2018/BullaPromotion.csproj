@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TypeScriptToolsVersion>3.0</TypeScriptToolsVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="ClientApp\components\Home.tsx" />
+    <None Remove="ClientApp\components\LayoutFooter.tsx" />
+    <None Remove="ClientApp\components\LayoutHeader.tsx" />
+    <None Remove="ClientApp\components\LayoutHowToEnter.tsx" />
+    <None Remove="ClientApp\components\LayoutPrizes.tsx" />
+    <None Remove="ClientApp\routes.tsx" />
+    <None Remove="webpack.config.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
+    <PackageReference Include="Yarn.MSBuild" Version="1.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\components\Home.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\LayoutFooter.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\LayoutHeader.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\LayoutPrizes.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\LayoutHowToEnter.tsx" />
+    <TypeScriptCompile Include="ClientApp\routes.tsx" />
+    <TypeScriptCompile Include="webpack.config.js" />
+    <TypeScriptCompile Include="ClientApp\components\Layout.tsx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+  
+  <Import Project="Webpack.targets" />
+</Project>

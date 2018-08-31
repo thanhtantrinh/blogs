@@ -1,35 +1,37 @@
 import * as React from 'react';
 import { Link, NavLink } from 'react-router-dom';
+//import logo from './assets/images/logo.png';
 
 export class NavMenu extends React.Component<{}, {}> {
     public render() {
-        return <div className='main-nav'>
-            <div className='navbar navbar-inverse'>
-                <div className='navbar-header'>
-                    <button type='button' className='navbar-toggle' data-toggle='collapse' data-target='.navbar-collapse'>
-                        <span className='sr-only'>Toggle navigation</span>
-                        <span className='icon-bar'></span>
-                        <span className='icon-bar'></span>
-                        <span className='icon-bar'></span>
-                    </button>
-                    <Link className='navbar-brand' to={'/'}>ReactCrudDemo</Link>
-                </div>
-                <div className='clearfix'></div>
-                <div className='navbar-collapse collapse'>
-                    <ul className='nav navbar-nav'>
-                        <li>
-                            <NavLink to={'/'} exact activeClassName='active'>
-                                <span className='glyphicon glyphicon-home'></span> Home
-                            </NavLink>
+        return <div className="container">
+            <a className="navbar-brand js-scroll-trigger logoHeader" href="#page-top"><img src={"/dist/assets/images/logo.png"} alt="" /></a>
+                <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon"></span>
+            </button>
+
+                <div className="collapse navbar-collapse" id="navbarResponsive">
+                    <ul className="navbar-nav ml-auto">
+                        <li className="nav-item">
+                            <a className="nav-link js-scroll-trigger" href="#page-top">HOME</a>
                         </li>
-                        <li>
-                            <NavLink to={'/fetchemployee'} activeClassName='active'>
-                                <span className='glyphicon glyphicon-th-list'></span> Fetch employee
-                            </NavLink>
+                        <li className="nav-item">
+                            <a className="nav-link js-scroll-trigger" href="#howtoenter">HOW TO ENTER</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link js-scroll-trigger" href="#prizes">PRIZES</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link js-scroll-trigger" href="#enternow">ENTER NOW</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link js-scroll-trigger" href="#termsconditions">TERMS & CONDITIONS</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link js-scroll-trigger" href="#contactus">CONTACT US</a>
                         </li>
                     </ul>
                 </div>
-            </div>
-        </div>;
+            </div>;
     }
 }

@@ -1,0 +1,100 @@
+﻿// Your variable overrides
+body {
+    @include gotham-font;
+    font-size: 1rem;
+}
+
+.btn {
+    @include gotham-font();
+    font-weight: 700;
+    color: $white;
+    font-size: 1rem;
+}
+
+.btn-bulla {
+    background-color: $main-color-1;
+    @include gotham-font();
+    line-height: normal;
+    text-align: center;
+    border-radius: 5px;
+    text-transform: capitalize;
+    font-weight: 700;
+
+    &:hover {
+        color: $white;
+    }
+}
+
+.btn-link-bulla {
+    color: $white;
+    border-bottom: 2px dashed $white;
+    border-radius: 0;
+    padding-bottom: 3px;
+    font-size: 1rem;
+    @include gotham-font();
+    font-weight: 700;
+
+    &:hover {
+        text-decoration: none;
+        color: $white;
+    }
+}
+
+.fa-num1 {
+    &:before {
+        content: "1";
+        @include gotham-ultra-font();
+    }
+}
+
+.fa-num2 {
+    &:before {
+        content: "2";
+        @include gotham-ultra-font();
+    }
+}
+
+.fa-num3 {
+    &:before {
+        content: "3";
+        @include gotham-ultra-font();
+    }
+}
+
+.fa-num4 {
+    &:before {
+        content: "4";
+        @include gotham-ultra-font();
+    }
+}
+
+p {
+    color: $black;
+    font-size: 1rem;
+    @include gotham-font();
+}
+
+.enter-now {
+    padding: 1rem 4.3rem;
+}
+
+
+#footer {
+    .logo-block {
+        img {
+            height: 122px;
+        }
+    }
+
+    h3 {
+        color: $main-color-1;
+        @include gotham-font();
+        font-size: 0.9rem;
+        font-weight: bold;
+    }
+
+    p {
+        color: $black;
+        font-size: 0.85rem;
+    }
+}

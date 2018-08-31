@@ -1,0 +1,73 @@
+// Styling for the navbar
+#mainNav {
+    border-bottom: 1px solid fade-out($gray-900, .9);
+    background-color: $white;
+    @include gotham-bold-font;
+    @include transition-all;
+
+    .navbar-brand {
+        font-weight: normal;
+        text-transform: uppercase;
+        color: $primary;        
+        font-size: 1rem;
+        &:focus,
+        &:hover {
+            color: darken($primary, .1);
+        }
+    }
+
+    .navbar-nav {
+
+        > li.nav-item {
+            > a.nav-link,
+            > a.nav-link:focus {
+                font-size: 1rem;
+                font-weight: normal;
+                text-transform: uppercase;
+                color: $main-color-2;
+
+                &:hover {
+                    color: $main-color-2;
+                }
+
+                &.active {
+                    color: $primary !important;
+                    background-color: transparent;
+
+                    &:hover {
+                        background-color: $primary;
+                    }
+                }
+            }
+        }
+    }
+
+    .logoHeader {
+        position: absolute;
+        top: 2px;
+
+        img {
+            height: 79px;
+            width: 96px;
+        }
+    }
+
+    @include media-breakpoint-only(xl) {
+        .container {
+            max-width: 1024px;
+
+            .navbar-collapse {
+            }
+        }
+
+        .navbar-nav {
+
+            > li.nav-item {
+
+                a.nav-link {
+                    padding: 0.6rem 1rem;
+                }
+            }
+        }
+    }
+}

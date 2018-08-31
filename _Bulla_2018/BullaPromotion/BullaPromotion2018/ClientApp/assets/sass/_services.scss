@@ -1,0 +1,131 @@
+// Styling for the services section
+#services {
+
+    .btn-link-bulla {
+        color: $main-color-1;
+        border-bottom: 2px dashed $main-color-1;
+
+        &:hover {
+            color: $main-color-1;
+        }
+    }
+}
+
+.service-box {
+    .service-img {
+        height: 323px;
+    }
+
+    .imgstep1 {
+        height: 234px;
+        width: 240px;
+        transform: rotate(7deg);
+        box-shadow: 2px 4px 12px 0 rgba(80,80,80,0.3);
+    }
+
+    .imgstep2 {
+        height: 262px;
+        width: 293px;
+    }
+
+    .imgstep3 {
+        height: 212px;
+        width: 327px;
+    }
+
+    .imgstep4 {
+        height: 323.16px;
+        width: 194px;
+    }
+
+    .service-intro {
+        .service-index {
+            float: left;
+            width: 70px;
+            text-align: left;
+        }
+
+        .service-desc {
+            min-width: 200px;
+            display: table;
+        }
+    }
+}
+
+#sec-prizes {
+    background-image: url('../images/prizes-bg.jpg');
+    background-position: center center;
+    @include background-cover;
+
+    .sec-prizes-title {
+        @include gotham-ultra-font();
+        color: $white;
+        font-size: 2.8125rem;
+    }
+
+    .sec-prizes-content {
+        background-image: url('../images/prizes-content-bg.png');
+        background-position: center center;
+        background-repeat: no-repeat;   
+
+        .prizes-content {
+            margin: 0 auto;
+        }
+    }
+
+
+    @media (min-width: 1200px) {
+        height: 700px;
+        min-height: 650px;
+
+        .sec-prizes-content {
+            min-height: 400px;
+            .prizes-content {
+                padding-top: 12rem;
+                width: 420px;
+            }
+        }
+    }
+}
+
+#sec-contact {
+    background-image: url('../images/contact-bg.jpg');
+    background-position: center center;
+    @include background-cover;
+
+    p {
+        @include gotham-font();
+        color: $white;
+        font-size: 1.375rem;
+    }
+
+    a {
+        &.call-link {
+            @include gotham-bold-font();
+            color: $white;
+
+            &:hover {
+                text-decoration: none;
+            }
+        }
+
+        &.clicking-link {
+            color: $main-color-1;
+        }
+
+        &:hover {
+            text-decoration: none;
+        }
+    }
+
+    h3 {
+        @include gotham-ultra-font();
+        color: $white;
+        font-size: 2.5125rem;
+    }
+
+    @media (min-width: 1200px) {
+        height: 200px;
+        min-height: 200px;
+    }
+}
